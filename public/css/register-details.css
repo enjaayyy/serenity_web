@@ -1,0 +1,96 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.details-container {
+    width: 100%;
+    height: 100%;
+}
+
+.details-body {
+    margin-top: 23px;
+    margin-left: 30%;
+    height: 200px;
+    width: 500px;
+}
+.body-left {
+    width: 50%;
+    float: left;
+}
+
+.body-right {
+    width: 50%;
+    float: right;
+}
+p {
+    color: #9f9e9e;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 10px;
+    font-weight: 100;
+}
+.yrs-input,
+.gender-input,
+.age-input {
+    width: 50px;
+}
+
+.header-group {
+    display: flex;
+    gap: 15px;
+}
+
+input {
+    height: 25px;
+    width: 220px;
+    border-radius: 8px;
+    border-width: 1px;
+    border-color: black;
+}
+
+select {
+    height: 29px;
+    width: 220px;
+    border-radius: 8px;
+    border-width: 1px;
+    border-color: black;
+}
+.yrs-input {
+    width: 65px;
+}
+
+.gender-input {
+    margin-left: 5px;
+    width: 80px;
+}
+.age-input {
+    margin-left: 5px;
+}
+.age {
+    margin-left: 44px;
+}
+.register-art {
+    width: 100%;
+    height: 400px;
+}
+.upload-btn {
+    color: white;
+    background-color: black;
+}
+.signup-btn {
+    height: 20px;
+    width: 150px;
+    border: none;
+    background-color: #20c073;
+    opacity: 0.47;
+    border-radius: 20px;
+    margin-left: 40px;
+    font-size: 10px;
+    margin-top: 20px;
+    margin-left: 145px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.signup-btn:hover {
+    opacity: 1;
+}
