@@ -1,0 +1,162 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.sideBar {
+    height: 100%;
+    width: 18%;
+    border-right: 1px solid lightgray;
+    float: left;
+}
+
+.logo {
+    padding-left: 50px;
+    padding-top: 20px;
+    height: 30px;
+    width: 100px;
+}
+
+.avatar {
+    height: 80px;
+    width: 80px;
+    padding-left: 70px;
+    padding-top: 30px;
+}
+
+.name {
+    padding-left: 60px;
+    padding-top: 1px;
+    font-size: 15px;
+    color: #20c073;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+}
+
+.dashboard-container {
+    display: flex;
+    padding-top: 20px;
+}
+
+.dashboard-btn {
+    display: flex;
+    background-color: white;
+    border: 0;
+    width: 100%;
+    padding-left: 20px;
+    color: #20c073;
+}
+
+.dashboard-btn:hover {
+    background-color: #20c073;
+    color: white;
+    cursor: pointer;
+}
+
+.icon1 {
+    margin-right: 10px;
+}
+.icon1-txt {
+    margin: 0;
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+.user-txt {
+    padding-left: 20px;
+    padding-top: 5px;
+    font-size: 15px;
+    color: #20c073;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.doctors-container {
+    margin-top: 20px;
+    display: flex;
+}
+
+.doctor-btn {
+    display: flex;
+    background-color: white;
+    border: 0;
+    width: 100%;
+    padding-left: 20px;
+    color: #20c073;
+}
+
+.doctor-btn:hover {
+    background-color: #20c073;
+    color: white;
+    cursor: pointer;
+}
+
+.icon2 {
+    margin-right: 10px;
+}
+.icon2-txt {
+    margin: 0;
+    margin-top: 5px;
+    margin-left: 5px;
+    font-size: 15px;
+}
+
+.patient-container {
+    margin-top: 20px;
+    display: flex;
+}
+
+.patient-btn {
+    display: flex;
+    background-color: white;
+    border: 0;
+    width: 100%;
+    padding-left: 20px;
+    color: #20c073;
+}
+
+.patient-btn:hover {
+    background-color: #20c073;
+    color: white;
+    cursor: pointer;
+}
+
+.icon3 {
+    margin-right: 10px;
+}
+.icon3-txt {
+    margin: 0;
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+.logout-container {
+    margin-top: 50px;
+    display: flex;
+    margin-bottom: 23px;
+}
+
+.logout-btn {
+    display: flex;
+    background-color: white;
+    border: 0;
+    width: 100%;
+    padding-left: 20px;
+    color: #20c073;
+}
+
+.logout-btn:hover {
+    background-color: #20c073;
+    color: white;
+    cursor: pointer;
+}
+
+.icon5 {
+    margin-right: 10px;
+}
+.icon5-txt {
+    margin: 0;
+    margin-top: 10px;
+    font-size: 15px;
+}
