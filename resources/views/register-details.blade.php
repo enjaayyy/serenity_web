@@ -41,7 +41,7 @@
                 <option> </option>
                 <option>Anxiety</option>
                 <option>Insomnia</option>
-                <option>Post Traumatic Stress Disorder</option>
+                <option>Post Traumatic Stress</option>
 </select>
 <p class="file-attach">Attach a file for verification. this includes: selfie with Government ID, Degree, Medical License</p>
 <input type="file" class="upload-btn" name="verifile[]" multiple>

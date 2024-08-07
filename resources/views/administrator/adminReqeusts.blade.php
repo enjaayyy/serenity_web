@@ -28,7 +28,7 @@
                             <td>{{ $doctor['profession'] }}</td>
                             <td>{{ $doctor['specialization'] }}</td>
                             <td>
-                                <form>
+                                <form action="{{ route('adminRequestsDetails', $doctor['id']) }}" method="GET">
                                     <button class="btn" type="submit">View</button>
                                 </form>
                             </td>

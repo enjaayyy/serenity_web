@@ -14,12 +14,14 @@
                         </div>
                     </a>
                         <p class="user-txt">Manage Users</p>
-                        <div class="doctors-container">
+                        <a href="{{ route('doctorlists') }}" style = "text-decoration:none;">
+                            <div class="doctors-container">
                             <button class="doctor-btn">
                             <img src ="{{ asset('assets/doctorlogo.png') }}" class="icon2">
                             <p class="icon2-txt">Doctors</p>
                             </button>
                         </div>
+                        </a>
                          <div class="patient-container">
                             <button class="patient-btn">
                             <img src ="{{ asset('assets/patientlogo.png') }}" class="icon3">

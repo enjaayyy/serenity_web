@@ -12,7 +12,10 @@ Route::post('/login', [LoginController::class, 'final'])->name('login');
 
 Route::get('/admindash', function () {return view('administrator/adminHome');})->name('adminDashboard');
 Route::get('/adminRequests', [AdminController::class, 'viewRequests'])->name('adminRequests');
-// Route::post('/adminRequests', [AdminController::class, ''])->name('adminRequests');
+Route::get('/adminRequests/{id}', [AdminController::class, 'viewRequestDetails'])->name('adminRequestsDetails');
+Route::post('/adminRequests/{id}/approve', [AdminController::class, 'approve'])->name('approve');
+
+Route::get('/doctorList', function() {return view('administrator/doctors');})->name('doctorlists');
 
 Route::get('/register', function () {return view('register');})->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
