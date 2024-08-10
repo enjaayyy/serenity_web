@@ -7,7 +7,7 @@ body {
     height: 100%;
     width: 18%;
     border-right: 1px solid lightgray;
-    float: left;
+    position: fixed;
 }
 
 .logo {
@@ -35,7 +35,7 @@ body {
 
 .dashboard-container {
     display: flex;
-    padding-top: 20px;
+    height: 30px;
 }
 
 .dashboard-btn {
@@ -55,11 +55,14 @@ body {
 
 .icon1 {
     margin-right: 10px;
+    height: 20px;
+    width: 20px;
+    margin-top: 3px;
 }
 .icon1-txt {
     margin: 0;
-    margin-top: 10px;
-    font-size: 15px;
+    margin-top: 8px;
+    font-size: 12px;
 }
 
 .user-txt {
@@ -72,42 +75,13 @@ body {
     margin-bottom: 0;
 }
 
-.doctors-container {
+.archive-container,.doctors-container, .patient-container,.request-container, .reports-container{
+    display: flex;
+    height: 30px;
     margin-top: 20px;
-    display: flex;
 }
 
-.doctor-btn {
-    display: flex;
-    background-color: white;
-    border: 0;
-    width: 100%;
-    padding-left: 20px;
-    color: #20c073;
-}
-
-.doctor-btn:hover {
-    background-color: #20c073;
-    color: white;
-    cursor: pointer;
-}
-
-.icon2 {
-    margin-right: 10px;
-}
-.icon2-txt {
-    margin: 0;
-    margin-top: 5px;
-    margin-left: 5px;
-    font-size: 15px;
-}
-
-.patient-container {
-    margin-top: 20px;
-    display: flex;
-}
-
-.patient-btn {
+.archive-btn, .doctor-btn, .patient-btn, .request-btn, .reports-btn, .logout-btn{
     display: flex;
     background-color: white;
     border: 0;
@@ -116,47 +90,26 @@ body {
     color: #20c073;
 }
 
-.patient-btn:hover {
+.archive-btn:hover, .doctor-btn:hover, .patient-btn:hover, .request-btn:hover, .reports-btn:hover, .logout-btn:hover{
     background-color: #20c073;
     color: white;
     cursor: pointer;
-}
+}   
 
-.icon3 {
+.icon2, .icon3, .icon4, .icon6, .icon7, .icon5{
     margin-right: 10px;
+    height: 20px;
+    width: 20px;
+    margin-top: 3px;
 }
-.icon3-txt {
+
+.icon2-txt, .icon3-txt, .icon4-txt, .icon7-txt, .icon5-txt, .icon6-txt{
     margin: 0;
-    margin-top: 10px;
-    font-size: 15px;
+    margin-top: 8px;
+    font-size: 12px;
 }
-
-.logout-container {
-    margin-top: 50px;
+ .logout-container{
     display: flex;
-    margin-bottom: 23px;
-}
-
-.logout-btn {
-    display: flex;
-    background-color: white;
-    border: 0;
-    width: 100%;
-    padding-left: 20px;
-    color: #20c073;
-}
-
-.logout-btn:hover {
-    background-color: #20c073;
-    color: white;
-    cursor: pointer;
-}
-
-.icon5 {
-    margin-right: 10px;
-}
-.icon5-txt {
-    margin: 0;
-    margin-top: 10px;
-    font-size: 15px;
-}
+    height: 30px;
+    margin-top: 40px;
+ }

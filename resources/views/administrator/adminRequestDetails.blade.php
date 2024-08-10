@@ -6,6 +6,7 @@
     </head>
     <body>
         @include('administrator/adminSidebar')
+        <div class="empty"></div>
         <div class="content">
             <p class="header">Doctor Profile</p>
             <div class="main-info"> 
@@ -13,7 +14,7 @@
                     <img src = "{{ asset('assets/avatar.png') }}" class="avatar1">
                     <p class="user-name">{{ $details['name'] }}</p>
                     <p class="prof">{{ $details['profession'] }}</p>
-            </div>
+                </div>
                 <div class="info2">
                     <div class="detail-header1">
                     <p class="spec-head">Specialization</p>
@@ -45,10 +46,12 @@
         <div class="verifiles">
                 <p class="sub-header">Credentials</p>
                 <div class="files">
-                    @if(isset($details['credentials']) && !empty($details['credentials']))
+                    @if(isset($details['credentials']) && is_array($details['credentials']))
+                        @foreach($details['credentials'] as $images)
                      <div class="file-item">
-                         <img src="{{ $details['credentials'] }}">
+                         <img src="{{ $images }}">
                       </div>
+                        @endforeach
                     @else
                       <p>No credentials available.</p>
                   @endif

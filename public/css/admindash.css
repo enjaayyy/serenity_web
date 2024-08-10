@@ -6,9 +6,11 @@ body {
 .container {
     height: 100%;
     width: 100%;
-    display: flex;
 }
-
+.empty{
+    height: 100%;
+    width: 18%;
+}
 .content {
     height: 100%;
     width: 82%;

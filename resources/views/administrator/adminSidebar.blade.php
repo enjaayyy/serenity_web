@@ -14,7 +14,7 @@
                         </div>
                     </a>
                         <p class="user-txt">Manage Users</p>
-                        <a href="{{ route('doctorlists') }}" style = "text-decoration:none;">
+                        <a href="{{ route('doctors') }}" style = "text-decoration:none;">
                             <div class="doctors-container">
                             <button class="doctor-btn">
                             <img src ="{{ asset('assets/doctorlogo.png') }}" class="icon2">
@@ -29,19 +29,28 @@
                             </button>
                         </div>
                         <a href="{{ route('adminRequests') }}" style = "text-decoration: none;">
-                        <div class="dashboard-container">
-                            <button class="dashboard-btn">
-                            <img src ="{{ asset('assets/houseicon.png') }}" class="icon1">
-                            <p class="icon1-txt">Requests</p>
+                        <div class="request-container">
+                            <button class="request-btn">
+                            <img src ="{{ asset('assets/houseicon.png') }}" class="icon4">
+                            <p class="icon4-txt">Requests</p>
                             </button>  
                         </div>
                         </a>
-                         <div class="dashboard-container">
-                            <button class="dashboard-btn">
-                            <img src ="{{ asset('assets/houseicon.png') }}" class="icon1">
-                            <p class="icon1-txt">Reports</p>
+                         <div class="reports-container">
+                            <button class="reports-btn">
+                            <img src ="{{ asset('assets/houseicon.png') }}" class="icon7">
+                            <p class="icon7-txt">Reports</p>
                             </button>
                         </div>    
+                        <a href="{{ route('archive') }}" style="text-decoration: none;">
+                            <div class="archive-container">
+                            <button class="archive-btn">
+                            <img src ="{{ asset('assets/archive.png') }}" class="icon6">
+                            <p class="icon6-txt">Archive</p>
+                            </button>
+                        </div> 
+                        </a>
+                         
                         <a href="{{ route('login') }}" style = "text-decoration: none;"> 
                          <div class="logout-container">
                             <button class="logout-btn">
@@ -50,5 +59,6 @@
                             </button>
                         </div>        
                         </a>
+                        
             </div>
     </div>

@@ -3,23 +3,16 @@ body{
     margin: 0;
 }
 
-.page-container{
-    margin: 0;
-    padding: 0;
-}
-
 .empty{
     height: 100%;
     width: 18%;
 }
 
 .content{
+    float: right;
     width: 82%;
     height: 100%;
-    float: right;
-    background-color: white;
 }
-
 .header{
     margin-top: 20px;
     margin-left: 40px;
@@ -28,7 +21,7 @@ body{
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-table{
+.table{ 
     margin-left: 40px;
     height: 100%;
     width: 90%;
@@ -56,7 +49,7 @@ td{
 }
 
 .btn:hover{
-    background-color: #20c073;
+    background-color: #0295FF;
     color: white;
     cursor: pointer;
 }

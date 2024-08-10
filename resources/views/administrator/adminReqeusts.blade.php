@@ -8,6 +8,7 @@
     <body>
         <div class="page-container">
                 @include('administrator/adminSidebar')
+                <div class="empty"></div>
             <div class="content">
                 <p class="header">Pending Requests</p>
                <table class="table">

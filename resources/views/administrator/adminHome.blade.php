@@ -8,6 +8,7 @@
 <body>
     <div class = "container">
         @include('administrator.adminSidebar')
+        <div class="empty"></div>
             <div class = "content">
                 <div class="admin-header">
                     <img src = "{{ asset('assets/admin-dash.png') }}" class="dashboard">  

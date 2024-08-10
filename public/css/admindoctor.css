@@ -3,14 +3,21 @@ body{
     margin: 0;
 }
 
-.page-container{
-    margin: 0;
-    padding: 0;
+.header{
+    margin-top: 20px;
+    margin-left: 40px;
+    font-size: 60px;
+    color: #20c073;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .empty{
     height: 100%;
     width: 18%;
+}
+.page-container{
+    margin: 0;
+    padding: 0;
 }
 
 .content{
@@ -18,14 +25,6 @@ body{
     height: 100%;
     float: right;
     background-color: white;
-}
-
-.header{
-    margin-top: 20px;
-    margin-left: 40px;
-    font-size: 60px;
-    color: #20c073;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 table{

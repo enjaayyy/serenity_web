@@ -40,6 +40,8 @@ class RegisterController extends Controller
         
         if($request->hasFile('verifile')) {
             $files = $request->file('verifile');
+            $links = [];
+
             foreach($files as $file) {
                 $filename = $file->getClientOriginalName();
                 $filepath = $file->getPathname();
@@ -53,8 +55,9 @@ class RegisterController extends Controller
                     $expiresAt = new \DateTime('+1 year');
                     $url = $uploadedFile->signedUrl($expiresAt);
 
+                    $links[] = $url;
 
-                    $filteredFile = str_replace(['.', '$', '#', '[', ']'], '_', $filename);
+                    // $filteredFile = str_replace(['.', '$', '#', '[', ']'], '_', $filename);
 
                     $doctorData2 = [
                         'profession' => $request->profession,
@@ -64,7 +67,7 @@ class RegisterController extends Controller
                         'medicalLicencse' => $request->license,
                         'workAddress' => $request->address,
                         'specialization' => $request->spec,
-                        'credentials' => $url,
+                        'credentials' => $links,
                             ];
                             
                              $success = $this->database->getReference($this->tablename . '/' . $key)->update($doctorData2);                 
@@ -76,12 +79,6 @@ class RegisterController extends Controller
         else{
             return response('upload failed!!');
         }
-
-        
-
-       
-
-        
         
     }
 

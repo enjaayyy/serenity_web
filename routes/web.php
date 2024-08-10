@@ -15,7 +15,12 @@ Route::get('/adminRequests', [AdminController::class, 'viewRequests'])->name('ad
 Route::get('/adminRequests/{id}', [AdminController::class, 'viewRequestDetails'])->name('adminRequestsDetails');
 Route::post('/adminRequests/{id}/approve', [AdminController::class, 'approve'])->name('approve');
 
-Route::get('/doctorList', function() {return view('administrator/doctors');})->name('doctorlists');
+Route::get('/adminDoctors', [AdminController::class, 'viewDocList'])->name('doctors');
+Route::get('/doctorDetails/{id}', [AdminController::class, 'viewdoctor'])->name('viewdoctor');
+Route::post('/doctorDetails/{id}/deactivate', [AdminController::class, 'deactivate'])->name('deactivate');
+
+Route::get('/archive', [AdminController::class, 'viewArchive'])->name('archive');
+Route::post('/archive/{id}/activate', [AdminController::class, 'activate'])->name('activate');
 
 Route::get('/register', function () {return view('register');})->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');

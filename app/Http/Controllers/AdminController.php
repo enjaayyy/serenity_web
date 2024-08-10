@@ -150,5 +150,104 @@ class AdminController extends Controller
         
         }
     }
+
+    public function viewDocList(){
+
+        $view = $this->database->getReference('administrator/doctors/');
+        $snapshot = $view->getSnapshot();
+        $data = $snapshot->getValue();
+
+        $details = []; 
+
+        if($data){
+            foreach($data as $id => $doctor) {
+                $details[] = [
+                    'id' => $id,
+                    'docname' => $doctor['name'],
+                    'docemail' => $doctor['email'],
+                    'docprofession' => $doctor['profession'],
+                    'docspecialization' => $doctor['specialization'],
+                ];
+            }
+           
+        }
+         return view('administrator.doctors', ['details' => $details]);
+    }
+
+    public function viewdoctor($id){
+        $view = $this->database->getReference("administrator/doctors/" . $id);
+        $snapshot = $view->getSnapshot();
+        $data = $snapshot->getValue();
+
+        $questions = $this->database->getReference("administrator/doctors/" . $id . "/questionnaires");
+        $get = $questions->getSnapshot();
+        $questiondata = $get->getValue();
+
+        if($data) {
+            $details = [
+                'id' => $id,
+                'name' => $data['name'],
+                'age' => $data['age'],
+                'email' => $data['email'],
+                'gender' =>$data['gender'],
+                'license' =>$data['license'],
+                'profession' =>$data['profession'],
+                'specialization' => $data['specialization'],
+                'address' => $data['address'],
+                'years' => $data['years'],
+                'credentials' => $data['credentials'],
+                'questionnaires' => $questiondata ? $questiondata : []
+            ];
+        }
+        return view("administrator.doctorProfile", ['details' => $details]);
+
+    }
+
+    public function deactivate($id){
+        $view = $this->database->getReference('administrator/doctors/' . $id);
+        $snapshot = $view->getSnapshot();
+        $data = $snapshot->getValue();
+
+        $this->database->getReference('administrator/archives/' . $id)->set($data);
+        $this->database->getReference('administrator/doctors/' . $id)->remove();
+    
+        return redirect()->route('doctors');
+    }
+
+    public function viewArchive(){
+        $view = $this->database->getReference('administrator/archives/');
+        $snapshot = $view->getSnapshot();
+        $data = $snapshot->getValue();
+
+        $details = [];
+        
+            if($data){
+            foreach($data as $id => $doctor){
+                $details[] = [
+                    'id' => $id,
+                    'name' => $doctor['name'],
+                    'email' => $doctor['email'],
+                    'specialization' => $doctor['specialization'],
+                    'profession' => $doctor['profession'],
+                ];
+            }
+        
+        }
+        return view("administrator.arhive", ['details' => $details]);
+    }
+
+    public function activate($id){
+        $archRef = $this->database->getReference('administrator/archives/' . $id);
+        $archData = $archRef->getValue();
+
+        if($archData){
+            $this->database->getReference('administrator/doctors/' . $id)->set($archData);
+            $archRef->remove();
+        }
+
+        return redirect()->route('doctors');
+    }
+
+    
 }
  
