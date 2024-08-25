@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>      
     <head>
-          <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
-          <link rel="stylesheet" href="{{ asset('css/requests.css') }}">
+          <link rel="stylesheet" href="{{ asset('css/administrator/sidebar.css') }}">
+          <link rel="stylesheet" href="{{ asset('css/administrator/requests.css') }}">
           @stack('styles')
     </head>
     <body>

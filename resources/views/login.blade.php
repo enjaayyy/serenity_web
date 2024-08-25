@@ -15,7 +15,7 @@
     </div>
     <div class = "login-body">
         <p class="header">LOGIN</p>
-        <form action="{{ url('login') }}" method="POST">
+        <form action="{{ route('logins') }}" method="POST">
             @csrf
         <p class="email"> Email </p>
         <input type="text" class = "email-input" name="email">

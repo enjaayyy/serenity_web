@@ -1,0 +1,89 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar{
+    position: fixed;
+    border-right: 1px solid lightgray;
+    height: 100%;
+    width: 18%;
+}
+
+.logo{
+    padding-left: 60px;
+    padding-top: 20px;
+    height: 30px;
+    width: 100px;
+}
+
+.default-pp{
+    height: 80px;
+    width: 80px;
+}
+
+.main-info{
+    text-align: center;
+}
+
+.doc-name{
+    padding-top: 1px;
+    font-size: 15px;
+    color: #20c073;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+}
+
+.doc-job{
+    font-size: 13px;
+    color: black;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: light;
+}
+
+.dashboard{
+    margin-top: 30px;
+}
+
+.dashboard-btn, .profile-btn, .patient-btn, .appointment-btn, .logout-btn, .requests-btn{
+    display:flex;
+    background-color: white;
+    border: 0;
+    width: 100%;
+    padding-left: 20px;
+    color: #20c073;
+}
+
+.dashboard-btn:hover, .profile-btn:hover, .patient-btn:hover, .appointment-btn:hover, .logout-btn:hover, .requests-btn:hover{
+    background-color: #20c073;
+    color: white;
+    cursor: pointer;
+}
+
+.dash-logo, .profile-logo, .patients-logo, .appointment-logo, .logout-logo, .requests-logo{
+    margin-top: 8px;
+    margin-right: 10px;
+    height: 20px;
+    width: 20px;
+}
+
+.profile, .patients, .appointments, .requests{
+    margin-top: 10px;
+}
+
+.logout{
+    margin-top: 50px;
+}
+
+.profile-pics{
+    margin-left: 70px;
+    margin-top: 20px;
+    height: 100px;
+    width: 100px;
+}
+
+.profile-pics img{
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+}

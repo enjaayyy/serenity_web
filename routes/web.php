@@ -5,12 +5,16 @@ use App\Http\Controllers\FirebaseController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DoctorController;
 
 Route::get('/', function () {return view('homepage');})->name('home');
 Route::get('/login', function () {return view('login');})->name('login');
-Route::post('/login', [LoginController::class, 'final'])->name('login');
+Route::post('/login', [LoginController::class, 'final'])->name('logins');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/admindash', function () {return view('administrator/adminHome');})->name('adminDashboard');
+Route::get('/admindash', [AdminController::class, 'viewDash'])->name('adminDashboard');
+Route::post('/admindash', [AdminController::class, 'uploadvid'])->name('upload');
+
 Route::get('/adminRequests', [AdminController::class, 'viewRequests'])->name('adminRequests');
 Route::get('/adminRequests/{id}', [AdminController::class, 'viewRequestDetails'])->name('adminRequestsDetails');
 Route::post('/adminRequests/{id}/approve', [AdminController::class, 'approve'])->name('approve');
@@ -28,3 +32,16 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 Route::get('/register-details', function() {return view('register-details');})->name('register-details');
 Route::post('/register-details', [RegisterController::class, 'registerDetails'])->name('register-details');
 
+Route::get('/patientlist', [AdminController::class, 'viewPatients'])->name('patients'); 
+
+Route::get('/doctorDashboard', [DoctorController::class, 'docDashboard'])->name('docDashboard');
+Route::get('/doctorProfile', [DoctorController::class, 'doctorProfile'])->name('docProfile');
+Route::post('/doctorProfile/uploadpp', [DoctorController::class , 'uploadpp'])->name('uploadpp');
+Route::post('/doctorProfile/uploadDetails', [DoctorController::class, 'getDetails'])->name('uploadDetails');
+Route::post('/doctorProfile/editDetails', [DoctorController::class, 'editDetails'])->name('editDetails');
+Route::post('/doctorProfile/updateQuestions', [DoctorController::class, 'updateQuestions'])->name('updateQuestions');
+Route::post('/doctorProfile/editQuestions', [DoctorController::class, 'editQuestions'])->name('editQuestions');
+Route::post('/doctorProfile/addGrad', [DoctorController::class, 'addGraduate'])->name('addGraduate');
+Route::get('/doctor/requests', [DoctorController::class, 'showRequests'])->name('showRequests');
+Route::post('/doctor/patientAction/{id}', [DoctorController::class, 'acceptPatient'])->name('patientAction');
+Route::get('/doctor/patientlist', [DoctorController::class, 'viewPatients'])->name('viewPatients');

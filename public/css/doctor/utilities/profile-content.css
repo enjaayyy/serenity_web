@@ -1,0 +1,99 @@
+.img-data{
+    max-width: 500px;
+    max-height: 500px;
+    margin-bottom: 20px;
+}
+
+.cred-container, .qst-container{
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid gray;
+    display: none;
+    
+}
+
+.qst-container{
+    text-align: left;
+}
+
+.abt-container textarea{
+    height: 250px;
+    width: 100%;
+    resize: none;
+    border: 1px solid lightgray;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.abt-container{ 
+    border-bottom: 1px solid lightgray;
+}
+
+
+.abt-container button{
+    margin-top: 10px;
+    float: right;
+    height: 50px;
+    width: 100px;
+    font-weight: bold;
+    background-color: white;
+    border: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #20C073;
+}
+.abt-container button:hover{
+    background-color: #20C073;
+    color: white;
+    
+}
+
+.qst-container button{
+    margin-top: 10px;
+    float: right;
+    height: 50px;
+    width: 100px;
+    font-weight: bold;
+    background-color: white;
+    border: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #20C073;
+}
+
+.qst-container button:hover{
+    background-color: #20C073;
+    color: white;
+}
+
+.qst-container textarea{
+    width: 100%;
+    resize: none;
+    border: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    height: 50px;
+    padding-top: 30px;
+    padding-left: 20px;
+}
+
+.qst-container textarea:hover{
+    background-color: #e9fce9;
+}
+
+.qst-header, .abt-me{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #20C073;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 30px;
+}
+
+.qsts{
+    background-color: #e9fce9;
+    height: 50px;
+    padding-top: 30px;
+    padding-left: 20px;
+}
+.qst-block{
+    display: flex;
+}
+

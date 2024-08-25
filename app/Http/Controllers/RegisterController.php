@@ -57,7 +57,7 @@ class RegisterController extends Controller
 
                     $links[] = $url;
 
-                    // $filteredFile = str_replace(['.', '$', '#', '[', ']'], '_', $filename);
+                
 
                     $doctorData2 = [
                         'profession' => $request->profession,

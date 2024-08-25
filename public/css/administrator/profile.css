@@ -39,6 +39,17 @@ body {
     text-align: center;
 }
 
+.pp-pc{
+    height: 100%;
+    width: 100%;
+}
+
+.pp-pc img{
+    height: 100px;
+    width: 100px;
+    border-radius: 50px;
+}
+
 .user-name{
     margin-top: 2px;
     margin-bottom: 2px;

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/administrator/sidebar.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/administrator/profile.css') }}">
     </head>
     <body>
         @include('administrator.adminSidebar')
         <div class="empty"></div>
         <div class="content">
             <div class="list">
-                    Next Update :>
+                    
             </div>
             <div class="header-container">
                 <p class="header">Profile</p>
@@ -21,9 +21,16 @@
         
             <div class="profile-info">
                 <div class="info">
-                        <img src="{{ asset('assets/avatar.png') }}" class="profile-img";>
+                    <div class="pp-pc">
+                        @if(isset($details['profile']))
+                            <img src="{{ $details['profile'] }}">
+                        @else
+                            <img src="{{ asset('assets/avatar.png') }}" class="profile-img">
+                        @endif
                         <p class="user-name">{{ $details['name'] }}</p>
                         <p class="prof">{{ $details['profession'] }}</p>
+                    </div>
+                        
                 </div>     
                 <div class="info2">
                     <div class="header1">

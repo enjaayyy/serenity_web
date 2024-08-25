@@ -22,12 +22,14 @@
                             </button>
                         </div>
                         </a>
-                         <div class="patient-container">
-                            <button class="patient-btn">
-                            <img src ="{{ asset('assets/patientlogo.png') }}" class="icon3">
-                            <p class="icon3-txt">Patients</p>
-                            </button>
-                        </div>
+                        <a href="{{ route('patients') }}" style = "text-decoration: none;">
+                            <div class="patient-container">
+                                <button class="patient-btn">
+                                <img src ="{{ asset('assets/patientlogo.png') }}" class="icon3">
+                                <p class="icon3-txt">Patients</p>
+                                </button>
+                            </div>
+                        </a>
                         <a href="{{ route('adminRequests') }}" style = "text-decoration: none;">
                         <div class="request-container">
                             <button class="request-btn">
@@ -50,15 +52,16 @@
                             </button>
                         </div> 
                         </a>
-                         
-                        <a href="{{ route('login') }}" style = "text-decoration: none;"> 
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
                          <div class="logout-container">
                             <button class="logout-btn">
-                            <img src ="{{ asset('assets/logout.png') }}" class="icon5">
-                            <p class="icon5-txt">Log out</p>
+                                <img src ="{{ asset('assets/logout.png') }}" class="icon5">
+                                <p class="icon5-txt">Log out</p>
                             </button>
-                        </div>        
-                        </a>
+                        </div>    
+                        </form>    
+                        
                         
             </div>
     </div>
