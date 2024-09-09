@@ -1,0 +1,176 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.header{
+    margin-top: 20px;
+    margin-left: 40px;
+    font-size: 60px;
+    color: #20c073;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.empty{
+    height: 100%;
+    width: 18%;
+}
+
+.content{
+    width: 82%;
+    height: 100%;
+    float: right;
+    background-color: white;
+}
+
+.main-content{
+    display: flex;
+}
+
+.left-container{
+    height: 100%;
+    width: 75%;
+    float: left;
+}
+
+.right-container{
+    height: 100%;
+    width: 25%;
+    float: left;
+}
+
+.user-info{
+    margin-left: 40px;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid lightgray;
+    height: 200px;
+    width: 700px;
+}
+
+.profile-group{
+    display: flex;
+}
+
+.img-container{
+    text-align: center;
+    height: 200px;
+    width: 150px;
+}
+
+.img-container img{
+    margin-top: 40px;
+}
+
+.profile-group-cntn{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.u-name{
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 40px;
+    margin-bottom: 0px;
+}
+
+.u-email{
+    margin-top: 0px;
+    font-size: 15px;
+    color: gray;
+}
+.u-cond-head{
+    margin-top: 2   px;
+    margin-bottom: 0px;
+    font-size: 10px;
+    color: gray;
+}
+
+.u-cond{
+    margin-top: 0px;
+}
+
+.divider{
+    width: 1px;
+    height: 170px;
+    background-color: lightgray;
+    margin-left: 15px;
+    margin-top: 15px;
+}
+
+.charts{
+    height: 500px;
+    width: 700px;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid lightgray;
+    margin-top: 40px;
+    margin-left: 40px;
+}
+
+.ctnt-header{
+    margin-top: 20px;
+    margin-left: 40px;
+    font-size: 40px;
+    color: #20c073;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.curve_chart{
+    margin-left: 0px;
+}
+
+.act-header{
+    margin-top: 20px;
+    margin-left: 40px;
+    font-size: 40px;
+    color: #20c073;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.doc-list{
+    width: 300px;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    display: flex;
+}
+
+.doc-list:hover{
+    background-color: #20c073;
+    color: white;
+}
+
+.doc-list img{
+    height: 25px;
+    width: 25px;
+    margin-top: 10px;
+    margin-left: 10px;
+    border-radius: 50%;
+    margin-right: 10px;
+
+}
+.doctor-name{
+    margin-top: 15px;
+    
+}
+.doctor-name, .approved, .pending {
+    margin-left: 5px;
+}
+.doc-list-container{
+    margin-top: 10px;
+}
+
+.approved, .pending{
+    margin-top: 16px;
+    font-size: 10px;
+    font-style: italic;
+}
+
+.approved{
+    color: lightgreen;
+}
+
+.pending{
+    color: orange;
+}

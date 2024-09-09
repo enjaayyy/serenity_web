@@ -25,7 +25,7 @@
                                 <td>{{ $patient['email'] }}</td>
                                 <td>{{ $patient['condition'] }}</td>
                                 <td>
-                                    <form method="POST">
+                                    <form method="GET" action="{{ route('patientProfile', $patient['userID']) }}">
                                         @csrf
                                         <button type="submit" class="view">View</button>
                                     </form>

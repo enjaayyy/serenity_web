@@ -376,6 +376,30 @@ class AdminController extends Controller
         $get = $questions->getSnapshot();
         $questiondata = $get->getValue();
 
+        $patients = $this->database->getReference('administrator/doctors/' . $id . "/mypatients" . "/");
+        $patientSnap = $patients->getSnapshot();
+        $patientData = $patientSnap->getValue();
+
+        $patient = [];
+
+        if($patientData){
+            foreach($patientData as $id => $patientindex){
+                $userID = $patientindex['userID'];
+
+                $userRef = $this->database->getReference('administrator/users/' . $userID);
+                $userSnapshot = $userRef->getSnapshot();
+                $userData = $userSnapshot->getValue();
+
+                if($userData){
+                    $patient [] = [
+                    'id' => $id,
+                    'userID' => $userID,
+                    'name' => $userData['full_name'],
+                ];
+                }
+            }
+        }
+
         if($data) {
             $details = [
                 'id' => $id,
@@ -393,7 +417,10 @@ class AdminController extends Controller
                 'profile' => isset($data['profilePic']) ? $data['profilePic'] : null,
             ];
         }
-        return view("administrator.doctorProfile", ['details' => $details]);
+        return view("administrator.doctorProfile", [
+            'details' => $details,
+            'patient' => $patient,
+        ]);
 
     }
 

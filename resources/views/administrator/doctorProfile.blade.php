@@ -9,7 +9,19 @@
         <div class="empty"></div>
         <div class="content">
             <div class="list">
-                    
+                <p class="patient-header">Patients</p>
+                @if(!empty($patient) && is_array($patient))
+                    @foreach($patient as $index)
+                    <form method="GET" action="{{ route('viewPatientDetails', $index['userID']) }}">
+                        @csrf
+                        <button class="patient-list" type="submit">
+                            <p class="patient-name">{{ $index['name'] }}</p>
+                        </button>
+                    </form>  
+                    @endforeach
+                @else
+                    <p>No Data!</p>
+                @endif
             </div>
             <div class="header-container">
                 <p class="header">Profile</p>

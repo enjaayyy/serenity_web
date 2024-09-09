@@ -6,6 +6,9 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\MessageController;
+
 
 Route::get('/', function () {return view('homepage');})->name('home');
 Route::get('/login', function () {return view('login');})->name('login');
@@ -45,3 +48,9 @@ Route::post('/doctorProfile/addGrad', [DoctorController::class, 'addGraduate'])-
 Route::get('/doctor/requests', [DoctorController::class, 'showRequests'])->name('showRequests');
 Route::post('/doctor/patientAction/{id}', [DoctorController::class, 'acceptPatient'])->name('patientAction');
 Route::get('/doctor/patientlist', [DoctorController::class, 'viewPatients'])->name('viewPatients');
+Route::get('/admin/patientList/patientDetails/{id}', [PatientController::class, 'viewPatientDetails'])->name('viewPatientDetails');
+Route::get('/doctor/patientProfile/{id}', [PatientController::class, 'patientProfile'])->name('patientProfile');
+
+
+Route::post('/sendmessage', [MessageController::class, 'sendMessage'])->name('sendmessage');
+

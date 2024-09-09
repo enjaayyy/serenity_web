@@ -19,12 +19,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($details as $doctors)
+                    @foreach($details as $patients)
                         <tr>
-                            <td>{{ $doctors['name'] }}</td>
-                            <td>{{ $doctors['email'] }}</td>
-                            <td>{{ $doctors['number'] }}</td>
-                            <td>{{ $doctors['condition'] }}</td>
+                            <td>{{ $patients['name'] }}</td>
+                            <td>{{ $patients['email'] }}</td>
+                            <td>{{ $patients['number'] }}</td>
+                            <td>{{ $patients['condition'] }}</td>
+                            <td>
+                                <form method="GET" action="{{ route('viewPatientDetails', $patients['id']) }}">
+                                    @csrf
+                                    <button class="btn" type="submit">View</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

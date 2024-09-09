@@ -176,6 +176,8 @@ class DoctorController extends Controller
             $docSnap = $docRef->getSnapshot();
             $docData = $docSnap->getValue();
 
+            $doctorData = [];
+            
             if($docData){
                 $doctorData = [
                     'id' => $id,

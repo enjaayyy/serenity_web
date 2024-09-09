@@ -42,4 +42,16 @@ td{
     padding-bottom: 40px;
     font-size:15px;
 }
+.btn{
+    border: none;
+    height: 60px;
+    width: 100%;
+    background-color: transparent;
+}
+
+.btn:hover{
+    background-color: #20c073;
+    color: white;
+    cursor: pointer;
+}
 
