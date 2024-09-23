@@ -96,12 +96,14 @@ class AdminController extends Controller
                 'credentials' => $data['credentials'],
         ];
 
+        $title = 'default';
 
         $this->database->getReference('administrator/doctors' . "/" . $id)->set($new);
         $this->database->getReference('administrator/doctorRequests' . "/" . $id)->remove();
 
             if($new['specialization'] == 'Anxiety'){
                 $questions = [
+                    'title' => $title,
                     'Q1' => [
                         'question' => 'Worries, Anticipation of the worst, Fearful, Irritability.',
                         'legend' => ['not at all', 'a little bit', 'moderately', 'Quite a bit', 'Extremely'],
@@ -170,10 +172,13 @@ class AdminController extends Controller
                  
 
                 ];
-                $this->database->getReference('administrator/doctors' . "/" . $id . "/questionnaires")->update($questions);
+                $this->database->getReference('administrator/doctors' . "/" . $id . "/activeQuestionnaires")->update($questions);
+                $this->database->getReference('administrator/doctors' . "/" . $id . "/SavedQuestionnaires/" . $title)->update($questions);
+
             }
             else if($new['specialization'] == 'Insomnia'){
                  $questions = [
+                    'title' => $title,
                     'Q1' => [
                         'question' => 'How long does it take you to fall asleep?',
                         'legend' => ['0-15 min', '16-30 min', '31-45 min', '46-60 min', '>61 min'],
@@ -216,10 +221,13 @@ class AdminController extends Controller
                     ],
 
                 ];
-                $this->database->getReference('administrator/doctors' . "/" . $id . "/questionnaires")->update($questions);
+                $this->database->getReference('administrator/doctors' . "/" . $id . "/activeQuestionnaires")->update($questions);
+                $this->database->getReference('administrator/doctors' . "/" . $id . "/SavedQuestionnaires/" . $title)->update($questions);
+
             }
             else if($new['specialization'] == 'Post Traumatic Stress'){
                 $questions = [
+                    'title' => $title,
                     'Q1' => [
                         'question' => 'Any reminder brought back feelings about it',
                         'legend' => ['Not at all', 'a little bit', 'Moderately', 'Quite a bit', 'Extremely'],
@@ -332,7 +340,8 @@ class AdminController extends Controller
                     ],  
                     
                 ];
-                $this->database->getReference('administrator/doctors' . "/" . $id . "/questionnaires")->update($questions);
+                $this->database->getReference('administrator/doctors' . "/" . $id . "/activeQuestionnaires")->update($questions);
+                $this->database->getReference('administrator/doctors' . "/" . $id . "/SavedQuestionnaires/" . $title)->update($questions);
             }
              return redirect()->route('adminRequests');
         
@@ -372,7 +381,7 @@ class AdminController extends Controller
         $snapshot = $view->getSnapshot();
         $data = $snapshot->getValue();
 
-        $questions = $this->database->getReference("administrator/doctors/" . $id . "/questionnaires");
+        $questions = $this->database->getReference("administrator/doctors/" . $id . "/activeQuestionnaires");
         $get = $questions->getSnapshot();
         $questiondata = $get->getValue();
 
@@ -549,7 +558,7 @@ class AdminController extends Controller
                         'id' => $id,
                         'name' => $doctor['full_name'],
                         'email' => $doctor['email'],
-                        'condition' => $doctor['condition'],
+                        'conditions' => $doctor['conditions'],
                         'number' => $doctor['phone_number'],
                     ];
                 }

@@ -59,7 +59,13 @@
                                     <p class="u-name">{{ $userDetails['name'] }}</p>
                                     <p class="u-email">{{ $userDetails['email'] }}</p>
                                     <p class="u-cond-head">Condition:</p>
-                                    <p class="u-cond">{{ $userDetails['condition'] }}</p>
+                                    <p class="u-cond">
+                                        @if(isset($userDetails['condition']) && is_array($userDetails['condition']))
+                                            @foreach($userDetails['condition'] as $condition)
+                                                {{ $condition }}
+                                            @endforeach 
+                                        @endif
+                                    </p>
                                 </div>
                                 <div class="divider"> </div>
                                 <div class="doc-list-container">

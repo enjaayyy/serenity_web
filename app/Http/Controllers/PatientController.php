@@ -25,7 +25,7 @@ class PatientController extends Controller
 
         if($userData){
             $userDetails = [
-                'condition' => $userData['condition'],
+                'condition' => $userData['conditions'],
                 'email' => $userData['email'],
                 'name' => $userData['full_name'],
                 'num' => $userData['phone_number'],
@@ -105,7 +105,7 @@ class PatientController extends Controller
             if($patientData){
                 $patientDetails = [
                     'patientID' => $id,
-                    'condition' => $patientData['condition'],
+                    'condition' => $patientData['conditions'],
                     'email' => $patientData['email'],
                     'name' => $patientData['full_name'],
                     'num' => $patientData['phone_number'],

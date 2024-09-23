@@ -27,7 +27,7 @@
         <div class="profile">
             <button class="profile-btn">
             <img src="{{ asset('assets/profile-logo.png') }}" class="profile-logo">
-            <p>About me</p>
+            <p>Profile</p>
             </button> 
         </div>
     </a>

@@ -48,6 +48,14 @@ class DoctorController extends Controller
             $snapshot = $view->getSnapshot();
             $data = $snapshot->getValue();
 
+            $titleview = $this->database->getReference('administrator/doctors/' . $id . '/activeQuestionnaires');
+            $titlesnapshot = $titleview->getSnapshot();
+            $titledata = $titlesnapshot->getValue();
+            
+            $title = isset($titledata['title']) ? $titledata['title'] : null;
+
+            $existingQuestions = $this->database->getReference('administrator/doctors/' . $id . '/activeQuestionnaires')->getSnapshot()->getValue();
+
             if($data){
                 $doctorData = [
                     'name' => $data['name'],
@@ -62,8 +70,10 @@ class DoctorController extends Controller
                     'pic' => isset($data['profilePic']) ? $data['profilePic'] : null,
                     'descrip' => isset($data['description']) ? $data['description'] : null,
                     'graduated' => isset($data['graduated']) ? $data['graduated'] : null,
-                    'questions' => $data['questionnaires'],
+                    'questions' => isset($data['activeQuestionnaires']) ? $data['activeQuestionnaires'] : null,
                     'creds' => $data['credentials'],
+                    'templates' => isset($data['SavedQuestionnaires']) ? $data['SavedQuestionnaires'] : null,
+                    'title' => $title,
                 ];
                 return view('doctor/profile', ['doctorData' =>  $doctorData]);  
             }
@@ -127,27 +137,91 @@ class DoctorController extends Controller
 
     public function updateQuestions(Request $request){
         $id = Session::get('id');
-        $view = $this->database->getReference('administrator/doctors/' . $id);
-        $snapshot = $view->getSnapshot();
-        $data = $snapshot->getValue();
+        $questions = $request->input('question');
+        $legends = $request->input('legend');
+        $values = $request->input('value');
+        $title = $request->input('title');
 
-        if($data){
-            $newData = [
-                'questionnaires' => $request->questions,
+        $questionData = [];
+
+        foreach($questions as $index => $question){
+            $questionData['Q' . ($index + 1)] = [
+                'question' => $question,
+                'legend' => array_combine(range(0, count($legends[$index]) - 1), $legends[$index]),
+                'value' => array_combine(range(0, count($values[$index]) - 1), $values[$index]),
             ];
+        }
+        
+        $questionData['title'] = $title;
 
-            $this->database->getReference('administrator/doctors/' . $id)->update($newData);
+        $this->database->getReference('administrator/doctors/' . $id . '/SavedQuestionnaires/' . $title)->set($questionData);
+
+        $view = $this->database->getReference('administrator/doctors/' . $id . '/activeQuestionnaires');
+        $questSnap = $view->getSnapshot();
+        $questData = $questSnap->getValue();
+        
+        $this->database->getReference('administrator/doctors/' . $id . '/activeQuestionnaires')->set($questionData);
+
+        Session::put('activeTemplate', true);
+        return redirect()->route('docProfile');
+    }
+
+    public function editQuestions(Request $request){
+        $id = Session::get('id');
+
+        $questions = $request->input('questions');
+        $title = $request->input('title');
+        
+        $questionData = [];
+
+        foreach($questions as $index => $question){
+            $legends = isset($question['legend']) ? $question['legend'] : [];
+            $values = isset($question['value']) ? $question['value'] : [];
+
+            $questionData['Q' . ((int) $index + 1)] = [
+                'question' => $question['question'],
+                'legend' => $legends,
+                'value' => $values,
+            ];
         }
 
-        Session::forget('editqst');
+        $questionData['title'] = $title;
+
+        $this->database->getReference('administrator/doctors/' . $id . '/activeQuestionnaires')->update($questionData);
+        // $this->database->getReference('administrator/doctors/' . $id . '/SavedQuestionnaires/' . $title)->set($questionData);
+
         return redirect()->route('docProfile');
     }
 
-    public function editQuestions(){
+    public function newTemplate(Request $request){
+        $id = Session::get('id');
+        $newQuest = $request->input('template');
+        $questRef = $this->database->getReference('administrator/doctors/' . $id . '/SavedQuestionnaires/' . $newQuest);
+        $questSnap = $questRef->getSnapshot();
+        $questData = $questSnap->getValue();
 
-        Session::put('editqst', true);
+        $oldQuestRef = $this->database->getReference('administrator/doctors/' . $id . '/activeQuestionnaires');
+        $oldQuestSnap = $oldQuestRef->getSnapshot();
+        $oldQuestData = $oldQuestSnap->getValue();
+
+        $title = isset($oldQuestData['title']) ? $oldQuestData['title'] : null;
+
+        if($oldQuestData){
+            $newSaved = $oldQuestData;
+            $this->database->getReference('administrator/doctors/' . $id . '/SavedQuestionnaires/' . $title)->set($newSaved);
+
+        }
+
+        if($questData){
+            $newActive = $questData;
+
+            $this->database->getReference('administrator/doctors/' . $id . '/activeQuestionnaires')->set($newActive);
+        }
+        
+        Session::put('activeTemplate', true);
         return redirect()->route('docProfile');
     }
+
 
     public function addGraduate(Request $request){
         $id = Session::get('id');
@@ -202,7 +276,7 @@ class DoctorController extends Controller
                             'status' => $request['status'],
                             'timestamp' => $request['timestamp'],
                             'userID' => $userID,
-                            'condition' => $userData['condition'],
+                            'condition' => $userData['conditions'],
                             'email' => $userData['email'],
                             'name' => $userData['full_name'],
                             'phonenum' => $userData['phone_number'],
@@ -293,7 +367,7 @@ class DoctorController extends Controller
                             'status' => $request['status'],
                             'timestamp' => $request['timestamp'],
                             'userID' => $userID,
-                            'condition' => $userData['condition'],
+                            'condition' => $userData['conditions'],
                             'email' => $userData['email'],
                             'name' => $userData['full_name'],
                             'phonenum' => $userData['phone_number'],

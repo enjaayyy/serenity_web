@@ -233,5 +233,11 @@ body{
 }
 
 .doctor-mess{
-    text-align: right;
+    text-align: right ;
+    background-color: #20c073;
+}
+
+.patient-mess{
+    background-color: pink;
+    text-align: left ;
 }

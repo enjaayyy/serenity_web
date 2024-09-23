@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\AgoraTokenController;
 
 
 Route::get('/', function () {return view('homepage');})->name('home');
@@ -43,14 +44,15 @@ Route::post('/doctorProfile/uploadpp', [DoctorController::class , 'uploadpp'])->
 Route::post('/doctorProfile/uploadDetails', [DoctorController::class, 'getDetails'])->name('uploadDetails');
 Route::post('/doctorProfile/editDetails', [DoctorController::class, 'editDetails'])->name('editDetails');
 Route::post('/doctorProfile/updateQuestions', [DoctorController::class, 'updateQuestions'])->name('updateQuestions');
+Route::post('/doctorProfile/defaultQuestion', [DoctorController::class, 'defaultQuestion'])->name('defaultQuestion');
 Route::post('/doctorProfile/editQuestions', [DoctorController::class, 'editQuestions'])->name('editQuestions');
+Route::post('/doctorProfile/newQuestion', [DoctorController::class, 'newTemplate'])->name('newTemplate');
 Route::post('/doctorProfile/addGrad', [DoctorController::class, 'addGraduate'])->name('addGraduate');
 Route::get('/doctor/requests', [DoctorController::class, 'showRequests'])->name('showRequests');
 Route::post('/doctor/patientAction/{id}', [DoctorController::class, 'acceptPatient'])->name('patientAction');
 Route::get('/doctor/patientlist', [DoctorController::class, 'viewPatients'])->name('viewPatients');
 Route::get('/admin/patientList/patientDetails/{id}', [PatientController::class, 'viewPatientDetails'])->name('viewPatientDetails');
 Route::get('/doctor/patientProfile/{id}', [PatientController::class, 'patientProfile'])->name('patientProfile');
-
-
 Route::post('/sendmessage', [MessageController::class, 'sendMessage'])->name('sendmessage');
 
+Route::post('/generate-token', [AccessTokenController::class, 'generateToken']);

@@ -5,7 +5,9 @@
         <link rel="stylesheet" href="{{ asset('css/doctor/patientProfile.css') }}">
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    
+    <script src="https://cdn.agora.io/sdk/release/AgoraRTC_N.js"></script>
+
+    <script type="module" src="{{ asset('js/test/agoraLogic.js') }}"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
         import { getDatabase, ref, onChildAdded } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
@@ -29,18 +31,32 @@
 
             onChildAdded(messagesRef, (snapshot) => {
                 const message = snapshot.val();
+                
                 const chatContent = document.getElementById('chat-content');
-                const newMessage = document.createElement('div');
+                const newMessageDiv = document.createElement('div');
+                newMessageDiv.style.display = "flex";
 
-                if (message.sender === "{{ $doctorData['docID'] }}") {
-                    newMessage.className = 'doctor-mess';
+                 const messageParagraph = document.createElement('p');
+                    messageParagraph.textContent = message.message;
+                    messageParagraph.style.backgroundColor = "red";
+
+                if (message.senderId === "{{ $doctorData['docID'] }}") {
+                    newMessageDiv.style.justifyContent = "flex-end"; 
+                    messageParagraph.style.backgroundColor = "#20c073"; 
                 } 
-                else if (message.sender === "{{ $patientDetails['patientID'] }}") {
-                    newMessage.className = 'patient-mess';
+                else {
+                    newMessageDiv.style.justifyContent = "flex-start"; 
+                    messageParagraph.style.backgroundColor = "pink";
                 }
 
-                newMessage.innerHTML = `<p>${message.message}</p>`;
-                chatContent.appendChild(newMessage);
+               
+                console.log("Message sender:", message.sender);
+
+                newMessageDiv.appendChild(messageParagraph);
+
+                // Append the new message div to the chat content
+                chatContent.appendChild(newMessageDiv);
+
 
                 chatContent.scrollTop = chatContent.scrollHeight;
             });
@@ -96,8 +112,6 @@
         var message = document.getElementById('chat-input').value;
         var chatDiv = document.getElementById('chat-div');
 
-        document.getElementById('doctor-mess').style.textAlign = 'right';
-
         if(message.trim() !== "") {
             fetch('/sendmessage', {
             method: 'POST',
@@ -137,15 +151,22 @@
                                     <p class="u-name">{{ $patientDetails['name'] }}</p>
                                     <p class="u-email">{{ $patientDetails['email'] }}</p>
                                     <p class="u-cond-head">Condition:</p>
-                                    <p class="u-cond">{{ $patientDetails['condition'] }}</p>
+                                    <p class="u-cond">
+                                        @if(isset($patientDetails['condition']) && is_array($patientDetails['condition']))
+                                            @foreach($patientDetails['condition'] as $condition)
+                                                {{ $condition }} ,
+                                            @endforeach 
+                                        @endif
+                                    </p>
                                 </div>
                                 <div class="commu-btn">
                                     <button class="mess-btn" onclick="openChat()">
                                         <img src="{{ asset('assets/message.png') }}">
                                     </button>
-                                    <button class="call-btn">
+                                    <button id="join">
                                         <img src="{{ asset('assets/call.png') }}">
                                     </button>
+                                  
                                 </div>
                             </div>
                         </div>
@@ -163,17 +184,17 @@
                             <button onclick="closeChat()">x</button>
                         </div>
                         <div class="chat-ctnt" id="chat-content">
-                            @foreach($messages as $message)
+                            <!-- @foreach($messages as $message)
                                 @if($message['sender'] == $doctorData['docID'])
-                                <div>
+                                <div class="doctor-mess">
                                     <p>{{ $message['message'] }}</p>
                                 </div>
                                 @elseif($message['sender'] == $patientDetails['patientID'])
-                                <div>
+                                <div class="patient-mess">
                                     <p>{{ $message['message'] }}</p>
                                 </div>
                                 @endif
-                            @endforeach
+                            @endforeach -->
                         </div>
                         <div class="chat-input">
                             <input type="text" id="chat-input">

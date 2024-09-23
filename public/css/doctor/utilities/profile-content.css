@@ -93,7 +93,32 @@
     padding-top: 30px;
     padding-left: 20px;
 }
-.qst-block{
-    display: flex;
+
+.question-txt{
+    background-color: #e9fce9;
+    width: 650px;
+    height: 80px;
+    border: none;
+    padding-left: 20px;
 }
 
+.question-txt, .legend-txt, .val-txt{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.legend-txt{
+    height: 60px;
+    background-color: antiquewhite;
+    border:none;
+    margin-top: 5px;
+    padding-left: 10px;
+    width: 575px;
+}
+.val-txt{
+    height: 60px;
+    background-color: antiquewhite;
+    border:none;
+    margin-top: 5px;
+    padding-left: 10px;
+    width: 70px;
+}

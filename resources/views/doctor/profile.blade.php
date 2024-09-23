@@ -31,7 +31,7 @@
                                 <p class="prof">{{ $doctorData['prof'] }}</p>
                                 <div class="em-spec">
                                     <p class="spec">Specialization: {{ $doctorData['prof'] }}</p>
-                                    <p class="em">Email: {{ $doctorData['prof'] }}</p>
+                                    <p class="em">Email: {{ $doctorData['email'] }}</p>
                                 </div>
                                 <div class="age-gen-yrs-lic">
                                     <p class="age">Age: {{ $doctorData['age'] }}</p>

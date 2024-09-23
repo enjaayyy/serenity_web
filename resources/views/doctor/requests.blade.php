@@ -25,7 +25,13 @@
                                 <tr>
                                     <td>{{ $patient['name'] }}</td>
                                     <td>{{ $patient['email'] }}</td>
-                                    <td>{{ $patient['condition'] }}</td>
+                                    <td>
+                                        @if(isset($patient['condition']) && is_array($patient['condition']))
+                                            @foreach($patient['condition'] as $condition)
+                                                {{ $condition }}
+                                            @endforeach 
+                                        @endif
+                                    </td>
                                     <td class="status">{{ $patient['status'] }}</td>
                                     <td>
                                         <form method="POST" action="{{ route('patientAction', ['id' => $patient['id']]) }}">

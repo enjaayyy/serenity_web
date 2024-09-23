@@ -1,4 +1,5 @@
-            function uploadcard(){
+ 
+    function uploadcard(){
                 document.getElementById('upload-screen').style.display = 'block';
                 document.body.style.overflow = 'hidden';
             }
@@ -10,13 +11,11 @@
 
             function opencredentials(){
                 document.getElementById('cred-container').style.display = 'block';
-
                document.getElementById('abt-container').style.display = 'none';
                 document.getElementById('qst-container').style.display = 'none';
             }
             function openquestions(){
                 document.getElementById('qst-container').style.display = 'block';
-
                document.getElementById('abt-container').style.display = 'none';
                document.getElementById('cred-container').style.display = 'none';
 
@@ -24,102 +23,100 @@
 
             function openaboutme(){
                document.getElementById('abt-container').style.display = 'block';
-        
                document.getElementById('cred-container').style.display = 'none';
                document.getElementById('qst-container').style.display = 'none';
             
             }
 
-            function addquestion(){
-                const list = document.getElementById('qst-item');
-                const index = list.children.length;
-                const newQstData = document.createElement('div');
+                document.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('newQuestions').addEventListener('click', function() {
+                let questElements = document.querySelectorAll('.qsts-content');
+                document.getElementById('newQuestionForm').style.display = 'block';
+                document.getElementById('newQuestions').style.display = 'none';
 
-                newQstData.className = 'qst-item';
-                newQstData.setAttribute('data-index', index);
 
-                newQstData.innerHTML = `
-            <textarea name="questions[${index}]" placeholder="Enter question here..."></textarea>
-            <button type="button" onclick="removeQuestion(this)">Remove</button>
-            `;
 
-                list.appendChild(newQstData);
-            }
+                questElements.forEach(function (element) {
+                element.style.display = 'none';
+            });
+        });
 
-            function removequestion(button){
-                const item = button.parentElement;
-                item.remove();
-                updateQuestionIndex();
-            }
+                document.getElementById('addQuest').addEventListener('click', function() {
+                const questionCount = document.querySelectorAll('.question-group').length;
 
-            function updateQuestionIndex(){
-                const list = document.getElementById('qst-item');
-                   Array.from(list.children).forEach((item, index) => {
-                        item.setAttribute('data-index', index);
-                        item.querySelector('textarea').setAttribute('name', `questions[${index}]`);
-             });
-    
-            }
+                const newQuestionGroup = document.createElement('div');
+                newQuestionGroup.classList.add('question-group');
+                newQuestionGroup.innerHTML = `
+                    <input placeholder="Enter Question" name="question[]" class="question-txt"><br>
+                        <div class="val-leg-container">
+                            <input placeholder="Enter Legend" name="legend[${questionCount}][]" class="legend-txt">
+                            <input placeholder="Enter Value" name="value[${questionCount}][]" class="val-txt"><br>
+                            <input placeholder="Enter Legend" name="legend[${questionCount}][]" class="legend-txt">
+                            <input placeholder="Enter Value" name="value[${questionCount}][]" class="val-txt"><br>
+                            <input placeholder="Enter Legend" name="legend[${questionCount}][]" class="legend-txt">
+                            <input placeholder="Enter Value" name="value[${questionCount}][]" class="val-txt"><br>
+                            <input placeholder="Enter Legend" name="legend[${questionCount}][]" class="legend-txt">
+                            <input placeholder="Enter Value" name="value[${questionCount}][]" class="val-txt"><br>
+                            <input placeholder="Enter Legend" name="legend[${questionCount}][]" class="legend-txt">
+                            <input placeholder="Enter Value" name="value[${questionCount}][]" class="val-txt">
+                        </div>
+                        <button type="button" class="remove-question-btn">Remove</button>
+                    `;
 
-    function addGraduate() {
-    const button = document.getElementById('grad-btn');
+                document.getElementById('questionContainer').appendChild(newQuestionGroup);
 
-    const form = document.createElement('form');
-    form.action = "{{ route('addGraduate') }}";
-    form.method = "POST";
+                newQuestionGroup.querySelector('.remove-question-btn').addEventListener('click', function(){
+                    this.parentElement.remove();
+                });
+    });
+});
 
-    const csrfToken = document.createElement('input');
-    csrfToken.type = 'hidden';
-    csrfToken.name = '_token';
-    csrfToken.value = '{{ csrf_token() }}';
+            
 
-    const textarea = document.createElement('textarea');
-    textarea.placeholder = 'Enter school..';
-    textarea.name = 'textarea';
-    textarea.class = 'grad-textarea';
+                document.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('addNewQuestion').addEventListener('click', function() {
+                    const questionCount = document.querySelectorAll('.new-questionGroup').length;
 
-    const saveBtn = document.createElement('button');
-    saveBtn.innerText = 'Save';
-    saveBtn.type = 'submit';
-    saveBtn.class = 'grad-save-btn';
+                    const newQuestionGroup = document.createElement('div');
+                    newQuestionGroup.classList.add('new-questionGroup');
+                    newQuestionGroup.innerHTML = `
+                        <input placeholder="Enter Question" name="questions[${questionCount}][question]" class="question-txt"><br>
+                        <div class="val-leg-container">
+                            <input placeholder="Enter Legend" name="questions[${questionCount}][legend][]" class="legend-txt">
+                            <input placeholder="Enter Value" name="questions[${questionCount}][value][]" class="val-txt"><br>
+                            <input placeholder="Enter Legend" name="questions[${questionCount}][legend][]" class="legend-txt">
+                            <input placeholder="Enter Value" name="questions[${questionCount}][value][]" class="val-txt"><br>
+                            <input placeholder="Enter Legend" name="questions[${questionCount}][legend][]" class="legend-txt">
+                            <input placeholder="Enter Value" name="questions[${questionCount}][value][]" class="val-txt"><br>
+                            <input placeholder="Enter Legend" name="questions[${questionCount}][legend][]" class="legend-txt">
+                            <input placeholder="Enter Value" name="questions[${questionCount}][value][]" class="val-txt"><br>
+                            <input placeholder="Enter Legend" name="questions[${questionCount}][legend][]" class="legend-txt">
+                            <input placeholder="Enter Value" name="questions[${questionCount}][value][]" class="val-txt"><br>
+                        </div>
+                        <button type="button" class="remove-editedquestion-btn">Remove</button>
+                    `;
 
-    button.replaceWith(form);
-    form.appendChild(csrfToken);
-    form.appendChild(textarea);
-    form.appendChild(saveBtn);
-}
+                document.getElementById('newQuestionContainer').appendChild(newQuestionGroup);
 
-function addGraduateSecond() {
-    const button = document.getElementById('grad-btn2');
-    const pElement = document.getElementById('grad-text');
+                newQuestionGroup.querySelector('.remove-editedquestion-btn').addEventListener('click', function(){
+                    this.parentElement.remove();
+                });
+            });
 
-    const form = document.createElement('form');
-    form.action = "{{ route('addGraduate') }}";
-    form.method = "POST";
+        document.querySelectorAll('.remove-editedquestion-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                this.parentElement.remove();
+            });
+        });
 
-    const csrfToken = document.createElement('input');
-    csrfToken.type = 'hidden';
-    csrfToken.name = '_token';
-    csrfToken.value = '{{ csrf_token() }}';
+    document.getElementById('Edit').addEventListener('click', function() {
+        document.getElementById('default-questions').style.display = "none";
+        this.style.display = "none";
+        document.getElementById('editedQuestionForm').style.display = "block";
+    });
+});
 
-    const textarea = document.createElement('textarea');
-    textarea.placeholder = 'Enter updated school...';
-    textarea.name = 'textarea';
-    textarea.classList.add('grad-textarea');
-    textarea.value = pElement.textContent;
 
-    const saveBtn = document.createElement('button');
-    saveBtn.innerText = 'Save';
-    saveBtn.type = 'submit';
-    saveBtn.classList.add('grad-save-btn');
+                
 
-    form.appendChild(csrfToken);
-    form.appendChild(textarea);
-    form.appendChild(saveBtn);
-
-    if (pElement) {
-        pElement.replaceWith(form);
-    } else {
-        button.replaceWith(form);
-    }
-}
+        

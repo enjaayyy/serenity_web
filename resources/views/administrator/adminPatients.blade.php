@@ -24,7 +24,12 @@
                             <td>{{ $patients['name'] }}</td>
                             <td>{{ $patients['email'] }}</td>
                             <td>{{ $patients['number'] }}</td>
-                            <td>{{ $patients['condition'] }}</td>
+                            <td>@if(isset($patients['condition']) && is_array($patients['condition']))
+                                    @foreach($patients['condition'] as $condition)
+                                        {{ $condition }}
+                                    @endforeach 
+                                @endif
+                            </td>
                             <td>
                                 <form method="GET" action="{{ route('viewPatientDetails', $patients['id']) }}">
                                     @csrf
