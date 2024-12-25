@@ -70,6 +70,7 @@ body {
     width: 100%;
     padding-top: 50;
     z-index: 1000;
+    justify-content: space-between;
 }
 .home-logo {
     padding-top: 25px;
@@ -78,6 +79,7 @@ body {
 .function-btns {
     padding-top: 42px;
     padding-left: 35%;
+    margin-right: 2%;
 }
 .login-logo {
     height: 25px;
@@ -93,30 +95,42 @@ body {
     height: 100%;
     display: block;
     object-fit: cover;
+    filter: brightness(0.8);
 }
 .tagline-container {
-    top: 5%;
-    left: 4%;
+    top:10%;
+    padding: 0;
+    margin: 0;
     position: absolute;
+    width: 100%;
     z-index: 2;
+    justify-content: center;
 }
 .tagline {
     text-align: center;
-    font-size: 100px;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bolder;
+    font-size: 6vw;
+    margin-top: 15vh;
+    margin-bottom: 20px;
 }
 .tag-descrip {
-    padding-left: 32%;
+    text-align: center;
     color: White;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-size: 20px;
     font-weight: 100;
 }
+.tag-descrip-container{
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
 .sign-container {
     display: flex;
-    padding-left: 42%;
+    justify-content: center;
+    margin-top: 40px;
 }
 
 .sign-up {
