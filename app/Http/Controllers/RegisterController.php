@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Kreait\Firebase\Contract\Database;
 use Kreait\Firebase\Contract\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
@@ -21,9 +22,10 @@ class RegisterController extends Controller
         $doctorData = [
             'doctorFullname' => $request->fullname,
             'doctorEmail' => $request->email,
-            'doctorPass' => $request->password,
+            'doctorPass' => Hash::make($request->password),
         ];
         $register = $this->database->getReference($this->tablename)->push($doctorData);
+        
         if($register){
             $key = $register->getKey();
             $request->session()->put('register_key', $key);
@@ -35,9 +37,9 @@ class RegisterController extends Controller
     }
 
     public function registerDetails(Request $request){
-        
+
         $key = $request->session()->get('register_key');
-        
+
         if($request->hasFile('verifile')) {
             $files = $request->file('verifile');
             $links = [];
@@ -66,7 +68,7 @@ class RegisterController extends Controller
                         'age' => $request->age,
                         'medicalLicencse' => $request->license,
                         'workAddress' => $request->address,
-                        'specialization' => $request->spec,
+                        'specialization' => $request->input('spec', []),
                         'credentials' => $links,
                             ];
                             
