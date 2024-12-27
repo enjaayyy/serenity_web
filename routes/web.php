@@ -16,6 +16,8 @@ Route::get('/login', function () {return view('login');})->name('login');
 Route::post('/login', [LoginController::class, 'final'])->name('logins');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
+Route::get('/AdminDashboard', function () {return view('administrator.adminSidebar');})->name('adminSidebar');
+
 Route::get('/admindash', [AdminController::class, 'viewDash'])->name('adminDashboard');
 Route::post('/admindash', [AdminController::class, 'uploadvid'])->name('upload');
 

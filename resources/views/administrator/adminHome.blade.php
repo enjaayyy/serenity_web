@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
     <link rel="stylesheet" href="{{ asset('css/administrator/admindash.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/administrator/sidebar.css') }}">
     @stack('styles')
 
     <script>

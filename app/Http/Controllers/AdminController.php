@@ -537,7 +537,7 @@ class AdminController extends Controller
                     ];
                 }
             }
-            return view('administrator.adminHome', ['videos' => $videos]);
+            return view('administrator.adminSidebar', ['videos' => $videos]);
         }
         else{
             return redirect()->route('login');
@@ -568,6 +568,11 @@ class AdminController extends Controller
         else{
             return redirect()->route('login');
         }
+    }
+
+
+    public function viewIndex(){
+
     }
 }
  

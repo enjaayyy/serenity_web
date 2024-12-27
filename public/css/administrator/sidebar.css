@@ -1,9 +1,70 @@
 body {
     margin: 0;
     padding: 0;
+    background-color: #F7F7F7;
 }
 
+
 .sideBar {
+    height: 94%;
+    width: 18%;
+    position: fixed;
+    background-color:#20C073;
+    margin-top: 1%;
+    margin-left: 1%;
+    border-radius: 15px;
+}
+
+.sidebar-content .user-txt{
+    text-align: center;
+    margin-top: 5%;
+    color: white;
+    font-size: 20px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.avatar-container{
+    width: 100%;
+    text-align: center;
+    height: auto;
+    margin-top: 15%;
+    color: white;
+    font-size: 20px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dashboard-btn,
+.doctor-btn,
+.patient-btn,
+.request-btn,
+.reports-btn,
+.archive-btn,
+.logout-btn{
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    width: 100%;
+    color:  white;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    /* border: none; */
+}
+
+
+
+.dashboard-btn:hover,
+.doctor-btn:hover,
+.patient-btn:hover,
+.request-btn:hover,
+.reports-btn:hover,
+.archive-btn:hover,
+.logout-btn:hover{
+    justify-content: left;
+    padding-left: 15%;
+}
+
+/* .sideBar {
     height: 100%;
     width: 18%;
     border-right: 1px solid lightgray;
@@ -112,4 +173,4 @@ body {
     display: flex;
     height: 30px;
     margin-top: 40px;
- }
+ } */
