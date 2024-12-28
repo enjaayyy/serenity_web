@@ -1,0 +1,109 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #F7F7F7;
+}
+
+
+.sideBar {
+    height: 94%;
+    width: 18%;
+    position: fixed;
+    background-color:#20C073;
+    margin-top: 1%;
+    margin-left: 1%;
+    border-radius: 15px;
+}
+
+.sidebar-content .user-txt{
+    text-align: center;
+    margin-top: 5%;
+    color: white;
+    font-size: 20px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.avatar-container{
+    width: 100%;
+    text-align: center;
+    height: 20%;
+    margin-top: 15%;
+    color: white;
+    font-size: 20px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+
+.dashboard-btn,
+.doctor-btn,
+.patient-btn,
+.request-btn,
+.reports-btn,
+.archive-btn,
+.logout-btn{
+    justify-content: left;
+    display: flex;
+    height: 8vh;
+    width: 75%;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    border:none;
+    color:  white;
+    margin-left: auto;
+    background-color: #20C073;
+    transition: background-color 0.5s ease, width 0.5s ease, border-radius 0.5s ease;
+}
+
+.dashboard-btn p,
+.doctor-btn p,
+.patient-btn p,
+.request-btn p,
+.reports-btn p,
+.archive-btn p,
+.logout-btn p{
+    font-size: 120%;
+    margin-left: 5px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+
+.dashboard-btn:hover,
+.doctor-btn:hover,
+.patient-btn:hover,
+.request-btn:hover,
+.reports-btn:hover,
+.archive-btn:hover,
+.logout-btn:hover{
+    justify-content: left;
+    padding-left: 5%;
+    color:#20C073;
+    background-color: #F7F7F7;
+    width: 85%;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.icon1,.icon2,.icon3,.icon4, .icon5, .icon6, .icon7{
+    width: 25%;
+    height: 25%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.dashboard-btn:hover .icon1,
+.doctor-btn:hover .icon2,
+.patient-btn:hover .icon3,
+.request-btn:hover .icon4,
+.reports-btn:hover .icon5,
+.archive-btn:hover .icon6,
+.logout-btn:hover .icon7{
+    filter: invert(51%) sepia(97%) saturate(355%) hue-rotate(99deg) brightness(98%) contrast(93%);
+   
+}
+
+.content{
+    height: 100%;
+    width: 80%;
+    margin-left: 20%;
+}

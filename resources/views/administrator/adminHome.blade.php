@@ -1,37 +1,35 @@
-<!DOCTYPE html>
-<html>
+@extends('index')
+
+@section('title', 'Admin Dashboard')
+
+@section('content')
     <link rel="stylesheet" href="{{ asset('css/administrator/admindash.css') }}">
-    @stack('styles')
-
-    <script>
-        function openwindow(){
-            document.getElementById('card').style.display = 'block';
-        }
-
-        function closewindow(){
-            document.getElementById('card').style.display = 'none';
-        }
-    </script>
-    <head>
-</head>
-<body>
     <div class = "container">
-        @include('administrator.adminSidebar')
-        <div class="empty"></div>
-            <div class = "content">
+            <div class = "main-content">
                 <div class="admin-header">
-                    <img src = "{{ asset('assets/admin-dash.png') }}" class="dashboard">  
-                    <p class="dash-text">
-                        Dashboard
-                    </p>
-                    </div>
-
+                        <p class="dash-text">Dashboard</p>
+                        <img src="{{asset('assets/logo-w-text.svg') }}" class="page-logo">
+                </div>
                     <div class = "upload container">
                         <p class="upld-txt">Upload Videos</p>
                         <div class = "vid-list">
                             <div class ="vids">
                                 <button class = "upld-btn" onclick="openwindow()"><img src="{{ asset('assets/plus.png') }}"></button>
                             </div>
+                            @if(isset($videos) && is_array($videos))
+                                @foreach($videos as $data)
+                                    @if(isset($data['video']))
+                                        <div class="vids">
+                                            <div class="vid-details">
+                                                <video width="200" height="200" controls>
+                                                <source src="{{ $data['video'] }}" type="video/mp4">
+                                                </video>
+                                                <p>{{ $data['title'] }}</p>
+                                            </div>
+                                        </div>           
+                                    @endif
+                                @endforeach
+                            @endif
                             @if(isset($videos) && is_array($videos))
                                 @foreach($videos as $data)
                                     @if(isset($data['video']))
@@ -65,7 +63,14 @@
                         </div>
                     </div>
             </div>
-            
-        </div>
-</body>
-    </html>
+    </div>
+    <script>
+        function openwindow(){
+            document.getElementById('card').style.display = 'block';
+        }
+
+        function closewindow(){
+            document.getElementById('card').style.display = 'none';
+        }
+    </script>
+@endsection

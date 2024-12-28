@@ -537,7 +537,7 @@ class AdminController extends Controller
                     ];
                 }
             }
-            return view('administrator.adminSidebar', ['videos' => $videos]);
+            return view('administrator.adminHome', ['videos' => $videos]);
         }
         else{
             return redirect()->route('login');

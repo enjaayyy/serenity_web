@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="{{ asset('css/administrator/sidebar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
 </head>
 <body>
     <div class="page-container">
@@ -13,6 +13,7 @@
             <div>
                 </div>
                 <div class = "sidebar-content">
+                    @if(session('user') === 'admin')
                     <div class="avatar-container">
                         <img src ="{{ asset('assets/avatar.png') }}" class="avatar">
                         <p class="name">Administrator</p>
@@ -52,31 +53,83 @@
                         </div>
                             <div class="reports-container">
                                 <button class="reports-btn">
-                                <img src ="{{ asset('assets/report-icon.svg') }}" class="icon7">
-                                <p class="icon7-txt">Reports</p>
+                                <img src ="{{ asset('assets/report-icon.svg') }}" class="icon5">
+                                <p class="icon5-txt">Reports</p>
                                 </button>
                             </div>    
                         <div class="archive-container">
                             <a href="{{ route('archive') }}" style="text-decoration: none;">
                                 <button class="archive-btn">
-                                <img src ="{{ asset('assets/archive.png') }}" class="icon6">
+                                <img src ="{{ asset('assets/archive-icon.svg') }}" class="icon6">
                                 <p class="icon6-txt">Archive</p>
                                 </button>
                             </a>
                         </div> 
+                        @elseif(session('user') === 'doctor')
+                        <div class="main-info">
+                            <div class="profile-pics">
+                                @if(empty($doctorData['pic']))
+                                <img src ="{{ asset('assets/avatar.png') }}" class="default-pp">
+                                @else
+                                <img src ="{{ $doctorData['pic'] }}">
+                                @endif
+                            </div>
+                            <p class="doc-name">{{ $doctorData['name'] }}</p>
+                            <p class="doc-job">{{ $doctorData['prof'] }}</p>
+                        </div>
+                        <div class="dashboard-tab-container">
+                            <a href="{{ route('docDashboard') }}" style="text-decoration: none;">
+                                    <button class="dashboard-btn">
+                                    <img src="{{ asset('assets/dashboard-icon.svg') }}" class="icon1">
+                                    <p>Dashboard</p>
+                                </button>
+                            </a>
+                        </div>
+                        <a href="{{ route('docProfile') }}" style="text-decoration: none;">
+                            <div class="profile">
+                                <button class="profile-btn">
+                                <img src="{{ asset('assets/profile-logo.png') }}" class="profile-logo">
+                                <p>Profile</p>
+                                </button> 
+                            </div>
+                        </a>
+                        
+                        <a href="{{ route('viewPatients') }}" style="text-decoration: none;">
+                            <div class="patients">
+                                <button class="patient-btn">
+                                <img src="{{ asset('assets/patientlogo.png') }}" class="patients-logo">
+                                <p>My Patients</p>
+                                </button>
+                            </div>
+                        </a>
+                        <a href="{{ route('showRequests') }}" style="text-decoration: none;">
+                        <div class="requests">
+                            <button class="requests-btn">
+                            <img src="{{ asset('assets/patientlogo.png') }}" class="requests-logo">
+                            <p>Requests</p>
+                            </button>
+                        </div>
+                        </a>
+                        <div class="appointments">
+                            <button class="appointment-btn">
+                            <img src="{{ asset('assets/calendar.png') }}" class="appointment-logo">
+                            <p>Appointments</p>
+                            </button>
+                        </div>
+                        @endif
                         <div class="logout-container">
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
                                 <button class="logout-btn">
-                                    <img src ="{{ asset('assets/logout.png') }}" class="icon5">
-                                    <p class="icon5-txt">Log out</p>
+                                    <img src ="{{ asset('assets/logout-icon.svg') }}" class="icon7">
+                                    <p class="icon7-txt">Log out</p>
                                 </button>
                             </form>  
                         </div>  
                 </div>
         </div>
         <div class="content">
-            {{-- @yield('content') --}}
+            @yield('content')
         </div>
     </div>
     
