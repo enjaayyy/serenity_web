@@ -29,7 +29,7 @@ body {
     margin-top: 15%;
 }
 
-.avatar-container .doc-name{
+.avatar-container .doc-name, .avatar-container .name{
     font-size: 100%;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     color: white;

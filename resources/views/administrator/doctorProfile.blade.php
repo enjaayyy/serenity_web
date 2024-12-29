@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" href="{{ asset('css/administrator/sidebar.css') }}">
+@extends('index')
+
+@section('title', 'admin_doctor_profile')
+
+@section('content')
         <link rel="stylesheet" href="{{ asset('css/administrator/profile.css') }}">
-    </head>
-    <body>
-        @include('administrator.adminSidebar')
-        <div class="empty"></div>
-        <div class="content">
+        <div>
             <div class="list">
                 <p class="patient-header">Patients</p>
                 @if(!empty($patient) && is_array($patient))
@@ -79,6 +76,4 @@
                 </div>
                 
         </div>
-        
-    </body>
-</html>
+@endsection

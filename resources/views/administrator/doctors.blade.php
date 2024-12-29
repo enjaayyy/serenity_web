@@ -1,44 +1,53 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" href="{{ asset('css/administrator/sidebar.css') }}">
+@extends('index')
+
+@section('title', 'admin_doctor_view')
+
+@section('content')
         <link rel="stylesheet" href="{{ asset('css/administrator/admindoctor.css') }}">
-    </head>
-    <body>
-        <div class="page-container">
-             @include('administrator/adminSidebar')
-        <div class="empty"></div>
-        <div class="content">
-            <p class="header">Doctors</p>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Profession</th>
-                        <th>Specialization</th>
-                        <th> </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($details as $doctors)
-                    <tr>
-                        <td>{{ $doctors['docname'] }}</td>
-                        <td>{{ $doctors['docemail'] }}</td>
-                        <td>{{ $doctors['docprofession'] }}</td>
-                        <td>{{ $doctors['docspecialization'] }}</td>
-                        <td>
-                            <form action="{{ route('viewdoctor', $doctors['id']) }}" method="GET">
-                                <button class="btn" type="submit">view</button>
-                            </form>
-                            
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+        <div>
+            <div class="container">
+                <div class="admin-header">
+                        <p class="dash-text">Doctors</p>
+                        <img src="{{asset('assets/logo-w-text.svg') }}" class="page-logo">
+                </div>
+                <div class="search-container">
+                    <div class="input-container">
+                        <img src="{{asset('assets/search-icon.svg') }}">
+                        <input type="text" placeholder="Search Doctor" class="search-input"></input>
+                        <img src="{{asset('assets/filter-icon.svg') }}">
+                    </div>
+                    <p>Number of patients</p>
+                </div>
+                <table class="table">
+                    <thead class="table-head">
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Profession</th>
+                            <th>Specialization</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($details as $doctors)
+                        <tr>
+                                <td>{{ $doctors['docname'] }}</td>
+                                <td>{{ $doctors['docemail'] }}</td>
+                                <td>{{ $doctors['docprofession'] }}</td>
+                                <td>{{ $doctors['docspecialization'] }}</td>
+                                <td >
+                                    <form class="view-btn" action="{{ route('viewdoctor', $doctors['id']) }}" method="GET">
+                                        <button class="btn" type="submit">
+                                            <img src="{{ asset('assets/view-icon.svg')}}">
+                                        </button>
+                                    </form>
+                                    
+                                </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
-        </div>
-       
-    </body>
-</html>
+        <script src="{{ asset('js/administrator/search.js') }}"></script>
+@endsection
