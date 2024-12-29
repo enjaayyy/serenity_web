@@ -67,15 +67,15 @@
                         </div> 
                         @elseif(session('user') === 'doctor')
                         <div class="main-info">
-                            <div class="profile-pics">
+                            <div class="avatar-container">
                                 @if(empty($doctorData['pic']))
                                 <img src ="{{ asset('assets/avatar.png') }}" class="default-pp">
                                 @else
                                 <img src ="{{ $doctorData['pic'] }}">
                                 @endif
+                                <p class="doc-name">{{ $doctorData['name'] }}</p>
+                                <p class="doc-job">{{ $doctorData['prof'] }}</p>
                             </div>
-                            <p class="doc-name">{{ $doctorData['name'] }}</p>
-                            <p class="doc-job">{{ $doctorData['prof'] }}</p>
                         </div>
                         <div class="dashboard-tab-container">
                             <a href="{{ route('docDashboard') }}" style="text-decoration: none;">
@@ -85,34 +85,33 @@
                                 </button>
                             </a>
                         </div>
-                        <a href="{{ route('docProfile') }}" style="text-decoration: none;">
-                            <div class="profile">
-                                <button class="profile-btn">
-                                <img src="{{ asset('assets/profile-logo.png') }}" class="profile-logo">
-                                <p>Profile</p>
-                                </button> 
-                            </div>
-                        </a>
-                        
-                        <a href="{{ route('viewPatients') }}" style="text-decoration: none;">
-                            <div class="patients">
-                                <button class="patient-btn">
-                                <img src="{{ asset('assets/patientlogo.png') }}" class="patients-logo">
-                                <p>My Patients</p>
-                                </button>
-                            </div>
-                        </a>
-                        <a href="{{ route('showRequests') }}" style="text-decoration: none;">
-                        <div class="requests">
-                            <button class="requests-btn">
-                            <img src="{{ asset('assets/patientlogo.png') }}" class="requests-logo">
-                            <p>Requests</p>
-                            </button>
+                        <div class="profile-tab-container">
+                            <a href="{{ route('docProfile') }}" style="text-decoration: none;">
+                                    <button class="profile-btn">
+                                    <img src="{{ asset('assets/account-icon.svg') }}" class="icon8">
+                                    <p>Profile</p>
+                                    </button> 
+                            </a>
                         </div>
-                        </a>
+                        <div class="patients-tab-container">
+                            <a href="{{ route('viewPatients') }}" style="text-decoration: none;">
+                                    <button class="patient-btn">
+                                    <img src="{{ asset('assets/patient-icon.svg') }}" class="icon3">
+                                    <p>My Patients</p>
+                                    </button>
+                            </a>
+                        </div>
+                        <div class="requests-tab-container">
+                            <a href="{{ route('showRequests') }}" style="text-decoration: none;">
+                                <button class="request-btn">
+                                <img src="{{ asset('assets/requests-icon.svg') }}" class="icon4">
+                                <p>Requests</p>
+                                </button>
+                            </a>
+                        </div>
                         <div class="appointments">
                             <button class="appointment-btn">
-                            <img src="{{ asset('assets/calendar.png') }}" class="appointment-logo">
+                            <img src="{{ asset('assets/calendar-icon.svg') }}" class="icon9">
                             <p>Appointments</p>
                             </button>
                         </div>

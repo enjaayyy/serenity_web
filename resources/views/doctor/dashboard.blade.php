@@ -6,7 +6,7 @@
         {{-- <link rel="stylesheet" href="{{ asset('css/doctor/dashboard.css') }}"> --}}
         <div class="container">
             <div class="empty"> </div>
-            <div class="content">
+            <div class="dash-content">
                 Next Update :>
             </div>
             

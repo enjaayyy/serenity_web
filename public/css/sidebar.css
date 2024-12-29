@@ -4,7 +4,6 @@ body {
     background-color: #F7F7F7;
 }
 
-
 .sideBar {
     height: 94%;
     width: 18%;
@@ -28,9 +27,23 @@ body {
     text-align: center;
     height: 20%;
     margin-top: 15%;
-    color: white;
-    font-size: 20px;
+}
+
+.avatar-container .doc-name{
+    font-size: 100%;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+.avatar-container .doc-job{
+    margin-top: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    font-weight: lighter;
+    font-size: 15px;
+
 }
 
 
@@ -41,7 +54,9 @@ body {
 .request-btn,
 .reports-btn,
 .archive-btn,
-.logout-btn{
+.logout-btn,
+.profile-btn,
+.appointment-btn{
     justify-content: left;
     display: flex;
     height: 8vh;
@@ -60,7 +75,9 @@ body {
 .request-btn p,
 .reports-btn p,
 .archive-btn p,
-.logout-btn p{
+.logout-btn p,
+.profile-btn p,
+.appointment-btn p{
     font-size: 120%;
     margin-left: 5px;
     margin-top: auto;
@@ -74,7 +91,9 @@ body {
 .request-btn:hover,
 .reports-btn:hover,
 .archive-btn:hover,
-.logout-btn:hover{
+.logout-btn:hover,
+.profile-btn:hover,
+.appointment-btn:hover{
     justify-content: left;
     padding-left: 5%;
     color:#20C073;
@@ -84,7 +103,15 @@ body {
     border-bottom-left-radius: 15px;
 }
 
-.icon1,.icon2,.icon3,.icon4, .icon5, .icon6, .icon7{
+.icon1,
+.icon2,
+.icon3,
+.icon4,
+.icon5,
+.icon6,
+.icon7,
+.icon8,
+.icon9{
     width: 25%;
     height: 25%;
     margin-top: auto;
@@ -97,7 +124,9 @@ body {
 .request-btn:hover .icon4,
 .reports-btn:hover .icon5,
 .archive-btn:hover .icon6,
-.logout-btn:hover .icon7{
+.logout-btn:hover .icon7,
+.profile-btn:hover .icon8,
+.appointment-btn:hover .icon9{
     filter: invert(51%) sepia(97%) saturate(355%) hue-rotate(99deg) brightness(98%) contrast(93%);
    
 }
