@@ -1,16 +1,24 @@
-<!DOCTYPE html> 
-<html>
-    <head>      
-        <link rel="stylesheet" href="{{ asset('css/administrator/sidebar.css') }}">
+@extends('index')
+
+@section('title', 'admin_archives')
+
+@section('content')
         <link rel="stylesheet" href="{{ asset('css/administrator/archive.css') }}">
-    </head>
-    <body>
-        @include('administrator/adminSidebar')
-        <div class="empty"></div>
-        <div class="content">
-            <p class="header">Deactivated Accounts</p>
+        <div class="container">
+            <div class="admin-header">
+                <p class="dash-text">Archive</p>
+                <img src="{{asset('assets/logo-w-text.svg') }}" class="page-logo">
+            </div>
+            <div class="search-container">
+                <div class="input-container">
+                    <img src="{{asset('assets/search-icon.svg') }}">
+                    <input type="text" placeholder="Search User" class="search-input"></input>
+                    <img src="{{asset('assets/filter-icon.svg') }}">
+                </div>
+                <p>Number of Users</p>
+            </div>
             <table class="table">
-                   <thead>
+                   <thead class="table-head">
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
@@ -20,6 +28,11 @@
                     </tr>
                    </thead>
                    <tbody>
+                    @if(empty($details))
+                    <tr class="no-users-row">
+                        <td colspan="5" class="no-users">No Users Found</td>
+                    </tr>
+                    @else
                        @foreach($details as $doctors)
                             <tr>
                                 <td>{{ $doctors['name'] }}</td>
@@ -33,11 +46,10 @@
                                     </form>
                                 </td>
                             </tr>
-                            @endforeach
+                        @endforeach
+                    @endif
                    </tbody>
             </table>
         </div>
-        
-    </body>
-</html>
-
+        {{-- <script src="{{ asset('js/utilities/search.js') }}"></script> --}}
+@endsection

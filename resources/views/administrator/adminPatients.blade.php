@@ -1,16 +1,24 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" href="{{ asset('css/administrator/sidebar.css') }}">
+@extends('index')
+
+@section('title', 'admin_patient_list')
+
+@section('content')
         <link rel="stylesheet" href="{{ asset('css/administrator/adminPatients.css') }}">
-    </head>
-    <body>
-        @include('administrator.adminSidebar')
-        <div class="empty"></div>
-        <div class="content">
-            <p class="header">Patients</p>
+        <div class="container">
+            <div class="admin-header">
+                <p class="dash-text">Patients</p>
+                <img src="{{asset('assets/logo-w-text.svg') }}" class="page-logo">
+            </div>
+            <div class="search-container">
+                <div class="input-container">
+                    <img src="{{asset('assets/search-icon.svg') }}">
+                    <input type="text" placeholder="Search Doctor" class="search-input"></input>
+                    <img src="{{asset('assets/filter-icon.svg') }}">
+                </div>
+                <p>Number of Patients</p>
+            </div>
             <table class="table">
-                <thead>
+                <thead class="table-head">
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
@@ -31,9 +39,11 @@
                                 @endif
                             </td>
                             <td>
-                                <form method="GET" action="{{ route('viewPatientDetails', $patients['id']) }}">
+                                <form class="view-btn" method="GET" action="{{ route('viewPatientDetails', $patients['id']) }}">
                                     @csrf
-                                    <button class="btn" type="submit">View</button>
+                                    <button class="btn" type="submit">
+                                        <img src="{{ asset('assets/view-icon.svg')}}">
+                                    </button>
                                 </form>
                             </td>
                         </tr>
@@ -41,5 +51,5 @@
                 </tbody>
             </table>
         </div>
-    </body>
-</html>
+        <script src="{{ asset('js/utilities/search.js') }}"></script>
+@endsection

@@ -56,6 +56,13 @@ body{
     background-color: white;
 }
 
+.input-container img{
+    height: 40px;
+    width: 40px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
 .table{
     background-color: white;
     border-radius: 15px;
@@ -83,7 +90,7 @@ tbody tr{
     transition: background-color 0.5s ease, transform 0.5s ease;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
-tbody tr:hover{
+tbody tr:hover:not(.no-users-row){
     background-color: #20C073;
     transform: scale(1.05);
     color: white;
@@ -103,6 +110,11 @@ tbody tr:hover .btn{
     filter: brightness(0%) invert(100%);
 
 }
+.no-users{
+    text-align: center;
+    color: #ADADAD;
+}
+
 
 
 

@@ -1,49 +1,73 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" href="{{ asset('css/administrator/sidebar.css') }}">
+@extends('index')
+
+@section('title', 'admin_request_details')
+
+@section('content')
         <link rel="stylesheet" href="{{ asset('css/administrator/adminrequestdetails.css') }}">
-    </head>
-    <body>
-        @include('administrator/adminSidebar')
-        <div class="empty"></div>
-        <div class="content">
-            <p class="header">Doctor Profile</p>
+        <div class="container">
+            <div class="admin-header">
+                <p class="dash-text">Doctor Profile</p>
+                <img src="{{asset('assets/logo-w-text.svg') }}" class="page-logo">
+            </div>
             <div class="main-info"> 
-                <div class="info">      
-                    <img src = "{{ asset('assets/avatar.png') }}" class="avatar1">
-                    <p class="user-name">{{ $details['name'] }}</p>
-                    <p class="prof">{{ $details['profession'] }}</p>
-                </div>
-                <div class="info2">
-                    <div class="detail-header1">
-                    <p class="spec-head">Specialization</p>
-                    <p class="sex-head">Sex</p>
-                    <p class="age-head">Age</p>
-                </div>
-                <div class="content1">
-                    <p class="spec-ctnt">{{ $details['specialization'] }}</p>
-                    <p class="gender-ctnt">{{ $details['gender'] }}</p>
-                    <p class="age-ctnt">{{ $details['age'] }}</p>
-                </div>
-                <div class="detail-header2">
-                    <p class="address-head">Work Address</p>
-                    <p class="med-head">Medical License</p>
-                </div>
-                <div class="content2">
-                    <p class="add-ctnt">{{ $details['address'] }}</p>   
-                    <p class="med-ctnt">{{ $details['license'] }}</p>
-                </div>          
-                    <div class="buttons">
-                    <form action = "{{ route('approve', ['id' => $details['id']]) }}" method="POST">
-                        @csrf
-                           <button class="approve" type="submit" name="approve">Approve</button>
-                    </form>
-                    <button class="delete">Delete</button>
+                <div class="request-main-data">
+                    <div class="info1">      
+                        <img src = "{{ asset('assets/avatar.png') }}" class="avatar1">
+                        <p class="user-name">{{ $details['name'] }}</p>
+                        <p class="prof">{{ $details['profession'] }}</p>
+                    </div>
+                    <div class="more-header-details">
+                        <div class="info2">
+                            <div class="custom-box">
+                                <p class="category">Gender</p>
+                                <p class="gender-ctnt">{{ $details['gender'] }}</p>
+                            </div>
+                            <div class="custom1-box">
+                                <p class="category">Age</p>
+                                <p class="age-ctnt">{{ $details['age'] }}</p>
+                            </div>
+                            <div class="custom2-box">
+                                <p class="category">Years of Service</p>
+                                <p>{{ $details['years']}}</p>
+                            </div>
+                            <div class="custom2-box">
+                                <p class="category">Medical License</p>
+                                <p class="med-ctnt">{{ $details['license'] }}</p>
+                            </div>
+                            <div class="custom2-box">
+                                <p class="category">Work Address</p>
+                                <p class="add-ctnt">{{ $details['address'] }}</p>
+                            </div>
+                            <div class="custom2-box">
+                                <p class="category">Email</p>
+                                <p>{{ $details['email']}}</p>
+                            </div>
+                        </div>
+                        <div class="content1">
+                             <div>
+                                <p class="category">Specialization: </p>
+                                    <div class="bottom-box">
+                                        <div class="spec-box">
+                                            @if(isset($details['specialization']) && is_array($details['specialization']))
+                                                @foreach($details['specialization'] as $spec)
+                                                    <p>{{$spec}}&nbsp;&nbsp;</p>
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                        <div class="buttons">
+                                            <form action = "{{ route('approve', ['id' => $details['id']]) }}" method="POST">
+                                                @csrf
+                                                   <button class="approve" type="submit" name="approve">Approve</button>
+                                            </form>
+                                            {{-- <button class="delete">Delete</button> --}}
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="verifiles">
+            <div class="verifiles">
                 <p class="sub-header">Credentials</p>
                 <div class="files">
                     @if(isset($details['credentials']) && is_array($details['credentials']))
@@ -58,6 +82,8 @@
                 </div>
             </div>
             <button class="verify" onclick = "openLink()">Verify</button>
+        </div>
+            
 
             <script>
                 function openLink() {
@@ -65,5 +91,4 @@
                     window.open(url);
                 }
             </script>
-    </body>
-</html>
+  @endsection
