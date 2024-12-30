@@ -3,65 +3,74 @@
 @section('title', 'admin_request_details')
 
 @section('content')
-        <link rel="stylesheet" href="{{ asset('css/administrator/adminrequestdetails.css') }}">
+<link rel="stylesheet" href="{{ asset('css/administrator/adminrequestdetails.css') }}">
+    <div class="container">
+        <div class="admin-header">
+            <p class="dash-text">Doctor Profile</p>
+            <img src="{{asset('assets/logo-w-text.svg') }}" class="page-logo">
+        </div>
+    </div>
+       
+  @endsection
+
+   {{-- 
         <div class="container">
-            <div class="admin-header">
-                <p class="dash-text">Doctor Profile</p>
-                <img src="{{asset('assets/logo-w-text.svg') }}" class="page-logo">
-            </div>
+            
             <div class="main-info"> 
                 <div class="request-main-data">
-                    <div class="info1">      
+                    <div class="doctor-avatar-container">      
                         <img src = "{{ asset('assets/avatar.png') }}" class="avatar1">
-                        <p class="user-name">{{ $details['name'] }}</p>
-                        <p class="prof">{{ $details['profession'] }}</p>
                     </div>
                     <div class="more-header-details">
-                        <div class="info2">
-                            <div class="custom-box">
-                                <p class="category">Gender</p>
-                                <p class="gender-ctnt">{{ $details['gender'] }}</p>
-                            </div>
-                            <div class="custom1-box">
-                                <p class="category">Age</p>
-                                <p class="age-ctnt">{{ $details['age'] }}</p>
-                            </div>
-                            <div class="custom2-box">
-                                <p class="category">Years of Service</p>
-                                <p>{{ $details['years']}}</p>
-                            </div>
-                            <div class="custom2-box">
-                                <p class="category">Medical License</p>
-                                <p class="med-ctnt">{{ $details['license'] }}</p>
-                            </div>
-                            <div class="custom2-box">
-                                <p class="category">Work Address</p>
-                                <p class="add-ctnt">{{ $details['address'] }}</p>
-                            </div>
-                            <div class="custom2-box">
-                                <p class="category">Email</p>
-                                <p>{{ $details['email']}}</p>
+                        <div class="info1">
+                            <p class="user-name">{{ $details['name'] }}</p>
+                            <p class="prof">{{ $details['profession'] }}</p>
+                            <div>
+                                <form class="buttons" action = "{{ route('approve', ['id' => $details['id']]) }}" method="POST">
+                                    @csrf
+                                        <button class="approve" type="submit" name="approve">Approve</button>
+                                        <button class="delete">Delete</button>
+                                </form>
                             </div>
                         </div>
-                        <div class="content1">
-                             <div>
-                                <p class="category">Specialization: </p>
-                                    <div class="bottom-box">
-                                        <div class="spec-box">
-                                            @if(isset($details['specialization']) && is_array($details['specialization']))
-                                                @foreach($details['specialization'] as $spec)
-                                                    <p>{{$spec}}&nbsp;&nbsp;</p>
-                                                @endforeach
-                                            @endif
-                                        </div>
-                                        <div class="buttons">
-                                            <form action = "{{ route('approve', ['id' => $details['id']]) }}" method="POST">
-                                                @csrf
-                                                   <button class="approve" type="submit" name="approve">Approve</button>
-                                            </form>
-                                            {{-- <button class="delete">Delete</button> --}}
-                                        </div>
+                        <div class="info2">
+                            <div class="info2-box1">
+                                <img src="{{ asset('assets/email-icon.svg')}}">
+                                <p>{{ $details['email']}}</p>
+                            </div>
+                            <div class="info2-box2">
+                                <img src="{{ asset('assets/address-icon.svg')}}">
+                                <p>{{ $details['address']}}</p>
+                            </div>
+                        </div>
+                        <div class="info3">
+                                <div class="custom-box-3">
+                                    <div class="spec-box">
+                                        @if(isset($details['specialization']) && is_array($details['specialization']))
+                                            @foreach($details['specialization'] as $spec)
+                                            <div>
+                                                <p >{{$spec}}</p>
+                                            </div>
+                                            @endforeach
+                                        @endif
                                     </div>
+                                    <p class="category">Specialization </p>   
+                                </div>
+                            <div class="custom-box-3">
+                                <p class="ctnt">{{ $details['gender'] }}</p>
+                                <p class="category">Gender</p>
+                            </div>
+                            <div class="custom-box-3">
+                                <p class="ctnt">{{ $details['years']}}</p>
+                                <p class="category">Years of Service</p>
+                            </div>
+                            <div class="custom-box-3">
+                                <p class="ctnt">{{ $details['age'] }}</p>
+                                <p class="category">Age</p>
+                            </div>
+                            <div class="custom-box-3">
+                                <p class="ctnt">{{ $details['license'] }}</p>
+                                <p class="category">Medical License</p>
                             </div>
                         </div>
                     </div>
@@ -81,7 +90,9 @@
                   @endif
                 </div>
             </div>
-            <button class="verify" onclick = "openLink()">Verify</button>
+            <div class="verify">
+                <button  onclick = "openLink()">Verify</button>
+            </div>
         </div>
             
 
@@ -90,5 +101,4 @@
                     const url = 'https://online.prc.gov.ph/Verification';
                     window.open(url);
                 }
-            </script>
-  @endsection
+            </script> --}}
