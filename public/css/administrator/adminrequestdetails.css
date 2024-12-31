@@ -3,22 +3,170 @@ body{
     margin: 0;
 }
 
-.container{
-    height: 100%;
-    width: 98%;
-}
-
-.admin-header{
+.main-content{
+    background-color: white;
+    border-radius: 15px;   
+    width: 78vw;
+    height: 83vh;
     display: flex;
-    padding: 0;
-    justify-content: space-between;
-    padding-top: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 2%;
+    position: absolute;
+
 }
 
-.admin-header p{
-    font-size: 250%;
-    color:#004624;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    font-weight: bolder;
+.profile-details{
+    width: 50%;
+    height: 100%;
+    position: absolute;
+}
+
+.profile-pic-container{
+    padding-top: 3vh;
+    display: flex;
+    height: 20vh;
+    justify-content: center;
+    padding-top: 9%;
+    padding-bottom: 0px;
+}
+
+.age-yrs-gender-box{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.address-box,
+.email-box,
+.medical-box{
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.category {
+    color: #D9D9D9;
+    font-size: 15px;
+}
+
+.ctnt{
+    font-weight: bold;
+}
+.btn-container{
+    position: absolute;
+    bottom:0px;
+    background-color: transparent;
+    width: 100%;
+    height: 7%;
+}
+
+.buttons{
+    display: flex;
+    height: 100%;
+}
+
+.buttons button{
+    width: 33.4%;
+    border:none;
+    background-color: white;
+    transition: background-color 0.5s ease;
+}
+
+.approve:hover{
+    background-color: #20C073;
+    color: white;
+}
+
+.approve{
+    border-bottom-left-radius: 15px;
+}
+
+.delete:hover{
+    background-color: red;
+    color: white;
+}
+
+.verify:hover{
+    background-color: #49B2FF;
+    color: white;
+}
+
+.profile-pic-container img{
+    width: 10vh;
+    height: 10vh;
+}
+
+.profile-name-container{
+    margin-left: 2vw;
+}
+
+.user-name{
+    font-weight: bold;
+    font-size: 25px;
+    margin-bottom: 5px;
+    margin-top: 0px;
+}
+
+.prof{
+    font-weight: light;
+    font-size: 15px;
+    color: #20C073;
+    margin-top: 0px;
+}
+
+.spec-container{
+    display: flex;
+}
+
+.spec-container div{
+    border-radius: 15px;
+    border: 1px solid #49B2FF;
+    color: #49B2FF;
+    background-color: rgba(73, 178, 255, 0.5);;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 10px;
+    margin-right: 10px;
+    width: auto;
+}
+
+.profile-credentials{
+    position: absolute;
+    right: 0px;
+    width: 50%;
+    height: 100%;
+}
+
+.verifiles {
+    text-align: center;
+    height: 100%;
+}
+
+.image-display img{
+    width: 100%;
+    max-height: 76vh;
+    border-top-right-radius: 15px;
+}
+
+.image-btns{
     margin-top: 1%;
+    display: flex;
+    height: 7%;
+}
+.prev,
+.next{
+    width: 50%;
+    border:none;
+    background-color: white;
+    transition: background-color 0.5s ease;
+}
+
+.next{
+    border-bottom-right-radius: 15px;
+
+}
+.prev:hover,
+.next:hover{
+    background-color: gray;
+    color: white;
 }

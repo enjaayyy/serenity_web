@@ -9,6 +9,7 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\AgoraTokenController;
+use App\Http\Controllers\QuestionnaireController;
 
 
 Route::get('/', function () {return view('homepage');})->name('home');
@@ -23,7 +24,7 @@ Route::post('/admindash', [AdminController::class, 'uploadvid'])->name('upload')
 
 Route::get('/adminRequests', [AdminController::class, 'viewRequests'])->name('adminRequests');
 Route::get('/adminRequests/{id}', [AdminController::class, 'viewRequestDetails'])->name('adminRequestsDetails');
-Route::post('/adminRequests/{id}/approve', [AdminController::class, 'approve'])->name('approve');
+Route::post('/adminRequests/{id}/approve', [QuestionnaireController::class, 'approve'])->name('approve');
 
 Route::get('/adminDoctors', [AdminController::class, 'viewDocList'])->name('doctors');
 Route::get('/doctorDetails/{id}', [AdminController::class, 'viewdoctor'])->name('viewdoctor');
