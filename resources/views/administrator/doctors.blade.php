@@ -39,7 +39,13 @@
                                         <td>{{ $doctors['docname'] }}</td>
                                         <td>{{ $doctors['docemail'] }}</td>
                                         <td>{{ $doctors['docprofession'] }}</td>
-                                        <td>{{ $doctors['docspecialization'] }}</td>
+                                        <td>
+                                            @if(isset($doctors['docspecialization']) && is_array($doctors['docspecialization']))
+                                                @foreach($doctors['docspecialization'] as $spec)
+                                                    <p>{{$spec}}</p>
+                                                @endforeach
+                                            @endif
+                                        </td>
                                         <td >
                                             <form class="view-btn" action="{{ route('viewdoctor', $doctors['id']) }}" method="GET">
                                                 <button class="btn" type="submit">
