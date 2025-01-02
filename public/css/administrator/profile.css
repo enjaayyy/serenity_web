@@ -7,6 +7,8 @@ body {
     display: flex;
     height: 100%;
     width: 100%;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
     /* position: absolute; */
 }
 
@@ -14,6 +16,8 @@ body {
     width: 64%;
     height: auto;
     background-color: white;
+    border-radius: 15px;
+
 }
 
 .doctor-lists{
@@ -24,11 +28,25 @@ body {
 .patient-list{
     background-color: white;
     border-radius: 15px;
+    padding-top: 20px;
 }
 .profile-data-header{
     display: flex;
+    justify-content: center;
+    padding-top: 5vh;
+}
+.profile-pic-container{
+    text-align: center;
 }
 
-.patient-header{
-    margin-top: 0;
+.profile-name-container{
+    margin-left: 5%;
+}
+.user-name{
+    margin-bottom: 0px;
+}
+
+.user-name, 
+.prof{
+    margin-top: 0px;
 }

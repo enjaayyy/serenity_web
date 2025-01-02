@@ -26,45 +26,47 @@
                                     </button>
                              </a>
                         </div>
-                        <p class="user-txt">Manage Users</p>
-                        <div class="doctors-tab-container">
-                            <a href="{{ route('doctors') }}" style = "text-decoration:none;">
-                                <button class="doctor-btn">
-                                <img src ="{{ asset('assets/doctor-icon.svg') }}" class="icon2">
-                                <p class="icon2-txt">Doctors</p>
-                                </button>
-                            </a>
-                        </div>
-                        <div class="patient-container">
-                            <a href="{{ route('patients') }}" style = "text-decoration: none;">
-                                    <button class="patient-btn">
-                                    <img src ="{{ asset('assets/patient-icon.svg') }}" class="icon3">
-                                    <p class="icon3-txt">Patients</p>
+                        <div class="admin-manage-tab">
+                            <p class="name">Manage Users</p>
+                            <div class="doctors-tab-container">
+                                <a href="{{ route('doctors') }}" style = "text-decoration:none;">
+                                    <button class="doctor-btn">
+                                    <img src ="{{ asset('assets/doctor-icon.svg') }}" class="icon2">
+                                    <p class="icon2-txt">Doctors</p>
                                     </button>
-                            </a>
+                                </a>
+                            </div>
+                            <div class="patient-container">
+                                <a href="{{ route('patients') }}" style = "text-decoration: none;">
+                                        <button class="patient-btn">
+                                        <img src ="{{ asset('assets/patient-icon.svg') }}" class="icon3">
+                                        <p class="icon3-txt">Patients</p>
+                                        </button>
+                                </a>
+                            </div>
+                            <div class="request-container">
+                                <a href="{{ route('adminRequests') }}" style = "text-decoration: none;">
+                                    <button class="request-btn">
+                                    <img src ="{{ asset('assets/requests-icon.svg') }}" class="icon4">
+                                    <p class="icon4-txt">Requests</p>
+                                    </button>  
+                                </a>
+                            </div>
+                                <div class="reports-container">
+                                    <button class="reports-btn">
+                                    <img src ="{{ asset('assets/report-icon.svg') }}" class="icon5">
+                                    <p class="icon5-txt">Reports</p>
+                                    </button>
+                                </div>    
+                            <div class="archive-container">
+                                <a href="{{ route('archive') }}" style="text-decoration: none;">
+                                    <button class="archive-btn">
+                                    <img src ="{{ asset('assets/archive-icon.svg') }}" class="icon6">
+                                    <p class="icon6-txt">Archive</p>
+                                    </button>
+                                </a>
+                            </div> 
                         </div>
-                        <div class="request-container">
-                            <a href="{{ route('adminRequests') }}" style = "text-decoration: none;">
-                                <button class="request-btn">
-                                <img src ="{{ asset('assets/requests-icon.svg') }}" class="icon4">
-                                <p class="icon4-txt">Requests</p>
-                                </button>  
-                            </a>
-                        </div>
-                            <div class="reports-container">
-                                <button class="reports-btn">
-                                <img src ="{{ asset('assets/report-icon.svg') }}" class="icon5">
-                                <p class="icon5-txt">Reports</p>
-                                </button>
-                            </div>    
-                        <div class="archive-container">
-                            <a href="{{ route('archive') }}" style="text-decoration: none;">
-                                <button class="archive-btn">
-                                <img src ="{{ asset('assets/archive-icon.svg') }}" class="icon6">
-                                <p class="icon6-txt">Archive</p>
-                                </button>
-                            </a>
-                        </div> 
                         @elseif(session('user') === 'doctor')
                         <div class="main-info">
                             <div class="avatar-container">

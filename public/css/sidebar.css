@@ -29,6 +29,10 @@ body {
     margin-top: 15%;
 }
 
+.avatar-container img{
+    width: 30%;
+    height: 30%;
+}
 .avatar-container .doc-name, .avatar-container .name{
     font-size: 100%;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -43,11 +47,18 @@ body {
     color: white;
     font-weight: lighter;
     font-size: 15px;
-
 }
 
+.admin-manage-tab{
+    text-align: center;
+}
 
-
+.admin-manage-tab, .name{
+    margin-top: 1px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    font-weight: bold;
+}
 .dashboard-btn,
 .doctor-btn,
 .patient-btn,
@@ -78,7 +89,7 @@ body {
 .logout-btn p,
 .profile-btn p,
 .appointment-btn p{
-    font-size: 120%;
+    font-size: 1vw;
     margin-left: 5px;
     margin-top: auto;
     margin-bottom: auto;
