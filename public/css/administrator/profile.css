@@ -8,16 +8,33 @@ body {
     height: 100%;
     width: 100%;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-
-    /* position: absolute; */
 }
 
-.doctor-data{
+.doctor-details{
     width: 64%;
+}
+
+.doctor-data, 
+.credential-container{
+    width: 100%;
     height: auto;
     background-color: white;
     border-radius: 15px;
+}
 
+.credential-container{
+    margin-top: 2%;
+}
+
+.patient-header-container{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 5%;
+}
+
+.patient-count{
+    color: #ADADAD;
+    font-size: 0.5vw;
 }
 
 .doctor-lists{
@@ -25,20 +42,30 @@ body {
     width: 34%;
 }
 
-.patient-list{
+.patient-list-container{
     background-color: white;
     border-radius: 15px;
     padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.patient-list{
+    width: 100%;
+    text-align: center;
 }
 .profile-data-header{
-    display: flex;
+    display: flex;  
     justify-content: center;
-    padding-top: 5vh;
+    padding-top: 10vh;
 }
 .profile-pic-container{
     text-align: center;
 }
 
+.profile-pic-container img{
+    width: 7vw;
+    height: 7vw;
+}
 .profile-name-container{
     margin-left: 5%;
 }
@@ -49,4 +76,187 @@ body {
 .user-name, 
 .prof{
     margin-top: 0px;
+}
+
+.user-name{
+    font-weight: bold;
+    font-size: 2vw;
+}
+
+.prof{
+    font-weight: light;
+    font-size: 1vw;
+    color: #20C073;
+}
+
+.spec-container, 
+.age-yrs-gender-box,
+.picture-container{
+    display: flex;
+}
+
+.spec-container div{
+    border-radius: 15px;
+    border: 1px solid #49B2FF;
+    color: #49B2FF;
+    background-color: rgba(73, 178, 255, 0.5);;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    font-size: 50%;
+    margin-right: 10px;
+}
+.more-details-container{
+    width: 100%;
+    padding-left: 20%;
+    padding-right: 20%;
+    padding-bottom: 6%;
+}
+
+.age-yrs-gender-box{
+    margin-top: 3vh;
+    gap: 7vw;
+}
+
+.details-box{
+    margin-top: 5vh;
+}
+
+.category{
+    color: gray;
+    font-size: 1vw;
+}
+
+.ctnt{
+    font-weight: bold;
+}
+
+.credential-container{
+    width: 100%;
+    padding-top: 1%;
+    padding-bottom: 5%;
+    margin-bottom: 5%;
+}
+.credential-header,
+.patient-header{
+    color:#004624;
+    font-size: 1.5vw;
+    padding-left: 5%;
+}
+
+.patient-header{
+    margin-top: 0px;
+}
+
+.picture-container{
+    width: 100%;
+    justify-content: space-between;
+}
+
+.image-display img{
+    width: 100%;
+    max-height: 76vh;
+    border-radius: 15px;
+}
+
+.picture-container button{
+    width: 10%;
+    border: none;
+    background-color: white;
+    transition: background-color 0.5s ease;
+}
+
+.picture-container button:hover{
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.picture-container button:hover img{
+    filter:invert(100%);
+}
+
+.deactivate-btn-container{
+    position: fixed;
+    bottom: 4%;
+    right: 1%;
+    width: 9vh;
+}
+
+.d-btn img{
+    width: 5vh;
+    height: 5vh;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-left:6px;
+}
+
+.d-btn{
+    border: none;
+    border-radius: 50%;
+    background-color: red;
+    width: 9vh;
+    height: 9vh;
+    display: flex;
+    transition: transform 0.5s ease, width 0.5s ease, border-radius 0.5s ease;
+}
+.d-btn p{
+    margin-left:10px;
+    opacity: 0;
+    visibility: hidden;
+    margin-top: auto;
+    margin-bottom: auto;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    color: white;
+}
+
+.d-btn:hover p{
+    opacity: 1;
+    visibility: visible;
+}
+.d-btn:hover{
+    text-align: left;
+    width: 25vh;
+    border-radius:15px;
+    transform: translateX(-100px);
+}
+
+.search-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: #ADADAD;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.input-container{
+    width: 90%;
+    height: 5vh;
+    background-color: #E7E7E7;
+    display: flex;
+    padding-left: 1%;
+    padding-right: 1%;
+    border-radius: 15px;
+    justify-content: space-between;
+    transition: background-color 0.5s ease;
+}
+
+.search-input{
+    padding-left:20px;
+    width: 80%;
+    border: none;
+    background-color: #E7E7E7;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    transition: background-color 0.5s ease;
+}
+
+.search-input:hover,
+.input-container:hover{
+    background-color: white;
+}
+
+.input-container img{
+    height: 3vh;
+    width: 3vh;
+    margin-top: auto;
+    margin-bottom: auto;
 }

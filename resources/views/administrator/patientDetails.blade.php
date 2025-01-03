@@ -1,52 +1,9 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" href="{{ asset('css/administrator/sidebar.css') }}">
+@extends('index')
+
+@section('title', 'admin-patient-details')
+
+@section('content')
         <link rel="stylesheet" href="{{ asset('css/administrator/patientDetails.css') }}">
-
-        
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-        var chartData = JSON.parse(@json($data));
-   
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Time');
-            data.addColumn('number', 'Value');
-
-            console.log('chartData:', chartData);
-           
-            chartData.forEach(function(row) {
-                data.addRow([row.Time, row.Value]);
-            });
-
-          
-            var options = {
-                title: 'Overall State',
-                curveType: 'none',
-                legend: { position: 'bottom' },
-                width: 700,
-                height: 300,
-                vAxis: {
-                viewWindow: {
-                min: 0 
-                }
-            }
-        };
-
-            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-            chart.draw(data, options);
-      }
-    </script>
-    </head>
-    <body>
-        @include('administrator.adminSidebar')
-        <div class="empty"></div>
-        
-        <div class="content">
             <p class="header">Patient Profile</p>
                 <div class="main-content">
                     <div class="left-container">
@@ -103,7 +60,11 @@
                         aaaa
                     </div>
                 </div>
+                <div class="deactivate-btn-container">
+                    <form action="{{ route('deactivate', ['id' => $userDetails['id']]) }}" method="POST">
+                        @csrf
+                            <button class="d-btn" type="submit"><img src="{{ asset('assets/report-icon.svg') }}"><p>Deactivate<p></button>
+                    </form>
+                </div>
                 
-        </div>
-    </body>
-</html>
+@endsection

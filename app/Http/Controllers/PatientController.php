@@ -29,6 +29,7 @@ class PatientController extends Controller
                 'email' => $userData['email'],
                 'name' => $userData['full_name'],
                 'num' => $userData['phone_number'],
+                'id' => $id,
             ];
         }
 
@@ -56,27 +57,27 @@ class PatientController extends Controller
             }
         }
 
-        $answersRef = $this->database->getReference('administrator/users/' . $id .  '/' . 'all_answers');
-        $answerSnap = $answersRef->getSnapshot();
-        $answerData = $answerSnap->getValue();
+        // $answersRef = $this->database->getReference('administrator/users/' . $id .  '/' . 'all_answers');
+        // $answerSnap = $answersRef->getSnapshot();
+        // $answerData = $answerSnap->getValue();
 
-        $answers_arr = [];
+        // $answers_arr = [];
 
-        if($answerData){
-            foreach($answerData as $answers){
-                $formattedTime = date('M, d', strtotime($answers['timestamp']));
-                $answers_arr[] = [
-                    'Time' => $formattedTime,
-                    'Value' => $answers['total_value'],
-                ];
-            }
-        }
+        // if($answerData){
+        //     foreach($answerData as $answers){
+        //         $formattedTime = date('M, d', strtotime($answers['timestamp']));
+        //         $answers_arr[] = [
+        //             'Time' => $formattedTime,
+        //             'Value' => $answers['total_value'],
+        //         ];
+        //     }
+        // }
 
 
         return view('administrator.patientDetails', [
             'userDetails' => $userDetails,
             'docData' => $docData,
-            'data' => json_encode($answers_arr),
+            // 'data' => json_encode($answers_arr),
         ]);
     }
 

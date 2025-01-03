@@ -37,7 +37,17 @@
                             <tr>
                                 <td>{{ $doctors['name'] }}</td>
                                 <td>{{ $doctors['email'] }}</td>
-                                <td>{{ $doctors['specialization'] }}</td>
+                                <td>
+                                    <div class="spec-container">
+                                    @if(isset($doctors['specialization']) && is_array($doctors['specialization']))
+                                        @foreach($doctors['specialization'] as $spec)
+                                        <div>
+                                            <p>{{$spec}}</p>
+                                        </div>
+                                        @endforeach
+                                    @endif
+                                </div>
+                                </td>
                                 <td>{{ $doctors['profession'] }}</td>
                                 <td>
                                     <form action="{{ route('activate', $doctors['id']) }}" method="POST">

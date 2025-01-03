@@ -160,14 +160,21 @@ class AdminController extends Controller
     }
 
     public function deactivate($id){
-        $view = $this->database->getReference('administrator/doctors/' . $id);
-        $snapshot = $view->getSnapshot();
-        $data = $snapshot->getValue();
+        $getDoctor = $this->database->getReference('administrator/doctors/' . $id)->getSnapshot()->getValue();
 
-        $this->database->getReference('administrator/archives/' . $id)->set($data);
-        $this->database->getReference('administrator/doctors/' . $id)->remove();
+
+        if(isset($getDoctor ) && !empty($getDoctor)){
+            $this->database->getReference('administrator/archives/' . $id . '-doctor')->set($getDoctor);
+            $this->database->getReference('administrator/doctors/' . $id)->remove();
+            return redirect()->route('doctors');
+        }   
+       else{
+            $getPatient = $this->database->getReference('administrator/users/' . $id)->getSnapshot()->getValue();
+                $this->database->getReference('administrator/archives/' . $id . '-patient')->set($getPatient);
+                $this->database->getReference('administrator/users/' . $id)->remove();
+                return redirect()->route('patients');
+       }
     
-        return redirect()->route('doctors');
     }
 
     public function viewArchive(){
@@ -182,10 +189,10 @@ class AdminController extends Controller
             foreach($data as $id => $doctor){
                 $details[] = [
                     'id' => $id,
-                    'name' => $doctor['name'],
+                    'name' => isset($doctor['name']) ? $doctor['name'] : $doctor['full_name'],
                     'email' => $doctor['email'],
-                    'specialization' => $doctor['specialization'],
-                    'profession' => $doctor['profession'],
+                    'specialization' => isset($doctor['specialization']) ? $doctor['specialization'] : $doctor['conditions'],
+                    'profession' => isset($doctor['profession']) ? $doctor['profession'] : 'Patient',
                 ];
             }
         
