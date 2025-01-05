@@ -31,7 +31,10 @@ body {
 
 .avatar-container img{
     width: 30%;
-    height: 30%;
+    height: 10vh;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
 }
 .avatar-container .doc-name, .avatar-container .name{
     font-size: 100%;
@@ -41,6 +44,14 @@ body {
     font-weight: bold;
 }
 
+/* .profile-pic-enabled{
+    border-radius: 50%;
+} */
+
+
+.profile-pics{
+    border-radius: 50%;
+}
 .avatar-container .doc-job{
     margin-top: 0;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;

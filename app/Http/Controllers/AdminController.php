@@ -161,20 +161,9 @@ class AdminController extends Controller
 
     public function deactivate($id){
         $getDoctor = $this->database->getReference('administrator/doctors/' . $id)->getSnapshot()->getValue();
-
-
-        if(isset($getDoctor ) && !empty($getDoctor)){
-            $this->database->getReference('administrator/archives/' . $id . '-doctor')->set($getDoctor);
+            $this->database->getReference('administrator/archives/' . $id)->set($getDoctor);
             $this->database->getReference('administrator/doctors/' . $id)->remove();
             return redirect()->route('doctors');
-        }   
-       else{
-            $getPatient = $this->database->getReference('administrator/users/' . $id)->getSnapshot()->getValue();
-                $this->database->getReference('administrator/archives/' . $id . '-patient')->set($getPatient);
-                $this->database->getReference('administrator/users/' . $id)->remove();
-                return redirect()->route('patients');
-       }
-    
     }
 
     public function viewArchive(){
@@ -206,14 +195,16 @@ class AdminController extends Controller
     }
 
     public function activate($id){
-        $archRef = $this->database->getReference('administrator/archives/' . $id);
-        $archData = $archRef->getValue();
+        $archiveRef = $this->database->getReference('administrator/archives/' . $id)->getSnapshot()->getValue();
 
-        if($archData){
-            $this->database->getReference('administrator/doctors/' . $id)->set($archData);
-            $archRef->remove();
+        if($archiveRef) {
+            if($archiveRef['account-type'] === 'doctor'){
+                $this->database->getReference('administrator/doctors/' . $id)->update($archiveRef);
+            }
+            else if($archiveRef['account-type'] === 'patient'){
+                $this->database->getReference('administrator/users/' . $id)->update($archiveRef);
+            }
         }
-
         return redirect()->route('doctors');
     }
 

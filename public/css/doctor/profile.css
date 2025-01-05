@@ -1,164 +1,136 @@
 body{
     margin: 0;
     padding: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.content{
-    height: 100%;
-    width: 82%;
-    float: right;
-    margin-bottom: 50px;
-}
-
-.empty{
-    height: 100%;
-    width: 18%;
-}
-
-.page-container{
-    height: 100%;
-    width: 100%;
-}
-
-.header{
-    margin-top: 20px;
-    margin-left: 40px;
-    margin-bottom: 20px;
-    color: #20C073;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 40px;
-}
-
-.header-container{
-    width: 93%;
-    height: 250px;
-    margin-left: 40px;
+.main-content{
     display: flex;
-}
-
-.profile-pic{
-    height: 100%;
-    width: 250px;
-    text-align: center;
-    justify-content: center;
-}
-.pp-btn1{
-    height: 100%;
     width: 100%;
-    background-color: white;
-    border:none;
-}
-
-.pp-btn{
-    height: auto;
-    width: auto;
-    border: none;
-    background-color: white;
-}
-
-.pp-btn:hover, .pp-btn1:hover{
-    background-color: lightgray;
-    cursor: pointer;
-}
-
-.pp-btn img:hover{
-    opacity: 0.5;
-}
-.more-info{
     height: 100%;
-    width: 70%;
-    margin-left: 40px;
-    border-bottom: 2px solid lightgrey;
 }
 
-.name, .prof, .em-spec, .age-gen-yrs-lic, .about, .creds, .works, .address, .grad, .res, .quest{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #20C073;
+.doctor-data{
+    background-color: white;
+    border-radius: 15px;
+    width: 30%;
 }
 
-.name{
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 40px;
+.profile-pic-container{
+    width: 100%;
+    justify-items: center;
+    border-bottom: solid 1px #C0C0C0;
+}
+
+.profile-pic-container button img{
+    width: 6vw;
+    height: 12vh;
+    margin: 0;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+}
+
+
+.profile-pic-container button{
+    padding: 0;
+    border-radius: 50%;
+    width: 6vw;
+    height: 12vh;
+    border: none;
+}
+.pic-container{
+    position:relative;
+    transition: filter 0.5s ease;
+    margin-top:10%;
+}
+
+.pic-container:hover:not(.plus-icon, .change-photo-icon){
+    filter: brightness(50%);
+    cursor: pointer;
+
+}
+
+.profile-pic-container:hover .plus-icon{
+    opacity: 1;
+    filter: brightness(100%);
+
+}
+
+.plus-icon{
+    position:absolute;
+    opacity: 0;
+    top: 35%;
+    left: 25%;
+    width: 3vw;
+    height: 3vh;
+    transition: opacity 0.5s ease;
+}
+
+.change-photo-icon{
+    position:absolute;
+    bottom: 0px;
+    right: 7px;
+    width: 20%;
+    height: 20%;
+}
+
+.doc-name{
+    font-size: 1vw;
     font-weight: bold;
-}
-
-.prof{
-    margin-top: 10px;
-    font-size: 20px;
     margin-bottom: 0px;
 }
 
-.em-spec, .age-gen-yrs-lic{
+.doc-prof{
+    font-size: 0.7vw;
+    margin-top: 1vh;
+    color: #20C073;
+    margin-bottom: 3vh;
+
+}
+
+.following-data{
+    margin-top: 3vh;
+    justify-content: center;
+    justify-items: center;
+}
+
+.spec-container,
+.age-yrs-gender-group,
+.license-group,
+.address-group,
+.email-group{
+    width: 80%;
+}
+
+.license-group,
+.address-group,
+.email-group{
+    margin-bottom: 4vh;
+}
+.spec-header,
+.age-yrs-gender-group{
     display: flex;
-    margin-top: 5px;
+    justify-content: space-between;
+}
+
+.spec-list-container{
+    display: flex;
+
+}
+
+.rt-data{
+    border-radius: 15px;
+    border: 1px solid #49B2FF;
+    color: #49B2FF;
+    background-color: rgba(73, 178, 255, 0.5);;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    font-size: 0.5vw;
+    margin-right: 10px;
+}
+
+.data-header{
+    color: #D9D9D9;
     font-size: 15px;
 }
-
-.em{
-    margin-left: 220px;
-}
-
-.gen, .lic, .yrs{
-    margin-left: 40px;
-}
-
-.btns{
-    display: flex;
-}
-
-.about, .creds, .quest{
-    height: 50px;
-    width: 100px;
-    font-weight: bold;
-    background-color: white;
-    border: none;
-}
-
-.about:hover, .creds:hover, .quest:hover{
-    background-color: #20C073;
-    color: white;
-}
-
-.ctnt-body{
-    width: 93%;
-    height: 100%;
-    margin-left: 40px;
-    margin-top: 20px;
-    display: flex;
-}
-
-.more-deats{
-    border-top: 2px solid lightgray;
-    height: 100%;
-    width: 250px;
-}
-
-.more-deats button{
-    background-color: transparent;
-    border: none;
-}
-
-.abt-cred-ctnt{
-    height: 100%;                           
-    width: 70%;
-    margin-left: 40px;
-}
-
-.works, .grad, .res{
-    font-weight: bold;
-    font-size: 20px;
-}
-
-.grad-container{
-    display: flex;
-}
-
-.grad-container button{
-    float:right;
-}
-
-.grad-textarea{
-    resize: none;
-}
-

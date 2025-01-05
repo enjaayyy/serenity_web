@@ -8,7 +8,7 @@
             @if(empty($doctorData['pic']))
             <img src ="{{ asset('assets/avatar.png') }}" class="default-pp">
              @else
-            <img src ="{{ $doctorData['pic'] }}">
+            <img src ="{{ $doctorData['pic'] }}" class="profile-pic-enabled">
             @endif
         </div>
         <p class="doc-name">{{ $doctorData['name'] }}</p>

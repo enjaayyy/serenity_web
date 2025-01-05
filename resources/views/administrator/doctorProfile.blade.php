@@ -136,6 +136,12 @@
                             @endif
                         </div>
                     </div>
+                    <div class="upcoming-appts-container">
+                        <div class="upt-header-container">
+                            <p class="upt-header">Upcoming Appointments</p>
+                            <p class="upt-count">(no. of patients)</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="deactivate-btn-container">
                     <form action="{{ route('deactivate', ['id' => $details['id']]) }}" method="POST">
@@ -144,66 +150,5 @@
                     </form>
                 </div>
             </div>
-            {{-- <div class="list">
-                
-            </div>
-            <div class="header-container">
-                <p class="header">Profile</p>
-                
-            </div>
-        
-            <div class="profile-info">
-                <div class="info">
-                    <div class="pp-pc">
-                        @if(isset($details['profile']))
-                            <img src="{{ $details['profile'] }}">
-                        @else
-                            <img src="{{ asset('assets/avatar.png') }}" class="profile-img">
-                        @endif
-                        <p class="user-name">{{ $details['name'] }}</p>
-                        <p class="prof">{{ $details['profession'] }}</p>
-                    </div>
-                        
-                </div>     
-                <div class="info2">
-                    <div class="header1">
-                        <p class="spec-head">Specialization</p>
-                        <p class="sex-head">Sex</p>
-                        <p class="age-head">Age</p>
-                    </div>
-                    <div class="data1">
-                        <p class="spec-ctnt">
-                            @if(isset( $details['specialization']) && is_array( $details['specialization']))
-                                        @foreach( $details['specialization'] as $spec)
-                                            <p>{{$spec}}</p>
-                                        @endforeach
-                                    @endif
-                        </p>
-                        <p class="sex-ctnt">{{ $details['gender'] }}</p>
-                        <p class="age-ctnt">{{ $details['age'] }}</p>
-                    </div>
-                    <div class="header2">
-                        <p class="add-head">Work Address</p>
-                        <p class="med-head">Medical License</p>
-                    </div>
-                    <div class="data2">
-                        <p class="add-ctnt">{{ $details['address'] }}</p>
-                        <p class="med-ctnt">{{ $details['license'] }}</p>
-                    </div>
-                </div>  
-            </div>
-                <div class="verifiles">
-                    <p class="verifile-header">Credentials</p>
-                    <div class="files">
-                        @if(isset($details['credentials']) && is_array($details['credentials']))
-                            @foreach($details['credentials'] as $images)
-                            <div class="item">
-                                <img src="{{ $images }}">
-                            </div>
-                            @endforeach
-                        @endif
-                    </div>
-                </div>
-                 --}}
         </div>
 @endsection

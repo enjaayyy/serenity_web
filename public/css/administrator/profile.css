@@ -26,13 +26,15 @@ body {
     margin-top: 2%;
 }
 
-.patient-header-container{
+.patient-header-container,
+.upt-header-container{
     display: flex;
     justify-content: space-between;
     padding-right: 5%;
 }
 
-.patient-count{
+.patient-count,
+.upt-count{
     color: #ADADAD;
     font-size: 0.5vw;
 }
@@ -42,11 +44,24 @@ body {
     width: 34%;
 }
 
-.patient-list-container{
+.patient-list-container, 
+.upcoming-appts-container{
     background-color: white;
     border-radius: 15px;
     padding-top: 20px;
     padding-bottom: 20px;
+}
+
+.upcoming-appts-container {
+    margin-top: 5%;
+}
+
+.upt-header{
+    color:#004624;
+    font-size: 1vw;
+    padding-left: 5%;
+    margin-top: 0px;
+
 }
 
 .patient-list{
@@ -185,7 +200,7 @@ body {
     height: 5vh;
     margin-top: auto;
     margin-bottom: auto;
-    padding-left:6px;
+    padding-left:0.7vw;
 }
 
 .d-btn{

@@ -129,10 +129,11 @@
                         </div>  
                 </div>
         </div>
+        @include('doctor.utilities.profileuploadcard')
+
         <div class="content">
             @yield('content')
         </div>
     </div>
-    
 </body>
 </html>
