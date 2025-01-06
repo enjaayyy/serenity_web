@@ -13,9 +13,10 @@
     position: fixed;
     background-color: white;
     width: 25vw;
-    height: 25vh;
+    height: auto;
     border-radius: 15px;
-    top: 10px;
+    top: 30%;
+    left: 40%;
 }
 
 .card-header{
@@ -24,4 +25,52 @@
     padding-top: 0.5vh;
     padding-bottom: 0.5vh;
     border-bottom: 1px solid lightgray;
+}
+
+.upld-btn{
+    width: 100%;
+    height: 8vh;
+    text-align: center;
+    justify-items: center;
+    justify-content: center;
+    border-bottom: 1px solid lightgray;
+}
+
+#file-name{
+    max-width: 80%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-left: 10%;
+    margin-top: 4vh;
+    font-size:1vw;
+}
+
+.save-pic, 
+.close-btn{
+    width: 100%;
+}
+
+.save-pic button, 
+.close-btn button{
+    border:none;
+    background-color: white;
+    color: black;
+    width: 100%;
+    font-weight: bold;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.save-pic button:hover{
+    background-color: #49B2FF;
+    color: white;
+}
+
+.close-btn button:hover{
+    background-color: gray;
+    color: white;
+}
+.close-btn button{
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
 }

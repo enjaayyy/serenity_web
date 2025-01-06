@@ -8,7 +8,6 @@
         <link rel="stylesheet" href="{{ asset('css/doctor/utilities/uploadcard.css') }}">
         {{-- 
         <link rel="stylesheet" href="{{ asset('css/doctor/utilities/profile-content.css') }}"> --}}
-        <script src="{{ asset('js/doctor/profile.js') }}"></script>
         <div class="container">
             <div class="admin-header">
                 <p class="dash-text">My Profile</p>
@@ -78,11 +77,32 @@
                     </div>
                 </div>
                 <div class="other-data">
-
+                    @include('doctor.utilities.questionnaire')
+                </div>
+                <div class="tabs">
+                    <div class="qst-tab">
+                        <button type="button" onclick="getQuestionnaires()">
+                            <p>Questionnaires</p>
+                            <img src=" {{ asset('assets/question-tab-icon.svg') }}">
+                        </button>
+                    </div>
+                    <div class="credenials-tab">
+                        <button type="button">
+                            <p>Credentials</p>
+                            <img src=" {{ asset('assets/credential-tab-icon.svg') }}">
+                        </button>
+                    </div>
+                     <div class="about-me-tab">
+                        <button type="button">
+                            <p>Aboutme</p>
+                            <img src=" {{ asset('assets/account-icon.svg') }}">
+                        </button>
+                    </div>
                 </div>
             </div>
 
         </div>
+        <script src="{{ asset('js/doctor/profile.js') }}"></script>
 @endsection
 
 
@@ -159,7 +179,7 @@
                             </div>
                             <div class="abt-cred-ctnt">
                                 @include('doctor.utilities.credentials')
-                                {{-- @include('doctor.utilities.questionnaire')
+                                 @include('doctor.utilities.questionnaire')
                                 @include('doctor.utilities.aboutmecard')
                             </div>
                         </div>

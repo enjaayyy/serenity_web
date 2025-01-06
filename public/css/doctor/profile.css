@@ -90,7 +90,7 @@ body{
 }
 
 .following-data{
-    margin-top: 3vh;
+    margin-top: 1vh;
     justify-content: center;
     justify-items: center;
 }
@@ -101,13 +101,9 @@ body{
 .address-group,
 .email-group{
     width: 80%;
+    
 }
 
-.license-group,
-.address-group,
-.email-group{
-    margin-bottom: 4vh;
-}
 .spec-header,
 .age-yrs-gender-group{
     display: flex;
@@ -132,5 +128,96 @@ body{
 
 .data-header{
     color: #D9D9D9;
-    font-size: 15px;
+    font-size: 1vw;
+    margin-bottom: 1vh;
 }
+
+.actual-data{
+    font-size: 1vw;
+    margin-top: 1vh;
+    margin-bottom: 3vh;
+}
+
+.other-data{
+    background-color: white;
+    width: 55%;
+    margin-left: 2%;
+    border-radius: 15px;
+}
+
+.tabs{
+    width: 15%;
+    padding-top: 2%;
+}
+
+.qst-tab,
+.credenials-tab,
+.about-me-tab{
+    width: 100%;
+    height: auto;
+}
+
+
+.qst-tab button, 
+.credenials-tab button,
+.about-me-tab button{
+    width: 25%;
+    height: 5vh;
+    border: none;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    transition: width 0.5s ease;
+    display: flex;
+}
+
+.qst-tab button:hover,
+.credenials-tab button:hover,
+.about-me-tab button:hover{
+    width: 100%;
+}
+
+.qst-tab img,
+.credenials-tab img,
+.about-me-tab img{
+    width: 80%;
+    height: 80%;
+    transition: transform 0.5s ease;
+}
+
+.qst-tab button:hover img,
+.credenials-tab button:hover img,
+.about-me-tab button:hover img{
+    transform: translateX(10%);
+}
+
+.qst-tab button p,
+.credenials-tab button p,
+.about-me-tab button p{
+    margin-top: auto;
+    margin-bottom: auto;
+    color: white;
+    font-size: 1vw;
+    max-width: 0;
+    opacity: 0;
+    transition: max-width 0.5s ease, opacity 0.5s ease;
+}
+
+.qst-tab button:hover p,
+.credenials-tab button:hover p,
+.about-me-tab button:hover p{
+    max-width: 100%;
+    opacity: 1;
+}
+
+.qst-tab button{
+    background-color: #49B2FF;
+}
+
+.credenials-tab button{
+    background-color: #B36EC4;
+}
+
+.about-me-tab button{
+    background-color: #FF7373;
+}
+

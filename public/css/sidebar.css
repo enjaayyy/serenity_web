@@ -31,7 +31,7 @@ body {
 
 .avatar-container img{
     width: 30%;
-    height: 10vh;
+    height: 11vh;
     border-radius: 50%;
     object-fit: cover;
     object-position: center;
