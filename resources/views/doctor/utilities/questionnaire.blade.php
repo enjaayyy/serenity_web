@@ -1,23 +1,5 @@
- <div id="questionnaire-container" style="display: block;">
-       <div id="qst-cat-btns">
-            {{-- @foreach($doctorData['questions'] as $category => $subCategory)
-                <h2>{{$category}}</h2>
-                <ul>
-                    @foreach($subCategory as $subCategories => $questions)
-                    <li>
-                        <strong>{{ $subCategories }}</strong>
-                        <ul>
-                            @foreach($questions as $key => $questions)
-                                <li>
-                                    <strong>{{ $key }}</strong> {{ $questions['Q1'] }}
-                                </li>
-                            @endforeach
-                        </ul>
-                    </li>
-                    @endforeach
-                </ul>
-            @endforeach --}}
-       </div>
+ <div id="questionnaire-container" style="display: none;">
+       <div id="qst-cat-btns"></div>
        <div id="qst-content"></div>
        <div id="qst-categories">
        </div>
@@ -44,29 +26,38 @@
             function displayQuestionTitle(titleKey) {
 
                 const title = Object.keys(doctorQuestions.questions[titleKey]);
-
                 questionContents.innerHTML = " ";
                 questionSubCategories.innerHTML = " ";
                 title.forEach(questionTitle => {
                     const titleText = document.createElement("p");
                     titleText.textContent = questionTitle;
                     questionContents.appendChild(titleText);
-                })
 
-                const subCategories = Object.keys(doctorQuestions.questions[titleKey][title]);
-
-                subCategories.forEach(subCat => {
-                    const categories = document.createElement("p");
-                    categories.textContent = subCat;
-                    questionSubCategories.appendChild(categories);
+                    const subCategories = Object.keys(doctorQuestions.questions[titleKey][questionTitle]);
+                    subCategories.forEach(subCat => {
+                        const categories = document.createElement("p");
+                        categories.textContent = subCat;
+                        questionSubCategories.appendChild(categories);
                         
                         const questionHeaders = Object.keys(doctorQuestions.questions[titleKey][title][subCat]);
                         questionHeaders.forEach(quest => {
                             const questheads = document.createElement("p");
                             questheads.textContent = quest;
                             questionSubCategories.appendChild(questheads);
-                        })
-                });
+
+                            const questionData = Object.keys(doctorQuestions.questions[titleKey][title][subCat][quest]);
+                            questionData.forEach(data => {
+                                const questData = document.createElement("p");
+                                questData.textContent = data;
+                                questionSubCategories.appendChild(questData);
+
+                            });
+                        });
+                    });
+                })
+
+
+                
             }
 
            
