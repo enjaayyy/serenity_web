@@ -1,7 +1,7 @@
- <div id="questionnaire-container" style="display: none;">
-       <div id="qst-cat-btns"></div>
-       <div id="qst-content"></div>
-       <div id="qst-categories">
+ <div id="questionnaire-container" class="questionnaire-container" style="display: block;">
+       <div id="qst-cat-btns" class="qst-cat-btns"></div>
+       <div id="qst-content" class="qst-content"></div>
+       <div id="qst-categories" class="qst-categories">
        </div>
        <div id="qqqq"></div>
         <script>
@@ -18,6 +18,7 @@
             questionsKeys.forEach(key => {
                 const button = document.createElement("button");
                 button.textContent = key;
+                button.classList.add('qst-btns');
                 button.addEventListener("click", () => displayQuestionTitle(key));
 
                 questionButtons.appendChild(button);
@@ -25,41 +26,74 @@
 
             function displayQuestionTitle(titleKey) {
 
-                const title = Object.keys(doctorQuestions.questions[titleKey]);
+                const title = doctorQuestions.questions[titleKey];
                 questionContents.innerHTML = " ";
                 questionSubCategories.innerHTML = " ";
-                title.forEach(questionTitle => {
+                Object.keys(title).forEach(questionTitle => {
                     const titleText = document.createElement("p");
                     titleText.textContent = questionTitle;
+                    titleText.classList.add('qst-header');
                     questionContents.appendChild(titleText);
 
-                    const subCategories = Object.keys(doctorQuestions.questions[titleKey][questionTitle]);
-                    subCategories.forEach(subCat => {
+                    const subCategories = title[questionTitle];
+                    Object.keys(subCategories).forEach(subCat => {
                         const categories = document.createElement("p");
                         categories.textContent = subCat;
                         questionSubCategories.appendChild(categories);
                         
-                        const questionHeaders = Object.keys(doctorQuestions.questions[titleKey][title][subCat]);
-                        questionHeaders.forEach(quest => {
-                            const questheads = document.createElement("p");
-                            questheads.textContent = quest;
-                            questionSubCategories.appendChild(questheads);
+                        const questionHeaders = subCategories[subCat];
+                        Object.keys(questionHeaders).forEach(quest => {
+                            const questionData = questionHeaders[quest];
 
-                            const questionData = Object.keys(doctorQuestions.questions[titleKey][title][subCat][quest]);
-                            questionData.forEach(data => {
-                                const questData = document.createElement("p");
-                                questData.textContent = data;
-                                questionSubCategories.appendChild(questData);
+                                const questionText = document.createElement("p");
+                                questionText.textContent = `${questionData.question}`;
+                                questionSubCategories.appendChild(questionText);
 
-                            });
-                        });
+                                const questionLegend = document.createElement("p");
+                                questionLegend.textContent = `${questionData.legend} , ${questionData.value}`;
+                                questionSubCategories.appendChild(questionLegend);         
                     });
-                })
+                });
+            });
 
-
-                
-            }
-
+        }
            
         </script>
     </div>
+    <style>
+
+        .questionnaire-container{
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .qst-cat-btns{
+            margin-top:2vh;
+            text-align: center;
+            display: flex;
+        }
+
+        .qst-cat-btns button{
+            width: 100%;
+            height: 7vh;
+            border: none;
+            transition: background-color 0.5s ease;
+        }
+
+        .qst-cat-btns button:hover{
+            background-color: #49B2FF;
+            color: white;
+        }
+
+        .qst-header{
+            font-weight: bold;
+            font-size: 2vw;
+        }
+
+        .qst-content, 
+        .qst-categories{
+            margin-left: 2vw;
+            margin-right: 2vw;
+        }
+
+        
+        
+    </style>

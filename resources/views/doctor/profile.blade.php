@@ -15,64 +15,66 @@
             </div>
             <div class="main-content">
                 <div class="doctor-data">
-                    <div class="profile-pic-container">
-                        <div class="pic-container">
-                            @if(empty($doctorData['pic']))
-                                <button type="button" onclick="uploadcard()">
-                                    <img src="{{ asset('assets/avatar.png') }}">
-                                </button>
-                                @else
-                                <button type="button" onclick="uploadcard()">
-                                    <img src="{{ $doctorData['pic'] }}">
-                                </button>
-                            @endif
-                            <img class="plus-icon" src=" {{ asset('assets/plus-icon.svg') }}">
-                            <img class="change-photo-icon" src=" {{ asset('assets/change-pp-icon.svg') }}">
-                        </div>
-                        <p class="doc-name">{{ $doctorData['name'] }}</p>
-                        <p class="doc-prof">{{ $doctorData['prof'] }}</p>
-                    </div>
-                    <div class="following-data">
-                        <div class="spec-container">
-                            <div class="spec-header">
-                                <p class="data-header">Specialization</p>
-                                <img class="edit-icon" src=" {{ asset('assets/edit-icon.svg') }}">
-                            </div>
-                            <div class="spec-list-container">
-                                @if(isset($doctorData['spec']) && is_array($doctorData['spec']))
-                                    @foreach($doctorData['spec'] as $spec)
-                                    <div class="rt-data">
-                                        <p>{{$spec}}</p>
-                                    </div>
-                                    @endforeach
+                    <div class="doctor-data-2">
+                        <div class="profile-pic-container">
+                            <div class="pic-container">
+                                @if(empty($doctorData['pic']))
+                                    <button type="button" onclick="uploadcard()">
+                                        <img src="{{ asset('assets/avatar.png') }}">
+                                    </button>
+                                    @else
+                                    <button type="button" onclick="uploadcard()">
+                                        <img src="{{ $doctorData['pic'] }}">
+                                    </button>
                                 @endif
+                                <img class="plus-icon" src=" {{ asset('assets/plus-icon.svg') }}">
+                                <img class="change-photo-icon" src=" {{ asset('assets/change-pp-icon.svg') }}">
                             </div>
+                            <p class="doc-name">{{ $doctorData['name'] }}</p>
+                            <p class="doc-prof">{{ $doctorData['prof'] }}</p>
                         </div>
-                        <div class="age-yrs-gender-group">
-                            <div>
-                                <p class="data-header">Age</p>
-                                <p class="actual-data">{{ $doctorData['age'] }}</p>
+                        <div class="following-data">
+                            <div class="spec-container">
+                                <div class="spec-header">
+                                    <p class="data-header">Specialization</p>
+                                    <img class="edit-icon" src=" {{ asset('assets/edit-icon.svg') }}">
+                                </div>
+                                <div class="spec-list-container">
+                                    @if(isset($doctorData['spec']) && is_array($doctorData['spec']))
+                                        @foreach($doctorData['spec'] as $spec)
+                                        <div class="rt-data">
+                                            <p>{{$spec}}</p>
+                                        </div>
+                                        @endforeach
+                                    @endif
+                                </div>
                             </div>
-                            <div>
-                                <p class="data-header">Years of Service</p>
-                                <p class="actual-data">{{ $doctorData['yrs'] }}</p>
+                            <div class="age-yrs-gender-group">
+                                <div>
+                                    <p class="data-header">Age</p>
+                                    <p class="actual-data">{{ $doctorData['age'] }}</p>
+                                </div>
+                                <div>
+                                    <p class="data-header">Years of Service</p>
+                                    <p class="actual-data">{{ $doctorData['yrs'] }}</p>
+                                </div>
+                                <div>
+                                    <p class="data-header">Gender</p>
+                                    <p class="actual-data">{{ $doctorData['gender'] }}</p>
+                                </div>
                             </div>
-                            <div>
-                                <p class="data-header">Gender</p>
-                                <p class="actual-data">{{ $doctorData['gender'] }}</p>
+                            <div class="license-group">
+                                <p class="data-header">Medical License</p>
+                                <p class="actual-data">{{ $doctorData['license'] }}</p>
                             </div>
-                        </div>
-                        <div class="license-group">
-                            <p class="data-header">Medical License</p>
-                            <p class="actual-data">{{ $doctorData['license'] }}</p>
-                        </div>
-                        <div class="address-group">
-                            <p class="data-header">Work Address</p>
-                            <p class="actual-data">{{ $doctorData['address'] }}</p>
-                        </div>
-                        <div class="email-group">
-                            <p class="data-header">Email Address</p>
-                            <p class="actual-data">{{ $doctorData['email'] }}</p>
+                            <div class="address-group">
+                                <p class="data-header">Work Address</p>
+                                <p class="actual-data">{{ $doctorData['address'] }}</p>
+                            </div>
+                            <div class="email-group">
+                                <p class="data-header">Email Address</p>
+                                <p class="actual-data">{{ $doctorData['email'] }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
