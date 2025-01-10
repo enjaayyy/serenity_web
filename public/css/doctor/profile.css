@@ -156,15 +156,21 @@ body{
 
 .qst-tab,
 .credenials-tab,
-.about-me-tab{
+.about-me-tab,
+.add-qst-tab,
+.edit-qst-tab{
     width: 100%;
     height: auto;
 }
 
 
+
+
 .qst-tab button, 
 .credenials-tab button,
-.about-me-tab button{
+.about-me-tab button,
+.add-qst-tab button,
+.edit-qst-tab button{
     width: 25%;
     height: 5vh;
     border: none;
@@ -172,31 +178,48 @@ body{
     border-bottom-right-radius: 10px;
     transition: width 0.5s ease;
     display: flex;
-}
+}   
 
 .qst-tab button:hover,
 .credenials-tab button:hover,
-.about-me-tab button:hover{
+.about-me-tab button:hover,
+.add-qst-tab button:hover,
+.edit-qst-tab button:hover{
     width: 100%;
 }
 
 .qst-tab img,
 .credenials-tab img,
-.about-me-tab img{
+.about-me-tab img,
+.add-qst-tab img{
     width: 80%;
     height: 80%;
+    margin-top: auto;
+    margin-bottom: auto;
+    transition: transform 0.5s ease;
+}
+
+.edit-qst-tab img{
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 60%;
+    height: 60%;
     transition: transform 0.5s ease;
 }
 
 .qst-tab button:hover img,
 .credenials-tab button:hover img,
-.about-me-tab button:hover img{
+.about-me-tab button:hover img,
+.add-qst-tab button:hover img,
+.edit-qst-tab button:hover img{
     transform: translateX(10%);
 }
 
 .qst-tab button p,
 .credenials-tab button p,
-.about-me-tab button p{
+.about-me-tab button p,
+.add-qst-tab button p,
+.edit-qst-tab button p{
     margin-top: auto;
     margin-bottom: auto;
     color: white;
@@ -208,7 +231,9 @@ body{
 
 .qst-tab button:hover p,
 .credenials-tab button:hover p,
-.about-me-tab button:hover p{
+.about-me-tab button:hover p,
+.add-qst-tab button:hover p,
+.edit-qst-tab button:hover p{
     max-width: 100%;
     opacity: 1;
 }
@@ -225,3 +250,27 @@ body{
     background-color: #FF7373;
 }
 
+.add-qst-tab button{
+    background-color: #20C073;
+}
+
+.edit-qst-tab button{
+    background-color: grey;
+}
+
+.add-qst-tab,
+.edit-qst-tab {
+    opacity: 0;
+    transform: translateY(-20px); 
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.add-qst-tab.show,
+.edit-qst-tab.show {
+    opacity: 1;
+    transform: translateY(0); 
+}
+
+.edit-qst-tab.show{
+    margin-bottom: 5vh;
+}

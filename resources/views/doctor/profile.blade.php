@@ -88,18 +88,31 @@
                             <img src=" {{ asset('assets/question-tab-icon.svg') }}">
                         </button>
                     </div>
-                    <div class="credenials-tab">
+                    <div class="add-qst-tab" style="display:none;" id="add-qst-tab">
+                        <button type="button">
+                            <p>Add&nbsp;Questionnaire</p>
+                            <img src=" {{ asset('assets/add-icon.svg') }}">
+                        </button>
+                    </div>
+                    <div class="edit-qst-tab" style="display:none;" id="edit-qst-tab">
+                        <button type="button">
+                            <p>Edit&nbsp;Questionnaire</p>
+                            <img src=" {{ asset('assets/edit-qst-icon.svg') }}">
+                        </button>
+                    </div>
+                    <div class="credenials-tab" id="creds-tab" onclick="getCredentials()">
                         <button type="button">
                             <p>Credentials</p>
                             <img src=" {{ asset('assets/credential-tab-icon.svg') }}">
                         </button>
                     </div>
-                     <div class="about-me-tab">
+                    <div class="about-me-tab" id="abt-me-tab">
                         <button type="button">
-                            <p>Aboutme</p>
+                            <p>About&nbsp;me</p>
                             <img src=" {{ asset('assets/account-icon.svg') }}">
                         </button>
                     </div>
+                    
                 </div>
             </div>
 

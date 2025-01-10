@@ -1,9 +1,10 @@
- <div id="questionnaire-container" class="questionnaire-container" style="display: block;">
+ <link rel="stylesheet" href=" {{ asset('css/doctor/utilities/questionnaire.css')}}">
+ <div id="questionnaire-container" class="questionnaire-container" style="display: none;">
        <div id="qst-cat-btns" class="qst-cat-btns"></div>
        <div id="qst-content" class="qst-content"></div>
        <div id="qst-categories" class="qst-categories">
+
        </div>
-       <div id="qqqq"></div>
         <script>
             var doctorQuestions = @json($doctorData);
             const questionsKeys =  Object.keys(doctorQuestions.questions);
@@ -39,19 +40,29 @@
                     Object.keys(subCategories).forEach(subCat => {
                         const categories = document.createElement("p");
                         categories.textContent = subCat;
+                        categories.classList.add('cat-header');
                         questionSubCategories.appendChild(categories);
                         
                         const questionHeaders = subCategories[subCat];
                         Object.keys(questionHeaders).forEach(quest => {
                             const questionData = questionHeaders[quest];
+                            const questionContainer = document.createElement("div");
 
                                 const questionText = document.createElement("p");
                                 questionText.textContent = `${questionData.question}`;
-                                questionSubCategories.appendChild(questionText);
+                                questionContainer.appendChild(questionText);
+                                questionContainer.classList.add('questionData-container')
+                                let valuelegend = questionData.legend.map((value, index) => `${value} (${questionData.value[index]})`);
 
-                                const questionLegend = document.createElement("p");
-                                questionLegend.textContent = `${questionData.legend} , ${questionData.value}`;
-                                questionSubCategories.appendChild(questionLegend);         
+                                valuelegend.forEach(index => {
+                                    const questionValues = document.createElement("p");
+                                    questionValues.textContent = index;
+                                    questionValues.classList.add('questionData');
+                                    questionContainer.appendChild(questionValues); 
+
+                                    questionSubCategories.appendChild(questionContainer);
+                                })
+                                
                     });
                 });
             });
@@ -60,40 +71,4 @@
            
         </script>
     </div>
-    <style>
-
-        .questionnaire-container{
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        }
-        .qst-cat-btns{
-            margin-top:2vh;
-            text-align: center;
-            display: flex;
-        }
-
-        .qst-cat-btns button{
-            width: 100%;
-            height: 7vh;
-            border: none;
-            transition: background-color 0.5s ease;
-        }
-
-        .qst-cat-btns button:hover{
-            background-color: #49B2FF;
-            color: white;
-        }
-
-        .qst-header{
-            font-weight: bold;
-            font-size: 2vw;
-        }
-
-        .qst-content, 
-        .qst-categories{
-            margin-left: 2vw;
-            margin-right: 2vw;
-        }
-
-        
-        
-    </style>
+   
