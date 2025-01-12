@@ -48,16 +48,6 @@ class DoctorController extends Controller
             $snapshot = $view->getSnapshot();
             $data = $snapshot->getValue();
 
-            // $titleview = $this->database->getReference('administrator/doctors/' . $id . '/activeQuestionnaires');
-            // $titlesnapshot = $titleview->getSnapshot();
-            // $titledata = $titlesnapshot->getValue();
-            
-            // $title = isset($titledata['title']) ? $titledata['title'] : null;
-
-            // $existingQuestions = $this->database->getReference('administrator/doctors/' . $id . '/activeQuestionnaires')->getSnapshot()->getValue();
-
-            // $questionData = $this->database->getReference('administrator/doctors/' . $id . '/activeQuestionnaires')->getSnapshot()->getValue();
-
             if($data){
                 $doctorData = [
                     'name' => $data['name'],
@@ -74,8 +64,7 @@ class DoctorController extends Controller
                     'graduated' => isset($data['graduated']) ? $data['graduated'] : null,
                     'questions' => isset($data['activeQuestionnaires']) ? $data['activeQuestionnaires'] : null,
                     'creds' => $data['credentials'],
-                    'templates' => isset($data['SavedQuestionnaires']) ? $data['SavedQuestionnaires'] : null,
-                    // 'title' => $title,
+                    'templates' => isset($data['savedQuestionnaires']) ? $data['savedQuestionnaires'] : null,
                 ];
                 return view('doctor/profile', ['doctorData' =>  $doctorData]);  
             }

@@ -88,7 +88,7 @@
                             <img src=" {{ asset('assets/question-tab-icon.svg') }}">
                         </button>
                     </div>
-                    <div class="add-qst-tab" style="display:none;" id="add-qst-tab">
+                    <div class="add-qst-tab" style="display:none;" id="add-qst-tab" onclick="AddDataSet()">
                         <button type="button">
                             <p>Add&nbsp;Questionnaire</p>
                             <img src=" {{ asset('assets/add-icon.svg') }}">
