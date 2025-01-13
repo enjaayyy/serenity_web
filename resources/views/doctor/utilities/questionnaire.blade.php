@@ -6,11 +6,8 @@
     </div>
     <div id="add-questionnaire-container" class="add-questionnaire-container" style="display: block;">
         <form id="qst-form">
-            <div id="aqc-dropdown" class = "aqc-dropdown"></div>
+            {{-- <div id="aqc-dropdown" class = "aqc-dropdown"></div> --}}
             <div id="aqc-title-input"></div>
-            <div id="aqc-category-input"></div>
-            <div id="aqc-question-input"></div>
-            <div id="aqc-question-choice-input"></div>
         </form>
 
         <button onclick="retrieveData()">test</button>
@@ -84,18 +81,11 @@
         document.getElementById("questionnaire-container").style.display = 'none';
         document.getElementById('add-questionnaire-container').style.display = 'block';
         
-        const container = document.getElementById("aqc-dropdown");
-        const container2 = document.getElementById("aqc-title-input");
-        const container3 = document.getElementById("aqc-category-input");
-        const container4 = document.getElementById("aqc-question-input");
-        const container5 = document.getElementById("aqc-question-choice-input");
+        const dropdown = document.createElement("div");
+        dropdown.id = "aqc-dropdown";
 
-        container.innerHTML = " ";
-        container2.innerHTML = " ";
-        container3.innerHTML = " ";
-        container4.innerHTML = " ";
-        container5.innerHTML = " ";
-
+        const formcontainer = document.getElementById("qst-form");
+        formcontainer.innerHTML=" ";
         let selectSpec = document.createElement("select");
         let specOptions = doctorQuestions.templates;
 
@@ -105,71 +95,28 @@
             options.textContent = spec;
             selectSpec.appendChild(options);
         })
-       
+
+        dropdown.appendChild(selectSpec);
+        formcontainer.appendChild(dropdown);
+
         questionTitle = document.createElement("input");
         questionTitle.setAttribute("name", "questionTitle");
         questionTitle.setAttribute("placeholder", "Enter Title");
         questionTitle.id = "qst-title";
+        formcontainer.appendChild(questionTitle);
+        
 
-        questionCategory = document.createElement("input");
-        questionCategory.setAttribute("name", "questionCategory");
-        questionCategory.setAttribute("placeholder", "Enter Category");
-        questionCategory.id = "qst-category";
+        addCategoryset(formcontainer);
 
-        questionText = document.createElement("input");
-        questionText.setAttribute("name", "questionText");
-        questionText.setAttribute("placeholder", "Enter Question");
-        questionText.id = "qst-question";
-
-        let choiceOptions = ["Choice 1", "Choice 2", "Choice 3", "Choice 4"];
-        let choiceValues = ["Value 1", "Value 2", "Value 3", "Value 4"];
-
-        choiceOptions.forEach((opt,index) => {
-            const div = document.createElement("div");
-            div.style.display = "flex";
-
-            const choiceInput = document.createElement("input");
-            choiceInput.setAttribute("placeholder", opt);
-
-            const valueInput = document.createElement("input");
-            valueInput.setAttribute("placeholder", choiceValues[index]);
-
-            div.appendChild(choiceInput);
-            div.appendChild(valueInput);
-            container5.appendChild(div);
-        })
-
-        addQuestButton = document.createElement("button");
-        addQuestButton.setAttribute("type", "button");
-        addQuestButton.textContent = "Add Questions";
-
-        addCategoryButton = document.createElement("button");
-        addCategoryButton.setAttribute("type", "button");
-        addCategoryButton.textContent = "Add Category";
-
-        container.appendChild(selectSpec);
-        container2.appendChild(questionTitle);
-        container3.appendChild(questionCategory);
-        container3.appendChild(addCategoryButton);
-        container4.appendChild(questionText);
-        container4.appendChild(addQuestButton);
-
-        addQuestButton.addEventListener("click", function() {
-            addQuestionSet();
-        })
-
-        addCategoryButton.addEventListener("click", function() {
-            addCategoryset();
-        })
        }
 
-        function addQuestionSet() {
-            const formdiv = document.getElementById("qst-form");
+        function addQuestionSet(parent) {
 
             const qstcontainer = document.createElement("div");
             qstcontainer.id = "aqc-question-input";
             const qstinput = document.createElement("div");
             qstinput.id = "aqc-question-choice-input";
+            qstinput.classList.add('aqc-question-choice-input');
 
             questionText = document.createElement("input");
             questionText.setAttribute("name", "questionText");
@@ -180,10 +127,6 @@
             addQuestButton = document.createElement("button");
             addQuestButton.setAttribute("type", "button");
             addQuestButton.textContent = "Add Questions";
-
-            addQuestButton.addEventListener("click", function() {
-            addQuestionSet();
-            })
 
             qstcontainer.appendChild(questionText);
             qstcontainer.appendChild(addQuestButton);
@@ -197,23 +140,26 @@
 
                 const choiceInput = document.createElement("input");
                 choiceInput.setAttribute("placeholder", opt);
+                choiceInput.setAttribute("name", "choiceInput");
 
                 const valueInput = document.createElement("input");
                 valueInput.setAttribute("placeholder", choiceValues[index]);
+                valueInput.setAttribute("name", "choiceValue");
 
                 div.appendChild(choiceInput);
                 div.appendChild(valueInput);
                 qstinput.appendChild(div);
+                qstcontainer.appendChild(qstinput);
             });
 
-            formdiv.appendChild(qstcontainer);
-            formdiv.appendChild(qstinput);
-
+            parent.appendChild(qstcontainer);
+            
+            addQuestButton.addEventListener("click", function() {
+            addQuestionSet(parent);
+            })
         }
 
-        function addCategoryset() {
-            const formdiv = document.getElementById("qst-form");
-
+        function addCategoryset(parentCat) {
             const categoryContainer = document.createElement("div");
             categoryContainer.id = "aqc-category-input";
 
@@ -229,21 +175,50 @@
             categoryContainer.appendChild(questionCategory);
             categoryContainer.appendChild(addCategoryButton);
 
-            formdiv.appendChild(categoryContainer);
+            addQuestionSet(categoryContainer);
+            
+            parentCat.appendChild(categoryContainer);
 
             addCategoryButton.addEventListener("click", function() {
-            addCategoryset();
-        })
-        addQuestionSet();
+            addCategoryset(parentCat);
+            })
         }
         
         function retrieveData(){
             let selectedSpec = document.querySelector('#aqc-dropdown select').value;
             console.log(selectedSpec);
-            console.log(document.getElementById("qst-title").value);
-            console.log(document.getElementById("qst-category").value);
+            let title = document.getElementById("qst-title").value;
+            
+            let mainObj = {};
 
-            let category = document.querySelectorAll()
+            mainObj[title] = {};
+
+            let categories = document.querySelectorAll("#qst-form #aqc-category-input input[name='questionCategory']");
+            categories.forEach((cat,index) => {
+                let categoryName = cat.value;
+                mainObj[title][categoryName] = {};
+                
+                let questionText = cat.parentElement.querySelectorAll("input[name='questionText']");
+                questionText.forEach((qst,qindex) => {
+                    let questionKey = `Q${qindex+1}`;
+                    mainObj[title][categoryName][questionKey] = {
+                        legend: [],
+                        question: qst.value,
+                        value:[]
+                    };
+
+                    let choices = qst.parentElement.querySelectorAll(".aqc-question-choice-input div");
+                    choices.forEach((choice, cindex) => {
+
+                        let choiceLegend = choice.querySelector("input[name='choiceInput']").value;
+                        mainObj[title][categoryName][questionKey].legend.push(choiceLegend);
+                        let choiceValue = choice.querySelector("input[name='choiceValue']").value;
+                        mainObj[title][categoryName][questionKey].value.push(choiceValue);
+                    });
+                });
+            });
+            console.log(mainObj);
+            console.log(doctorQuestions.templates);
         }
         
     </script>
