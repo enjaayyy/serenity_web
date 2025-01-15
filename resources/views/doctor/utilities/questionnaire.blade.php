@@ -5,8 +5,8 @@
        <div id="qst-categories" class="qst-categories"></div>
     </div>
     <div id="add-questionnaire-container" class="add-questionnaire-container" style="display: block;">
-        <form id="qst-form">
-            {{-- <div id="aqc-dropdown" class = "aqc-dropdown"></div> --}}
+        <form id="qst-form" method="POST" action="{{ route('addQuestionnaire') }} ">
+            @csrf
             <div id="aqc-title-input"></div>
         </form>
 
@@ -81,12 +81,15 @@
         document.getElementById("questionnaire-container").style.display = 'none';
         document.getElementById('add-questionnaire-container').style.display = 'block';
         
+        const formcontainer = document.getElementById("qst-form");
+
         const dropdown = document.createElement("div");
         dropdown.id = "aqc-dropdown";
 
-        const formcontainer = document.getElementById("qst-form");
-        formcontainer.innerHTML=" ";
+        
         let selectSpec = document.createElement("select");
+        selectSpec.name = "aqc-dropdown";
+        
         let specOptions = doctorQuestions.templates;
 
         Object.keys(specOptions).forEach(spec => {
@@ -107,6 +110,12 @@
         
 
         addCategoryset(formcontainer);
+
+        const submitBtn = document.createElement("button");
+        submitBtn.setAttribute("type", "submit");
+        submitBtn.textContent = "submit";
+
+        formcontainer.appendChild(submitBtn);
 
        }
 

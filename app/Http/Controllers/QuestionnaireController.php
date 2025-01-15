@@ -63,6 +63,18 @@ class QuestionnaireController extends Controller
         }
     }
 
+    public function Addquestions(Request $request){
+        $id = Session::get('id');
+        $specialization = $request->input('aqc-dropdown');
+        $specTitle = $request->input('questionTitle');
+
+        $specTitle = ['Delulu' => ['awdaw']];
+
+        $this->database->getReference('administrator/doctors/' . $id . '/savedQuestionnaires' . '/' . $specialization . '/')->update($specTitle);
+        
+        return redirect()->route('docProfile');
+    }
+
     private function questionBySpecialization($specialization, $title){
         $title = (string) $title;
          $questions = [
@@ -329,4 +341,7 @@ class QuestionnaireController extends Controller
          
         return $questions[$specialization] ?? null;
     }
+
+
+    
 }

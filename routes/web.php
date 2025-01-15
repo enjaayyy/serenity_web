@@ -43,10 +43,9 @@ Route::get('/doctorProfile', [DoctorController::class, 'doctorProfile'])->name('
 Route::post('/doctorProfile/uploadpp', [DoctorController::class , 'uploadpp'])->name('uploadpp');
 Route::post('/doctorProfile/uploadDetails', [DoctorController::class, 'getDetails'])->name('uploadDetails');
 Route::post('/doctorProfile/editDetails', [DoctorController::class, 'editDetails'])->name('editDetails');
-Route::post('/doctorProfile/updateQuestions', [DoctorController::class, 'updateQuestions'])->name('updateQuestions');
-Route::post('/doctorProfile/defaultQuestion', [DoctorController::class, 'defaultQuestion'])->name('defaultQuestion');
-Route::post('/doctorProfile/editQuestions', [DoctorController::class, 'editQuestions'])->name('editQuestions');
-Route::post('/doctorProfile/newQuestion', [DoctorController::class, 'newTemplate'])->name('newTemplate');
+
+Route::post('/doctorProfile/addQuestion', [QuestionnaireController::class , 'Addquestions'])->name('addQuestionnaire');
+
 Route::post('/doctorProfile/addGrad', [DoctorController::class, 'addGraduate'])->name('addGraduate');
 Route::get('/doctor/requests', [DoctorController::class, 'showRequests'])->name('showRequests');
 Route::post('/doctor/patientAction/{id}', [DoctorController::class, 'acceptPatient'])->name('patientAction');
