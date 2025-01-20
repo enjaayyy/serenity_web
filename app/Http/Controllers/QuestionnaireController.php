@@ -65,12 +65,10 @@ class QuestionnaireController extends Controller
 
     public function Addquestions(Request $request){
         $id = Session::get('id');
-        $specialization = $request->input('aqc-dropdown');
-        $specTitle = $request->input('questionTitle');
+        $specialization = $request->input('specialization');
+        $questionData = $request->input('questionData');
 
-        $specTitle = ['Delulu' => ['awdaw']];
-
-        $this->database->getReference('administrator/doctors/' . $id . '/savedQuestionnaires' . '/' . $specialization . '/')->update($specTitle);
+        $this->database->getReference('administrator/doctors/' . $id . '/savedQuestionnaires' . '/' . $specialization . '/')->update( $questionData);
         
         return redirect()->route('docProfile');
     }

@@ -10,8 +10,9 @@
             }
 
             function getQuestionnaires(){
-                document.getElementById('questionnaire-container').style.display = 'block';
-                document.getElementById('add-questionnaire-container').style.display = 'none';
+                document.getElementById('questionnaire-container').style.opacity = 1;
+                document.getElementById('questionnaire-container').style.visibility = "visible";
+                document.getElementById('add-questionnaire-container').style.opacity = 0;
                 let addTab = document.getElementById('add-qst-tab');
                 let editTab = document.getElementById('edit-qst-tab');
                     addTab.style.display = 'block'; 
