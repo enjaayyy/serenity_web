@@ -1,6 +1,8 @@
-.questionnaire-container{
+.questionnaire-container,
+.add-questionnaire-container{
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
 .qst-cat-btns{
     text-align: center;
     display: flex;
@@ -49,3 +51,47 @@
 .questionData{
     font-style: italic;
 }
+
+.qcb-header{
+    width: 100%;
+}
+.qcb-header p{
+    font-size: 1.5vw;
+    font-weight: bold;
+    color:#004624;
+    margin-left: 1.5vw;
+    margin-bottom: 1vh;
+}
+
+.qst-form{
+    width: 96.5%;
+    margin-left: 1.5vw;
+}
+
+.dropdown-header, .questionHeaderBox{
+    color: gray;
+    margin-bottom: 0.5vh;
+    font-size: 1vw;
+}
+
+.aqc-dropdown-select{
+    height: 4vh;
+    width: 20vw;
+    border: 1px #004624 solid;
+    border-radius: 5px;
+    padding-left: 1vw;
+    background-color: white;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    transition: border 0.1s linear, background-color 0.1s ease;
+}
+
+.aqc-dropdown-select:hover{
+    cursor: pointer;
+    border: 3px #004624 solid;
+    background-color: #D0F5E3;
+}   
+
+.title-container{
+    width: 100%;
+}
+

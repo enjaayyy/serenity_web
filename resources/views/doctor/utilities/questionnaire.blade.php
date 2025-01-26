@@ -1,11 +1,14 @@
 <link rel="stylesheet" href=" {{ asset('css/doctor/utilities/questionnaire.css')}}">
 <link rel="stylesheet" href=" {{ asset('css/doctor/utilities/addquestionnaire.css')}}">
     <div id="questionnaire-container" class="questionnaire-container" style="opacity: 1; visibility: visible;">
-       <div id="qst-cat-btns" class="qst-cat-btns"></div>
-       <div id="qst-content" class="qst-content"></div>
-       <div id="qst-categories" class="qst-categories"></div>
+        <div id="qst-cat-btns" class="qst-cat-btns"></div>
+        <div id="qst-content" class="qst-content"></div>
+        <div id="qst-categories" class="qst-categories"></div>
     </div>
     <div id="add-questionnaire-container" class="add-questionnaire-container" style="opacity: 0; visibility: hidden;">
+        <div class="qcb-header">
+            <p>Add Questionnaire</p>
+        </div>
         <div id="qst-form" class="qst-form">
             <div id="aqc-title-input"></div>
         </div>
@@ -85,18 +88,24 @@
        function AddDataSet(){
         qstDiv.style.opacity = 0;
         qstDiv.style.visibility = "hidden";
+        qstDiv.style.display = "none";
         addQstDiv.style.opacity = 1;
         addQstDiv.style.visibility = "visible";
+        addQstDiv.style.display = "block";
+
         const formcontainer = document.getElementById("qst-form");
         formcontainer.innerHTML = " ";
         const dropdown = document.createElement("div");
         dropdown.id = "aqc-dropdown";
+        const dropdownheader = document.createElement("p");
+        dropdownheader.textContent = "Specialization";
+        dropdownheader.classList.add("dropdown-header");
 
-        console.log(doctorQuestions.templates);
+        // console.log(doctorQuestions.templates);
 
         let selectSpec = document.createElement("select");
         selectSpec.name = "aqc-dropdown";
-        
+        selectSpec.classList.add("aqc-dropdown-select");
         let defaultOpt = document.createElement("option");
         defaultOpt.textContent = "Choose a Specialization";
         defaultOpt.selected = true;
@@ -116,20 +125,30 @@
             chosenSpec = selectSpec.value;
         });
 
+        dropdown.appendChild(dropdownheader);
         dropdown.appendChild(selectSpec);
         formcontainer.appendChild(dropdown);
 
         const titleDiv = document.createElement("div");
         titleDiv.id = "title-container";
         titleDiv.name = "title-container";
-        titleDiv.style.display="flex";
+        titleDiv.classList.add("title-container");
+
+        const questionHeaderBox = document.createElement("div");
+        questionHeaderBox.classList.add("questionHeaderBox");
+
+        const questionHeader = document.createElement("p");
+        questionHeader.classList.add("question-header");
+        questionHeader.textContent = "Questionnaire Title";
+
+        questionHeaderBox.appendChild(questionHeader);
 
         questionTitle = document.createElement("input");
         questionTitle.setAttribute("name", "questionTitle");
         questionTitle.setAttribute("placeholder", "Enter Title");
         questionTitle.id = "qst-title";
 
-        
+        titleDiv.appendChild(questionHeaderBox);
         titleDiv.appendChild(questionTitle);
      
 
