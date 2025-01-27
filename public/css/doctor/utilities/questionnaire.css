@@ -68,13 +68,13 @@
     margin-left: 1.5vw;
 }
 
-.dropdown-header, .questionHeaderBox{
+.dropdown-header, .questionHeaderBox, .questinputheader, .categoryheader{
     color: gray;
     margin-bottom: 0.5vh;
     font-size: 1vw;
 }
 
-.aqc-dropdown-select{
+.aqc-dropdown-select, .questionTitle-input{
     height: 4vh;
     width: 20vw;
     border: 1px #004624 solid;
@@ -85,7 +85,24 @@
     transition: border 0.1s linear, background-color 0.1s ease;
 }
 
-.aqc-dropdown-select:hover{
+.questionText, .questionCategory-input{
+    height: 4vh;
+    width: 30vw;
+    border: 1px #004624 solid;
+    border-radius: 5px;
+    padding-left: 1vw;
+    background-color: white;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    transition: border 0.1s linear, background-color 0.1s ease;
+
+}
+.aqc-dropdown-select:hover, 
+.questionTitle-input:hover,
+.questionTitle-input:focus, 
+.questionText:hover, 
+.questionText:focus, 
+.questionCategory-input:hover,
+.questionCategory-input:focus{
     cursor: pointer;
     border: 3px #004624 solid;
     background-color: #D0F5E3;
@@ -94,4 +111,36 @@
 .title-container{
     width: 100%;
 }
+
+.question-header, .questinputheader, .categoryheader{
+    margin-bottom: 0;
+}
+
+.add-btn, .remove-btn{
+    margin-bottom: 0;
+    border: 0px;
+    border-radius: 5px;
+    transition: background-color 0.1s ease,  border 0.1s linear;
+    margin-left:0.5vw;
+}
+
+.add-btn:hover {
+    border: 3px #20C073 solid;
+    background-color: white;
+    
+}
+
+.remove-btn:hover{
+    border: 2px red solid;
+    background-color: white;
+}
+
+.add-img, .remove-img{
+    width: 2vw;
+    height: 2vh;
+    filter:invert(100%);
+}
+
+
+
 

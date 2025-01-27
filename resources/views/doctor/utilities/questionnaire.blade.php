@@ -146,6 +146,7 @@
         questionTitle = document.createElement("input");
         questionTitle.setAttribute("name", "questionTitle");
         questionTitle.setAttribute("placeholder", "Enter Title");
+        questionTitle.classList.add("questionTitle-input");
         questionTitle.id = "qst-title";
 
         titleDiv.appendChild(questionHeaderBox);
@@ -168,30 +169,52 @@
             const qstcontainer = document.createElement("div");
             qstcontainer.id = questID;
 
+            const mainQuestionContainer = document.createElement("div");
+            mainQuestionContainer.style.display = "flex";
+
             const qstinput = document.createElement("div");
             qstinput.id = "aqc-question-choice-input";
             qstinput.classList.add('aqc-question-choice-input');
 
+            qstinputheader = document.createElement("p");
+            qstinputheader.classList.add("questinputheader");
+            qstinputheader.textContent = "Add Question";
+
+            qstcontainer.appendChild(qstinputheader);
+
             questionText = document.createElement("input");
             questionText.setAttribute("name", "questionText");
-            questionText.setAttribute("placeholder", "Enter Question");       
+            questionText.setAttribute("placeholder", "Enter Question");  
+            questionText.classList.add("questionText"); 
+                
             questionText.id = "qst-question";
             if(templateQuestion){
                 questionText.value = templateQuestion;
             }
+
+            const addImg = document.createElement('img');
+            addImg.src = "{{ asset('assets/plus-icon.svg') }}";
+            addImg.classList.add("add-img");
+
             addQuestButton = document.createElement("button");
             addQuestButton.setAttribute("type", "button");
-            addQuestButton.textContent = "Add Questions";
+            addQuestButton.classList.add("add-btn");
+            addQuestButton.appendChild(addImg);
+
+            const removeImg = document.createElement('img');
+            removeImg.src = "{{ asset('assets/remove-icon.svg') }}";
+            removeImg.classList.add("remove-img");
 
             removequestion = document.createElement("button");
-            removequestion.textContent = "remove";
+            removequestion.classList.add("remove-btn");
+            removequestion.appendChild(removeImg);
             removequestion.onclick = function (){
                     removeData(questID);
             }
-
-            qstcontainer.appendChild(questionText);
-            qstcontainer.appendChild(addQuestButton);
-            qstcontainer.appendChild(removequestion);
+            mainQuestionContainer.appendChild(questionText);
+            mainQuestionContainer.appendChild(addQuestButton);
+            mainQuestionContainer.appendChild(removequestion);
+            qstcontainer.appendChild(mainQuestionContainer);
 
             let choiceOptions = ["Choice 1", "Choice 2", "Choice 3", "Choice 4"];
             let choiceValues = ["Value 1", "Value 2", "Value 3", "Value 4"];
@@ -250,33 +273,54 @@
             categoryContainer.id = categoryID;
             categoryContainer.classList.add('aqc-category-input');
 
+            const subcategoryHeader = document.createElement("div");
+            subcategoryHeader.style.display="flex";
+
+            categoryheader = document.createElement("p");
+            categoryheader.classList.add("categoryheader");
+            categoryheader.textContent = "Add Category";
+
+            categoryContainer.appendChild(categoryheader);
 
             questionCategory = document.createElement("input");
             questionCategory.setAttribute("name", "questionCategory");
             questionCategory.setAttribute("placeholder", "Enter Category");
+            questionCategory.classList.add("questionCategory-input");
             questionCategory.id = "qst-category";
             if(templateData){
                 questionCategory.value = templateData;
             }
 
+            const addImg = document.createElement('img');
+            addImg.src = "{{ asset('assets/plus-icon.svg') }}";
+            addImg.classList.add("add-img");
+
             addCategoryButton = document.createElement("button");
             addCategoryButton.setAttribute("type", "button");
-            addCategoryButton.textContent = "Add Category";
+            addCategoryButton.classList.add("add-btn");
+            addCategoryButton.appendChild(addImg);
+
+            const removeImg = document.createElement('img');
+            removeImg.src = "{{ asset('assets/remove-icon.svg') }}";
+            removeImg.classList.add("remove-img");
 
             removeCategory = document.createElement("button");
-            removeCategory.textContent = "remove";
+            removeCategory.classList.add("remove-btn");
+            removeCategory.appendChild(removeImg);
             removeCategory.onclick = function () {
                 removeData(categoryID);
             }
             
-            categoryContainer.appendChild(questionCategory);
-            categoryContainer.appendChild(addCategoryButton);
-            categoryContainer.appendChild(removeCategory);
+            subcategoryHeader.appendChild(questionCategory);
+            subcategoryHeader.appendChild(addCategoryButton);
+            subcategoryHeader.appendChild(removeCategory);
+            
+            categoryContainer.appendChild(subcategoryHeader);
 
             parentCat.appendChild(categoryContainer);
             
             addQuestionSet(categoryContainer, templateQuestion, legend, value);
-            addTemplate(parentCat);
+            addTemplate(categoryContainer);
          
             addCategoryButton.addEventListener("click", function() {
             addCategoryset(parentCat);
@@ -313,8 +357,8 @@
             templateDiv.appendChild(tempButton);
             templateDiv.appendChild(saveBtn);
 
-            
-            tempButton.addEventListener("click", function () {
+           
+                tempButton.addEventListener("click", function () {
                 
                 document.getElementById(tempaddBtn).style.display = "none";
                 document.getElementById(tempsaveBtn).style.display = "block";
@@ -407,6 +451,8 @@
                     templateDiv.innerHTML = " ";
                 });
             });
+           
+            
 
 
             parentDiv.appendChild(templateDiv);
