@@ -101,7 +101,9 @@
         dropdownheader.textContent = "Specialization";
         dropdownheader.classList.add("dropdown-header");
 
-        // console.log(doctorQuestions.templates);
+        const dropwdownbox = document.createElement("div");
+        dropwdownbox.classList.add("dropdownBox");
+        dropwdownbox.style.display = "flex";
 
         let selectSpec = document.createElement("select");
         selectSpec.name = "aqc-dropdown";
@@ -113,6 +115,11 @@
 
         let specOptions = doctorQuestions.templates;
 
+        let specVerify = document.createElement("p");
+        specVerify.classList.add("check-spec-input");
+        specVerify.textContent = "*please choose a specialization";
+        specVerify.style.display = "none";
+        specVerify.id = "check-spec-input";
 
         Object.keys(specOptions).forEach(spec => {  
             const options = document.createElement("option");
@@ -123,10 +130,14 @@
 
         selectSpec.addEventListener("change", function() {
             chosenSpec = selectSpec.value;
+            specVerify.style.display = "none";
         });
 
+        dropwdownbox.appendChild(selectSpec);
+        dropwdownbox.appendChild(specVerify);
+
         dropdown.appendChild(dropdownheader);
-        dropdown.appendChild(selectSpec);
+        dropdown.appendChild(dropwdownbox);
         formcontainer.appendChild(dropdown);
 
         const titleDiv = document.createElement("div");
@@ -146,6 +157,7 @@
         questionTitle = document.createElement("input");
         questionTitle.setAttribute("name", "questionTitle");
         questionTitle.setAttribute("placeholder", "Enter Title");
+        questionTitle.setAttribute("autocomplete", "off");
         questionTitle.classList.add("questionTitle-input");
         questionTitle.id = "qst-title";
 
@@ -168,8 +180,10 @@
 
             const qstcontainer = document.createElement("div");
             qstcontainer.id = questID;
-
+            qstcontainer.classList.add("aqc-question-input");
+            
             const mainQuestionContainer = document.createElement("div");
+            mainQuestionContainer.classList.add("mainQuestionContainer");
             mainQuestionContainer.style.display = "flex";
 
             const qstinput = document.createElement("div");
@@ -185,7 +199,8 @@
             questionText = document.createElement("input");
             questionText.setAttribute("name", "questionText");
             questionText.setAttribute("placeholder", "Enter Question");  
-            questionText.classList.add("questionText"); 
+            questionText.setAttribute("autocomplete", "off");  
+            questionText.classList.add("questionText-input"); 
                 
             questionText.id = "qst-question";
             if(templateQuestion){
@@ -227,10 +242,12 @@
                     const legendInput = document.createElement("input");
                     legendInput.value = lkey;
                     legendInput.setAttribute("name", "choiceInput");
-
+                    legendInput.classList.add("choiceInput");
+                    
                     const valueInput = document.createElement("input");
                     valueInput.value = value[index];
                     valueInput.setAttribute("name", "choiceValue");
+                    valueInput.classList.add("valueInput");
 
                     div.appendChild(legendInput);
                     div.appendChild(valueInput);
@@ -246,10 +263,14 @@
                 const choiceInput = document.createElement("input");
                 choiceInput.setAttribute("placeholder", opt);
                 choiceInput.setAttribute("name", "choiceInput");
+                choiceInput.setAttribute("autocomplete", "off");
+                choiceInput.classList.add("choiceInput");
 
                 const valueInput = document.createElement("input");
                 valueInput.setAttribute("placeholder", choiceValues[index]);
                 valueInput.setAttribute("name", "choiceValue");
+                valueInput.setAttribute("autocomplete", "off");
+                valueInput.classList.add("valueInput");
 
                 div.appendChild(choiceInput);
                 div.appendChild(valueInput);
@@ -285,6 +306,7 @@
             questionCategory = document.createElement("input");
             questionCategory.setAttribute("name", "questionCategory");
             questionCategory.setAttribute("placeholder", "Enter Category");
+            questionCategory.setAttribute("autocomplete", "off");  
             questionCategory.classList.add("questionCategory-input");
             questionCategory.id = "qst-category";
             if(templateData){
@@ -342,17 +364,20 @@
 
             const templateDiv = document.createElement("div");
             templateDiv.id = tempBoxID;
+            templateDiv.classList.add("templateDiv");
 
             const tempButton = document.createElement("button");
-            tempButton.textContent = "Add Template";
+            tempButton.textContent = "Select Template";
             tempButton.id = tempaddBtn;
             tempButton.style.display = "block";
+            tempButton.classList.add("tempButton");
             
 
             const saveBtn = document.createElement("button");
-            saveBtn.textContent = "save";
+            saveBtn.textContent = "Add Template";
             saveBtn.id = tempsaveBtn;
             saveBtn.style.display = "none";
+            saveBtn.classList.add("saveBtn");
 
             templateDiv.appendChild(tempButton);
             templateDiv.appendChild(saveBtn);
@@ -360,16 +385,28 @@
            
                 tempButton.addEventListener("click", function () {
                 
-                document.getElementById(tempaddBtn).style.display = "none";
+                if(chosenSpec != " " && chosenSpec != "Choose a Specialization"){
+                    document.getElementById(tempaddBtn).style.display = "none";
                 document.getElementById(tempsaveBtn).style.display = "block";
                 
                 const tempDataDiv = document.createElement("div");
-                tempDataDiv.classList.add = "tempDataDiv";
+                tempDataDiv.classList.add("tempDataDiv");
 
                 const selecTemp = document.createElement("select");
+                    selecTemp.id = "selecTemp";
+                    selecTemp.classList.add("selecTemp");
                 const selectTempQuest = document.createElement("select");
+                    selectTempQuest.id = "selectTempQuest";
+                    selectTempQuest.classList.add("selectTempQuest");
                 const selectTempData = document.createElement("select");
+                    selectTempData.id = "selectTempData";
+                    selectTempData.classList.add("selectTempData");
                 const questionText = document.createElement("input");
+                    questionText.id = "questionTextTemplate";
+                    questionText.classList.add("questionTextTemplate");
+                    questionText.disabled = !questionText.disabled;
+
+
                 const legendValue = document.createElement("div");
 
                 const catTemps = questionTemplates[chosenSpec];
@@ -379,7 +416,7 @@
                     options.value = key;
                     options.textContent = key;
                     selecTemp.appendChild(options);
-                });
+                }); 
 
                     selecTemp.addEventListener("change", function() {
                             templateCategory = selecTemp.value;
@@ -426,9 +463,15 @@
 
                                                 const legendText = document.createElement("input");
                                                 legendText.value = lkey;
+                                                legendText.classList.add("legendText");
+                                                legendText.disabled = !legendText.disabled;
 
                                                 const valueText = document.createElement("input");
                                                 valueText.value = questTextData.value[index];
+                                                valueText.value = lkey;
+                                                valueText.classList.add("valueText");
+                                                valueText.disabled = !valueText.disabled;
+
 
                                                 legValDiv.appendChild(legendText);
                                                 legValDiv.appendChild(valueText);
@@ -437,12 +480,13 @@
                                     });
                                 });
                             });
-
-                templateDiv.appendChild(selecTemp);            
-                templateDiv.appendChild(selectTempQuest);            
-                templateDiv.appendChild(selectTempData);            
-                templateDiv.appendChild(questionText);            
-                templateDiv.appendChild(legendValue);  
+                            
+                tempDataDiv.appendChild(selecTemp);            
+                tempDataDiv.appendChild(selectTempQuest);            
+                tempDataDiv.appendChild(selectTempData);            
+                tempDataDiv.appendChild(questionText);            
+                tempDataDiv.appendChild(legendValue);  
+                templateDiv.appendChild(tempDataDiv);  
                           
                 
 
@@ -450,6 +494,19 @@
                     addCategoryset(parentDiv, templateCategory, templateQuestion, legend, value);
                     templateDiv.innerHTML = " ";
                 });
+                }
+                else{
+                    document.getElementById("check-spec-input").style.display = "block";
+                    const glowtext = document.getElementById("check-spec-input");
+                    
+                    glowtext.classList.remove("error-glow");
+
+                    void glowtext.offsetWidth;
+
+                    glowtext.classList.add("error-glow");
+
+                }
+                
             });
            
             
@@ -467,19 +524,17 @@
         
         function retrieveData(){
             let selectedSpec = document.querySelector('#aqc-dropdown select').value;
-            console.log(selectedSpec);
             let title = document.getElementById("qst-title").value;
-            
             let mainObj = {};
 
             mainObj[title] = {};
 
-            let categories = document.querySelectorAll(".qst-form .aqc-category-input input[name='questionCategory']");
+            let categories = document.querySelectorAll(".qst-form .aqc-category-input");
             categories.forEach((cat,index) => {
-                let categoryName = cat.value;
+                let categoryName = cat.querySelector("input[name='questionCategory']").value;
                 mainObj[title][categoryName] = {};
                 
-                let questionText = cat.parentElement.querySelectorAll("input[name='questionText']");
+                let questionText = cat.querySelectorAll("input[name='questionText']");
                 questionText.forEach((qst,qindex) => {
                     let questionKey = `Q${qindex+1}`;
                     mainObj[title][categoryName][questionKey] = {
@@ -487,8 +542,7 @@
                         question: qst.value,
                         value:[]
                     };
-
-                    let choices = qst.parentElement.querySelectorAll(".aqc-question-choice-input div");
+                    let choices = qst.closest(".aqc-question-input").querySelectorAll(".aqc-question-choice-input div");
                     choices.forEach((choice, cindex) => {
 
                         let choiceLegend = choice.querySelector("input[name='choiceInput']").value;
@@ -499,7 +553,6 @@
                 });
             });
 
-           
             fetch('/doctorProfile/addQuestion', {
                 method: 'POST',
                 headers: {
@@ -513,7 +566,7 @@
             })
             .then(response => {
                 if(response.ok) {
-                    console.log('Questionnaire successfully submitted.');
+                    console.log(mainObj);
                     AddDataSet();
                 }
             })
