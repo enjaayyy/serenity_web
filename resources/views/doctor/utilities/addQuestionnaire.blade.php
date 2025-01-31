@@ -4,7 +4,7 @@
        function AddDataSet(){
         qstDiv.style.display = "none";
         addQstDiv.style.display = "block";
-
+        editQstDiv.style.display = "none";
         const formcontainer = document.getElementById("qst-form");
         formcontainer.innerHTML = " ";
         const dropdown = document.createElement("div");

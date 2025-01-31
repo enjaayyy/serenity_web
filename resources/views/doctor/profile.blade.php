@@ -94,7 +94,7 @@
                             <img src=" {{ asset('assets/add-icon.svg') }}">
                         </button>
                     </div>
-                    <div class="edit-qst-tab" style="display:none;" id="edit-qst-tab">
+                    <div class="edit-qst-tab" style="display:none;" id="edit-qst-tab" onclick=" editQuestionnaire()">
                         <button type="button">
                             <p>Edit&nbsp;Questionnaire</p>
                             <img src=" {{ asset('assets/edit-qst-icon.svg') }}">
