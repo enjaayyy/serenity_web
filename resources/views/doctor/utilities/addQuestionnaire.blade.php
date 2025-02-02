@@ -5,6 +5,7 @@
         qstDiv.style.display = "none";
         addQstDiv.style.display = "block";
         editQstDiv.style.display = "none";
+        document.getElementById("edit-qst-categories").innerHTML = " ";
         const formcontainer = document.getElementById("qst-form");
         formcontainer.innerHTML = " ";
         const dropdown = document.createElement("div");
@@ -465,7 +466,7 @@
 
             }
             else{
-                let selectedSpec = document.querySelector('#aqc-dropdown select').value;
+            let selectedSpec = document.querySelector('#aqc-dropdown select').value;
             let title = document.getElementById("qst-title").value;
             let mainObj = {};
 

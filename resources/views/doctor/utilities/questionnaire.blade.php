@@ -77,6 +77,7 @@
 
             const title = doctorQuestions.questions[titleKey];
 
+            
             ChosenData = title;
             if(editable === false){
             questionContents.innerHTML = " ";
@@ -120,54 +121,79 @@
             const editQuestContent = document.getElementById('edit-qst-content');
             const editQuestCategory = document.getElementById('edit-qst-categories');
 
+            
             editQuestContent.innerHTML = "";
             editQuestCategory.innerHTML= "";
 
-            Object.keys(title).forEach(questionnaireTitle => {
-                const header = document.createElement("div");
-                header.style.display = "flex";
-                const titleText = document.createElement("p");
-                titleText.textContent = questionnaireTitle;
-                header.appendChild(titleText);
+            const header = document.createElement("div");
+                Object.keys(title).forEach(questionnaireTitle => {
+                    const header = document.createElement("div");
+                    header.style.display = "flex";
+           
 
-                const chooseTemplate = document.createElement("select");
-                const templateDefault = document.createElement("option");
-                templateDefault.textContent = "Choose Template";
-                templateDefault.selected = true;
-                chooseTemplate.appendChild(templateDefault);
+                    const chooseTemplate = document.createElement("select");
+                    const templateDefault = document.createElement("option");
+                    templateDefault.textContent = questionnaireTitle;
+                    templateDefault.value = questionnaireTitle;
+                    templateDefault.selected = true;
+                    chooseTemplate.id = "aqc-dropdown";
+                    chooseTemplate.appendChild(templateDefault);
 
-                const templateContent = questionTemplates[questionnaireTitle];
+                    const templateContent = questionTemplates[titleKey];
 
-                Object.keys(templateContent).forEach(templateKeys => {
-                    const templateOptions = document.createElement("option");
-                    templateOptions.textContent = templateKeys;
-                    templateOptions.value = templateKeys;
-                    chooseTemplate.appendChild(templateOptions);
-                })
-               
-                const activateBtn = document.createElement("button");
-                activateBtn.textContent = "Use Template";
+                    Object.keys(templateContent).forEach(templateKeys => {
+                        const templateOptions = document.createElement("option");
+                        templateOptions.textContent = templateKeys;
+                        templateOptions.value = templateKeys;
+                        chooseTemplate.appendChild(templateOptions);
 
-                chooseTemplate.appendChild(templateDefault);
-
-                header.appendChild(chooseTemplate);
-                header.appendChild(activateBtn);
-                editQuestContent.appendChild(header);
-
-                    const categories = title[questionnaireTitle];
-                    Object.keys(categories).forEach(categoryKeys => {
-
-                        const questions = categories[categoryKeys];
-                        Object.keys(questions).forEach(questionKeys => {
-                            const questionData =  questions[questionKeys];
-                            addCategoryset(editQuestCategory, categoryKeys, questionData.question, questionData.legend, questionData.value);
-                        })
                     })
+
+
+                    const activateBtn = document.createElement("button");
+                    activateBtn.textContent = "Use Template";
+                    // activateBtn.onclick = function (){
+                    //     retrieveData();
+                    // }
+
+                    let specVerify = document.createElement("p");
+                    specVerify.classList.add("check-spec-input");
+                    specVerify.textContent = "*please choose a specialization";
+                    specVerify.style.display = "none";
+                    specVerify.id = "check-spec-input";
+
+
+                    chooseTemplate.appendChild(templateDefault);
+
+                    header.appendChild(chooseTemplate);
+                    header.appendChild(activateBtn);
+                    header.appendChild(specVerify);
+                    editQuestContent.appendChild(header);
+
+                    chooseTemplate.addEventListener("change", function(){
+                        if(chooseTemplate.value == templateDefault.value){
+                            editQuestCategory.innerHTML= "";
+                            resetCounters();
+                            loadtemplates(title,questionnaireTitle,editQuestCategory);
+                        }
+                        else{
+                            editQuestCategory.innerHTML= "";
+                            resetCounters();
+                            Object.keys(templateContent).forEach(templatesKey => {
+                                if(chooseTemplate.value == templatesKey){
+                                    chosenSpec = templatesKey;
+                                    loadtemplates(templateContent,templatesKey,editQuestCategory);
+                                }
+                            })
+                        }       
+                        });
+
+                        loadtemplates(title,questionnaireTitle,editQuestCategory);
+                    
             });
-
-
         }
-            
+
+       
     }
     </script>
     @include('doctor.utilities.addQuestionnaire')
