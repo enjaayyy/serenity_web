@@ -26,6 +26,8 @@
         let doctorQuestions = @json($doctorData);
         const questionsKeys =  Object.keys(doctorQuestions.questions);
         const questionTemplates = doctorQuestions.templates;
+
+        const status = document.getElementById('status');
         
         const questionContents = document.getElementById('qst-content');
         const questionSubCategories = document.getElementById('qst-categories');
@@ -37,7 +39,6 @@
         const questionButtons = document.getElementById('qst-cat-btns');
 
         let editable = false;
-
         function getQuestionnaires(){
                 document.getElementById('questionnaire-container').style.display = "block";
                 document.getElementById('add-questionnaire-container').style.display = "none";
@@ -52,6 +53,9 @@
                     }, 10); 
 
                     editable = false;
+                    status.value = " ";
+                    status.value = editable;
+                    status.textContent = editable;
             }
 
         function specBtns(buttonContainer){
@@ -137,6 +141,7 @@
                     templateDefault.value = questionnaireTitle;
                     templateDefault.selected = true;
                     chooseTemplate.id = "aqc-dropdown";
+                    chooseTemplate.classList.add("aqc-dropdown");
                     chooseTemplate.appendChild(templateDefault);
 
                     const templateContent = questionTemplates[titleKey];
@@ -149,43 +154,39 @@
 
                     })
 
+                    chooseTemplate.appendChild(templateDefault);
+                    header.appendChild(chooseTemplate);
 
                     const activateBtn = document.createElement("button");
-                    activateBtn.textContent = "Use Template";
-                    // activateBtn.onclick = function (){
-                    //     retrieveData();
-                    // }
+                                activateBtn.textContent = "Use Template";
+                                activateBtn.id = "activate-button";
+                                activateBtn.onclick = function (){
+                                retrieveData();
+                                }
+                                header.appendChild(activateBtn);
 
-                    let specVerify = document.createElement("p");
-                    specVerify.classList.add("check-spec-input");
-                    specVerify.textContent = "*please choose a specialization";
-                    specVerify.style.display = "none";
-                    specVerify.id = "check-spec-input";
-
-
-                    chooseTemplate.appendChild(templateDefault);
-
-                    header.appendChild(chooseTemplate);
-                    header.appendChild(activateBtn);
-                    header.appendChild(specVerify);
                     editQuestContent.appendChild(header);
+
 
                     chooseTemplate.addEventListener("change", function(){
                         if(chooseTemplate.value == templateDefault.value){
                             editQuestCategory.innerHTML= "";
                             resetCounters();
+                            chosenTemplate = chosenSpec;
                             loadtemplates(title,questionnaireTitle,editQuestCategory);
                         }
                         else{
-                            editQuestCategory.innerHTML= "";
                             resetCounters();
                             Object.keys(templateContent).forEach(templatesKey => {
                                 if(chooseTemplate.value == templatesKey){
+                                    editQuestCategory.innerHTML= "";
                                     chosenSpec = templatesKey;
+                                    chosenTemplate = templatesKey; 
                                     loadtemplates(templateContent,templatesKey,editQuestCategory);
                                 }
                             })
                         }       
+                       
                         });
 
                         loadtemplates(title,questionnaireTitle,editQuestCategory);

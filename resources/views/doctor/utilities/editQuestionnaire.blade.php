@@ -2,15 +2,17 @@
     const buttonHeaders = document.getElementById('edit-qst-cat-btns');
 
     function editQuestionnaire(){
-        
         qstDiv.style.display = "none";
         addQstDiv.style.display = "none";
         editQstDiv.style.display = "block";
-        resetCounters();
-        document.getElementById("qst-form").innerHTML = " ";
 
         buttonHeaders.innerHTML = "";
         editable = true;
+
+        status.value = " ";
+        status.value = editable;
+        status.textContent = editable;
+
         const buttonChoices = document.getElementById('edit-qst-cat-btns');
         specBtns(buttonChoices);
 
@@ -24,6 +26,7 @@
 
    function loadtemplates(title,questionnaireTitle,editQuestCategory){
         const categories = title[questionnaireTitle];
+
             Object.keys(categories).forEach(categoryKeys => {
 
                 const questions = categories[categoryKeys];
@@ -33,5 +36,6 @@
                 });
         }); 
         }
+
 
 </script>

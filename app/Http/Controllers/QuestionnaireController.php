@@ -73,6 +73,9 @@ class QuestionnaireController extends Controller
         return redirect()->route('docProfile');
     }
 
+
+
+
     private function questionBySpecialization($specialization, $title){
         $title = (string) $title;
          $questions = [

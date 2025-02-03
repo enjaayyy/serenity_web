@@ -1,10 +1,17 @@
 <script>
-     let chosenSpec = " ";
-
+    let chosenSpec = " ";
+    let chosenTemplate = " ";
        function AddDataSet(){
         qstDiv.style.display = "none";
         addQstDiv.style.display = "block";
         editQstDiv.style.display = "none";
+
+        editable = false;
+
+        status.value = " ";
+        status.value = editable;
+        status.textContent = editable;
+
         document.getElementById("edit-qst-categories").innerHTML = " ";
         const formcontainer = document.getElementById("qst-form");
         formcontainer.innerHTML = " ";
@@ -266,7 +273,8 @@
         let tmpbtn = 0;
 
         function addTemplate(parentDiv){
-            let templateCategory;
+            if(editable == false){
+                let templateCategory;
             let templateQuestion;
             let templateQuestionData;
             let templateQuestionText;
@@ -449,6 +457,11 @@
            
 
             parentDiv.appendChild(templateDiv);
+            }
+            else{
+
+            }
+            
         }
 
         function removeData(id){
@@ -459,61 +472,79 @@
         }
         
         function retrieveData(){
-            if(document.getElementById("qst-title").value === ""){
+            if(status.value == false){
+                if(document.getElementById("qst-title").value === ""){
                 document.getElementById("check-all-input").style.display = "block";
                 const glowtext = document.getElementById("check-all-input");
                 erroreffect(glowtext);
 
-            }
-            else{
-            let selectedSpec = document.querySelector('#aqc-dropdown select').value;
-            let title = document.getElementById("qst-title").value;
-            let mainObj = {};
+                }
+                else{
+                let selectedSpec = document.querySelector('#aqc-dropdown select').value;
+                let title = document.getElementById("qst-title").value;
+                let mainObj = {};
 
-            mainObj[title] = {};
+                mainObj[title] = {};
 
-            let categories = document.querySelectorAll(".qst-form .aqc-category-input");
-            categories.forEach((cat,index) => {
-                let categoryName = cat.querySelector("input[name='questionCategory']").value;
-                mainObj[title][categoryName] = {};
-                
-                let questionText = cat.querySelectorAll("input[name='questionText']");
-                questionText.forEach((qst,qindex) => {
-                    let questionKey = `Q${qindex+1}`;
-                    mainObj[title][categoryName][questionKey] = {
-                        legend: [],
-                        question: qst.value,
-                        value:[]
-                    };
-                    let choices = qst.closest(".aqc-question-input").querySelectorAll(".aqc-question-choice-input div");
-                    choices.forEach((choice, cindex) => {
+                let categories = document.querySelectorAll(".qst-form .aqc-category-input");
+                categories.forEach((cat,index) => {
+                    let categoryName = cat.querySelector("input[name='questionCategory']").value;
+                    mainObj[title][categoryName] = {};
+                    
+                    let questionText = cat.querySelectorAll("input[name='questionText']");
+                    questionText.forEach((qst,qindex) => {
+                        let questionKey = `Q${qindex+1}`;
+                        mainObj[title][categoryName][questionKey] = {
+                            legend: [],
+                            question: qst.value,
+                            value:[]
+                        };
+                        let choices = qst.closest(".aqc-question-input").querySelectorAll(".aqc-question-choice-input div");
+                        choices.forEach((choice, cindex) => {
 
-                        let choiceLegend = choice.querySelector("input[name='choiceInput']").value;
-                        mainObj[title][categoryName][questionKey].legend.push(choiceLegend);
-                        let choiceValue = choice.querySelector("input[name='choiceValue']").value;
-                        mainObj[title][categoryName][questionKey].value.push(choiceValue);
+                            let choiceLegend = choice.querySelector("input[name='choiceInput']").value;
+                            mainObj[title][categoryName][questionKey].legend.push(choiceLegend);
+                            let choiceValue = choice.querySelector("input[name='choiceValue']").value;
+                            mainObj[title][categoryName][questionKey].value.push(choiceValue);
+                        });
                     });
                 });
-            });
 
-            fetch('/doctorProfile/addQuestion', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                },
-                body: JSON.stringify({
-                    specialization: selectedSpec,
-                    questionData: mainObj
-                }),
-            })
-            .then(response => {
-                if(response.ok) {
-                    console.log(mainObj);
-                    AddDataSet();
+                fetch('/doctorProfile/addQuestion', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                    body: JSON.stringify({
+                        specialization: selectedSpec,
+                        questionData: mainObj
+                    }),
+                })
+                .then(response => {
+                    if(response.ok) {
+                        console.log(mainObj);
+                        AddDataSet();
+                    }
+                })
                 }
-            })
             }
+            else{
+                let selectedTemplate = document.getElementById("aqc-dropdown").value;
+                let tempObj = {};
+                
+                tempObj[selectedTemplate] = {};
+
+                let categoryInput = document.querySelectorAll(".edit-qst-categories .aqc-category-input");
+                categoryInput.forEach(cat => {
+                    let categoryvalue = cat.querySelector("input[name='questionCategory']").value;
+                    tempObj[selectedTemplate][categoryvalue] = {};
+                });
+
+                console.log(tempObj);
+
+            }
+            
         }
 
         function erroreffect(glowtext){

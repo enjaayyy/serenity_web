@@ -79,6 +79,7 @@
                     </div>
                 </div>
                 <div class="other-data">
+                    <p class="status" name="status" id="status" hidden></p>
                     @include('doctor.utilities.questionnaire')
                 </div>
                 <div class="tabs">
