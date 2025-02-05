@@ -61,13 +61,28 @@
         function specBtns(buttonContainer){
 
             questionsKeys.forEach((key, index) => {
+                
+                
                 const button = document.createElement("button");
                 button.textContent = key;
                 button.classList.add('qst-btns');
-                button.addEventListener("click", () => displayQuestionTitle(key));
+
+                button.addEventListener("click", () => {
+                    displayQuestionTitle(key);
+
+
+                    let activeSpecTab = document.getElementById("activeSpecTab");
+                        if(!activeSpecTab){
+                            activeSpecTab = document.createElement("p");
+                            activeSpecTab.hidden = true;
+                            activeSpecTab.id = "activeSpecTab";
+                            buttonContainer.appendChild(activeSpecTab);
+                        }
+                        activeSpecTab.value = key;
+                        activeSpecTab.textContent = key;
+                });
 
                 buttonContainer.appendChild(button);
-
                 if(index === 0){
                     button.click();
                 }
@@ -133,15 +148,14 @@
                 Object.keys(title).forEach(questionnaireTitle => {
                     const header = document.createElement("div");
                     header.style.display = "flex";
-           
-
+                    
                     const chooseTemplate = document.createElement("select");
                     const templateDefault = document.createElement("option");
                     templateDefault.textContent = questionnaireTitle;
                     templateDefault.value = questionnaireTitle;
                     templateDefault.selected = true;
-                    chooseTemplate.id = "aqc-dropdown";
-                    chooseTemplate.classList.add("aqc-dropdown");
+                    chooseTemplate.id = "aqc-dropdown-2";
+                    chooseTemplate.classList.add("aqc-dropdown-2");
                     chooseTemplate.appendChild(templateDefault);
 
                     const templateContent = questionTemplates[titleKey];
@@ -193,7 +207,6 @@
                     
             });
         }
-
        
     }
     </script>

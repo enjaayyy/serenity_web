@@ -68,9 +68,29 @@ class QuestionnaireController extends Controller
         $specialization = $request->input('specialization');
         $questionData = $request->input('questionData');
 
-        $this->database->getReference('administrator/doctors/' . $id . '/savedQuestionnaires' . '/' . $specialization . '/')->update( $questionData);
+        $this->database->getReference('administrator/doctors/' . $id . '/savedQuestionnaires' . '/' . $specialization . '/')->update($questionData);
         
         return redirect()->route('docProfile');
+    }
+
+    public function editQuestions(Request $request){
+        $id = Session::get('id');
+        $specialization = $request->input('editActiveQuestion');
+        $questionData = $request->input('activeQuestionData');
+
+        $SQPath = 'administrator/doctors/' . $id . '/savedQuestionnaires/' .  $specialization . '/';
+        $AQPath = 'administrator/doctors/' . $id . '/activeQuestionnaires/' .  $specialization . '/';
+
+        $previousQuestion = $this->database->getReference('administrator/doctors/' . $id . '/activeQuestionnaires/' .  $specialization)->getSnapshot()->getValue();
+        
+        $this->database->getReference('administrator/doctors/' . $id . '/activeQuestionnaires/' .  $specialization . '/')->remove();
+
+        $this->database->getReference('administrator/doctors/' . $id . '/activeQuestionnaires/' .  $specialization . '/')->set($questionData);
+
+
+        return redirect()->route('docProfile');
+
+            
     }
 
 

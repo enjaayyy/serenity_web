@@ -44,7 +44,7 @@ Route::post('/doctorProfile/uploadpp', [DoctorController::class , 'uploadpp'])->
 Route::post('/doctorProfile/uploadDetails', [DoctorController::class, 'getDetails'])->name('uploadDetails');
 
 Route::post('/doctorProfile/addQuestion', [QuestionnaireController::class , 'Addquestions'])->name('addQuestionnaire');
-// Route::post('/doctorProfile/editQuestion', [QuestionnaireController::class, 'editquestions'])->name('editquestions');
+Route::post('/doctorProfile/editQuestion', [QuestionnaireController::class, 'editQuestions'])->name('editquestions');
 
 Route::post('/doctorProfile/addGrad', [DoctorController::class, 'addGraduate'])->name('addGraduate');
 Route::get('/doctor/requests', [DoctorController::class, 'showRequests'])->name('showRequests');

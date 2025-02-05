@@ -28,14 +28,16 @@
         const categories = title[questionnaireTitle];
 
             Object.keys(categories).forEach(categoryKeys => {
+                const CategoryDiv = document.createElement("div");
+                addCategoryset(CategoryDiv, categoryKeys);
 
                 const questions = categories[categoryKeys];
                 Object.keys(questions).forEach(questionKeys => {
                     const questionData =  questions[questionKeys];
-                    addCategoryset(editQuestCategory, categoryKeys, questionData.question, questionData.legend, questionData.value);
+                    addQuestionSet(CategoryDiv, questionData.question, questionData.legend, questionData.value);
                 });
+                editQuestCategory.appendChild(CategoryDiv);
         }); 
         }
-
 
 </script>
