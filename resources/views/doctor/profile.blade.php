@@ -6,8 +6,6 @@
 
         <link rel="stylesheet" href="{{ asset('css/doctor/profile.css') }}">
         <link rel="stylesheet" href="{{ asset('css/doctor/utilities/uploadcard.css') }}">
-        {{-- 
-        <link rel="stylesheet" href="{{ asset('css/doctor/utilities/profile-content.css') }}"> --}}
         <div class="container">
             <div class="admin-header">
                 <p class="dash-text">My Profile</p>

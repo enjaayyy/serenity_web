@@ -17,6 +17,18 @@
     border-radius: 15px;
     top: 30%;
     left: 40%;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-30%);
+        opacity: 0;
+    }
+    to{
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .card-header{
@@ -36,6 +48,9 @@
     border-bottom: 1px solid lightgray;
 }
 
+.upld-btn:hover{
+    cursor: pointer;
+}
 #file-name{
     max-width: 80%;
     text-overflow: ellipsis;

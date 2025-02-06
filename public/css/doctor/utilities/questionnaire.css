@@ -34,7 +34,9 @@
 }
 
 .qst-content, 
-.qst-categories{
+.qst-categories,
+.edit-qst-content,
+.edit-qst-categories{
     margin-left: 2vw;
     margin-right: 2vw;
 }
@@ -79,8 +81,14 @@
     font-size: 0.8vw;
 }
 
+.edit-qst-content{
+    margin-top: 2vh;
+
+}
+
 .aqc-dropdown-select, 
-.questionTitle-input 
+.questionTitle-input,
+.aqc-dropdown-2
 {
     height: 4vh;
     width: 20vw;
@@ -152,6 +160,7 @@
 }
 
 .aqc-dropdown-select:hover, 
+.aqc-dropdown-2:hover,
 .questionTitle-input:hover,
 .questionTitle-input:focus, 
 .questionText-input:hover, 
@@ -280,6 +289,7 @@
     background-color: #20C073;
     color: white;
 }
+
 .templateDiv{
     justify-items: center;
 }

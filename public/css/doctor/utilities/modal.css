@@ -1,0 +1,60 @@
+.modal-screen{
+    width: 100%;
+    height: 100%;
+    overflow-y: hidden;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    position:fixed;
+    display:none;
+    z-index: 1000;
+    top:0;
+    left:0;
+}
+
+.modal-container{
+    position: fixed;
+    background-color: white;
+    width: 25vw;
+    height: 25vw;
+    border-radius: 15px;
+    top: 20%;
+    left: 40%;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from{
+        transform: translateY(-40%);
+        opacity: 0;
+    }
+    to{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header-container{
+    text-align: right;
+    margin-top: 0.5vh;
+}
+
+.modal-header-container button{
+    height: 4vh;
+    background-color: transparent;
+    border: none;
+    margin-right: 1vw;
+    border-radius: 5px;
+}
+
+.modal-header-container button:hover{
+    border: 1px solid gray;    
+}
+
+.modal-image{
+    width: 100%;
+}
+
+.modal-image img{
+    width: 100%;
+    height: 20vw;
+}
