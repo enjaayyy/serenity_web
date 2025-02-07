@@ -27,6 +27,7 @@
 
         let selectSpec = document.createElement("select");
         selectSpec.name = "aqc-dropdown";
+        selectSpec.id = "aqc-dropdown";
         selectSpec.classList.add("aqc-dropdown-select");
         let defaultOpt = document.createElement("option");
         defaultOpt.textContent = "Choose a Specialization";
@@ -512,78 +513,46 @@
                         });
                     });
                 });
-
-                fetch('/doctorProfile/addQuestion', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    },
-                    body: JSON.stringify({
-                        specialization: selectedSpec,
-                        questionData: mainObj
-                    }),
-                })
-                .then(response => {
-                    if(response.ok) {
-                        console.log(mainObj);
-                        AddDataSet();
-                    }
-                })
+                let route = '/doctorProfile/addQuestion';
+                openConfirmationModal(mainObj,route,chosenSpec);
                 }
             }
             else{
-
-                openConfirmationModal();
-                // let selectedTemplate = document.getElementById("aqc-dropdown-2").value;
-                // let selectedSpec = document.getElementById("activeSpecTab").value;
-                // let tempObj = {};
+                let selectedTemplate = document.getElementById("aqc-dropdown-2").value;
+                let selectedSpec = document.getElementById("activeSpecTab").value;
+                let tempObj = {};
                 
-                // tempObj[selectedTemplate] = {};
+                tempObj[selectedTemplate] = {};
 
-                // let categoryInput = document.querySelectorAll(".edit-qst-categories > div");
-                // categoryInput.forEach(cat => {
-                //     let categoryvalue = cat.querySelector("input[name='questionCategory']").value;
-                //     tempObj[selectedTemplate][categoryvalue] = {};
+                let categoryInput = document.querySelectorAll(".edit-qst-categories > div");
+                categoryInput.forEach(cat => {
+                    let categoryvalue = cat.querySelector("input[name='questionCategory']").value;
+                    tempObj[selectedTemplate][categoryvalue] = {};
 
-                //     let questionInput =  cat.querySelectorAll(".aqc-question-input");
-                //     questionInput.forEach((quest, index) => {
-                //         let questionKey = `Q${index+1}`;
+                    let questionInput =  cat.querySelectorAll(".aqc-question-input");
+                    questionInput.forEach((quest, index) => {
+                        let questionKey = `Q${index+1}`;
 
-                //         let questionText = quest.querySelector("input[name='questionText']").value;
+                        let questionText = quest.querySelector("input[name='questionText']").value;
 
-                //     tempObj[selectedTemplate][categoryvalue][questionKey] = {
-                //         legend: [],
-                //         question: questionText,
-                //         value: [],
-                //     };
-                //         let choices = quest.closest(".aqc-question-input").querySelectorAll(".aqc-question-choice-input div");
-                //         choices.forEach((choice, cindex) => {
+                    tempObj[selectedTemplate][categoryvalue][questionKey] = {
+                        legend: [],
+                        question: questionText,
+                        value: [],
+                    };
+                        let choices = quest.closest(".aqc-question-input").querySelectorAll(".aqc-question-choice-input div");
+                        choices.forEach((choice, cindex) => {
 
-                //             let choiceLegend = choice.querySelector("input[name='choiceInput']").value;
-                //             tempObj[selectedTemplate][categoryvalue][questionKey].legend.push(choiceLegend);
-                //             let choiceValue = choice.querySelector("input[name='choiceValue']").value;
-                //             tempObj[selectedTemplate][categoryvalue][questionKey].value.push(choiceValue);
-                //         });
-                //     });
+                            let choiceLegend = choice.querySelector("input[name='choiceInput']").value;
+                            tempObj[selectedTemplate][categoryvalue][questionKey].legend.push(choiceLegend);
+                            let choiceValue = choice.querySelector("input[name='choiceValue']").value;
+                            tempObj[selectedTemplate][categoryvalue][questionKey].value.push(choiceValue);
+                        });
+                    });
                     
-                // });
-
-
-                // fetch('/doctorProfile/editQuestion', {
-                //     method: 'POST',
-                //     headers: {
-                //         'Content-Type': 'application/json',
-                //         'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                //     },
-                //     body: JSON.stringify({
-                //         editActiveQuestion: selectedSpec,
-                //         activeQuestionData: tempObj
-                //     }),
-                // })
-                // .then(response => {
-                //     confirmationModal();
-                // })
+                });
+                let route = '/doctorProfile/editQuestion';
+                openConfirmationModal(tempObj,route,selectedSpec);
             }
         }
         function erroreffect(glowtext){

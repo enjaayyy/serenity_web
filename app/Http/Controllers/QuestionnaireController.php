@@ -75,8 +75,8 @@ class QuestionnaireController extends Controller
 
     public function editQuestions(Request $request){
         $id = Session::get('id');
-        $specialization = $request->input('editActiveQuestion');
-        $questionData = $request->input('activeQuestionData');
+        $specialization = $request->input('specialization');
+        $questionData = $request->input('questionData');
 
         $SQPath = 'administrator/doctors/' . $id . '/savedQuestionnaires/' .  $specialization . '/';
         $AQPath = 'administrator/doctors/' . $id . '/activeQuestionnaires/' .  $specialization . '/';
