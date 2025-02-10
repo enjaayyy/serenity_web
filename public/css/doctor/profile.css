@@ -15,10 +15,13 @@ body{
     height: auto;
 }
 
-.doctor-data-2{
+.doctor-data-2,
+.doctor-data-3{
     background-color: white;
     border-radius: 15px;
     padding-bottom: 5%;
+    height: auto;
+    margin-bottom: 2.5vh;
 }
 .profile-pic-container{
     width: 100%;

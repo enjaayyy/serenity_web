@@ -75,8 +75,14 @@
                             </div>
                         </div>
                     </div>
+                    <div class="doctor-data-3">
+                        awdawda
+                    </div>
                 </div>
                 <div class="other-data">
+                    <div class="get-started" id="get-started">
+                        <p>Get Started</p>
+                    </div>
                     <p class="status" name="status" id="status" hidden></p>
                     @include('doctor.utilities.questionnaire')
                 </div>

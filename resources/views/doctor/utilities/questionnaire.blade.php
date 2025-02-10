@@ -1,6 +1,6 @@
 <link rel="stylesheet" href=" {{ asset('css/doctor/utilities/questionnaire.css')}}">
 <link rel="stylesheet" href=" {{ asset('css/doctor/utilities/addquestionnaire.css')}}">
-    <div id="questionnaire-container" class="questionnaire-container" style="display: block;">
+    <div id="questionnaire-container" class="questionnaire-container" style="display: none;">
         <div id="qst-cat-btns" class="qst-cat-btns"></div>
         <div id="qst-content" class="qst-content"></div>
         <div id="qst-categories" class="qst-categories"></div>
