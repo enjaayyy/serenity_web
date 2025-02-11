@@ -11,6 +11,9 @@
     border-top-right-radius: 15px;
     border-top-left-radius: 15px;
     overflow: hidden;
+    justify-content: space-evenly;
+    height: auto;
+    background-color: #F7F7F7;
 }
 
 .qst-cat-btns button,
@@ -18,15 +21,31 @@
     width: 100%;
     height: 8vh;
     border: none;
-    transition: background-color 0.5s ease;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    margin-bottom: 0px;
+    background-color: #F7F7F7;
+    transition: background-color 0.5s ease, font-weight 0.5s ease, color 0.5s ease;
 }
 
 .qst-cat-btns button:hover,
 .edit-qst-cat-btns button:hover{
-    background-color: #49B2FF;
-    color: white;
+    background-color: white;
+    color: black;
+    font-weight: bold;
 }
 
+.qst-cat-btns .qst-btns.active{
+    background-color: white;
+    color: black;
+    font-weight: bold;
+}
+
+.edit-qst-cat-btns .qst-btns.active{
+    background-color: white;
+    color: black;
+    font-weight: bold;
+}
 .qst-header{
     font-weight: bold;
     font-size: 2vw;
@@ -60,8 +79,10 @@
 
 .qcb-header{
     width: 100%;
+    padding-top: 2.5vh;
 }
 .qcb-header p{
+    margin-top:0px;
     font-size: 1.5vw;
     font-weight: bold;
     color:#004624;

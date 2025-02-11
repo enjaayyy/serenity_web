@@ -43,6 +43,9 @@
                 document.getElementById('questionnaire-container').style.display = "block";
                 document.getElementById('add-questionnaire-container').style.display = "none";
                 document.getElementById('edit-questionnaire-container').style.display = "none";
+                document.getElementById('get-started-container').style.display = "none";
+                document.getElementById('cred-container').style.display = "none";
+
                 let addTab = document.getElementById('add-qst-tab');
                 let editTab = document.getElementById('edit-qst-tab');
                     addTab.style.display = 'block'; 
@@ -87,9 +90,20 @@
                     button.click();
                 }
             });
+
+            const btns = document.querySelectorAll(".qst-btns");
+            btns.forEach(button => {
+            button.addEventListener('click', () =>{
+                btns.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+            });
+        });
         }
 
+         
+
         specBtns(questionButtons);
+        
         
 
         function displayQuestionTitle(titleKey) {

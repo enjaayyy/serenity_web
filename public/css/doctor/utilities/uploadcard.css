@@ -51,6 +51,7 @@
 .upld-btn:hover{
     cursor: pointer;
 }
+
 #file-name{
     max-width: 80%;
     text-overflow: ellipsis;

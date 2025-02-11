@@ -74,6 +74,34 @@ class DoctorController extends Controller
         }   
     }
 
+    public function addcredentials(Request $request){
+        $id = Session::get('id');
+
+        $getCredential = $request->file('credential');
+        $filename = $getCredential->getClientOriginalName();
+        $filepath = $getCredential->getPathname();
+        $firebasepath = 'credentials/' . $filename;
+
+        $uploadFile  = $this->bucket->upload(
+                fopen($filepath, 'r'), [
+                    'name' => $firebasepath
+                ]
+                );
+
+                $expiresAt = new \DateTime('+1 year');
+                $url = $uploadFile->signedUrl($expiresAt);
+
+                $credentialsRef = $this->database->getReference('administrator/doctors/' . $id . '/credentials/')->getValue();
+
+                $currentIndex = is_array($credentialsRef) ? count($credentialsRef) : 0;
+
+                $query = $this->database->getReference('administrator/doctors/' . $id . '/credentials/' . $currentIndex)->set($url);
+
+                if($query){
+                    return redirect()->route('docProfile');
+                }
+    }
+
     public function uploadpp(Request $request){
         if($request->hasFile('pp')){
             $id = Session::get('id');
