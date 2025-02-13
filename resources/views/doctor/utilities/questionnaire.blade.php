@@ -45,6 +45,8 @@
                 document.getElementById('edit-questionnaire-container').style.display = "none";
                 document.getElementById('get-started-container').style.display = "none";
                 document.getElementById('cred-container').style.display = "none";
+                document.getElementById('about-me-container').style.display = "none";
+
 
                 let addTab = document.getElementById('add-qst-tab');
                 let editTab = document.getElementById('edit-qst-tab');

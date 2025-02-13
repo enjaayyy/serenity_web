@@ -41,13 +41,11 @@ Route::get('/patientlist', [AdminController::class, 'viewPatients'])->name('pati
 Route::get('/doctorDashboard', [DoctorController::class, 'docDashboard'])->name('docDashboard');
 Route::get('/doctorProfile', [DoctorController::class, 'doctorProfile'])->name('docProfile');
 Route::post('/doctorProfile/uploadpp', [DoctorController::class , 'uploadpp'])->name('uploadpp');
-Route::post('/doctorProfile/uploadDetails', [DoctorController::class, 'getDetails'])->name('uploadDetails');
 
 Route::post('/doctorProfile/addQuestion', [QuestionnaireController::class , 'Addquestions'])->name('addQuestionnaire');
 Route::post('/doctorProfile/editQuestion', [QuestionnaireController::class, 'editQuestions'])->name('editquestions');
 Route::post('/doctorProfile/addCredential', [DoctorController::class, 'addcredentials'])->name('addcredentials');
 
-Route::post('/doctorProfile/addGrad', [DoctorController::class, 'addGraduate'])->name('addGraduate');
 Route::get('/doctor/requests', [DoctorController::class, 'showRequests'])->name('showRequests');
 Route::post('/doctor/patientAction/{id}', [DoctorController::class, 'acceptPatient'])->name('patientAction');
 Route::get('/doctor/patientlist', [DoctorController::class, 'viewPatients'])->name('viewPatients');

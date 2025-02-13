@@ -7,31 +7,46 @@ body{
 .main-content{
     display: flex;
     width: 100%;
-    height: auto;
+    height: 83vh;
 }
 
 .doctor-data{
     width: 30%;
-    height: auto;
+    height: 100%;
+    overflow-y: auto;
+    border-radius: 15px;
+}
+
+.doctor-data::-webkit-scrollbar{
+    width: 1vw;
+}
+
+.doctor-appointments-container,
+.doctor-data-analytic{
+    height: 10vh;
+    text-align: center;
+    padding-top: 1vh;
 }
 
 .doctor-data-2,
-.doctor-data-3{
+.doctor-appointments-container,
+.doctor-data-analytic{
     background-color: white;
     border-radius: 15px;
     padding-bottom: 5%;
     height: auto;
     margin-bottom: 2.5vh;
 }
+
+
 .profile-pic-container{
     width: 100%;
     justify-items: center;
-    border-bottom: solid 1px #C0C0C0;
 }
 
 .profile-pic-container button img{
-    width: 6vw;
-    height: 12vh;
+    width: 9vw;
+    height: 18vh;
     margin: 0;
     border-radius: 50%;
     object-fit: cover;
@@ -42,8 +57,8 @@ body{
 .profile-pic-container button{
     padding: 0;
     border-radius: 50%;
-    width: 6vw;
-    height: 12vh;
+    width: 9vw;
+    height: 18vh;
     border: none;
 }
 .pic-container{
@@ -67,10 +82,10 @@ body{
 .plus-icon{
     position:absolute;
     opacity: 0;
-    top: 35%;
-    left: 25%;
-    width: 3vw;
-    height: 3vh;
+    top: 45%;
+    left: 22%;
+    width: 5vw;
+    height: 5vh;
     transition: opacity 0.5s ease;
 }
 
@@ -102,55 +117,18 @@ body{
     justify-items: center;
 }
 
-.spec-container,
-.age-yrs-gender-group,
-.license-group,
-.address-group,
-.email-group{
-    width: 80%;
-    
-}
 
-.spec-header,
-.age-yrs-gender-group{
-    display: flex;
-    justify-content: space-between;
-}
-
-.spec-list-container{
-    display: flex;
-
-}
-
-.rt-data{
-    border-radius: 15px;
-    border: 1px solid #49B2FF;
-    color: #49B2FF;
-    background-color: rgba(73, 178, 255, 0.5);;
-    padding-left: 0.5vw;
-    padding-right: 0.5vw;
-    font-size: 0.6vw;
-    margin-right: 10px;
-}
-
-.data-header{
-    color: black;
-    font-size: 0.7vw;
-    font-weight: lighter;
-    margin-bottom: 1vh;
-}
-
-.actual-data{
-    font-size: 1vw;
-    margin-top: 1vh;
-    margin-bottom: 3vh;
-    font-weight: bold;
-}
 
 .other-data{
     width: 55%;
     margin-left: 2%;
-    height: auto;
+    height: 100%;
+    overflow-y: auto;
+    border-radius: 15px;
+}
+
+.other-data::-webkit-scrollbar{
+    width: 1vw;
 }
 
 .od-content{
@@ -292,6 +270,7 @@ body{
 }
 
 .get-started-header{
+    padding-top: 2vh;
     font-weight: bold;
     font-size: 2.5vw;
     color:#004624;
@@ -304,3 +283,9 @@ body{
     color:#004624;
 }
 
+.appointment-header,
+.patient-summary-header{
+    font-weight: bold;
+    color:#004624;
+    font-size: 1vw;
+}

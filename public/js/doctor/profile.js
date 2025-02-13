@@ -27,8 +27,21 @@
                 document.getElementById('edit-questionnaire-container').style.display = "none";
                 document.getElementById('cred-container').style.display = "block";
                 document.getElementById('get-started-container').style.display = "none";
+                document.getElementById('about-me-container').style.display = "none";
+
             }
-              
+            
+            function openAboutMe(){
+                document.getElementById('questionnaire-container').style.display = "none";
+                document.getElementById('add-qst-tab').style.display = "none";
+                document.getElementById('edit-qst-tab').style.display = "none";
+                document.getElementById('add-questionnaire-container').style.display = "none";
+                document.getElementById('edit-questionnaire-container').style.display = "none";
+                document.getElementById('cred-container').style.display = "none";
+                document.getElementById('get-started-container').style.display = "none";
+                document.getElementById('about-me-container').style.display = "block";
+
+            }
 
                 
 

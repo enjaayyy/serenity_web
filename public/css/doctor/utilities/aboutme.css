@@ -1,0 +1,136 @@
+.about-me-header{
+    font-weight: bold;
+    font-size: 2vw;
+    color:#004624;
+    padding-top: 2.5vh;
+    margin-top: 0px;
+    margin-bottom: 1vh;
+}
+
+.about-me-container{
+    margin-left: 2vw;
+    margin-right: 2vw;
+}
+
+.main-detail-header,
+.edit-btn{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.edit-btn,
+.save-btn{
+    gap: 0.5vw;
+    margin-top: 2.5vh;
+    height: 5vh;
+    color: gray;
+    background-color: transparent;
+    border: none;
+    border-radius: 15px;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+
+.save-btn{
+    width: 5vw;
+    text-align: center;
+}
+
+.edit-icon{
+    transition: filter 0.3s ease;
+}
+
+.edit-btn:hover{
+    transform: scale(110%);
+    background-color: lightgray;
+    color: white;
+}
+
+.save-btn:hover{
+    transform: scale(110%);
+    background-color: #20C073;
+    color: white;
+}
+
+.edit-btn:hover .edit-icon{
+    filter: brightness(200%);
+}
+
+.doctor-name,
+.name-input{
+    font-weight: bold;
+    font-size: 2vw;
+    color:#004624;
+    margin-bottom: 1vh;
+}
+
+.doctor-name{
+    padding-top: 2.5vh;
+    margin-top: 0px;
+}
+
+.name-input{
+    border-radius: 5px;
+    border: 1px solid gray;
+    margin-top: 2.5vh;
+
+}
+
+.doctor-profession{
+    font-size: 1vw;
+    margin-top: 0;
+    color: #20C073;
+    margin-bottom: 3vh;
+}
+
+.data-header{
+    color: gray;
+    font-size: 0.7vw;
+    font-weight: lighter;
+    margin-bottom: 2vh;
+}
+
+.spec-list-container{
+    display: flex;
+    gap:1.5vw;
+}
+
+.spec-list{
+    border-radius: 10px;
+    font-size: 1vw;
+    background-color: rgba(73, 178, 255, 0.2);
+    color: #49B2FF;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+.spec-list p{
+    margin-top: 0.5vw;
+    margin-bottom: 0.5vw;
+}
+
+.more-details{
+    border-top:1px solid lightgray;
+    border-bottom:1px solid lightgray;
+    padding-top: 0.5vh;
+    margin-top: 3vh;
+}
+
+.data-labels-header{
+    color: gray;
+    font-size: 1vw;
+}
+
+.labels-data{
+    display: flex;
+}
+
+.labels,
+.ddata-content{
+    font-size: 1vw;
+}
+
+.labels-container{
+    width: 30%;
+}

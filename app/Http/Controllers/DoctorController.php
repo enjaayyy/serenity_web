@@ -131,39 +131,7 @@ class DoctorController extends Controller
                 }
         }
     }
-    public function getDetails(Request $request){
-        $id = Session::get('id');
-        $view = $this->database->getReference('administrator/doctors/' . $id);
-        $snapshot = $view->getSnapshot();
-        $data = $snapshot->getValue();
 
-        if($data){
-            $newData = [
-                'description' => $request->textarea,
-            ];
-            $this->database->getReference('administrator/doctors/' . $id)->update($newData);
-        }
-        
-        return redirect()->route('docProfile');
-    }
-
-
-
-    public function addGraduate(Request $request){
-        $id = Session::get('id');
-        $view = $this->database->getReference('administrator/doctors/' . $id);
-        $snapshot = $view->getSnapshot();
-        $data = $snapshot->getValue();
-
-        if($data){
-            $newData = [
-                'graduated' => $request->textarea,
-            ];
-
-            $this->database->getReference('administrator/doctors/' . $id)->update($newData);
-        }
-        return redirect()->route('docProfile');
-    }
 
     public function showRequests(){
         if(Session::get('user') == 'doctor'){

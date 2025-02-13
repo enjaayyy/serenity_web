@@ -32,52 +32,12 @@
                             <p class="doc-name">{{ $doctorData['name'] }}</p>
                             <p class="doc-prof">{{ $doctorData['prof'] }}</p>
                         </div>
-                        <div class="following-data">
-                            <div class="spec-container">
-                                <div class="spec-header">
-                                    <p class="data-header">Specialization</p>
-                                    <img class="edit-icon" src=" {{ asset('assets/edit-icon.svg') }}">
-                                </div>
-                                <div class="spec-list-container">
-                                    @if(isset($doctorData['spec']) && is_array($doctorData['spec']))
-                                        @foreach($doctorData['spec'] as $spec)
-                                        <div class="rt-data">
-                                            <p>{{$spec}}</p>
-                                        </div>
-                                        @endforeach
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="age-yrs-gender-group">
-                                <div>
-                                    <p class="data-header">Age</p>
-                                    <p class="actual-data">{{ $doctorData['age'] }}</p>
-                                </div>
-                                <div>
-                                    <p class="data-header">Years of Service</p>
-                                    <p class="actual-data">{{ $doctorData['yrs'] }}</p>
-                                </div>
-                                <div>
-                                    <p class="data-header">Gender</p>
-                                    <p class="actual-data">{{ $doctorData['gender'] }}</p>
-                                </div>
-                            </div>
-                            <div class="license-group">
-                                <p class="data-header">Medical License</p>
-                                <p class="actual-data">{{ $doctorData['license'] }}</p>
-                            </div>
-                            <div class="address-group">
-                                <p class="data-header">Work Address</p>
-                                <p class="actual-data">{{ $doctorData['address'] }}</p>
-                            </div>
-                            <div class="email-group">
-                                <p class="data-header">Email Address</p>
-                                <p class="actual-data">{{ $doctorData['email'] }}</p>
-                            </div>
-                        </div>
                     </div>
-                    <div class="doctor-data-3">
-                        awdawda
+                    <div class="doctor-appointments-container">
+                        <p class="appointment-header">Upcoming Appointments</p>
+                    </div>
+                    <div class="doctor-data-analytic">
+                        <p class="patient-summary-header">Patient Summary</p>
                     </div>
                 </div>
                 <div class="other-data">
@@ -89,6 +49,7 @@
                         <p class="status" name="status" id="status" hidden></p>
                         @include('doctor.utilities.questionnaire')
                         @include('doctor.utilities.credentials')
+                        @include('doctor.utilities.aboutmecard')
                     </div>
                    
                 </div>
@@ -118,7 +79,7 @@
                         </button>
                     </div>
                     <div class="about-me-tab" id="abt-me-tab">
-                        <button type="button">
+                        <button type="button" onclick="openAboutMe()">
                             <p>About&nbsp;me</p>
                             <img src=" {{ asset('assets/account-icon.svg') }}">
                         </button>

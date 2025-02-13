@@ -53,13 +53,13 @@
                             @csrf
                     <div class="upld-btn">
                         <label for="credential" class="get-pic">
-                            <p id="file-name">Upload Credential</p>
+                            <p id="cred-name">Upload Credential</p>
                         </label>
                         <input id="credential" type="file" name="credential" accept="image/*" style="display: none;"> 
                         <script>
                             document.getElementById('credential').addEventListener('change', function(event) {
-                                let filename = event.target.files[0] ? event.target.files[0].name : "Upload Photo";
-                                document.getElementById('file-name').textContent = filename;
+                                let credname = event.target.files[0] ? event.target.files[0].name : "Upload Image";
+                                document.getElementById('cred-name').textContent = credname;
                             })
                         </script>
                     </div>
