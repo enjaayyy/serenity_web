@@ -102,6 +102,8 @@ class DoctorController extends Controller
                 }
     }
 
+
+
     public function uploadpp(Request $request){
         if($request->hasFile('pp')){
             $id = Session::get('id');
@@ -132,6 +134,35 @@ class DoctorController extends Controller
         }
     }
 
+    public function editDetails(Request $request){
+        $id = Session::get('id');
+
+        $newName = $request->input('name-input');
+        $newProfession = $request->input('spec-input');
+        $newAge = $request->input('age-input');
+        $newGender = $request->input('gender-input');
+        $newYears = $request->input('years-input');
+        $newLicense = $request->input('license-input');
+        $newEmail = $request->input('email-input');
+        $newAddress = $request->input('address-input');
+        $newDescription = $request->input('detail-textarea');
+
+        $editedDetails = [
+            'name' => $newName,
+            'profession' => $newProfession,
+            'age' => $newAge,
+            'years' => $newYears,
+            'gender' => $newGender,
+            'license' => $newLicense,
+            'email' => $newLicense,
+            'address' => $newAddress,
+            'description' => $newDescription,
+        ];
+
+        $this->database->getReference('administrator/doctors/' . $id)->update($editedDetails);
+
+        return redirect()->route('docProfile');
+    }
 
     public function showRequests(){
         if(Session::get('user') == 'doctor'){
