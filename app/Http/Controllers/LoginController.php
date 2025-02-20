@@ -51,13 +51,24 @@ class LoginController extends Controller
 
     public function final(Request $request){
     if($this->authenticate($request)){
-        return redirect()->route('adminDashboard');
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Admin Login Successful',
+            'redirect' => route('adminDashboard'),
+        ]);
     }
     else if($refkey = $this->authenticateDoctor($request)){
-        return redirect()->route('docDashboard');
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Doctor Login Successful',
+            'redirect' => route('docDashboard'),
+        ]);
     }
     else{
-        return response("false");
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Invalid Credentials!',
+        ]);
     }
     }
 

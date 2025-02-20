@@ -74,5 +74,4 @@ function convertToTextArea(ID, newID, classname, elementname, parent){
     x.name = elementname;
 
     parent.appendChild(x);
-
 }

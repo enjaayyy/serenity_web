@@ -245,10 +245,12 @@ class AdminController extends Controller
     public function viewDash(){
         $user = Session::get('user');
         if($user === 'admin'){
-            $view = $this->database->getReference('administrator/videos/');
-            $snapshot = $view->getSnapshot();
-            $data = $snapshot->getValue();
+            $data = $this->database->getReference('administrator/videos/')->getSnapshot()->getValue();
+            $doctorRef = $this->database->getReference('administrator/doctors/')->getSnapshot()->getValue();
+            $patientRef = $this->database->getReference('administrator/users/')->getSnapshot()->getValue();
 
+            $patientCount = count($patientRef);
+            $doctorCount = count($doctorRef);
             $videos = [];
 
             if($data){
@@ -261,7 +263,11 @@ class AdminController extends Controller
                     ];
                 }
             }
-            return view('administrator.adminHome', ['videos' => $videos]);
+            return view('administrator.adminHome', [
+                'videos' => $videos,
+                'doctorCount' => $doctorCount,
+                'patientCount' => $patientCount,
+            ]);
         }
         else{
             return redirect()->route('login');
@@ -295,8 +301,6 @@ class AdminController extends Controller
     }
 
 
-    public function viewIndex(){
 
-    }
 }
  

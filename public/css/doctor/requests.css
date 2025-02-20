@@ -1,69 +1,92 @@
 body{
-    padding: 0;
-    margin: 0;
-}
-
-.page-container{
     margin: 0;
     padding: 0;
 }
 
-.empty{
-    height: 100%;
-    width: 18%;
+.search-container{
+    display: flex;
+    justify-content: space-between;
+    color: #ADADAD;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
 }
-.content{
-    width: 82%;
-    height: 100%;
-    float: right;
+
+.input-container{
+    width: 40%;
+    background-color: #E7E7E7;
+    display: flex;
+    padding-left: 1%;
+    padding-right: 1%;
+    border-radius: 15px;
+    justify-content: space-between;
+    transition: background-color 0.5s ease;
+}
+
+.search-input{
+    padding-left:20px;
+    width: 80%;
+    border: none;
+    background-color: #E7E7E7;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    transition: background-color 0.5s ease;
+}
+
+.search-input:hover,
+.input-container:hover{
     background-color: white;
 }
 
-.header{
-    margin-top: 20px;
-    margin-left: 40px;
-    font-size: 60px;
-    color: #20c073;
+.input-container img{
+    height: 40px;
+    width: 40px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.table{
+    background-color: white;
+    border-radius: 15px;
+    margin-top: 1%;
+    padding: 2%;
+    width: 100%;
+    height: 100%;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    border-spacing: 0px;
+}
+
+.table-head{
+    text-align: left;
+    font-size: 1vw;
+}
+
+tbody tr{
+    border-collapse: collapse;
+    background-color: white;
+    transition: background-color 0.3s ease;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
-table{
-    margin-left: 40px;
-    height: 100%;
-    width: 90%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-thead{
-    text-align: left;
-    color: #20c073;
-    border-bottom: 1px solid black;
-    background-color: #F8F8F8;
+tbody tr:hover{
+    background-color: #20C073;
+    color: white;
 }
 
-td{
-    padding-top: 20px;
-    padding-bottom: 20px;
-    font-size:15px;
+.view-btn{
+    text-align: center;
+    border:none;
 }
 
-.status{
-    color: orange;
-}
-
-.accept, .del{
-    border: none;
-    height: 60px;
-    width: 100%;
+.btn{
     background-color: transparent;
+    border: none;
 }
 
-.del:hover{
-    background-color: red;
-    color: white;
-    cursor: pointer;
+tbody tr:hover .btn{
+    filter: brightness(0%) invert(100%);
+
 }
 
-.accept:hover{
-    background-color: #0295FF;
-    color: white;
-    cursor: pointer;
+.no-users{
+    padding-top: 4vh;
+    text-align: center;
+    color: #ADADAD;
 }

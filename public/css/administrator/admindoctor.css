@@ -56,23 +56,19 @@ body{
 
 .table-head{
     text-align: left;
-    font-size: 25px;
+    font-size: 1vw;
 }
 
-tbody td{
-    padding-top: 2%;
-    padding-bottom: 2%;
-}
+
 
 tbody tr{
     border-collapse: collapse;
     background-color: white;
-    transition: background-color 0.5s ease, transform 0.5s ease;
+    transition: background-color 0.3s ease;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 tbody tr:hover:not(.no-users-row){
     background-color: #20C073;
-    transform: scale(1.05);
     color: white;
 }
 
@@ -91,6 +87,7 @@ tbody tr:hover .btn{
 
 }
 .no-users{
+    padding-top: 4vh;
     text-align: center;
     color: #ADADAD;
 }

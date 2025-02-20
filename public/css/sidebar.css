@@ -44,10 +44,6 @@ body {
     font-weight: bold;
 }
 
-/* .profile-pic-enabled{
-    border-radius: 50%;
-} */
-
 
 .profile-pics{
     border-radius: 50%;
@@ -157,6 +153,7 @@ body {
     height: 100%;
     width: 80%;
     margin-left: 20%;
+    overflow-x: hidden;
 }
 
 .container{

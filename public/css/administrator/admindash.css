@@ -1,6 +1,198 @@
 body {
     margin: 0;
     padding: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.summary-header-container{
+    display: flex;
+    width: 100%;
+    height: 30vh;
+    justify-content: space-between;
+}
 
+.doctor-count-container,
+.patient-count-container,
+.report-count-container{
+    width: 32%;
+    height: auto;
+    background-color: white;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.count-container-1,
+.count-container-2,
+.count-container-3{
+    width: 5vw;
+    height: 10vh;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5vw;
+}
+
+.count-container-1{
+    color: #20c073;
+    border: 5px solid #20c073;
+}
+
+.count-container-2{
+    color:  #49B2FF;
+    border: 5px solid #49B2FF;
+}
+
+.count-container-3{
+    border: 5px solid red;
+}
+
+.content-wrapper{
+    font-weight: bold;
+    color: #004624;
+    width: 100%;
+    text-align: center;
+    justify-items: center;
+}
+
+.upload-header-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.upload-header{
+    font-weight: bold;
+    color: gray;
+    font-size: 1vw;
+}
+
+.vid-list{
+    display: flex;
+    overflow-x: scroll;
+    gap: 2vw;
+}
+
+.vid-list::-webkit-scrollbar{
+    height: 1vh;
+
+}
+
+.vids{
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.vids:hover{
+    transform: scale(1.1);
+    background-color: lightgray;
+}
+
+.upld-btn{
+    margin-top: 3vh;
+    height: 3vh;
+    width: 7vw;
+    border-radius: 5px;
+    border:none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1vw;
+    color: white;
+    gap: 0.5vw;
+    background-color: #49B2FF;
+    transition: background-color 0.3s ease;
+}
+
+.upld-btn img{
+    filter: invert(100%);
+    height: 1vh;
+    width: 0.5vw;
+}
+
+.upld-btn:hover{
+    background-color: black;
+}
+
+.video-data{
+    max-height: 50vh;
+    width: 30vw;
+}
+
+.vid-title{
+    font-weight: bold;
+    font-size: 1.5vw;
+    margin-bottom: 0;
+}
+
+.vid-details{
+    margin-top: 0;
+}
+
+.upld-screen{
+    position: fixed;
+    top:0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+    display: flex;
+   
+}
+
+.upld-card{
+    background-color: white;
+    border: none;
+    border-radius: 15px;
+    height: auto;
+    width: 40vw;
+}
+
+.card-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+.card-header p{
+    font-weight: bold;
+}
+
+.card-header button{
+    background-color: transparent;
+    color: gray;
+    border: none;
+    border-radius: 15px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.card-header button:hover{
+    background-color: lightgrey;
+    transform: scale(1.1);
+}
+
+.upload-vid-container{
+    background-color: rgb(197, 197, 197);
+    margin-left: 1vw;
+    margin-right: 1vw;
+    height: 20vh;
+    border:none;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.upld-vid-label:hover{
+    cursor: pointer;
+    background-color: gray;
+}
+
+.label-container{
+    height: 20vh;
+}
+
+.label-container img{
+    margin-top: 2vh;
+}

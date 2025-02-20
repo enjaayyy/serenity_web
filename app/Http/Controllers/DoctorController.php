@@ -154,7 +154,7 @@ class DoctorController extends Controller
             'years' => $newYears,
             'gender' => $newGender,
             'license' => $newLicense,
-            'email' => $newLicense,
+            'email' => $newEmail,
             'address' => $newAddress,
             'description' => $newDescription,
         ];

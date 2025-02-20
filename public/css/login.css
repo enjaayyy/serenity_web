@@ -76,7 +76,7 @@ body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-weight: lighter;
     font-size: 250%;
-    margin-top: 80px;
+    margin-top: 5vh;
     margin-bottom: 0px;
 }
 
@@ -117,6 +117,7 @@ input::placeholder {
     font-size: 15px;
     margin-top: 20px;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    transition: opacity 0.3s ease,
 }
 
 .login-btn:hover {
@@ -128,4 +129,88 @@ input::placeholder {
     color: #9f9e9e;
     font-size: 10px;
     margin-left: 40px;
+}
+
+.login-status-container{
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    height: 15vh;
+    margin-top: 2vh;
+    justify-items: center;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    animation: slideDown 0.3s ease;
+}
+
+.login-status {
+    display: flex;
+    width: 40%;
+    height: 15vh;
+    background-color: white;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.status-logo {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.status-btn-container {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.status-button {
+    width: 70%;
+    height: 4vh;
+    background-color: #49B2FF;
+    color: white;
+    border: none;
+    font-size: 1vw;
+    transition: background-color 0.3s ease;
+    margin-top: 3vh;
+}
+
+.status-button:hover {
+    background-color: black;
+}
+
+.status-message-container {
+    width: 60%;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.stat-mess-accepted,
+.stat-mess-not-accepted {
+    margin-left: 1vw;
+    font-size: 1.5vw;
+    margin-bottom: 0;
+    margin-top: 0;
+
+}
+
+.sub-message {
+    margin-top: 0;
+    margin-left: 1vw;
+    font-size: 0.8vw;
+    color: gray;
+}
+
+@keyframes slideDown {
+    from{
+        transform: translateY(-40%);
+        opacity: 0;
+    }
+    to{
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
