@@ -19,38 +19,30 @@ class PatientController extends Controller
     }
 
     public function viewPatientDetails($id){
-        $userRef = $this->database->getReference('administrator/users/' . $id);
-        $userSnapshot = $userRef->getSnapshot();
-        $userData = $userSnapshot->getValue();
-
-        if($userData){
+        $userRef = $this->database->getReference('administrator/users/' . $id)->getSnapshot()->getValue();
+        if($userRef){
             $userDetails = [
-                'condition' => $userData['conditions'],
-                'email' => $userData['email'],
-                'name' => $userData['full_name'],
-                'num' => $userData['phone_number'],
+                'condition' => $userRef['conditions'],
+                'email' => $userRef['email'],
+                'name' => $userRef['full_name'],
+                'num' => $userRef['phone_number'],
                 'id' => $id,
             ];
         }
 
-        $myDocRef = $this->database->getReference('administrator/users/' . $id . '/' . 'mydoctor');
-        $myDocSnap = $myDocRef->getSnapshot();
-        $myDocData = $myDocSnap->getValue();
-
+        $myDocRef = $this->database->getReference('administrator/users/' . $id . '/' . 'mydoctor')->getSnapshot()->getValue();
         $docData = [];
-
-        if($myDocData){
-            foreach($myDocData as $doctor){
+        if($myDocRef){
+            foreach($myDocRef as $doctor){
                 $doctorID = $doctor['doctorId'];
-                $doctorRef = $this->database->getReference('administrator/doctors/'. $doctorID);
-                $doctorSnap = $doctorRef->getSnapshot();
-                $doctorData = $doctorSnap->getValue();
+                $doctorRef = $this->database->getReference('administrator/doctors/'. $doctorID)->getSnapshot()->getValue();
+               
 
-                if($doctorData){
+                if($doctorRef){
                     $docData[] = [
                         'id' => $doctorID,
-                        'name' => $doctorData['name'],
-                        'profile' => isset($doctorData['profilePic']) ? ($doctorData['profilePic']) : null,
+                        'name' => $doctorRef['name'],
+                        'profile' => isset($doctorRef['profilePic']) ? ($doctorRef['profilePic']) : null,
                         'status' => $doctor['status'],
                     ];
                 }

@@ -68,6 +68,12 @@ body {
     font-size: 1vw;
 }
 
+.upload-container{
+    border-radius: 15px;
+    overflow: hidden;
+    border: none;
+}
+
 .vid-list{
     display: flex;
     overflow-x: scroll;
@@ -114,6 +120,8 @@ body {
     background-color: black;
 }
 
+
+
 .video-data{
     max-height: 50vh;
     width: 30vw;
@@ -121,8 +129,27 @@ body {
 
 .vid-title{
     font-weight: bold;
-    font-size: 1.5vw;
+}
+
+.vid-title-input{
+    font-weight: bold;
+    font-size: 1vw;
     margin-bottom: 0;
+    border-radius: 5px;
+    border: solid 1px gray;
+    height: 5vh;
+    width: 96%;
+    padding-left: 1vw;
+}
+
+.vid-descrip{
+    height: 10vh;
+    width: 96%;
+    resize: none;
+    padding-left: 1vw;
+    border-radius: 5px;
+    border: solid 1px gray;
+    font-size: 1vw;
 }
 
 .vid-details{
@@ -147,6 +174,21 @@ body {
     border-radius: 15px;
     height: auto;
     width: 40vw;
+    animation: slideDown 0.3s ease;
+    margin: auto;
+    margin-top: 7vh;
+}
+
+@keyframes slideDown {
+    from{
+        transform: translateY(-30%);
+        opacity: 0;
+    }
+    to{
+        transform: translateY(0);
+        opacity: 1;
+
+    }
 }
 
 .card-header{
@@ -184,6 +226,18 @@ body {
     text-align: center;
 }
 
+.title-container,
+.description-container{
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+.title-container p,
+.description-container p{
+    color: gray;
+    font-size: 1vw;
+    margin-bottom: 1vh;
+}
 .upld-vid-label:hover{
     cursor: pointer;
     background-color: gray;
@@ -195,4 +249,22 @@ body {
 
 .label-container img{
     margin-top: 2vh;
+}
+
+.upload-btn{
+    background-color: #49B2FF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-left: 1vw;
+    margin-top: 1vh;
+    margin-bottom: 2vh;
+    height: 5vh;
+    width: 10vw;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.upload-btn:hover{
+    background-color: black;
+    transform: scale(1.1);
 }

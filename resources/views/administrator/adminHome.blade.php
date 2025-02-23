@@ -63,7 +63,7 @@
             </div>
         </div>
     </div>
-                    <div class="upld-screen" id="card" style="display: block;">
+                    <div class="upld-screen" id="card" style="display: none;">
                         <div class = "upld-card">
                             <div class="card-header">
                                 <p>Upload Video</p>
@@ -80,8 +80,14 @@
                                     </label>
                                     <input type="file" class="upld-vid" id="upld-vid" accept="video/*" name="video" style="display:none;">
                                 </div>
-                            <input type="text" class="vid-title" id="vid-title" placeholder="Enter Title" name="title">
-                            <textarea class="vid-descrip" placeholder="Enter description here." name="details"></textarea><br>
+                            <div class="title-container">
+                                <p class="title-label">Enter Title</p>
+                                <input type="text" class="vid-title-input" id="vid-title" placeholder="Enter Title" name="title">
+                            </div>
+                            <div class="description-container">
+                                <p class="description-label">Additional Details</p>
+                                <textarea class="vid-descrip" placeholder="Enter description here." name="details"></textarea><br>
+                            </div>
                             <button type="submit" class="upload-btn">Upload Video</button>
                             </form>
                         </div>
