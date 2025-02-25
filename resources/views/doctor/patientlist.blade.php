@@ -37,15 +37,16 @@
                         <tr>
                             <td>{{ $patient['name'] }}</td>
                             <td>{{ $patient['email'] }}</td>
-                            <td>{{ $patient['number'] }}</td>
-                            <td>@if(isset($patient['condition']) && is_array($patient['condition']))
-                                    @foreach($patient['condition'] as $condition)
-                                        {{ $condition }}
+                            <td>{{ $patient['phone'] }}</td>
+                            <td>
+                                @if(isset($patient['conditions']) && is_array($patient['conditions']))
+                                    @foreach($patient['conditions'] as $condition)
+                                        <p>{{ $condition }}</p>
                                     @endforeach 
                                 @endif
                             </td>
                             <td>
-                                <form class="view-btn" method="GET" action="{{ route('viewPatientDetails', $patient['id']) }}">
+                                <form class="view-btn" method="GET" action="{{ route('patientProfile', ['id' => $patient['id']]) }}">
                                     @csrf
                                     <button class="btn" type="submit">
                                         <img src="{{ asset('assets/view-icon.svg')}}">

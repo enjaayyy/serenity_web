@@ -21,12 +21,14 @@ class PatientController extends Controller
     public function viewPatientDetails($id){
         $userRef = $this->database->getReference('administrator/users/' . $id)->getSnapshot()->getValue();
         if($userRef){
+            $formattedDate = date("F d, Y", strtotime($userRef['birthdate']));
             $userDetails = [
                 'condition' => $userRef['conditions'],
                 'email' => $userRef['email'],
                 'name' => $userRef['full_name'],
                 'num' => $userRef['phone_number'],
                 'id' => $id,
+                'birthdate' => $formattedDate,
             ];
         }
 
@@ -76,73 +78,74 @@ class PatientController extends Controller
     public function patientProfile($id){
         if(Session::get('user') == 'doctor'){
             $docID = Session::get('id');
-            $doctorRef = $this->database->getReference('/administrator/doctors/' . $docID);
-            $docSnap = $doctorRef->getSnapshot();
-            $docVal = $docSnap->getValue();
+            $doctorRef = $this->database->getReference('/administrator/doctors/' . $docID)->getSnapshot()->getValue();
 
-            if($docVal){
+            if($doctorRef){
                 $doctorData = [
                     'docID' => $docID,
-                    'name' => $docVal['name'],
-                    'pic' => isset($docVal['profilePic']) ? $docVal['profilePic'] : null,
-                    'prof' => $docVal['profession'],
+                    'name' => $doctorRef['name'],
+                    'pic' => isset($doctorRef['profilePic']) ? $doctorRef['profilePic'] : null,
+                    'prof' => $doctorRef['profession'],
                 ];
             }
 
-            $patientRef = $this->database->getReference('/administrator/users/'. $id);
-            $patientSnap = $patientRef->getSnapshot();
-            $patientData = $patientSnap->getValue();
-
+            $patientRef = $this->database->getReference('/administrator/users/'. $id)->getSnapshot()->getValue();
             
-
-            if($patientData){
+            if($patientRef){
+                $formattedDate = date("F d, Y", strtotime($patientRef['birthdate']));
+                $conditionCount = count($patientRef['conditions']);
                 $patientDetails = [
                     'patientID' => $id,
-                    'condition' => $patientData['conditions'],
-                    'email' => $patientData['email'],
-                    'name' => $patientData['full_name'],
-                    'num' => $patientData['phone_number'],
+                    'condition' => $patientRef['conditions'],
+                    'email' => $patientRef['email'],
+                    'name' => $patientRef['full_name'],
+                    'num' => $patientRef['phone_number'],
+                    'sex' => $patientRef['sex'],
+                    'username' => $patientRef['username'],
+                    'bday' => $formattedDate,
+                    'conditionCount' => $conditionCount,
                 ];
+
             }
 
-        $answersRef = $this->database->getReference('administrator/users/' . $id .  '/' . 'all_answers');
-        $answerSnap = $answersRef->getSnapshot();
-        $answerData = $answerSnap->getValue();
+        // $answersRef = $this->database->getReference('administrator/users/' . $id .  '/' . 'all_answers');
+        // $answerSnap = $answersRef->getSnapshot();
+        // $answerData = $answerSnap->getValue();
 
-        $answers_arr = [];
+        // $answers_arr = [];
 
-        if($answerData){
-            foreach($answerData as $answers){
-                $formattedTime = date('M, d', strtotime($answers['timestamp']));
-                $answers_arr[] = [
-                    'Time' => $formattedTime,
-                    'Value' => $answers['total_value'],
-                ];
-            }
-        }
-        $chatID = $docID . "-" . $id;
-        $chatRef = $this->database->getReference('administrator/chats/'. $chatID);
-        $chatSnap = $chatRef->getSnapshot();
-        $chatData = $chatSnap->getValue();
+        // if($answerData){
+        //     foreach($answerData as $answers){
+        //         $formattedTime = date('M, d', strtotime($answers['timestamp']));
+        //         $answers_arr[] = [
+        //             'Time' => $formattedTime,
+        //             'Value' => $answers['total_value'],
+        //         ];
+        //     }
+        // }
+        // $chatID = $docID . "-" . $id;
+        // $chatRef = $this->database->getReference('administrator/chats/'. $chatID);
+        // $chatSnap = $chatRef->getSnapshot();
+        // $chatData = $chatSnap->getValue();
 
-        $messages = [];
+        // $messages = [];
 
-        if($chatData){
-            foreach($chatData as $message){
-                $messages[] = [
-                'sender' => $message['senderId'],
-                'message' => $message['message'],
-                'timestamp' => $message['timestamp'],   
-                ];
-            }
-        }
+        // if($chatData){
+        //     foreach($chatData as $message){
+        //         $messages[] = [
+        //         'sender' => $message['senderId'],
+        //         'message' => $message['message'],
+        //         'timestamp' => $message['timestamp'],   
+        //         ];
+        //     }
+        // }
 
             return view('doctor.patientProfile', [
                 'patientDetails' => $patientDetails,
                 'doctorData' => $doctorData,
-                'data' => json_encode($answers_arr),
-                'messages' => $messages,
-                'chatID' => $chatID,
+                // 'data' => json_encode($answers_arr),
+                // 'messages' => $messages,
+                // 'chatID' => $chatID,
             ]);
         }
         else{

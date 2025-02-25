@@ -90,3 +90,29 @@ tbody tr:hover .btn{
     text-align: center;
     color: #ADADAD;
 }
+
+.accept,
+.del{
+    width: 5vw;
+    height: 3vh;
+    border-radius: 5px;
+    border:none;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+.accept{
+    margin-right: 1vw;
+    background-color: #49B2FF;
+}
+.del{
+    background-color: rgb(255, 116, 116);
+}
+
+.accept:hover,
+.del:hover{
+    background-color: black;
+}
+
+th{
+    width: 20vw;
+}

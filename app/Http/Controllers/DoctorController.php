@@ -74,36 +74,6 @@ class DoctorController extends Controller
         }   
     }
 
-    public function addcredentials(Request $request){
-        $id = Session::get('id');
-
-        $getCredential = $request->file('credential');
-        $filename = $getCredential->getClientOriginalName();
-        $filepath = $getCredential->getPathname();
-        $firebasepath = 'credentials/' . $filename;
-
-        $uploadFile  = $this->bucket->upload(
-                fopen($filepath, 'r'), [
-                    'name' => $firebasepath
-                ]
-                );
-
-                $expiresAt = new \DateTime('+1 year');
-                $url = $uploadFile->signedUrl($expiresAt);
-
-                $credentialsRef = $this->database->getReference('administrator/doctors/' . $id . '/credentials/')->getValue();
-
-                $currentIndex = is_array($credentialsRef) ? count($credentialsRef) : 0;
-
-                $query = $this->database->getReference('administrator/doctors/' . $id . '/credentials/' . $currentIndex)->set($url);
-
-                if($query){
-                    return redirect()->route('docProfile');
-                }
-    }
-
-
-
     public function uploadpp(Request $request){
         if($request->hasFile('pp')){
             $id = Session::get('id');
@@ -133,49 +103,136 @@ class DoctorController extends Controller
                 }
         }
     }
+    public function getDetails(Request $request){
+        $id = Session::get('id');
+        $view = $this->database->getReference('administrator/doctors/' . $id);
+        $snapshot = $view->getSnapshot();
+        $data = $snapshot->getValue();
 
-    public function editDetails(Request $request){
+        if($data){
+            $newData = [
+                'description' => $request->textarea,
+            ];
+            $this->database->getReference('administrator/doctors/' . $id)->update($newData);
+        }
+        
+        Session::forget('editMode');
+        return redirect()->route('docProfile');
+    }
+
+    public function editDetails(){
+
+        Session::put('editMode', true);
+        return redirect()->route('docProfile');
+    }
+
+    public function updateQuestions(Request $request){
+        $id = Session::get('id');
+        $questions = $request->input('question');
+        $legends = $request->input('legend');
+        $values = $request->input('value');
+        $title = $request->input('title');
+
+        $questionData = [];
+
+        foreach($questions as $index => $question){
+            $questionData['Q' . ($index + 1)] = [
+                'question' => $question,
+                'legend' => array_combine(range(0, count($legends[$index]) - 1), $legends[$index]),
+                'value' => array_combine(range(0, count($values[$index]) - 1), $values[$index]),
+            ];
+        }
+        
+        $questionData['title'] = $title;
+
+        $this->database->getReference('administrator/doctors/' . $id . '/SavedQuestionnaires/' . $title)->set($questionData);
+
+        $view = $this->database->getReference('administrator/doctors/' . $id . '/activeQuestionnaires');
+        $questSnap = $view->getSnapshot();
+        $questData = $questSnap->getValue();
+        
+        $this->database->getReference('administrator/doctors/' . $id . '/activeQuestionnaires')->set($questionData);
+
+        Session::put('activeTemplate', true);
+        return redirect()->route('docProfile');
+    }
+
+    public function editQuestions(Request $request){
         $id = Session::get('id');
 
-        $newName = $request->input('name-input');
-        $newProfession = $request->input('spec-input');
-        $newAge = $request->input('age-input');
-        $newGender = $request->input('gender-input');
-        $newYears = $request->input('years-input');
-        $newLicense = $request->input('license-input');
-        $newEmail = $request->input('email-input');
-        $newAddress = $request->input('address-input');
-        $newDescription = $request->input('detail-textarea');
+        $questions = $request->input('questions');
+        $title = $request->input('title');
+        
+        $questionData = [];
 
-        $editedDetails = [
-            'name' => $newName,
-            'profession' => $newProfession,
-            'age' => $newAge,
-            'years' => $newYears,
-            'gender' => $newGender,
-            'license' => $newLicense,
-            'email' => $newEmail,
-            'address' => $newAddress,
-            'description' => $newDescription,
-        ];
+        foreach($questions as $index => $question){
+            $legends = isset($question['legend']) ? $question['legend'] : [];
+            $values = isset($question['value']) ? $question['value'] : [];
 
-        $this->database->getReference('administrator/doctors/' . $id)->update($editedDetails);
+            $questionData['Q' . ((int) $index + 1)] = [
+                'question' => $question['question'],
+                'legend' => $legends,
+                'value' => $values,
+            ];
+        }
+
+        $questionData['title'] = $title;
+
+        $this->database->getReference('administrator/doctors/' . $id . '/activeQuestionnaires')->update($questionData);
 
         return redirect()->route('docProfile');
     }
 
-    public function showRequests(){
+    public function newTemplate(Request $request){
+        $id = Session::get('id');
+        $newQuest = $request->input('template');
+        $questRef = $this->database->getReference('administrator/doctors/' . $id . '/SavedQuestionnaires/' . $newQuest);
+        $questSnap = $questRef->getSnapshot();
+        $questData = $questSnap->getValue();
+
+        $oldQuestRef = $this->database->getReference('administrator/doctors/' . $id . '/activeQuestionnaires');
+        $oldQuestSnap = $oldQuestRef->getSnapshot();
+        $oldQuestData = $oldQuestSnap->getValue();
+
+        $title = isset($oldQuestData['title']) ? $oldQuestData['title'] : null;
+
+        if($oldQuestData){
+            $newSaved = $oldQuestData;
+            $this->database->getReference('administrator/doctors/' . $id . '/SavedQuestionnaires/' . $title)->set($newSaved);
+
+        }
+
+        if($questData){
+            $newActive = $questData;
+
+            $this->database->getReference('administrator/doctors/' . $id . '/activeQuestionnaires')->set($newActive);
+        }
+        
+        Session::put('activeTemplate', true);
+        return redirect()->route('docProfile');
+    }
+
+
+    public function addGraduate(Request $request){
+        $id = Session::get('id');
+        $view = $this->database->getReference('administrator/doctors/' . $id);
+        $snapshot = $view->getSnapshot();
+        $data = $snapshot->getValue();
+
+        if($data){
+            $newData = [
+                'graduated' => $request->textarea,
+            ];
+
+            $this->database->getReference('administrator/doctors/' . $id)->update($newData);
+        }
+        return redirect()->route('docProfile');
+    }
+
+    public function showAppointments(){
         if(Session::get('user') == 'doctor'){
             $id = Session::get('id');
-            $requestRef = $this->database->getReference('administrator/doctors/' . $id . '/appointments/');
-            $requestSnapshot = $requestRef->getSnapshot();
-            $requestData = $requestSnapshot->getValue();
-
-            $docRef = $this->database->getReference('administrator/doctors/'. $id);
-            $docSnap = $docRef->getSnapshot();
-            $docData = $docSnap->getValue();
-
-            $doctorData = [];
+            $docData = $this->database->getReference('administrator/doctors/'. $id)->getSnapshot()->getValue();
             
             if($docData){
                 $doctorData = [
@@ -186,87 +243,78 @@ class DoctorController extends Controller
                 ];
             }
 
+            $appointmentData = $this->database->getReference('administrator/doctors/'. $id . '/Appointments/')->getSnapshot()->getValue();
+            
             $patientData = [];
+            if($appointmentData){
+                foreach($appointmentData as $key => $appoint){
+                    $patientID = $appoint['userId'];
+                    $patientRef = $this->database->getReference('administrator/users/' . $patientID)->getSnapshot()->getValue();
+                        if($patientRef){
+                                $patientData[] = [
+                                    'refId' => $key,
+                                    'patientId' => $patientID,
+                                    'name' => $patientRef['full_name'],
+                                    'email' => $patientRef['email'],
+                                    'conditions' => $patientRef['conditions'],
 
-            if($requestData){
-                foreach($requestData as $reqID => $request){
-                    $userID = $request['userUID'];
-                    $userRef = $this->database->getReference('administrator/users/'. $userID);
-                    $userSnapshot = $userRef->getSnapshot();
-                    $userData = $userSnapshot->getValue();
-
-                    if($userData){
-                        $patientData[] = [
-                            'id' => $reqID,
-                            'status' => $request['status'],
-                            'timestamp' => $request['timestamp'],
-                            'userID' => $userID,
-                            'condition' => $userData['conditions'],
-                            'email' => $userData['email'],
-                            'name' => $userData['full_name'],
-                            'phonenum' => $userData['phone_number'],
-                            'username' => $userData['username'],
-                        ];
-                    }
+                                ];
+                        }
                 }
             }
-           return view('doctor/requests', [
-            'patientData' => $patientData,
-            'doctorData' => $doctorData,
-        ]);
-
+        
+            return view('doctor.requests',[
+                'doctorData' => $doctorData,
+                'patientData' => $patientData,
+            ]);
         }
         else{
             return redirect()->route('login');
         }
+        
     }
 
-    public function acceptPatient(Request $request, $id){
+    public function acceptPatient(Request $request, $refID){
         if(Session::get('user') == 'doctor'){
             $docID = Session::get('id');
-            $requestRef = $this->database->getReference('administrator/doctors/'. $docID . '/' . 'appointments/' . $id);
-            $refSnapshot = $requestRef->getSnapshot();
-            $refData = $refSnapshot->getValue();
+            $refKey = $this->database->getReference('administrator/doctors/' . $docID . '/Appointments/' . $refID)->getSnapshot()->getValue();
+            $doctorRef = $this->database->getReference('administrator/doctors/' . $docID)->getSnapshot()->getValue();
 
-            if($refData){
+            if($refKey){
                 if($request->input('action') == 'accept'){
-                    $newData = [
-                    'status' => 'approved',
-                    'timestamp' => $refData['timestamp'],
-                    'userID' =>  $refData['userUID'],
+                    $newPatient = [
+                        'patientID' => $refKey['userId'],
+                        'timestamp' => $refKey['timestamp'],
+                        'status' => 'approved',
                     ];
                     $newStatus = [
                         'status' => 'approved',
-                        'docID' => $docID,
-                        'timestamp' => $refData['timestamp'],
+                        'doctorId' => $docID,
+                        'doctorName' => $doctorRef['name'],
                     ];
 
-                $this->database->getReference('administrator/doctors/' . $docID . '/' . 'mypatients/' . $id)->set($newData);
-                $this->database->getReference('administrator/users/'. $refData['userUID'] . '/' . 'mydoctor/' . $id)->update($newStatus);
-                $this->database->getReference('administrator/doctors/' . $docID . '/' . 'appointments/' . $id)->remove();    
+                    $this->database->getReference('administrator/doctors/' . $docID . '/mypatients/' . $refID)->update($newPatient);
+                    $this->database->getReference('administrator/users/'. $refKey['userId'] . '/mydoctors/' . $docID )->update($newStatus);
+                    $this->database->getReference('administrator/doctors/' . $docID . '/Appointments/' . $refID)->remove();
                 }
-                elseif($request->input('action') == 'delete'){
-                    $this->database->getReference('administrator/doctors/' . $docID . '/' . 'appointments/' . $id)->remove(); 
+                else if($request->input('action') == 'delete'){
+                    $this->database->getReference('administrator/doctors/' . $docID . '/Appointments/' . $refID)->remove();
+                    $this->database->getReference('administrator/users/'. $refKey['userId'] . '/mydoctors/' . $docID)->remove();
                 }
-                
+            }
+            return redirect()->route('showAppointments');
         }
-        return redirect()->route('showRequests');
-    }
-    else{
-        return redirect()->route('login');
-    }
+        else{
+            return redirect()->route('login');
+        }
+   
 }
 
     public function viewPatients(){
         if(Session::get('user') == 'doctor'){
             $id = Session::get('id');
-            $requestRef = $this->database->getReference('administrator/doctors/' . $id . '/mypatients/');
-            $requestSnapshot = $requestRef->getSnapshot();
-            $requestData = $requestSnapshot->getValue();
 
-            $docRef = $this->database->getReference('administrator/doctors/'. $id);
-            $docSnap = $docRef->getSnapshot();
-            $docData = $docSnap->getValue();
+            $docData = $this->database->getReference('administrator/doctors/'. $id)->getSnapshot()->getValue();
 
             if($docData){
                 $doctorData = [
@@ -276,27 +324,21 @@ class DoctorController extends Controller
                     'pic' => isset($docData['profilePic']) ? $docData['profilePic'] : null,
                 ];
             }
+            $patientRef = $this->database->getReference('administrator/doctors/' . $id . '/mypatients/')->getSnapshot()->getValue();
 
             $patientData = [];
 
-            if($requestData){
-                foreach($requestData as $reqID => $request){
-                    $userID = $request['userID'];
-                    $userRef = $this->database->getReference('administrator/users/'. $userID);
-                    $userSnapshot = $userRef->getSnapshot();
-                    $userData = $userSnapshot->getValue();
-
-                    if($userData){
+            if($patientRef){
+                foreach($patientRef as $key => $patient){
+                    $patientId = $patient['patientID'];
+                    $userRef = $this->database->getReference('administrator/users/' . $patientId)->getSnapshot()->getValue();
+                    if($userRef){
                         $patientData[] = [
-                            'id' => $reqID,
-                            'status' => $request['status'],
-                            'timestamp' => $request['timestamp'],
-                            'userID' => $userID,
-                            'condition' => $userData['conditions'],
-                            'email' => $userData['email'],
-                            'name' => $userData['full_name'],
-                            'phonenum' => $userData['phone_number'],
-                            'username' => $userData['username'],
+                            'id' => $patientId,
+                            'name' => $userRef['full_name'],
+                            'email' => $userRef['email'],
+                            'phone'=> $userRef['phone_number'],
+                            'conditions' => $userRef['conditions'], 
                         ];
                     }
                 }

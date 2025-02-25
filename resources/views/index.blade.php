@@ -104,7 +104,7 @@
                             </a>
                         </div>
                         <div class="requests-tab-container">
-                            <a href="{{ route('showRequests') }}" style="text-decoration: none;">
+                            <a href="{{ route('showAppointments') }}" style="text-decoration: none;">
                                 <button class="request-btn">
                                 <img src="{{ asset('assets/requests-icon.svg') }}" class="icon4">
                                 <p>Requests</p>

@@ -30,8 +30,8 @@ body {
 }
 
 .avatar-container img{
-    width: 30%;
-    height: 11vh;
+    width: 7vw;
+    height: 7vw;
     border-radius: 50%;
     object-fit: cover;
     object-position: center;

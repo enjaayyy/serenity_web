@@ -150,6 +150,7 @@ class AdminController extends Controller
                 'credentials' => $data['credentials'],
                 'questionnaires' => $questiondata ? $questiondata : [],
                 'profile' => isset($data['profilePic']) ? $data['profilePic'] : null,
+                'description' => isset($data['description']) ? $data['description'] : "No Data",
             ];
         }
         return view("administrator.doctorProfile", [

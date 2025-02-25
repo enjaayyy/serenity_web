@@ -1,9 +1,10 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" href="{{ asset('css/doctor/sidebar.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/doctor/patientProfile.css') }}">
+@extends('index')
 
+@section('title', 'patient-profile')
+
+@section('content')
+    <link rel="stylesheet" href="{{ asset('css/doctor/patientProfile.css') }}">
+{{-- 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://cdn.agora.io/sdk/release/AgoraRTC_N.js"></script>
 
@@ -101,12 +102,7 @@
             chart.draw(data, options);
       }
 
-      function openChat(){
-        document.getElementById('chat-div').style.display = 'block';
-      }
-      function closeChat(){
-        document.getElementById('chat-div').style.display = 'none';
-      }
+    
 
       function sendMessage(){
         var message = document.getElementById('chat-input').value;
@@ -132,31 +128,41 @@
         }
        
       }
-    </script>
-    </head>
-    <body>
-        <div class="page-container">
-            @include('doctor.sidebar')
-            <div class="empty"></div>
-            <div class="content">
-                <p class="header">Patient Profile</p>
+    </script> --}}
+            <div class='container'>
+                <div class="admin-header">
+                    <p class="dash-text">Patient Profile</p>
+                    <img src="{{asset('assets/logo-w-text.svg') }}" class="page-logo">
+                </div>
                 <div class="main-content">
-                    <div class="left-container">
+                    <div class="user-info-container">
                         <div class="user-info">
-                            <div class="profile-group">
+                            <div class="profile-pic-container">
+                                <img src="{{ asset('assets/avatar.png') }}" class="profile-img">
+                                <p class="patient-name">{{ $patientDetails['name'] }}</p>
+                                <p class="patient-email">{{ $patientDetails['email'] }}</p>
+                            </div>
+                            <div class="additional-user-info">
+                                <p class="additional-user-info-header">Additional Information</p>
+                                <div class="main-user-info">
+                                    <p class="data-header">Username</p>
+                                    <p class="main-data">{{ $patientDetails['username']}}</p>
+                                    <p class="data-header">Sex</p>
+                                    <p class="main-data">{{ $patientDetails['sex']}}</p>
+                                    <p class="data-header">Birth Date</p>
+                                    <p class="main-data">{{ $patientDetails['bday']}}</p>
+                                    <p class="data-header">Phone no.</p>
+                                    <p class="main-data">{{ $patientDetails['num']}}</p>
+                                </div>
+                            </div>
+                            {{-- <div class="profile-group">
                                 <div class="img-container">
                                     <img src="{{ asset('assets/avatar.png') }}" class="profile-img">
                                 </div>
                                 <div class="profile-group-cntn">
-                                    <p class="u-name">{{ $patientDetails['name'] }}</p>
-                                    <p class="u-email">{{ $patientDetails['email'] }}</p>
                                     <p class="u-cond-head">Condition:</p>
                                     <p class="u-cond">
-                                        @if(isset($patientDetails['condition']) && is_array($patientDetails['condition']))
-                                            @foreach($patientDetails['condition'] as $condition)
-                                                {{ $condition }} ,
-                                            @endforeach 
-                                        @endif
+                                       
                                     </p>
                                 </div>
                                 <div class="commu-btn">
@@ -168,43 +174,94 @@
                                     </button>
                                   
                                 </div>
+                            </div> --}}
+                        </div>
+                        
+                    </div>
+                    <div class="analytics-container">
+                        <p class="analytics-header">Conditions</p>
+                        <div class="conditions-group">
+                            @if(isset($patientDetails['condition']) && is_array($patientDetails['condition']))
+                                @foreach($patientDetails['condition'] as $condition)
+                                    <div class="conditions-container">
+                                        <p>{{ $condition }}</p>
+                                    </div>
+                                @endforeach 
+                            @endif
+                        </div>
+                        <p class="analytics-header">Questionnaire Activity</p>
+                        <div class="chart-container">
+                            <div class="charts">
+                                <div id="curve_chart"></div>
                             </div>
                         </div>
-                        <div class="charts">
-                            <p class="act-header">Activity</p>
-                            <div id="curve_chart"></div>
+                        <p class="analytics-header">Questionnaire Breakdown</p>
+                        <div class="chart-breakdown-container">
+                            breakdance
                         </div>
                     </div>
-                    <div class="right-container">
+                    <div class="additional-info-container">
+                        <div class="answered-questions-container">
+                            <p class="content-header">Questionnaires</p>
+                        </div>
                     </div>
-                    <div class="chat-div" id="chat-div">
-                        <div class="chat-header">
-                            <img src="{{ asset('assets/avatar.png') }}">
-                            <p>{{ $patientDetails['name'] }}</p>
-                            <button onclick="closeChat()">x</button>
-                        </div>
-                        <div class="chat-ctnt" id="chat-content">
-                            <!-- @foreach($messages as $message)
-                                @if($message['sender'] == $doctorData['docID'])
-                                <div class="doctor-mess">
-                                    <p>{{ $message['message'] }}</p>
-                                </div>
-                                @elseif($message['sender'] == $patientDetails['patientID'])
-                                <div class="patient-mess">
-                                    <p>{{ $message['message'] }}</p>
-                                </div>
-                                @endif
-                            @endforeach -->
-                        </div>
-                        <div class="chat-input">
-                            <input type="text" id="chat-input">
-                            <button onclick="sendMessage()">
-                                <img src="{{ asset('assets/send.png') }}">
-                            </button>
-                        </div>
+                    
+                </div>
+            </div>
+            <div class="call-chat-container">
+                <div class="function-buttons">
+                    <div class="mess-container">
+                        <button onclick="openChat()">
+                    </div>
+                </div>
+                <div class="chat-div" id="chat-div" style="display: none;">
+                    <div class="chat-header">
+                        <img src="{{ asset('assets/avatar.png') }}">
+                        <p>{{ $patientDetails['name'] }}</p>
+                        <button onclick="closeChat()">x</button>
+                    </div>
+                    {{-- <div class="chat-ctnt" id="chat-content">
+                        <!-- @foreach($messages as $message)
+                            @if($message['sender'] == $doctorData['docID'])
+                            <div class="doctor-mess">
+                                <p>{{ $message['message'] }}</p>
+                            </div>
+                            @elseif($message['sender'] == $patientDetails['patientID'])
+                            <div class="patient-mess">
+                                <p>{{ $message['message'] }}</p>
+                            </div>
+                            @endif
+                        @endforeach -->
+                    </div> --}}
+                    <div class="chat-input">
+                        <input type="text" id="chat-input">
+                        <button onclick="sendMessage()">
+                            <img src="{{ asset('assets/send.png') }}">
+                        </button>
                     </div>
                 </div>
             </div>
-        </div>
-    </body>
-</html>
+            
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    let containerCount = document.querySelectorAll(".conditions-container").length;
+
+                    let BGcolorSet = ["#FFDFDF", "#F8DCFF", "#FFECDF"];
+                    let textcolorSet = ["#FF3333", "#6E0089", "#FFC933"];
+
+                    let container = document.querySelectorAll(".conditions-container");
+                    container.forEach((box, index) => {
+                        box.style.backgroundColor = `${BGcolorSet[index]}`;
+                        box.style.color = `${textcolorSet[index]}`;
+                    });
+                });
+
+                function openChat(){
+                    document.getElementById('chat-div').style.display = 'block';
+                }
+                function closeChat(){
+                    document.getElementById('chat-div').style.display = 'none';
+                }
+                
+            </script>
+@endsection

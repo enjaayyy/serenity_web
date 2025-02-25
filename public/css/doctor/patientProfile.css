@@ -3,241 +3,109 @@ body{
     margin: 0;
 }
 
-.page-container{
-    margin: 0;
+.main-content{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.user-info-container{
+    width: 29%;
+}
+
+.additional-info-container{
+    width: 29%;
+}
+
+.analytics-container{
+    width: 40%;
+}
+
+.user-info,
+.chart-container,
+.answered-questions-container,
+.conditions-container,
+.chart-breakdown-container{
+    background-color: white;
+    border-radius: 15px;
+    border: none;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-bottom: 3vh;
+}
+
+.chart-container{
+    margin-bottom: 2vh;
+}
+.profile-pic-container{
+    text-align: center;
+    padding-top: 4vh;
+    padding-bottom: 3vh;
+    border-bottom: 1px solid gray;
+}
+
+.profile-img{
+    width: 8vw;
+    height: 8vw;
+}
+
+.patient-name{
+    font-weight: bold;
+    font-size: 1vw;
+    margin-bottom: 0;
+}
+.patient-email{
+    color: gray;
+    font-size: 0.8vw;
+    margin-top: 0.7vh;
+}
+
+.additional-user-info-header,
+.data-header{
+    color: gray;
+    font-size: 0.6vw;
+}
+
+
+.main-data{
+    margin-top: 0;
+}
+
+.analytics-header{
+    margin-top: 0;
+}
+
+.analytics-header{
+    font-weight: bold;
+    color: gray;
+    font-size: 0.7vw;
+}
+
+.conditions-group{
+    display: flex;
+    margin-bottom: 2vh;
+    gap: 1vw;
+}
+
+.conditions-container{
+    width: 100%;
+}
+
+.conditions-container{
+    text-align: center;
     padding: 0;
 }
 
-.header{
-    margin-top: 20px;
-    margin-left: 40px;
-    font-size: 60px;
-    color: #20c073;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.empty{
-    height: 100%;
-    width: 18%;
-}
-.content{
-    width: 82%;
-    height: 100%;
-    float: right;
-    background-color: white;
-}
-
-.main-content{
-    display: flex;
-}
-
-.left-container{
-    height: 100%;
-    width: 75%;
-    float: left;
-}
-
-.right-container{
-    height: 100%;
-    width: 25%;
-    float: left;
-}
-
-.user-info{
-    margin-left: 40px;
-    background-color: white;
-    border-radius: 10px;
-    border: 1px solid lightgray;
-    height: 200px;
-    width: 700px;
-}
-
-.profile-group{
-    display: flex;
-}
-
-.img-container{
-    text-align: center;
-    height: 200px;
-    width: 150px;
-}
-
-.img-container img{
-    margin-top: 40px;
-}
-
-.profile-group-cntn{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.u-name{
-    font-weight: bold;
-    font-size: 20px;
-    margin-top: 40px;
-    margin-bottom: 0px;
-}
-
-.u-email{
-    margin-top: 0px;
-    font-size: 15px;
-    color: gray;
-}
-.u-cond-head{
-    margin-top: 2   px;
-    margin-bottom: 0px;
-    font-size: 10px;
-    color: gray;
-}
-
-.u-cond{
-    margin-top: 0px;
-}
-
-.charts{
-    height: 500px;
-    width: 700px;
-    background-color: white;
-    border-radius: 10px;
-    border: 1px solid lightgray;
-    margin-top: 40px;
-    margin-left: 40px;
-}
-
-.ctnt-header{
-    margin-top: 20px;
-    margin-left: 40px;
-    font-size: 40px;
-    color: #20c073;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.act-header{
-    margin-top: 20px;
-    margin-left: 40px;
-    font-size: 40px;
-    color: #20c073;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-.curve_chart{
-    margin-left: 0px;
-}
-
-.commu-btn img{
-    height: 30px;
-    width: 30px;
-}
-.mess-btn, .call-btn{
-    height: 50px;
-    width: 50px;
-    border: none;
-    border-radius: 10px;
-    background-color: white;
-    margin-top: 130px;
-}
-
-.mess-btn:hover, .call-btn:hover{
-    background-color: lightgray;
-}
-
-.call-btn{
-    margin-left: 15px;
-}
-
-.mess-btn{
-    margin-left: 200px;
-}
-
-.chat-div{
-    display:none;
-    position:fixed;
-    height: 350px;
-    width: 250px;
-    background-color: white;
-    z-index:1000;
-    margin-right: 20px;
+.call-chat-container{
+    position: fixed;
+    background-color: red;  
     right: 0;
-    bottom: 0;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-    border: 1px solid lightgray;
-} 
-
-.chat-header{
-    width: 100%;
-    height: 50px;
-    background-color: #20c073;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
+    top: 0;
     display: flex;
+    height: 100vh;
 }
 
-.chat-header img{
-    height: 30px;
-    width: 30px;
-    margin-top: 10px;
-    margin-left: 15px;
-}
-
-.chat-header p{
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    color: white;
-    margin-top: 17px;
-    margin-left: 15px;
-    font-size: 10px;
-}
-
-.chat-header button{
-    height: 100%;
-    width: 50px;
-    margin-left: 65px;
-    
-    background-color: transparent;
-    color: white;
-    border: none;
-}
-
-.chat-ctnt{
-    height: 250px;
-    width: 100%;
-    overflow-y: auto;
-}
-
-.chat-input{
- display:flex;
- border-top: 1px solid lightgray;
-}
-
-.chat-input input{
-    height: 30px;
-    border-radius: 20px;
-    margin-top: 7px;
-    margin-left: 7px;
-    border: 1px solid lightgray;
-    width: 190px;
-}
-
-.chat-input img{
-    height: 20px;
-    width: 20px;
-}
-
-.chat-input button{
-
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
-    margin-top: 12px;
-    margin-left: 7px;
-    border:none;
-    background-color: transparent;
-}
-
-.doctor-mess{
-    text-align: right ;
-    background-color: #20c073;
-}
-
-.patient-mess{
-    background-color: pink;
-    text-align: left ;
+.function-buttons{
+    margin-top: 90vh;
 }

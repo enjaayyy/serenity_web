@@ -1,29 +1,33 @@
 body {
     padding: 0;
     margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .main-content{
     display: flex;
     height: 100%;
     width: 100%;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .doctor-details{
     width: 64%;
+    height: 87vh;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.doctor-details::-webkit-scrollbar{
+    width: 1vw;
 }
 
 .doctor-data, 
-.credential-container{
+.credential-container,
+.description-container{
     width: 100%;
     height: auto;
     background-color: white;
     border-radius: 15px;
-}
-
-.credential-container{
-    margin-top: 2%;
 }
 
 .patient-header-container,
@@ -145,17 +149,25 @@ body {
     font-weight: bold;
 }
 
-.credential-container{
+.credential-container,
+.description-container{
+    margin-top: 2%;
     width: 100%;
     padding-top: 1%;
     padding-bottom: 5%;
-    margin-bottom: 5%;
 }
+
 .credential-header,
-.patient-header{
+.patient-header,
+.description-header{
     color:#004624;
     font-size: 1.5vw;
     padding-left: 5%;
+}
+
+.description-details-container{
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 .patient-header{
@@ -274,4 +286,10 @@ body {
     width: 3vh;
     margin-top: auto;
     margin-bottom: auto;
+}
+
+.profile-img{
+    border-radius: 50%;
+    height: 10vh;
+    width: 10vw;
 }

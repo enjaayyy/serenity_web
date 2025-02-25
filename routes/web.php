@@ -47,7 +47,8 @@ Route::post('/doctorProfile/editQuestion', [QuestionnaireController::class, 'edi
 Route::post('/doctorProfile/addCredential', [DoctorController::class, 'addcredentials'])->name('addcredentials');
 Route::post('/doctorProfile/editDoctorDetails', [DoctorController::class, 'editDetails'])->name('editDetails');
 
-Route::get('/doctor/requests', [DoctorController::class, 'showRequests'])->name('showRequests');
+Route::get('/doctor/patientAppointments', [DoctorController::class, 'showAppointments'])->name('showAppointments');
+
 Route::post('/doctor/patientAction/{id}', [DoctorController::class, 'acceptPatient'])->name('patientAction');
 Route::get('/doctor/patientlist', [DoctorController::class, 'viewPatients'])->name('viewPatients');
 Route::get('/admin/patientList/patientDetails/{id}', [PatientController::class, 'viewPatientDetails'])->name('viewPatientDetails');

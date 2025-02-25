@@ -15,7 +15,7 @@
                         <div class="profile-data-header">
                             <div class="profile-pic-container">
                                 @if(isset($details['profile']))
-                                    <img src="{{ $details['profile'] }}">
+                                    <img src="{{ $details['profile'] }}" class="profile-img">
                                 @else
                                     <img src="{{ asset('assets/avatar.png') }}" class="profile-img">
                                 @endif
@@ -62,6 +62,12 @@
                                 <p class="ctnt">{{ $details['license'] }}</p>
                             </div>
                         </div>
+                    </div>
+                    <div class="description-container">
+                        <p class="description-header">Description<p>
+                            <div class="description-details-container">
+                                <p>{{ $details['description']}}</p>
+                            </div>
                     </div>
                     <div class="credential-container">
                         <p class="credential-header">Credentials<p>

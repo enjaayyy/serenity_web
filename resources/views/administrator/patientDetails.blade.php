@@ -15,7 +15,7 @@
                                 <div class="profile-group-cntn">
                                     <p class="u-name">{{ $userDetails['name'] }}</p>
                                     <p class="u-email">{{ $userDetails['email'] }}</p>
-                                    <p class="u-cond-head">Condition:</p>
+                                    <p class="u-cond-head">{{ $userDetails['birthdate'] }}</p>
                                     <p class="u-cond">
                                         @if(isset($userDetails['condition']) && is_array($userDetails['condition']))
                                             @foreach($userDetails['condition'] as $condition)
