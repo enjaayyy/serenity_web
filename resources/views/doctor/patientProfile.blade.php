@@ -4,11 +4,6 @@
 
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/doctor/patientProfile.css') }}">
-{{-- 
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="https://cdn.agora.io/sdk/release/AgoraRTC_N.js"></script>
-
-    <script type="module" src="{{ asset('js/test/agoraLogic.js') }}"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
         import { getDatabase, ref, onChildAdded } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
@@ -26,47 +21,84 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
-        function listenForMessages() {
-            const chatID = "{{ $chatID }}"; 
-            const messagesRef = ref(database, `administrator/chats/${chatID}`);
+         function listenForMessages() {
+                    const chatID = "{{ $chatID }}"; 
+                    const messagesRef = ref(database, `administrator/chats/${chatID}`);
 
-            onChildAdded(messagesRef, (snapshot) => {
-                const message = snapshot.val();
-                
-                const chatContent = document.getElementById('chat-content');
-                const newMessageDiv = document.createElement('div');
-                newMessageDiv.style.display = "flex";
+                    onChildAdded(messagesRef, (snapshot) => {
+                        const message = snapshot.val();
+                        
+                        const chatContent = document.getElementById('chat-content');
+                        const newMessageDiv = document.createElement('div');
+                        newMessageDiv.style.display = "flex";
+                        newMessageDiv.classList.add('message-container');
 
-                 const messageParagraph = document.createElement('p');
-                    messageParagraph.textContent = message.message;
-                    messageParagraph.style.backgroundColor = "red";
+                        let profileImg = document.createElement('img');
+                        const profileImgcontainer = document.createElement('div');
+                        
+                        const messageParagraph = document.createElement('p');
+                            messageParagraph.textContent = message.message;
 
-                if (message.senderId === "{{ $doctorData['docID'] }}") {
-                    newMessageDiv.style.justifyContent = "flex-end"; 
-                    messageParagraph.style.backgroundColor = "#20c073"; 
-                } 
-                else {
-                    newMessageDiv.style.justifyContent = "flex-start"; 
-                    messageParagraph.style.backgroundColor = "pink";
+                        const paragraphDiv = document.createElement("div");
+                            paragraphDiv.classList.add('message-div');
+
+                        let formattedtimestamp = message.timestamp;
+                        let date = new Date(message.timestamp);
+                        formattedtimestamp = date.toLocaleString("en-us", {
+                            month: "2-digit",
+                            day: "2-digit",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: true
+                        });
+
+                        const messageSent = document.createElement('p');
+                            messageSent.textContent = formattedtimestamp;
+                            messageSent.classList.add('time-sent');
+
+                        const timeDiv = document.createElement('div');
+
+                        const messagewrapper = document.createElement('div');
+                        messagewrapper.classList.add('messagewrapper-container');
+
+                        if (message.senderId === "{{ $doctorData['docID'] }}") {
+                            newMessageDiv.style.justifyContent = "flex-end"; 
+                            timeDiv.style.textAlign = "right";
+                            paragraphDiv.style.backgroundColor = "#20C073";
+                        } 
+                        else {
+                            newMessageDiv.style.justifyContent = "flex-start"; 
+                            timeDiv.style.textAlign = "left";
+                            paragraphDiv.style.backgroundColor = "#49B2FF";
+
+                        }
+
+                        timeDiv.appendChild(messageSent);
+                        paragraphDiv.appendChild(messageParagraph);
+
+                        messagewrapper.appendChild(timeDiv);
+                        messagewrapper.appendChild(paragraphDiv);
+                        
+                        newMessageDiv.appendChild(messagewrapper);
+                        chatContent.appendChild(newMessageDiv);
+
+
+                        chatContent.scrollTop = chatContent.scrollHeight;
+                    });
                 }
 
-               
-                console.log("Message sender:", message.sender);
+                document.addEventListener("DOMContentLoaded", function() {
+                    listenForMessages();
 
-                newMessageDiv.appendChild(messageParagraph);
-
-                // Append the new message div to the chat content
-                chatContent.appendChild(newMessageDiv);
-
-
-                chatContent.scrollTop = chatContent.scrollHeight;
-            });
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            listenForMessages();
-        });
+                });
     </script>
+{{-- 
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://cdn.agora.io/sdk/release/AgoraRTC_N.js"></script>
+
+    <script type="module" src="{{ asset('js/test/agoraLogic.js') }}"></script>
+    
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
@@ -104,30 +136,7 @@
 
     
 
-      function sendMessage(){
-        var message = document.getElementById('chat-input').value;
-        var chatDiv = document.getElementById('chat-div');
-
-        if(message.trim() !== "") {
-            fetch('/sendmessage', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({
-                message: message,
-                chatId: '{{ $chatID }}', 
-                sender: "{{ $doctorData['docID'] }}", 
-            })
-        }).then(response => response.json()).then(data => {
-            document.getElementById('chat-input').value = '';
-           
-        });
-
-        }
-       
-      }
+      
     </script> --}}
             <div class='container'>
                 <div class="admin-header">
@@ -210,34 +219,28 @@
             </div>
             <div class="call-chat-container">
                 <div class="function-buttons">
-                    <div class="mess-container">
-                        <button onclick="openChat()">
+                    <div>
+                        <button onclick="openChat()" class="mess-button">
+                            <img src={{ asset('assets/message-icon.svg') }}>
+                        </button>
                     </div>
                 </div>
-                <div class="chat-div" id="chat-div" style="display: none;">
-                    <div class="chat-header">
-                        <img src="{{ asset('assets/avatar.png') }}">
-                        <p>{{ $patientDetails['name'] }}</p>
-                        <button onclick="closeChat()">x</button>
-                    </div>
-                    {{-- <div class="chat-ctnt" id="chat-content">
-                        <!-- @foreach($messages as $message)
-                            @if($message['sender'] == $doctorData['docID'])
-                            <div class="doctor-mess">
-                                <p>{{ $message['message'] }}</p>
-                            </div>
-                            @elseif($message['sender'] == $patientDetails['patientID'])
-                            <div class="patient-mess">
-                                <p>{{ $message['message'] }}</p>
-                            </div>
-                            @endif
-                        @endforeach -->
-                    </div> --}}
-                    <div class="chat-input">
-                        <input type="text" id="chat-input">
-                        <button onclick="sendMessage()">
-                            <img src="{{ asset('assets/send.png') }}">
-                        </button>
+                <div class="chat-screen" id="chat-screen" style="display: none;">
+                    <div class="chat-div" id="chat-div" style="display: none;">
+                        <div class="chat-header">
+                            <button onclick="closeChat()">
+                                <img src={{ asset('assets/arrow-left.svg') }}>
+                            </button>
+                            <p>{{ $patientDetails['name'] }}</p>
+                        </div>
+                        <div class="chat-ctnt" id="chat-content">
+                        </div>
+                        <div class="chat-input">
+                            <input type="text" id="chat-input">
+                            <button onclick="sendMessage()">
+                                <img src="{{ asset('assets/send.png') }}">
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -254,14 +257,45 @@
                         box.style.backgroundColor = `${BGcolorSet[index]}`;
                         box.style.color = `${textcolorSet[index]}`;
                     });
+
                 });
 
                 function openChat(){
                     document.getElementById('chat-div').style.display = 'block';
+                    document.getElementById('chat-screen').style.display = 'block';
+                    document.body.style.overflow = 'hidden';
                 }
                 function closeChat(){
                     document.getElementById('chat-div').style.display = 'none';
+                    document.getElementById('chat-screen').style.display = 'none';
+                    document.body.style.overflow = 'auto';
                 }
+
+                function sendMessage(){
+                    var message = document.getElementById('chat-input').value;
+                    var chatDiv = document.getElementById('chat-div');
+
+                    if(message.trim() !== "") {
+                        fetch('/sendmessage', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            message: message,
+                            chatId: '{{ $chatID }}', 
+                            sender: "{{ $doctorData['docID'] }}", 
+                        })
+                    }).then(response => response.json()).then(data => {
+                        document.getElementById('chat-input').value = '';
+                    
+                    });
+
+                    }
                 
+                }
+
+               
             </script>
 @endsection

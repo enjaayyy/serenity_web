@@ -123,29 +123,27 @@ class PatientController extends Controller
         //         ];
         //     }
         // }
-        // $chatID = $docID . "-" . $id;
-        // $chatRef = $this->database->getReference('administrator/chats/'. $chatID);
-        // $chatSnap = $chatRef->getSnapshot();
-        // $chatData = $chatSnap->getValue();
+        $chatID = $docID . "-" . $id;
+        $chatRef = $this->database->getReference('administrator/chats/'. $chatID)->getSnapshot()->getValue();
 
-        // $messages = [];
+        $messages = [];
 
-        // if($chatData){
-        //     foreach($chatData as $message){
-        //         $messages[] = [
-        //         'sender' => $message['senderId'],
-        //         'message' => $message['message'],
-        //         'timestamp' => $message['timestamp'],   
-        //         ];
-        //     }
-        // }
+        if($chatRef){
+            foreach($chatRef as $message){
+                $messages[] = [
+                'sender' => $message['senderId'] ? $message['senderId'] : null,
+                'message' => $message['message'] ? $message['message'] : null,
+                'timestamp' => $message['timestamp'] ? $message['timestamp'] : null,   
+                ];
+            }
+        }
 
             return view('doctor.patientProfile', [
                 'patientDetails' => $patientDetails,
                 'doctorData' => $doctorData,
                 // 'data' => json_encode($answers_arr),
-                // 'messages' => $messages,
-                // 'chatID' => $chatID,
+                'messages' => $messages,
+                'chatID' => $chatID,
             ]);
         }
         else{
