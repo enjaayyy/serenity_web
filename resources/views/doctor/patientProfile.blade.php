@@ -219,7 +219,12 @@
             </div>
             <div class="call-chat-container">
                 <div class="function-buttons">
-                    <div>
+                    <div class="report-button-container">
+                        <button class="report-button">
+                            <img src={{ asset('assets/report-icon.svg') }}>
+                        </button>
+                    </div>
+                    <div class="mess-button-container">
                         <button onclick="openChat()" class="mess-button">
                             <img src={{ asset('assets/message-icon.svg') }}>
                         </button>
@@ -231,20 +236,20 @@
                             <button onclick="closeChat()">
                                 <img src={{ asset('assets/arrow-left.svg') }}>
                             </button>
-                            <p>{{ $patientDetails['name'] }}</p>
+                            <p class="chat-name-header">{{ $patientDetails['name'] }}</p>
                         </div>
                         <div class="chat-ctnt" id="chat-content">
                         </div>
                         <div class="chat-input">
-                            <input type="text" id="chat-input">
+                            <input type="text" id="chat-input" class="chat-box">
                             <button onclick="sendMessage()">
-                                <img src="{{ asset('assets/send.png') }}">
+                                <img src="{{ asset('assets/send-icon.svg') }}">
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-            
+            @include('doctor.utilities.reportModal')
             <script>
                 document.addEventListener("DOMContentLoaded", function() {
                     let containerCount = document.querySelectorAll(".conditions-container").length;
@@ -260,11 +265,20 @@
 
                 });
 
+
+                function scrollToBottom(){
+                    let container = document.getElementById('chat-content');
+                    container.scrollTop = container.scrollHeight;
+                }
+
                 function openChat(){
                     document.getElementById('chat-div').style.display = 'block';
                     document.getElementById('chat-screen').style.display = 'block';
                     document.body.style.overflow = 'hidden';
+
+                    scrollToBottom();
                 }
+
                 function closeChat(){
                     document.getElementById('chat-div').style.display = 'none';
                     document.getElementById('chat-screen').style.display = 'none';
@@ -295,6 +309,12 @@
                     }
                 
                 }
+
+                document.getElementById('chat-input').addEventListener("keypress", function(event) {
+                    if(event.key === "Enter"){
+                        sendMessage();
+                    }
+                });
 
                
             </script>
