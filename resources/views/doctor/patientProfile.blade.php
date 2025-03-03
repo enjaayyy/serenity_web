@@ -220,7 +220,7 @@
             <div class="call-chat-container">
                 <div class="function-buttons">
                     <div class="report-button-container">
-                        <button class="report-button">
+                        <button class="report-button" type="button" onclick="openReportModal()">
                             <img src={{ asset('assets/report-icon.svg') }}>
                         </button>
                     </div>
@@ -309,13 +309,14 @@
                     }
                 
                 }
-
                 document.getElementById('chat-input').addEventListener("keypress", function(event) {
                     if(event.key === "Enter"){
                         sendMessage();
                     }
                 });
 
-               
+               function openReportModal(){
+                    document.getElementById('report-screen').style.display = 'inline-flex';
+               }
             </script>
 @endsection

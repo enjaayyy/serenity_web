@@ -301,6 +301,51 @@ class AdminController extends Controller
         }
     }
 
+    public function viewReports(){
+        if(Session::get('user') == 'admin'){
+            $getReports = $this->database->getReference('administrator/reports')->getSnapshot()->getValue();
+
+            $reports = [];
+
+            if($getReports){
+                foreach($getReports as $refID => $details){
+                    $reportedID = $details['reportedId'];
+                    $reporterID = $details['reporterId'];
+
+                    $reporterName;
+                    $reportedName;
+                    
+                    $findDoctor = $this->database->getReference('administrator/doctors/' . $reporterID)->getSnapshot()->getValue();
+                    if($findDoctor){
+                        $findPatient = $this->database->getReference('administrator/users/' . $reportedID)->getSnapshot()->getValue();
+                        $reporterName = $findDoctor['name'];
+                        $reportedName = $findPatient['full_name'];
+                    }
+                    else{
+                        $findPatient = $this->database->getReference('administrator/users/' . $reporterID)->getSnapshot()->getValue();
+                        $reporterName = $findPatient['full_name '];
+                        $reportedName = $findPatient['name'];
+                    }
+
+                    // if($findDoctor){
+                    //     foreach($findDoctor as $docID => $doctorDetails){
+                    //         if()
+                    //     }
+                    // }
+                    $reports[] = [
+                        'reporter' => $reporterName,
+                        'reported' => $reportedName,
+                        'details' => $details['reportDetails'],
+                    ];
+                }
+            }
+
+            return view('administrator.reportList', ['reports' => $reports]);
+        }
+        else{
+            return redirect()->route('login');
+        }
+    }
 
 
 }

@@ -48,11 +48,13 @@ Route::post('/doctorProfile/addCredential', [DoctorController::class, 'addcreden
 Route::post('/doctorProfile/editDoctorDetails', [DoctorController::class, 'editDetails'])->name('editDetails');
 
 Route::get('/doctor/patientAppointments', [DoctorController::class, 'showAppointments'])->name('showAppointments');
-
 Route::post('/doctor/patientAction/{id}', [DoctorController::class, 'acceptPatient'])->name('patientAction');
+
 Route::get('/doctor/patientlist', [DoctorController::class, 'viewPatients'])->name('viewPatients');
 Route::get('/admin/patientList/patientDetails/{id}', [PatientController::class, 'viewPatientDetails'])->name('viewPatientDetails');
 Route::get('/doctor/patientProfile/{id}', [PatientController::class, 'patientProfile'])->name('patientProfile');
+Route::post('/doctor/patientProfile/{id}/report', [PatientController::class, 'reportPatient'])->name('reportPatient');
+Route::get('admin/reportList', [AdminController::class, 'viewReports'])->name('viewReports');
 Route::post('/sendmessage', [MessageController::class, 'sendMessage'])->name('sendmessage');
 
 Route::post('/generate-token', [AccessTokenController::class, 'generateToken']);

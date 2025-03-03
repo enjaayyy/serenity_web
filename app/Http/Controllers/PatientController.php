@@ -151,4 +151,44 @@ class PatientController extends Controller
         }
     }
 
+    public function reportPatient(Request $request, $id){
+        if(Session::get('user') == 'doctor'){
+            $docID = Session::get('id');
+            
+            $chosenReasons = $request->input('choices', []);
+            $details = $request->input('reason-details');
+
+            if(empty($chosenReasons)){
+                $reportData = [
+                    'reporterId' => $docID,
+                    'reportedId' => $id,
+                    'reportDetails' => $details,
+                    'timestamp' => date('Y-m-d H:i:s'),
+                ];
+
+                $this->database->getReference('administrator/reports')->push($reportData);
+
+                return redirect()->route('viewPatients');
+            } 
+            else {
+                $reasons = implode(',',  $chosenReasons);
+                $reasonsAndDetails = $reasons . $details;
+
+                $reportData = [
+                    'reporterId' => $docID,
+                    'reportedId' => $id,
+                    'reportDetails' => $reasonsAndDetails,
+                    'timestamp' => date('Y-m-d H:i:s'),
+                ];
+
+                $this->database->getReference('administrator/reports')->push($reportData);
+                return redirect()->route('viewPatients');
+            }
+
+        }
+        else{
+            return redirect()->route('login');
+        }
+    }
+
 }

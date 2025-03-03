@@ -52,12 +52,13 @@
                                     </button>  
                                 </a>
                             </div>
-                                <div class="reports-container">
+                            <div class="reports-container">
+                                <a href="{{ route('viewReports') }}" style="text-decoration: none;">
                                     <button class="reports-btn">
                                     <img src ="{{ asset('assets/report-icon.svg') }}" class="icon5">
                                     <p class="icon5-txt">Reports</p>
                                     </button>
-                                </div>    
+                            </div>    
                             <div class="archive-container">
                                 <a href="{{ route('archive') }}" style="text-decoration: none;">
                                     <button class="archive-btn">
