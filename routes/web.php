@@ -58,3 +58,4 @@ Route::get('admin/reportList', [AdminController::class, 'viewReports'])->name('v
 Route::post('/sendmessage', [MessageController::class, 'sendMessage'])->name('sendmessage');
 
 Route::post('/generate-token', [AccessTokenController::class, 'generateToken']);
+Route::post('/dashboard/sampleData', [QuestionnaireController::class, 'sampleData'])->name('sampleData');

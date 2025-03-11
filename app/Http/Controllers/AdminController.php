@@ -118,8 +118,9 @@ class AdminController extends Controller
         $patient = [];
 
         if($patientData){
+            $patientCount = count($patientData);
             foreach($patientData as $id => $patientindex){
-                $userID = $patientindex['userID'];
+                $userID = $patientindex['patientID'];
 
                 $userRef = $this->database->getReference('administrator/users/' . $userID);
                 $userSnapshot = $userRef->getSnapshot();
@@ -156,6 +157,7 @@ class AdminController extends Controller
         return view("administrator.doctorProfile", [
             'details' => $details,
             'patient' => $patient,
+            'patientCount' => $patientCount,
         ]);
 
     }
@@ -306,8 +308,8 @@ class AdminController extends Controller
             $getReports = $this->database->getReference('administrator/reports')->getSnapshot()->getValue();
 
             $reports = [];
-
             if($getReports){
+                $reportCount = count($getReports);
                 foreach($getReports as $refID => $details){
                     $reportedID = $details['reportedId'];
                     $reporterID = $details['reporterId'];
@@ -332,15 +334,21 @@ class AdminController extends Controller
                     //         if()
                     //     }
                     // }
+
+                    $formattedTime = date("F j, Y g:i A", strtotime($details['timestamp']));
                     $reports[] = [
                         'reporter' => $reporterName,
                         'reported' => $reportedName,
                         'details' => $details['reportDetails'],
+                        'timestamp' => $formattedTime,
                     ];
                 }
             }
 
-            return view('administrator.reportList', ['reports' => $reports]);
+            return view('administrator.reportList', [
+                'reports' => $reports,
+                'reportcount' => $reportCount,
+            ]);
         }
         else{
             return redirect()->route('login');

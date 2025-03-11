@@ -5,6 +5,7 @@
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/doctor/patientProfile.css') }}">
     <script type="module">
+       
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
         import { getDatabase, ref, onChildAdded } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 
@@ -93,57 +94,12 @@
 
                 });
     </script>
-{{-- 
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="https://cdn.agora.io/sdk/release/AgoraRTC_N.js"></script>
-
-    <script type="module" src="{{ asset('js/test/agoraLogic.js') }}"></script>
-    
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-    
-      function drawChart() {
-        var chartData = JSON.parse(@json($data));
-   
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Time');
-            data.addColumn('number', 'Value');
-
-            console.log('chartData:', chartData);
-           
-            chartData.forEach(function(row) {
-                data.addRow([row.Time, row.Value]);
-            });
-
-          
-            var options = {
-                title: 'Overall State',
-                curveType: 'none',
-                legend: { position: 'bottom' },
-                width: 700,
-                height: 300,
-                vAxis: {
-                viewWindow: {
-                min: 0 
-                }
-            }
-        };
-
-            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-            chart.draw(data, options);
-      }
-
-    
-
-      
-    </script> --}}
             <div class='container'>
                 <div class="admin-header">
                     <p class="dash-text">Patient Profile</p>
                     <img src="{{asset('assets/logo-w-text.svg') }}" class="page-logo">
                 </div>
-                <div class="main-content">
+                <div class="main-content" id="main-content" data-info='@json($patientDetails)'>
                     <div class="user-info-container">
                         <div class="user-info">
                             <div class="profile-pic-container">
@@ -164,55 +120,58 @@
                                     <p class="main-data">{{ $patientDetails['num']}}</p>
                                 </div>
                             </div>
-                            {{-- <div class="profile-group">
-                                <div class="img-container">
-                                    <img src="{{ asset('assets/avatar.png') }}" class="profile-img">
-                                </div>
-                                <div class="profile-group-cntn">
-                                    <p class="u-cond-head">Condition:</p>
-                                    <p class="u-cond">
-                                       
-                                    </p>
-                                </div>
-                                <div class="commu-btn">
-                                    <button class="mess-btn" onclick="openChat()">
-                                        <img src="{{ asset('assets/message.png') }}">
-                                    </button>
-                                    <button id="join">
-                                        <img src="{{ asset('assets/call.png') }}">
-                                    </button>
-                                  
-                                </div>
-                            </div> --}}
                         </div>
-                        
                     </div>
                     <div class="analytics-container">
-                        <p class="analytics-header">Conditions</p>
-                        <div class="conditions-group">
-                            @if(isset($patientDetails['condition']) && is_array($patientDetails['condition']))
-                                @foreach($patientDetails['condition'] as $condition)
-                                    <div class="conditions-container">
-                                        <p>{{ $condition }}</p>
-                                    </div>
-                                @endforeach 
-                            @endif
-                        </div>
-                        <p class="analytics-header">Questionnaire Activity</p>
-                        <div class="chart-container">
-                            <div class="charts">
-                                <div id="curve_chart"></div>
+                        <div class="year-chart-div">
+                            <div class="chart-container">
+                                <p class="yearly-header">Yearly</p>
+                                <canvas id="year-chart" width="10vw" height="5vh"></canvas>
                             </div>
                         </div>
-                        <p class="analytics-header">Questionnaire Breakdown</p>
-                        <div class="chart-breakdown-container">
-                            breakdance
+                        <div class="breakdown-group">
+                            <div class="analytics-box">
+                                    <div class="conditions-group">
+                                        @if(isset($patientDetails['condition']) && is_array($patientDetails['condition']))
+                                            @foreach($patientDetails['condition'] as $condition)
+                                                <button class="conditions-container" id="conditions-containers">
+                                                    <p>{{ $condition }}</p>
+                                                </button>
+                                            @endforeach 
+                                        @endif
+                                    </div>
+                                    <div class="main-analytics-container">
+                                            <div class="chart-container">
+                                                <p class="monthly-header">Monthly</p>
+                                                <div class="month-functions">
+                                                    <button class="back" id="back">
+                                                        <img src="{{ asset('assets/arrow-left.svg')}}">
+                                                    </button>
+                                                    <p class="currentMonth" id="currentMonth"></p>
+                                                    <button class="next" id="next">
+                                                        <img src="{{ asset('assets/arrow-right.svg')}}">
+                                                    </button>
+                                                </div>
+                                                <canvas id="month-chart"></canvas>
+                                            </div>
+                                            <div class="chart-breakdown-container" id="chart-breakdown-container">
+                                                breakdance
+                                            </div>
+                                    </div>
+                            </div>
+                            <div class="additional-info-container">
+                                <div class="answered-questions-container">
+                                    <div class="questionnaire-header-container">
+                                        <p class="aqc-header">Questionnaire History</p>
+                                    </div>
+                                    <div class="questionnaire-history-container" id="questionnaire-history-container">
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="additional-info-container">
-                        <div class="answered-questions-container">
-                            <p class="content-header">Questionnaires</p>
-                        </div>
+                        
+                        
                     </div>
                     
                 </div>
@@ -222,6 +181,11 @@
                     <div class="report-button-container">
                         <button class="report-button" type="button" onclick="openReportModal()">
                             <img src={{ asset('assets/report-icon.svg') }}>
+                        </button>
+                    </div>
+                    <div class="add-button-container">
+                        <button class="add-button" type="button" onclick="openReportModal()">
+                            <img src={{ asset('assets/plus-icon.svg') }}>
                         </button>
                     </div>
                     <div class="mess-button-container">
@@ -250,7 +214,12 @@
                 </div>
             </div>
             @include('doctor.utilities.reportModal')
+            @include('doctor.utilities.addNotesModal')
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"> </script>
+            <link rel="stylesheet" href="{{ asset('css/doctor/utilities/viewquestionnaire.css') }}">
             <script>
+                let chartCondition;
+                
                 document.addEventListener("DOMContentLoaded", function() {
                     let containerCount = document.querySelectorAll(".conditions-container").length;
 
@@ -261,8 +230,15 @@
                     container.forEach((box, index) => {
                         box.style.backgroundColor = `${BGcolorSet[index]}`;
                         box.style.color = `${textcolorSet[index]}`;
-                    });
+                        
+                        let defaultCondition = Object.keys(patientDetails.answer)[0];
+                        getCondition(defaultCondition);
 
+                        box.addEventListener("click", function() {
+                                chartCondition = box.textContent.trim();
+                                getCondition(chartCondition);
+                        })  
+                    });
                 });
 
 
@@ -319,4 +295,5 @@
                     document.getElementById('report-screen').style.display = 'inline-flex';
                }
             </script>
+            <script src="{{ asset('js/doctor/charts.js') }}"></script>
 @endsection

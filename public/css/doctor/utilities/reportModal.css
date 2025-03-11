@@ -27,7 +27,7 @@
     border-radius: 15px;
     border: none;
     height: auto;
-    width: 30vw;
+    max-width: 30vw;
     padding-left: 2vw;
     padding-right: 2vw;
     text-align: justify;

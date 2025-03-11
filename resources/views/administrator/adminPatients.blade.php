@@ -32,9 +32,10 @@
                             <td>{{ $patients['name'] }}</td>
                             <td>{{ $patients['email'] }}</td>
                             <td>{{ $patients['number'] }}</td>
-                            <td>@if(isset($patients['condition']) && is_array($patients['condition']))
-                                    @foreach($patients['condition'] as $condition)
-                                        {{ $condition }}
+                            <td>
+                                @if(isset($patients['conditions']) && is_array($patients['conditions']))
+                                    @foreach($patients['conditions'] as $condition)
+                                        <p>{{ $condition }}</p>
                                     @endforeach 
                                 @endif
                             </td>

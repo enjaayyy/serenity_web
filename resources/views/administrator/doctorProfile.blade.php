@@ -109,7 +109,6 @@
                                         displayImage(currentIndex);
                                     }
                                 }
-                                
                             </script>
                     </div>
                 </div>
@@ -117,7 +116,7 @@
                     <div class="patient-list-container">
                         <div class="patient-header-container">
                             <p class="patient-header">Patients</p>
-                            <p class="patient-count">(no. of patients)</p>
+                            <p class="patient-count">{{ $patientCount }}</p>
                         </div>
                         <div class="search-container">
                             <div class="input-container">
@@ -132,7 +131,7 @@
                                 @foreach($patient as $index)
                                 <form method="GET" action="{{ route('viewPatientDetails', $index['userID']) }}">
                                     @csrf
-                                    <button class="patient-list" type="submit">
+                                    <button class="patient-list-btn" type="submit">
                                         <p class="patient-name">{{ $index['name'] }}</p>
                                     </button>
                                 </form>  

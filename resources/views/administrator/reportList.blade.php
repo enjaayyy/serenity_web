@@ -3,65 +3,34 @@
 @section('title', 'admin_report_lists')
 
 @section('content')
-    <link rel="stylesheet" href="{{ asset('css/administrator/reportList.css')}}"
+    <link rel="stylesheet" href="{{ asset('css/administrator/reportList.css')}}">
         <div>
             <div class="container">
                 <div class="admin-header">
-                        <p class="dash-text">Doctors</p>
+                        <p class="dash-text">Reports</p>
                         <img src="{{asset('assets/logo-w-text.svg') }}" class="page-logo">
                 </div>
                 <div class="search-container">
                     <div class="input-container">
                         <img src="{{asset('assets/search-icon.svg') }}">
-                        <input type="text" placeholder="Search Doctor" class="search-input"></input>
+                        <input type="text" placeholder="Search Report" class="search-input"></input>
                         <img src="{{asset('assets/filter-icon.svg') }}">
                     </div>
-                    <p>Number of Reports</p>
+                    <p>{{ $reportcount }}</p>
                 </div>
-                @foreach($reports as $report)
-                        <p>{{$report['details']}}</p>
-                @endforeach
-                {{-- <table class="table">
-                    <thead class="table-head">
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Profession</th>
-                            <th>Specialization</th>
-                            <th> </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if(empty($details))
-                            <tr class="no-users-row">
-                                <td colspan="5" class="no-users">No Users Found</td>
-                            </tr>
-                        @else
-                            @foreach ($details as $doctors)
-                                <tr>
-                                        <td>{{ $doctors['docname'] }}</td>
-                                        <td>{{ $doctors['docemail'] }}</td>
-                                        <td>{{ $doctors['docprofession'] }}</td>
-                                        <td>
-                                            @if(isset($doctors['docspecialization']) && is_array($doctors['docspecialization']))
-                                                @foreach($doctors['docspecialization'] as $spec)
-                                                    <p>{{$spec}}</p>
-                                                @endforeach
-                                            @endif
-                                        </td>
-                                        <td >
-                                            <form class="view-btn" action="{{ route('viewdoctor', $doctors['id']) }}" method="GET">
-                                                <button class="btn" type="submit">
-                                                    <img src="{{ asset('assets/view-icon.svg')}}">
-                                                </button>
-                                            </form>
-                                        </td>
-                                </tr>
-                            @endforeach
-                        @endif
-                    </tbody>
-                </table> --}}
+                <div class="tickets-container">
+                    @foreach($reports as $report)
+                        <div class="ticket-details-container" id="ticket-details-container">
+                            <p>Date Filed: {{$report['timestamp']}}</p>
+                            <p class="reporter-name" id="reporter-name">Reporter: {{$report['reporter']}}</p>
+                            <p>Reported: {{$report['reported']}}</p>
+                            <textarea class="report-details" disabled>
+                                {{$report['details']}}
+                            </textarea>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
-        <script src="{{ asset('js/utilities/search.js') }}"></script>
+        <script src="{{ asset('js/utilities/searchReport.js') }}"></script>
 @endsection

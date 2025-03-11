@@ -1,0 +1,123 @@
+.question-modal-screen{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    background-color: rgb(0,0,0,0.5);
+    z-index: 10000;
+    top:0;
+    left: 0;
+    animation: fade-in 0.3s ease;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.questionnaire-card{
+    background-color: white;
+    border-radius: 15px;
+    border: none;
+    height: 90vh;
+    width: 50vw;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    text-align: justify;
+    padding-bottom: 2vh;
+    padding-top: 2vh; 
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown{
+    from{
+        transform: translateY(-40%);
+        opacity: 0;
+    }
+    to{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.q-card-header-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.q-card-body-container{
+    overflow-y: scroll;
+    height: 80vh;
+}
+
+.modalTitle{
+    font-weight: bold;
+    color: #004624;
+}
+
+.exitBtn{
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    height: 2vw;
+    width: 2vw;
+    transition: background-color 0.3s ease;
+}
+
+.exitBtn:hover{
+    background-color: lightgray;
+}
+
+.answerContainer{
+    display: flex;
+    font-style: italic;
+    font-size: 1.2vw;
+    gap: 2vw;
+}
+
+.questionText{
+    font-weight: bold;
+    font-size: 1vw;
+}
+
+.overall,
+.cattotal{
+    text-align: center;
+    font-size: 1.2vw;
+}
+
+.cat{
+    font-size: 1.5vw;
+    font-weight: bold;
+    margin-top: 0;
+}
+.questionText{
+    margin-top: 0;
+}
+
+.catDiv{
+    border-radius: 15px;
+    margin-bottom: 4vh;
+    padding-left: 1.5vw;
+    padding-right: 1.5vw;
+    border: 1px black solid;
+}
+.catLegend,
+.questionTextHeader{
+    margin-bottom: 0;
+    font-size: 1vw;
+    color: darkgray;
+}
+
+.objButtons{
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    transition: transform 0.3s ease;
+}
+
+.objButtons:hover{
+    /* background-color: #20C073; */
+    /* border-left: 2vw #20C073 solid;
+    border-right: 2vw #20C073 solid; */
+    transform: scale(1.2);
+}

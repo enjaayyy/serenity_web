@@ -42,3 +42,37 @@ body{
     margin-top: auto;
     margin-bottom: auto;
 }
+
+.tickets-container{
+    height: 80vh;
+    margin-top: 1vh;
+    overflow-y: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5vw;
+    background-color: transparent;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.ticket-details-container{
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    height: 40vh;
+    width: 15vw;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    padding: 1vw;
+}
+
+.ticket-details-container p{
+    font-size: 0.7vw;
+}
+.report-details{
+    resize: none;
+    min-height: 25vh;
+    width: 85%;
+    border-radius: 15px;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}

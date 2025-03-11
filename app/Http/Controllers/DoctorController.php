@@ -244,6 +244,7 @@ class DoctorController extends Controller
             }
 
             $appointmentData = $this->database->getReference('administrator/doctors/'. $id . '/Appointments/')->getSnapshot()->getValue();
+            $appointmentCount = is_array($appointmentData) ? count($appointmentData) : 0;
             
             $patientData = [];
             if($appointmentData){
@@ -257,7 +258,6 @@ class DoctorController extends Controller
                                     'name' => $patientRef['full_name'],
                                     'email' => $patientRef['email'],
                                     'conditions' => $patientRef['conditions'],
-
                                 ];
                         }
                 }
@@ -266,6 +266,7 @@ class DoctorController extends Controller
             return view('doctor.requests',[
                 'doctorData' => $doctorData,
                 'patientData' => $patientData,
+                'appointmentCount' => $appointmentCount,
             ]);
         }
         else{
@@ -329,6 +330,7 @@ class DoctorController extends Controller
             $patientData = [];
 
             if($patientRef){
+            $patientCount = count($patientRef);
                 foreach($patientRef as $key => $patient){
                     $patientId = $patient['patientID'];
                     $userRef = $this->database->getReference('administrator/users/' . $patientId)->getSnapshot()->getValue();
@@ -346,12 +348,14 @@ class DoctorController extends Controller
            return view('doctor/patientlist', [
             'patientData' => $patientData,
             'doctorData' => $doctorData,
+            'patientCount' =>  $patientCount,
         ]);
         }
         else{
             return redirect()->route('login');
         }
     }
+
 }
 
 

@@ -16,7 +16,7 @@
             <input type="text" placeholder="Search Patient" class="search-input"></input>
             <img src="{{asset('assets/filter-icon.svg') }}">
         </div>
-        <p>Number of Request</p>
+        <p>{{ $appointmentCount }}</p>
     </div>
         <table class="table">
                 <thead class="table-head">

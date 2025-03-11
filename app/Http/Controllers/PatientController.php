@@ -104,25 +104,10 @@ class PatientController extends Controller
                     'username' => $patientRef['username'],
                     'bday' => $formattedDate,
                     'conditionCount' => $conditionCount,
+                    'answer' => isset($patientRef['all_answers']) ? $patientRef['all_answers'] : null,
                 ];
-
             }
 
-        // $answersRef = $this->database->getReference('administrator/users/' . $id .  '/' . 'all_answers');
-        // $answerSnap = $answersRef->getSnapshot();
-        // $answerData = $answerSnap->getValue();
-
-        // $answers_arr = [];
-
-        // if($answerData){
-        //     foreach($answerData as $answers){
-        //         $formattedTime = date('M, d', strtotime($answers['timestamp']));
-        //         $answers_arr[] = [
-        //             'Time' => $formattedTime,
-        //             'Value' => $answers['total_value'],
-        //         ];
-        //     }
-        // }
         $chatID = $docID . "-" . $id;
         $chatRef = $this->database->getReference('administrator/chats/'. $chatID)->getSnapshot()->getValue();
 

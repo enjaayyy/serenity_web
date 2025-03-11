@@ -9,6 +9,9 @@
             <div class="dash-content">
                 Next Update :>
             </div>
-            
+            <form method="POST" action=" {{ route('sampleData')}} ">
+                @csrf
+                <button>Sample questions</button>
+            </form>
         </div>
  @endsection

@@ -140,7 +140,7 @@
                             questionContainer.appendChild(questionText);
                             questionContainer.classList.add('questionData-container')
                             let valuelegend = questionData.legend.map((value, index) => `${value} (${questionData.value[index]})`);
-
+                    
                             valuelegend.forEach(index => {
                                 const questionValues = document.createElement("p");
                                 questionValues.textContent = index;

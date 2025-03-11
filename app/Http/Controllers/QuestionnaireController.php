@@ -363,6 +363,123 @@ class QuestionnaireController extends Controller
         return $questions[$specialization] ?? null;
     }
 
+    public function sampleData(){
+        $Insomnia = [
+            'Week 5' => [
+                        'Think about a typical night this week' => [
+                        'Q1' => [
+                            'question' => 'Dry mouth, tendency to sweat, headache, raising of hair, giddiness.',
+                            'legend' => 'not at all',
+                            'value' => '0',
+                        ],
+                        'Q2' => [
+                            'question' => 'if you wake up during the night how long are you awake for in total?',
+                            'legend' => '16-30 min',
+                            'value' => '3',
+                        ],
+                        'Q3' => [
+                            'question' => 'How many nights a week do you have a problem with your sleep?',
+                            'legend' => '1',
+                            'value' => '4',
+                        ],
+                        'Q4' => [
+                            'question' => 'How would you rate your sleep quality?',
+                            'legend' => 'Poor',
+                            'value' => '1',
+                        ],
+                        'Total' => '3',
+                    ],
+                    'Thinking about this week, to what extent has poor sleep' => [
+                        'Q1' => [
+                            'question' => 'Affected your mood, energy or relationships?',
+                            'legend' => 'Somewhat',
+                            'value' => '2',
+                        ],
+                        'Q2' => [
+                            'question' => 'Affected you concentration, productivity, or ability to stay awake.',
+                            'legend' => 'a little',
+                            'value' => '3',
+                        ],
+                        'Q3' => [
+                            'question' => 'Troubled you in general.',
+                            'legend' => 'Much',
+                            'value' => '1',
+                        ],
+                        'Q4' => [
+                            'question' => 'How long have you had a problem with your sleep?',
+                            'legend' => '1-2 months',
+                            'value' => '3',
+                        ],
+                        'Total' => '22',
+                    ],   
+                    'Overall'  => '12',
+                    'timestamp' => '2025-04-04',
+                ], 
+            ];
+        $PTS = [
+            'Week 5' => [
+                'In the past month, how much were you bothered by:' => [
+                        'Q1' => [
+                            'question' => 'Any reminder brought back feelings about it',
+                            'legend' => 'Not at all',
+                            'value' => '0', 
+                        ],
+                        'Q2' => [
+                            'question' => 'I had trouble staying asleep',
+                            'legend' => 'a little bit', 
+                            'value' => '1',
+                        ],
+                        'Q3' => [
+                            'question' => 'Other things kept making me think about it',
+                            'legend' => 'Moderately',
+                            'value' => '2',
+                        ],
+                        'Q4' => [
+                            'question' => 'I felt irritable and angry',
+                            'legend' => 'Quite a bit',
+                            'value' => '3',
+                        ],
+                        'Q5' => [
+                            'question' => 'I avoided letting myself get upset when I thought about it or was reminded of it',
+                            'legend' => 'Extremely',
+                            'value' =>  '4',
+                        ],
+                        'Q6' => [
+                            'question' => 'I thought about it when I didnt mean to',
+                            'legend' => 'Not at all',
+                            'value' => '0', 
+                        ],
+                        'Q7' => [
+                            'question' => 'I felt as if it ha dnot happened ow was not real',
+                            'legend' => 'a little bit',
+                            'value' => '1',
+                        ],
+                        'Q8' => [
+                            'question' => 'I stayed away from reminders of it.',
+                            'legend' => 'Moderately', 
+                            'value' =>  '2',
+                        ],
+                        'Q9' => [
+                            'question' => 'Pictures about it popped into my mind',
+                            'legend' => 'Quite a bit',
+                            'value' => '3', 
+                        ],
+                        'Q10' => [
+                            'question' => 'I was jumpy and easily startled',
+                            'legend' => 'Extremely',
+                            'value' => '4'
+                        ],
+                         'Total' => '22',            
+                    ],
+                    'Overall'  => '22',
+                    'timestamp' => '2025-04-04',
+                ],  
+            ];
 
-    
+        $this->database->getReference('administrator/users/NQb6JlU36MWjJTKEAzsP6ehXWBg1/all_answers/Insomnia/')->update($Insomnia);
+        $this->database->getReference('administrator/users/NQb6JlU36MWjJTKEAzsP6ehXWBg1/all_answers/Post Traumatic Stress/')->update($PTS);
+        return redirect()->route('docDashboard');
+    }
 }
+    
+

@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const nameText = nameBox.textContent.toLowerCase();
 
             if(nameText.includes(searchValue)) {
-                row.style.display = "";
+                row.style.display = " ";
             }
             else{
                 row.style.display = "none";
