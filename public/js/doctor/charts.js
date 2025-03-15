@@ -22,14 +22,13 @@ function getCondition(condition){
     let forYearDate;
     let forYearDateFormat   
     let yearDataObject = {};
-
     Object.keys(patientCategory).forEach(cat => {
         if(cat === condition){
             let titles = patientCategory[cat];
                 Object.keys(titles).forEach(titleKey =>{
                     let total = titles[titleKey];
-                    if(total.Overall){
-                        values.push(total.Overall);
+                    if(total.total_value){
+                        values.push(total.total_value);
                         labels.push(total.timestamp);
                     }
 
@@ -43,15 +42,15 @@ function getCondition(condition){
                         monthDataObject[forYearDateFormat] = {};
                     }
 
-                    yearDataObject[forYearDateFormat] += Number(total.Overall);
+                    yearDataObject[forYearDateFormat] += Number(total.total_value);
                     monthDataObject[forYearDateFormat][titleKey] = {
-                        Overall: Number(total.Overall),
+                        Overall: Number(total.total_value),
                         date: total.timestamp,
                         categories: {},
                     }
 
                     Object.keys(total).forEach(category =>{
-                        if(category !== "timestamp" && category !== "Overall"){
+                        if(category !== "timestamp" && category !== "total_value"){
                             monthDataObject[forYearDateFormat][titleKey].categories[category] = total[category];
                         }
                     })
@@ -66,6 +65,7 @@ function getCondition(condition){
 
     let yearlyLabels = Object.keys(yearDataObject);
     let yearlyvalues = Object.values(yearDataObject);
+    // console.log(monthDataObject);
 
     yearData = getChart(yearChartID, condition, yearlyLabels, yearlyvalues);
     getMonthChart(monthDataObject, condition);
@@ -80,6 +80,7 @@ function getMonthChart(object, condition){
         return date.toLocaleDateString('en-US', {day: 'numeric', weekday: 'short'});
     });
     let monthValues = Object.keys(monthlyData).map(weeks => monthlyData[weeks].Overall);
+    // console.log(monthlyData);
 
     document.getElementById('currentMonth').innerText = currentMonth;
 
@@ -88,6 +89,7 @@ function getMonthChart(object, condition){
     monthData = getChart(monthChartID, condition, monthLabels, monthValues);
     getBreakdown(monthlyData);
     getQuestionnaires(monthlyData);
+    getNotes(currentMonth);
 }
 
 document.getElementById('back').addEventListener("click", function(){
@@ -119,24 +121,24 @@ function getBreakdown(object){
 
         mainDiv.appendChild(dateHeader);
 
-        let BGcolorSet = ["#FFDFDF", "#F8DCFF", "#FFECDF"];
-        let textcolorSet = ["#FF3333", "#6E0089", "#FFC933"];
+        let BGcolorSet = ["#FFDFDF", "#F8DCFF", "#FFECDF", "#FFD3D3", "#E7FFE2", "#FFE8F8", "#FFD8B6", "#A1C2FF"];
+        let textcolorSet = ["#FF3333", "#6E0089", "#FFC933", "#FF8181", "#6BFD4C", "#FF9BE0", "#FF9E49", "#2873FF"];
 
             Object.keys(subObject).forEach((catKeys, index) =>{
                 let wrapperDiv = document.createElement("div");
                 wrapperDiv.style.display = "flex";
                 wrapperDiv.classList.add("category-wrapper");
-                wrapperDiv.style.backgroundColor = `${BGcolorSet[index]}`
+                // wrapperDiv.style.backgroundColor = `${BGcolorSet[index % BGcolorSet.length]}`
 
                 let categoryData = subObject[catKeys];
                 let dataText = document.createElement('p');
                 dataText.textContent = catKeys;
-                dataText.style.color = `${textcolorSet[index]}`;
+                // dataText.style.color = `${textcolorSet[index % textcolorSet.length]}`;
 
                 let totalText = document.createElement('p');
-                totalText.textContent = categoryData.Total;
-                totalText.style.color = `${textcolorSet[index]}`;
-
+                totalText.textContent = categoryData.subcategory_total;
+                // totalText.style.color = `${textcolorSet[index % textcolorSet.length]}`;
+               
                 wrapperDiv.appendChild(dataText);
                 wrapperDiv.appendChild(totalText);
                 
@@ -231,12 +233,12 @@ function createQuestionnaireModal(object, date){
     let overall = document.createElement('p');
     overall.textContent = "Total Subject Score: " + object.Overall;
     overall.classList.add('overall');
-
+    console.log(object);
     bodyWrapper.appendChild(overall);
 
     Object.keys(object.categories).forEach(mKeys => {
         let subObject = object.categories[mKeys];
-        let questionDataTotal = subObject.Total;
+        let questionDataTotal = subObject.subcategory_total;
         let dataDiv = document.createElement("div");
         let catDiv = document.createElement("div");
         catDiv.classList.add("catDiv");
@@ -301,4 +303,44 @@ function createQuestionnaireModal(object, date){
     questionCard.appendChild(bodyWrapper);
     bgScreen.appendChild(questionCard);
     document.body.append(bgScreen);
+}
+
+function getNotes(monthYear){
+    let notes = patientDetails.notes;
+    let notesContainer = document.getElementById('notes-history-container');
+    notesContainer.innerHTML = " ";
+
+    Object.keys(notes).forEach(nKey => {
+        let notesData = notes[nKey];
+        let dateText = notesData.timestamp;
+        let date = new Date(notesData.timestamp);
+        let newDate = date.toLocaleDateString('default', {month: 'long', year: 'numeric'});
+        if(newDate === monthYear){
+            let noteButton = document.createElement("button");
+            noteButton.classList.add("objButtons");
+
+            let buttontext = document.createElement("p");
+            buttontext.textContent = dateText;
+
+            noteButton.appendChild(buttontext);
+            notesContainer.appendChild(noteButton);
+
+            noteButton.addEventListener("click", function(){
+                viewNotesModal(notesData.details, dateText);
+                // console.log(notesData.details, dateText);
+            })
+        }
+    })
+
+}
+
+function viewNotesModal(noteData, noteDate){
+    document.getElementById('view-note-screen').style.display = 'inline-flex';
+    let noteCard = document.getElementById('view-notes-textarea');
+    noteCard.textContent = " ";
+    noteCard.textContent = noteData;
+
+    let date = document.getElementById('date-filed');
+    date.textContent = " ";
+    date.textContent = noteDate;
 }

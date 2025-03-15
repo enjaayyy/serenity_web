@@ -1,4 +1,6 @@
-.report-screen{
+.report-screen,
+.modal-screen,
+.view-note-screen{
     height: 100vh;
     width: 100vw;
     display: none;
@@ -22,18 +24,22 @@
     }
 }
 
-.report-card{
+.report-card,
+.modal-card,
+.view-note-card{
     background-color: white;
     border-radius: 15px;
     border: none;
     height: auto;
-    max-width: 30vw;
+    width: 30vw;
     padding-left: 2vw;
     padding-right: 2vw;
     text-align: justify;
     animation: slideDown 0.3s ease;
     padding-bottom: 2vh;
     padding-top: 2vh;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
 }
 
 @keyframes slideDown{
@@ -47,7 +53,9 @@
     }
 }
 
-.report-title-container{
+.report-title-container,
+.notes-card-header,
+.view-note-card-header{
     margin-top: 2vh;
     display: flex;
     justify-content: space-between;
@@ -65,7 +73,9 @@
     background-color: lightgray;
 }
 
-.report-header{
+.report-header,
+.notes-header,
+.view-notes-header{
     font-size: 2vw;
     font-weight: bold;
     margin-bottom: 0;
@@ -83,6 +93,16 @@
 .reason-header{
     font-size: 1.5vw;
     font-weight: bold;
+}
+
+.notes-details{
+    height: 20vh;
+    width: 92%;
+    border-radius: 15px;
+    margin-top: 1vh;
+    margin-right: 1vh;
+    padding: 1vw;
+    resize: none;
 }
 input:checked + label div{
     background-color: rgba(255, 0, 0, 0.4);
@@ -113,14 +133,15 @@ input:checked + label div{
     border: 1px solid gray;
 }
 
-.reason-details{
-    width: 29vw;
+.reason-details,
+.view-notes-textarea{
+    width: 28vw;
     height: 20vh;
     border: none;
     border-radius: 15px;
     background-color: #F7F7F7;
     resize: none;
-    padding: 0.5vw;
+    padding: 1vw;
     margin-right: 2vw;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -144,3 +165,23 @@ input:checked + label div{
     transform: scale(1.2);
 }
 
+.submit-note{
+    background-color: #20C073;
+    border: none;
+    border-radius: 15px;
+    color: white;
+    height: 3vh;
+    width: 10vh;
+    transition: background-color 0.3s ease;
+    font-size: 0.8vw;
+}
+
+.submit-note:hover{
+    background-color: black;
+
+}
+
+.date-filed{
+    color: gray;
+    font-size:0.8vw;
+}

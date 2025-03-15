@@ -55,12 +55,14 @@ body{
     padding-bottom: 3vh;
 }
 
-.answered-questions-container{
+.answered-questions-container,
+.notes-container{
     background-color: white;
     border-radius: 15px;
     border: none;
     padding-top: 2vh;
     padding-bottom: 4vh;
+    margin-bottom: 2vh;
 }
 .chart-container{
     padding-top: 1vh;
@@ -370,13 +372,15 @@ body{
     font-weight: bold;
 }
 
-.aqc-header{
+.aqc-header,
+.notes-history-header{
     font-size: 1vw;
     font-weight: bold;
     margin-top: 0;
 }
 
-.questionnaire-header-container{
+.questionnaire-header-container,
+.notes-header-container{
     text-align: center;
 }
 

@@ -51,27 +51,10 @@ class PatientController extends Controller
             }
         }
 
-        // $answersRef = $this->database->getReference('administrator/users/' . $id .  '/' . 'all_answers');
-        // $answerSnap = $answersRef->getSnapshot();
-        // $answerData = $answerSnap->getValue();
-
-        // $answers_arr = [];
-
-        // if($answerData){
-        //     foreach($answerData as $answers){
-        //         $formattedTime = date('M, d', strtotime($answers['timestamp']));
-        //         $answers_arr[] = [
-        //             'Time' => $formattedTime,
-        //             'Value' => $answers['total_value'],
-        //         ];
-        //     }
-        // }
-
 
         return view('administrator.patientDetails', [
             'userDetails' => $userDetails,
             'docData' => $docData,
-            // 'data' => json_encode($answers_arr),
         ]);
     }
 
@@ -94,6 +77,20 @@ class PatientController extends Controller
             if($patientRef){
                 $formattedDate = date("F d, Y", strtotime($patientRef['birthdate']));
                 $conditionCount = count($patientRef['conditions']);
+                $notesRef = $this->database->getReference('/administrator/users/' . $id . '/doctorNotes')->getSnapshot()->getValue();
+
+                $notesArray = [];
+
+                if($notesRef){
+                    foreach($notesRef as $noteid => $notes) {
+                        $formattedNotesDate = date("F d, Y", strtotime($notes['dateFiled']));
+                        $notesArray[] = [
+                            'id' => $noteid,
+                            'details' => $notes['noteDetails'],
+                            'timestamp' => $formattedNotesDate,
+                        ];
+                    }
+                }
                 $patientDetails = [
                     'patientID' => $id,
                     'condition' => $patientRef['conditions'],
@@ -104,6 +101,7 @@ class PatientController extends Controller
                     'username' => $patientRef['username'],
                     'bday' => $formattedDate,
                     'conditionCount' => $conditionCount,
+                    'notes' => isset($notesArray) ? $notesArray : 'bilat',
                     'answer' => isset($patientRef['all_answers']) ? $patientRef['all_answers'] : null,
                 ];
             }
@@ -126,7 +124,6 @@ class PatientController extends Controller
             return view('doctor.patientProfile', [
                 'patientDetails' => $patientDetails,
                 'doctorData' => $doctorData,
-                // 'data' => json_encode($answers_arr),
                 'messages' => $messages,
                 'chatID' => $chatID,
             ]);
@@ -170,6 +167,28 @@ class PatientController extends Controller
                 return redirect()->route('viewPatients');
             }
 
+        }
+        else{
+            return redirect()->route('login');
+        }
+    }
+
+    public function addNote(Request $request, $id){
+        if(Session::get('user') === 'doctor'){
+            $docID = Session::get('id');
+            $notesDetails = $request->input('notes-data');
+
+            if($notesDetails){
+                $notesData = [
+                    'doctorID' => $docID,
+                    'dateFiled' => date('Y-m-d H:i:s'),
+                    // 'dateFiled' => '2025-04-13 08:26:17',
+                    'noteDetails' => $notesDetails,
+                ];
+                $this->database->getReference('administrator/users/'. $id . '/doctorNotes/')->push($notesData);
+                return redirect()->route('viewPatients');
+
+            }
         }
         else{
             return redirect()->route('login');

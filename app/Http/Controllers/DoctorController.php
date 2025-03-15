@@ -328,9 +328,9 @@ class DoctorController extends Controller
             $patientRef = $this->database->getReference('administrator/doctors/' . $id . '/mypatients/')->getSnapshot()->getValue();
 
             $patientData = [];
-
+            $patientCount = is_array($patientRef) ? count($patientRef) : 0;
+            
             if($patientRef){
-            $patientCount = count($patientRef);
                 foreach($patientRef as $key => $patient){
                     $patientId = $patient['patientID'];
                     $userRef = $this->database->getReference('administrator/users/' . $patientId)->getSnapshot()->getValue();
@@ -354,6 +354,28 @@ class DoctorController extends Controller
         else{
             return redirect()->route('login');
         }
+    }
+
+    public function viewAppointments(){
+        if(Session::get('user') === 'doctor'){
+            $id = Session::get('id');
+            $docData = $this->database->getReference('administrator/doctors/'. $id)->getSnapshot()->getValue();
+            if($docData){
+                $doctorData = [
+                    'id' => $id,
+                    'name' => $docData['name'],
+                    'prof' => $docData['profession'],
+                    'pic' => isset($docData['profilePic']) ? $docData['profilePic'] : null,
+                ];
+            }
+
+        return view('doctor/appointments', [
+            'doctorData' => $doctorData,
+        ]);
+        }
+        else{
+            return redirect()->route('login');
+        }   
     }
 
 }

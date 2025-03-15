@@ -113,10 +113,12 @@
                             </a>
                         </div>
                         <div class="appointments">
-                            <button class="appointment-btn">
-                            <img src="{{ asset('assets/calendar-icon.svg') }}" class="icon9">
-                            <p>Appointments</p>
-                            </button>
+                            <a href="{{ route('viewAppointments') }}" style="text-decoration: none;">
+                                <button class="appointment-btn">
+                                <img src="{{ asset('assets/calendar-icon.svg') }}" class="icon9">
+                                <p>Appointments</p>
+                                </button>
+                            </a>
                         </div>
                         @endif
                         <div class="logout-container">

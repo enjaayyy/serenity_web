@@ -56,6 +56,7 @@ Route::get('/doctor/patientProfile/{id}', [PatientController::class, 'patientPro
 Route::post('/doctor/patientProfile/{id}/report', [PatientController::class, 'reportPatient'])->name('reportPatient');
 Route::get('admin/reportList', [AdminController::class, 'viewReports'])->name('viewReports');
 Route::post('/sendmessage', [MessageController::class, 'sendMessage'])->name('sendmessage');
-
+Route::post('/doctor/patientProfile/{id}/addNote', [PatientController::class, 'addNote'])->name('addnotes');
 Route::post('/generate-token', [AccessTokenController::class, 'generateToken']);
 Route::post('/dashboard/sampleData', [QuestionnaireController::class, 'sampleData'])->name('sampleData');
+Route::get('/doctor/appointments', [DoctorController::class, 'viewAppointments'])->name('viewAppointments');

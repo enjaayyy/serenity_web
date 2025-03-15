@@ -61,4 +61,8 @@
             </table>
         </div>
         <script src="{{ asset('js/utilities/search.js') }}"></script>
+        <script>
+            var patientData = <?php echo json_encode($patientData, JSON_PRETTY_PRINT); ?>;
+                console.log(patientData);
+        </script>
 @endsection

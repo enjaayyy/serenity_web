@@ -168,6 +168,14 @@
 
                                     </div>
                                 </div>
+                                <div class="notes-container">
+                                    <div class="notes-header-container">
+                                        <p class="notes-history-header">Notes History</p>
+                                    </div>
+                                    <div class="notes-history-container" id="notes-history-container">
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         
@@ -184,7 +192,7 @@
                         </button>
                     </div>
                     <div class="add-button-container">
-                        <button class="add-button" type="button" onclick="openReportModal()">
+                        <button class="add-button" type="button" onclick="openNotesModal()">
                             <img src={{ asset('assets/plus-icon.svg') }}>
                         </button>
                     </div>
@@ -215,6 +223,7 @@
             </div>
             @include('doctor.utilities.reportModal')
             @include('doctor.utilities.addNotesModal')
+            @include('doctor.utilities.viewNotesModal')
             <script src="https://cdn.jsdelivr.net/npm/chart.js"> </script>
             <link rel="stylesheet" href="{{ asset('css/doctor/utilities/viewquestionnaire.css') }}">
             <script>
@@ -293,7 +302,11 @@
 
                function openReportModal(){
                     document.getElementById('report-screen').style.display = 'inline-flex';
+               } 
+               function openNotesModal(){
+                    document.getElementById('modal-screen').style.display = 'inline-flex';
                }
             </script>
             <script src="{{ asset('js/doctor/charts.js') }}"></script>
+
 @endsection
