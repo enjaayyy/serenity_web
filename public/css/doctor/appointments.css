@@ -1,0 +1,137 @@
+.main-content{
+    display: flex;
+    width: 100%;
+    height: 87vh;
+    gap: 1vw;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.calendar{
+    width: 70%;
+    height: 100%;
+}
+
+.appointments-container{
+    width: 30%;
+}
+.schedulewrapper{
+    /* background-color: gray; */
+    width: 100%;
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1vh;
+    animation: slideDown 0.5s ease;
+}
+
+@keyframes slideDown{
+    from{
+        opacity: 0;
+        transform: translateY(-20%);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dateDiv{
+    display: flex;  
+    justify-content: space-between;  
+}
+.progressDiv{
+    background-color: red;
+    border-radius: 50%;
+    width: 1vw;
+    height: 1vw;
+}
+
+.add-event{
+    display: flex;
+    width: 100%;
+    height: 4vh;
+    align-items: center;
+    justify-content: space-between;
+    color: gray;
+    font-weight: bold;
+    background-color: transparent;
+    border: none;
+    transition: transform 0.3s ease;
+}
+
+.add-event:hover{
+    transform: scale(1.1);
+}
+
+.add-event::before,
+.add-event::after{
+    content: " ";
+    width: 40%; 
+    height: 2px;
+    background-color: gray;
+}
+
+.midDiv{
+    /* background-color: red; */
+    width: 70%;
+    height: 100%;
+}
+
+.rightDiv{
+    height: 100%;
+    width: 30%;
+    display: flex;
+}
+input[type="date"],
+input[type="time"],
+input[type="text"]{
+    border-radius: 5px;
+    border: 1px solid gray;
+    padding-top: 0.8vh;
+    padding-bottom: 0.8vh;
+} 
+
+input[type="text"]{
+    padding-left: 0.6vh;
+    margin-top: 0.8vh;
+    width:96%;
+} 
+
+input[type="time"],
+input[type="date"]{
+    width:45%;
+}
+
+.addbutton,
+.removebutton{
+    width: 50%;
+    height: 100%;
+    border:none;
+    background-color: transparent;
+    transition: background-color 0.3s ease, filter 0.3s ease;
+}
+
+.addbutton img,
+.removebutton img{
+    filter: invert(100%);
+    width: 1vw;
+    height: 1vw;
+}
+
+.addbutton:hover{
+    background-color: #20C073 ;
+}
+
+.addbutton:hover img{
+    filter: brightness(100%);
+}
+
+.removebutton:hover{
+    background-color: red ;
+}
+
+.removebutton:hover img{
+    filter: brightness(100%);
+}
+
+
