@@ -60,3 +60,4 @@ Route::post('/doctor/patientProfile/{id}/addNote', [PatientController::class, 'a
 Route::post('/generate-token', [AccessTokenController::class, 'generateToken']);
 Route::post('/dashboard/sampleData', [QuestionnaireController::class, 'sampleData'])->name('sampleData');
 Route::get('/doctor/appointments', [DoctorController::class, 'viewAppointments'])->name('viewAppointments');
+Route::post('/doctor/appointments/addAppointments', [DoctorController::class, 'addAppointments'])->name('addAppointments');

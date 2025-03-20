@@ -153,8 +153,8 @@
             mainQuestionContainer.appendChild(removequestion);
             qstcontainer.appendChild(mainQuestionContainer);
 
-            let choiceOptions = ["Choice 1", "Choice 2", "Choice 3", "Choice 4"];
-            let choiceValues = ["Value 1", "Value 2", "Value 3", "Value 4"];
+            let choiceOptions = ["Choice 1", "Choice 2", "Choice 3", "Choice 4", "Choice 5"];
+            let choiceValues = ["Value 1", "Value 2", "Value 3", "Value 4", "Value 5"];
 
             if(legend && value){
                 legend.forEach((lkey, index) => {

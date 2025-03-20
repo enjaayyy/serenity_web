@@ -47,8 +47,7 @@ class QuestionnaireController extends Controller
 
        foreach($data['specialization'] as $specData) {
         if(in_array($specData, $data['specialization'])) {
-            $title = $specData;
-            $questions = $this->questionBySpecialization($specData, $title);
+            $questions = $this->questionBySpecialization($specData);
             if ($questions) {
                     $questionnaires[$specData] = $questions;
                 }
@@ -96,11 +95,10 @@ class QuestionnaireController extends Controller
 
 
 
-    private function questionBySpecialization($specialization, $title){
-        $title = (string) $title;
+    private function questionBySpecialization($specialization){
          $questions = [
             'Anxiety' => [
-                $title => [
+                'Hamilton Anxiety Rating Scale (HAM-A)' => [
                     'Anxious Mood' => [
                     'Q1' => [
                         'question' => 'Worries, Anticipation of the worst, Fearful, Irritability.',
@@ -195,7 +193,7 @@ class QuestionnaireController extends Controller
                 ],
             ],
             'Insomnia' => [
-                $title => [
+                'Sleep Condition Indicator (SCI)' => [
                         'Think about a typical night this week' => [
                         'Q1' => [
                             'question' => 'Dry mouth, tendency to sweat, headache, raising of hair, giddiness.',
@@ -243,7 +241,7 @@ class QuestionnaireController extends Controller
                 ],  
             ],
             'Post Traumatic Stress' => [
-                $title => [
+                'Impact of Event Scale(IES)'=> [
                         'In the past month, how much were you bothered by:' => [
                         'Q1' => [
                             'question' => 'Any reminder brought back feelings about it',

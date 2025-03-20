@@ -369,8 +369,48 @@ class DoctorController extends Controller
                 ];
             }
 
+            $patientRef = $this->database->getReference('administrator/doctors/' . $id . '/mypatients/')->getSnapshot()->getValue();
+
+            $patientData = [];
+
+            if($patientRef){
+                foreach($patientRef as $key => $patient){
+                    $patientId = $patient['patientID'];
+                    $userRef = $this->database->getReference('administrator/users/' . $patientId)->getSnapshot()->getValue();
+                    if($userRef){
+                        $patientData[] = [
+                            'id' => $patientId,
+                            'name' => $userRef['full_name'],
+                        ];
+                    }
+                }
+            }
+
+            $appointmentsRef = $this->database->getReference('administrator/doctors/' . $id  . '/scheduled_appointments/')->getSnapshot()->getValue();
+
+            $appointments = [];
+
+            if($appointmentsRef){
+                foreach($appointmentsRef as $key => $appointment){
+                    if($appointment['appointmentDate'] < time()) {
+                        $this->datebase->getReference('administrator/doctors/' . $id . '/scheduled_appointments/').remove($key);
+                    }
+                    else{
+                        $appointments[] = [
+                        'date' => $appointment['appointmentDate'],
+                        'start' => $appointment['appointmentStartTime'],
+                        'end' => $appointment['appointmentEndTime'],
+                        'name'=> $appointment['appointmentPatient'],
+                        'title' => $appointment['appointmentTitle'],
+                        'color' => $appointment['color'],
+                    ];
+                    }
+                }
+            }
         return view('doctor/appointments', [
             'doctorData' => $doctorData,
+            'patientData' => $patientData,
+            'appointments' => $appointments,
         ]);
         }
         else{
@@ -378,6 +418,55 @@ class DoctorController extends Controller
         }   
     }
 
+    public function addAppointments(Request $request){
+        if(Session::get('user') === 'doctor'){
+            $docID = Session::get('id');
+            $aptSubject = $request->input('input-details');
+            $aptDate = $request->input('input-date');
+            $aptStartTime = $request->input('input-starttime');
+            $aptEndTime = $request->input('input-endtime');
+            $aptColor = $request->input('color-indicator');
+            $aptChosenPatient = $request->input('selected-user');
+
+            $appointmentRef = $this->database->getReference('administrator/doctors/' . $docID . '/scheduled_appointments/')->getSnapshot()->getValue();
+          
+            if($appointmentRef){
+                forEach($appointmentRef as $key => $apt){
+                    if(isset($apt['appointmentDate'], $apt['appointmentStartTime'], $apt['appointmentEndTime'])){
+                        if($apt['appointmentDate'] === $aptDate){
+                            $existingStart = strtotime($apt['appointmentStartTime']);
+                            $existingEnd =strtotime($apt['appointmentEndTime']);
+                            $newStart = strtotime($aptStartTime);
+                            $newEnd = strtotime($aptEndTime);
+
+                            if(($newStart < $existingEnd) && ($newEnd > $existingStart)){
+                                return back()->with('error', 'It seems that your chosen schedule is already occupied!');
+                            }
+                        }
+                        else{
+                              $appointmentData = [
+                                'appointmentTitle' => $aptSubject,
+                                'appointmentDate' => $aptDate,
+                                'appointmentStartTime' => $aptStartTime,
+                                'appointmentEndTime' => $aptEndTime,
+                                'color' => $aptColor,
+                                'appointmentPatient' =>  $aptChosenPatient,
+                            ];
+
+                            $this->database->getReference('administrator/doctors/' . $docID . '/scheduled_appointments/')->push($appointmentData);
+                            return redirect()->route('viewAppointments')->with('success', 'Your Appointment has been saved!');
+                        }
+                    }
+                }
+            }
+          
+        }
+        else{
+            return redirect()->route('login');
+        }
+    }
+
 }
 
 
+ 

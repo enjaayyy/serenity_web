@@ -65,7 +65,7 @@ function getCondition(condition){
 
     let yearlyLabels = Object.keys(yearDataObject);
     let yearlyvalues = Object.values(yearDataObject);
-    // console.log(monthDataObject);
+    console.log(patientCategory);
 
     yearData = getChart(yearChartID, condition, yearlyLabels, yearlyvalues);
     getMonthChart(monthDataObject, condition);

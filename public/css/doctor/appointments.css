@@ -8,21 +8,10 @@
 
 .calendar{
     width: 70%;
-    height: 100%;
-}
+    height: 82vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
 
-.appointments-container{
-    width: 30%;
-}
-.schedulewrapper{
-    /* background-color: gray; */
-    width: 100%;
-    height: 8vh;
-    display: flex;
-    align-items: center;
-    margin-bottom: 1vh;
-    animation: slideDown 0.5s ease;
-}
+}   
 
 @keyframes slideDown{
     from{
@@ -35,103 +24,286 @@
     }
 }
 
-.dateDiv{
-    display: flex;  
-    justify-content: space-between;  
-}
-.progressDiv{
-    background-color: red;
-    border-radius: 50%;
-    width: 1vw;
-    height: 1vw;
+.add-button-container{
+    position: fixed;
+    right: 1vw;
+    top: 89vh;
 }
 
-.add-event{
+.add-sched-button{
+    margin-top: 2vh;
+    border-radius: 50%;
+    height: 3vw;
+    width: 3vw;
     display: flex;
-    width: 100%;
-    height: 4vh;
     align-items: center;
+    justify-content: center;
+    border: none;
+    opacity: 0.5;
+    background-color: #49B2FF;
+    transition: opacity 0.3s ease;
+}
+
+.add-sched-button:hover{
+    cursor: pointer;
+    opacity: 1;
+}
+
+.add-sched-button img{
+    height: 2vw;
+    width: 2vw;
+}
+
+.add-appointment-screen{
+    height: 100vh;
+    width: 100vw;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    background-color: rgb(0,0,0,0.5);
+    z-index: 10000;
+    top:0;
+    left: 0;
+    animation: fade-in 0.3s ease;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@keyframes fade-in {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+.add-appointment-card{
+     background-color: white;
+    border-radius: 15px;
+    border: none;
+    height: auto;
+    width: 30vw;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    text-align: justify;
+    animation: slideDown 0.3s ease;
+    padding-bottom: 2vh;
+    padding-top: 2vh;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@keyframes slideDown{
+    from{
+        transform: translateY(-40%);
+        opacity: 0;
+    }
+    to{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.card-header-container{
+    display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+
+.close-btn{
+    background-color: white;
+    border-radius: 50%;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.close-btn:hover{
+    background-color: lightgray;
+}
+
+.date-container{
+    display: flex;
+}
+
+.card-header{
+    font-weight: bold;
+    font-size: 1.2vw;
+    color:#004624;
+}
+
+.input-header{
     color: gray;
     font-weight: bold;
-    background-color: transparent;
+    font-size: 0.7vw;
+    margin-bottom: 0.2vh;
+}
+
+.input-details{
+    height: 5vh;
+    width: 93%;
+    border-radius: 5px;
+    border: 1px solid gray;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+.date-container{
+    justify-content: space-between;
+    /* background-color: red; */
+}
+
+.input-date,
+.input-time{
+    border-radius: 5px;
+    padding-left: 1vw;
+    border: 1px solid gray;
+}
+
+.patient-container{
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+}
+
+.patient-container select{
+    height: 5vh;
+    width: 87%;
+    border-radius: 5px;
+    padding-left: 1vw;
+    border: 1px solid gray;
+}
+
+.patient-container input{
+    border-radius: 5px;
+    width:2.5vw;
+    height: 5vh;
+    border:1px solid gray;
+    background-color: white;
+   
+}
+
+.submit-container{
+    text-align: right;
+    margin-top: 2vh;
+}
+
+.submit-container button{
+    height: 4vh;
+    width: 5vw;
+    border-radius: 5px;
     border: none;
+    background-color: #49B2FF;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.submit-container button:hover{
+    background-color: black;
+}
+
+.appointments-container{
+    width: 30%;
+    height: 82vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.appointments-container::-webkit-scrollbar{
+    width: 6px;
+}
+
+.schedule-container{
+    display: flex;
+    height: 15vh;
+    margin-bottom: 1vh;
+    width: 100%;
+    padding-right: 2vw;
+    /* background-color: red; */
+}
+
+.color-indicator{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    /* background-color: blue; */
+}
+.circle{
+    height: 1vw;
+    width: 1vw;
+    border-radius: 50%;
+}
+
+.apt-date{
+    margin-bottom: 0;
+    color: gray;
+    font-size: 1vw;
+    font-weight: light;
+}
+
+.apt-title,
+.apt-patient{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.apt-title{
+    font-weight: bold;
+    font-size: 1.1vw;
+}
+
+/* .events{
+    height:5vh;
+    width: 100%;
+    color:black;
+    font-size: 0.5vw;
+} */
+
+.fc-daygrid-day-frame{
+    padding-right: 0.2vw;
+}
+
+.fc-button {
+    width: 5vw;
+    background-color: #004624 !important;
+    font-size: 1vw !important;
+    border-radius: 10px !important;
+    margin-left: 2px !important;
     transition: transform 0.3s ease;
 }
 
-.add-event:hover{
-    transform: scale(1.1);
+.fc-button:focus,
+.fc-button:active{
+    outline: none !important;
+    box-shadow: none !important;
 }
 
-.add-event::before,
-.add-event::after{
-    content: " ";
-    width: 40%; 
-    height: 2px;
-    background-color: gray;
+.fc-button:hover:not(.fc-prev-button,
+.fc-next-button){
+    transform: scale(1.1) !important;
+    background-color: black !important;
 }
 
-.midDiv{
-    /* background-color: red; */
-    width: 70%;
-    height: 100%;
+.fc-prev-button,
+.fc-next-button{
+    background-color: transparent !important;
+    color: #004624 !important;
+    border: none !important;
+    transition: transform 0.3s ease;
 }
 
-.rightDiv{
-    height: 100%;
-    width: 30%;
-    display: flex;
-}
-input[type="date"],
-input[type="time"],
-input[type="text"]{
-    border-radius: 5px;
-    border: 1px solid gray;
-    padding-top: 0.8vh;
-    padding-bottom: 0.8vh;
-} 
-
-input[type="text"]{
-    padding-left: 0.6vh;
-    margin-top: 0.8vh;
-    width:96%;
-} 
-
-input[type="time"],
-input[type="date"]{
-    width:45%;
+.fc-prev-button:hover,
+.fc-next-button:hover{
+    transform: scale(1.3) !important;
 }
 
-.addbutton,
-.removebutton{
-    width: 50%;
-    height: 100%;
-    border:none;
-    background-color: transparent;
-    transition: background-color 0.3s ease, filter 0.3s ease;
+.fc-toolbar-title{
+    font-weight: light !important;
+    font-size: 1.5vw !important;
+    color: #004624 !important;
+ 
 }
 
-.addbutton img,
-.removebutton img{
-    filter: invert(100%);
-    width: 1vw;
-    height: 1vw;
+.fc-day-today{
+    background-color: #49B2FF !important;
 }
-
-.addbutton:hover{
-    background-color: #20C073 ;
-}
-
-.addbutton:hover img{
-    filter: brightness(100%);
-}
-
-.removebutton:hover{
-    background-color: red ;
-}
-
-.removebutton:hover img{
-    filter: brightness(100%);
-}
-
-
