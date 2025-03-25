@@ -196,6 +196,11 @@
                             <img src={{ asset('assets/plus-icon.svg') }}>
                         </button>
                     </div>
+                    <div class="call-button-container">
+                        <button onclick="openCall()" class="call-button">
+                            <img src={{ asset('assets/call-icon.svg') }}>
+                        </button>
+                    </div>
                     <div class="mess-button-container">
                         <button onclick="openChat()" class="mess-button">
                             <img src={{ asset('assets/message-icon.svg') }}>
@@ -224,6 +229,7 @@
             @include('doctor.utilities.reportModal')
             @include('doctor.utilities.addNotesModal')
             @include('doctor.utilities.viewNotesModal')
+            @include('doctor.utilities.callScreen')
             <script src="https://cdn.jsdelivr.net/npm/chart.js"> </script>
             <link rel="stylesheet" href="{{ asset('css/doctor/utilities/viewquestionnaire.css') }}">
             <script>
@@ -268,6 +274,10 @@
                     document.getElementById('chat-div').style.display = 'none';
                     document.getElementById('chat-screen').style.display = 'none';
                     document.body.style.overflow = 'auto';
+                }
+
+                function openCall(){
+                    document.getElementById('call-screen').style.display = 'block';
                 }
 
                 function sendMessage(){

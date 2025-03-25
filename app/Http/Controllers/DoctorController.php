@@ -26,13 +26,24 @@ class DoctorController extends Controller
             $data = $snapshot->getValue();
  
             if($data){
-                $doctorData = [
-                    'id' => $id,
-                    'name' => $data['name'],
-                    'prof' => $data['profession'],
-                    'pic' => isset($data['profilePic']) ? $data['profilePic'] : null,
-                ];
-                return view('doctor.dashboard', ['doctorData' =>  $doctorData]);  
+                $patientRef = $this->database->getReference('administrator/doctors/' . $id . '/mypatients/')->getSnapshot()->getValue();
+                $RequestRef = $this->database->getReference('administrator/doctors/' . $id . '/Appointments/')->getSnapshot()->getValue();
+                $AppointmentsRef = $this->database->getReference('administrator/doctors/' . $id . '/scheduled_appointments/')->getSnapshot()->getValue();
+                $patientCount = is_array($patientRef) ? count($patientRef) : 0;
+                $requestCount = is_array($RequestRef) ? count($RequestRef) : 0;
+                $appointmentCount = is_array($AppointmentsRef) ? count($AppointmentsRef) : 0;
+                    $doctorData = [
+                        'id' => $id,
+                        'name' => $data['name'],
+                        'prof' => $data['profession'],
+                        'pic' => isset($data['profilePic']) ? $data['profilePic'] : null,
+                    ];
+                    return view('doctor.dashboard', [
+                        'doctorData' =>  $doctorData,
+                        'patientCount' => $patientCount,
+                        'requestCount' => $requestCount,
+                        'appointmentCount' => $appointmentCount,
+                    ]);  
             }
           
         }
@@ -64,6 +75,7 @@ class DoctorController extends Controller
                     'graduated' => isset($data['graduated']) ? $data['graduated'] : null,
                     'questions' => isset($data['activeQuestionnaires']) ? $data['activeQuestionnaires'] : null,
                     'creds' => $data['credentials'],
+                    'appointments' => $data['scheduled_appointments'],
                     'templates' => isset($data['savedQuestionnaires']) ? $data['savedQuestionnaires'] : null,
                 ];
                 return view('doctor/profile', ['doctorData' =>  $doctorData]);  
@@ -392,10 +404,10 @@ class DoctorController extends Controller
 
             if($appointmentsRef){
                 foreach($appointmentsRef as $key => $appointment){
-                    if($appointment['appointmentDate'] < time()) {
-                        $this->datebase->getReference('administrator/doctors/' . $id . '/scheduled_appointments/').remove($key);
+                    if(strtotime($appointment['appointmentDate']) < time()) {
+                        $this->database->getReference('administrator/doctors/' . $id . '/scheduled_appointments/' . $key)->remove();
                     }
-                    else{
+                    else{   
                         $appointments[] = [
                         'date' => $appointment['appointmentDate'],
                         'start' => $appointment['appointmentStartTime'],

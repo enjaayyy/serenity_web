@@ -1,20 +1,120 @@
-body{
-    margin: 0;
-    padding: 0;
-}
-
-.empty{
-    height: 100%;
-    width: 18%;
-}
-
 .container{
-    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+.first-container{
+    display: flex;
+    /* background-color: red; */
     width: 100%;
+    height: 20vh;
 }
 
-.content{
-    height: 100%;
-    width: 82%;
-    float: right;
+.welcome-div{
+    height: 20vh;
+    width: 30vw;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.welcome-text{
+    color: white;
+    font-weight: bold;
+    font-size:1.7vw;
+    margin-left: 1vw;
+    margin-bottom: 0.2vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.toProfile-btn{
+    display: flex;
+    justify-content: right;
+}
+
+.toProfile-btn button{
+    height: 4vh;
+    border:none;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    border-radius: 15px;
+    width: 6vw;
+    color: white;
+    background-color: #20C073;
+    font-size: 0.6vw;
+    transition: background-color 0.3s ease;
+}
+
+.toProfile-btn button:hover{
+    background-color: black;
+}
+
+.patient-count-div,
+.request-count-div,
+.appointments-count-div{
+    height: 20vh;
+    width: 15vw;
+    margin-left: 1vw;
+    border-radius: 15px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.patient-counter-icon-div,
+.request-counter-icon-div,
+.appointments-counter-icon-div{
+    height: 5vw;
+    border-radius: 15px;
+    width: 5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.patient-counter-icon-div{
+    background-color: #FEFFCE;
+}
+
+.request-counter-icon-div{
+    background-color: #F8DCFF;
+}
+
+.appointments-counter-icon-div{
+    background-color: #FFDFDF;
+}
+
+.patient-counter-details-div,
+.request-counter-details-div,
+.appointments-counter-details-div{
+    margin-left: 0.5vw;
+}
+
+.counter-header{
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 0.7vw;
+    font-weight: bold;
+    color: gray;
+}
+
+.counter-data{
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 2vw;
+}
+
+.patient-img{
+    filter: brightness(0) saturate(100%) invert(77%) sepia(81%) saturate(778%) hue-rotate(357deg) brightness(100%) contrast(104%);
+}
+
+.request-img{
+   filter: brightness(0) saturate(100%) invert(15%) sepia(92%) saturate(3548%) hue-rotate(282deg) brightness(69%) contrast(119%);
+}
+
+.appointments-img{
+    filter: brightness(0) saturate(100%) invert(56%) sepia(86%) saturate(7373%) hue-rotate(345deg) brightness(114%) contrast(100%);
 }
