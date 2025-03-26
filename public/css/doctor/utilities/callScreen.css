@@ -48,11 +48,30 @@
 }
 
 .patient-call-name{
-    
+    font-size: 2vw;
+    color: #004624;
+    font-weight: bold;
 }
 
 .call-body img{
     height: 10vw;
     width: 10vw;
+}
+
+.end-call{
+    border-radius: 50%;
+    height: 4vw;
+    width: 4vw;
+    border: none;
+    background-color: red;
+    transition: transform 0.3s ease;
+}
+
+.end-call:hover{
+    transform: scale(1.2);
+}
+.end-call img{
+    height: 1.7vw;
+    width: 1.7vw;
 }
 

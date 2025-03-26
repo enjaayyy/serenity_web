@@ -230,11 +230,45 @@
             @include('doctor.utilities.addNotesModal')
             @include('doctor.utilities.viewNotesModal')
             @include('doctor.utilities.callScreen')
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"> </script>
             <link rel="stylesheet" href="{{ asset('css/doctor/utilities/viewquestionnaire.css') }}">
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"> </script>
+            <script src="https://download.agora.io/sdk/release/AgoraRTC_N-4.23.1.js"></script>
             <script>
                 let chartCondition;
                 
+                const APP_ID = "3a7bf343ec50426697144687e52dfac6"; 
+                const CHANNEL_NAME = "audioChannel"; 
+                const TOKEN = @json($agoraToken); 
+                let UID = @json($patientDetails['patientID']); 
+
+                let client, localAudioTrack;
+                async function openCall(){
+                    document.getElementById('call-screen').style.display = 'block';
+                    
+                    console.log(TOKEN);
+                    console.log(UID);
+                    // const client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
+                    // await client.join(APP_ID, CHANNEL_NAME, TOKEN, UID);
+
+                    // localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
+                    // await client.publish(localAudioTrack);
+
+                    // console.log("Joined channel and streaming audio.");
+                    
+                    // client.on("user-published", async (user, mediaType) => {
+                    //     if (mediaType === "audio") {
+                    //         await client.subscribe(user, mediaType);
+                    //         const remoteAudioTrack = user.audioTrack;
+                    //         remoteAudioTrack.play();
+                    //         console.log(`Playing remote audio from user ${user.uid}`);
+                    //     }
+                    // });
+
+                    // client.on("user-unpublished", (user) => {
+                    //     console.log(`User ${user.uid} left the audio call.`);
+                    // });
+                }
+
                 document.addEventListener("DOMContentLoaded", function() {
                     let containerCount = document.querySelectorAll(".conditions-container").length;
 
@@ -276,10 +310,7 @@
                     document.body.style.overflow = 'auto';
                 }
 
-                function openCall(){
-                    document.getElementById('call-screen').style.display = 'block';
-                }
-
+                
                 function sendMessage(){
                     var message = document.getElementById('chat-input').value;
                     var chatDiv = document.getElementById('chat-div');

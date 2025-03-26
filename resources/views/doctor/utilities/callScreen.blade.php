@@ -7,7 +7,13 @@
         <div>
             <img src="{{ asset('assets/avatar.png') }}" class="profile-img">
             <p class="patient-call-name">{{ $patientDetails['name'] }}</p>
+            <button class="end-call" id="end-call" onclick="endCall()"><img src="{{ asset('assets/end-call-icon.svg') }}"></button>
         </div>
-
     </div>
 </div>
+
+<script>
+    function endCall(){
+        document.getElementById('call-screen').style.display = "none";
+    }
+</script>
