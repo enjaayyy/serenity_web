@@ -14,6 +14,8 @@
 
 <script>
     function endCall(){
+
+        
         document.getElementById('call-screen').style.display = "none";
     }
 </script>

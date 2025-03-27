@@ -106,6 +106,12 @@
     margin-bottom: 0;
     font-size: 2vw;
 }
+.patient-img,
+.request-img,
+.appointments-img{
+    width: 2vw;
+    height: 2vw;
+}
 
 .patient-img{
     filter: brightness(0) saturate(100%) invert(77%) sepia(81%) saturate(778%) hue-rotate(357deg) brightness(100%) contrast(104%);

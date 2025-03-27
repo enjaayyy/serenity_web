@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Kreait\Firebase\Contract\Database;
 use Illuminate\Support\Facades\Session;
 use Kreait\Firebase\Contract\Storage;
+use Illuminate\Support\Facades\Http;
 use Pusher\Pusher;
 use TaylanUnutmaz\AgoraTokenBuilder\RtcTokenBuilder;
 
@@ -103,8 +104,9 @@ class PatientController extends Controller
                     'sex' => $patientRef['sex'],
                     'username' => $patientRef['username'],
                     'bday' => $formattedDate,
+                    'pic' => $patientRef['profile_image'] ? $patientRef['profile_image'] : null, 
                     'conditionCount' => $conditionCount,
-                    'notes' => isset($notesArray) ? $notesArray : 'bilat',
+                    'notes' => isset($notesArray) ? $notesArray : [],
                     'answer' => isset($patientRef['all_answers']) ? $patientRef['all_answers'] : null,
                 ];
             }

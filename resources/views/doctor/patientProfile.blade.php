@@ -103,7 +103,11 @@
                     <div class="user-info-container">
                         <div class="user-info">
                             <div class="profile-pic-container">
-                                <img src="{{ asset('assets/avatar.png') }}" class="profile-img">
+                                @if($patientDetails['pic'])
+                                    <img src="{{ $patientDetails['pic'] }}" class="profile-img">
+                                @else
+                                    <img src="{{ asset('assets/avatar.png') }}" class="profile-img">
+                                @endif
                                 <p class="patient-name">{{ $patientDetails['name'] }}</p>
                                 <p class="patient-email">{{ $patientDetails['email'] }}</p>
                             </div>
@@ -235,40 +239,65 @@
             <script src="https://download.agora.io/sdk/release/AgoraRTC_N-4.23.1.js"></script>
             <script>
                 let chartCondition;
-                
-                const APP_ID = "3a7bf343ec50426697144687e52dfac6"; 
-                const CHANNEL_NAME = "audioChannel"; 
-                const TOKEN = @json($agoraToken); 
-                let UID = @json($patientDetails['patientID']); 
 
-                let client, localAudioTrack;
+                let client;
+                let localAudioTrack;
+                let channelName = "testChannel"; 
+                let token = null;
+                const APP_ID = "3a7bf343ec50426697144687e52dfac6"; 
+                const firebaseURL = "https://asia-southeast1-serenity-c800c.cloudfunctions.net/generateToken";
+
+                // console.log(token);
+                // console.log(channelName);
                 async function openCall(){
                     document.getElementById('call-screen').style.display = 'block';
-                    
-                    console.log(TOKEN);
-                    console.log(UID);
-                    // const client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
-                    // await client.join(APP_ID, CHANNEL_NAME, TOKEN, UID);
+                    try {
+                        const response = await fetch(firebaseURL, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                patientId: @json($patientDetails['patientID']),
+                                callerName: @json($doctorData['docID']),
+                                channelName: "testChannel",
+                            }),
+                        });
 
-                    // localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
-                    // await client.publish(localAudioTrack);
+                        if(!response.ok){
+                            throw new Error("Failed to fetch Token");
+                        }
 
-                    // console.log("Joined channel and streaming audio.");
-                    
-                    // client.on("user-published", async (user, mediaType) => {
-                    //     if (mediaType === "audio") {
-                    //         await client.subscribe(user, mediaType);
-                    //         const remoteAudioTrack = user.audioTrack;
-                    //         remoteAudioTrack.play();
-                    //         console.log(`Playing remote audio from user ${user.uid}`);
-                    //     }
-                    // });
+                        const data = await response.json();
+                        // console.log(data);
+                        token = data.token;
+                        // console.log(token);
+                        channelName = data.channelName;
+                        // console.log(token);
+                        // console.log(channelName);
+                        client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
+                        await client.join(APP_ID, channelName, token, null);
 
-                    // client.on("user-unpublished", (user) => {
-                    //     console.log(`User ${user.uid} left the audio call.`);
-                    // });
-                }
+                        localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
+                        await client.publish(localAudioTrack);
 
+                        client.on("user-published", async (user, mediaType) => {
+                            if (mediaType === "audio") {
+                                await client.subscribe(user, mediaType);
+                                const remoteAudioTrack = user.audioTrack;
+                                remoteAudioTrack.play();
+                                console.log(`Playing remote audio from user ${user.uid}`);
+                            }
+                        });
+
+                        client.on("user-unpublished", (user) => {
+                            console.log(`User ${user.uid} left the call.`);
+                        });
+                    }
+                    catch (error) {
+                        console.error("Error starting the call:", error);
+                    }
+            }
                 document.addEventListener("DOMContentLoaded", function() {
                     let containerCount = document.querySelectorAll(".conditions-container").length;
 

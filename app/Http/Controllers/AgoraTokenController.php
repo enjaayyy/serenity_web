@@ -1,37 +1,26 @@
 <?php
 
-namespace App\Http\Controllers;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Kreait\Firebase\Contract\Database;
-use Agora\TokenBuilder\RtcTokenBuilder;
+use Illuminate\Support\Facades\Http;
 
-class AccessTokenController extends Controller
+class AgoraTokenController extends Controller
 {
-     public function __construct(Database $database)
-    {
-        $this->database = $database;
-    }
-
     public function generateToken(Request $request)
     {
-        // Simulate generating Agora token (you should integrate the Agora RESTful API)
-        $token = 'generated_agora_token';
-        $channel = 'channel_' . rand(1000, 9999);
-        $userId = $request->input('uid'); // Fetch from request
+        $firebaseFunctionURl = "https://asia-southeast1-serenity-c800c.cloudfunctions.net/generateToken";
 
-        // Save call data in Firebase
-        $this->database->getReference('agoraChannels/' . $channel)->set([
-            'channelName' => $channel,
-            'userID' => $userId,
-            'token' => $token,
+        $response = Http::post($firebaseFunctionURl, [
+            'channelName' => $request->channelName,
+            'patientId' => $request->patientId,
         ]);
 
-        // Return the token and channel for frontend
+        if($reponse->successful()) {
+            return response()->json($response->json(), 200);
+        }
+
         return response()->json([
-            'channel' => $channel,
-            'token' => $token,
-        ]);
+            'error' => 'Failed to generate token',
+            'details' => $response->body(),
+        ], $response->status());
     }
-    
 }

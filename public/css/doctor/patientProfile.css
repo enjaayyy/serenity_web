@@ -97,6 +97,7 @@ body{
 .profile-img{
     width: 8vw;
     height: 8vw;
+    border-radius: 50%;
 }
 
 .patient-name{
