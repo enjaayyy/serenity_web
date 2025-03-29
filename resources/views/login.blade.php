@@ -40,6 +40,7 @@
     </div>
     
     <script>
+       
         function login(){
             let emailInput = document.getElementById('email').value;
             let passInput = document.getElementById('pass').value;

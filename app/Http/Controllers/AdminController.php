@@ -118,7 +118,7 @@ class AdminController extends Controller
         $patient = [];
 
         if($patientData){
-            $patientCount = count($patientData);
+            $patientCount = is_array($patientData) ? count($patientData) : 0;
             foreach($patientData as $id => $patientindex){
                 $userID = $patientindex['patientID'];
 
@@ -252,8 +252,8 @@ class AdminController extends Controller
             $doctorRef = $this->database->getReference('administrator/doctors/')->getSnapshot()->getValue();
             $patientRef = $this->database->getReference('administrator/users/')->getSnapshot()->getValue();
 
-            $patientCount = count($patientRef);
-            $doctorCount = count($doctorRef);
+            $patientCount = is_array($patientRef) ?  count($patientRef) : 0;
+            $doctorCount = is_array($doctorRef) ? count($doctorRef) : 0;
             $videos = [];
 
             if($data){

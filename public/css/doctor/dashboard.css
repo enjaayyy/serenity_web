@@ -124,3 +124,36 @@
 .appointments-img{
     filter: brightness(0) saturate(100%) invert(56%) sepia(86%) saturate(7373%) hue-rotate(345deg) brightness(114%) contrast(100%);
 }
+
+.main-body-container{
+    width: 100%;
+    height: auto;
+    margin-top: 2vh;
+    display: flex;
+    gap: 1vw;
+}
+
+.left-body-header-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-body-left,
+.main-body-right{
+    /* background-color: red; */
+    width: 50%;
+}
+
+.left-body-headers{
+    font-size: 1vw;
+    color: gray;
+    font-weight: bold;
+}
+
+.left-body-link a{
+    color: #49B3FF;
+    font-size: 1vw;
+    font-weight: bold;
+    background-color: transparent;
+    text-decoration: none;
+}

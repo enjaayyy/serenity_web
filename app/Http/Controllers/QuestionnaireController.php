@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Kreait\Firebase\Contract\Database;
 use Illuminate\Support\Facades\Session;
 use Kreait\Firebase\Contract\Storage;
+use Kreait\Firebase\Auth;
+use Kreait\Firebase\Factory;
 
 class QuestionnaireController extends Controller
 {
@@ -14,6 +16,7 @@ class QuestionnaireController extends Controller
         $this->database = $database;
         $this->storage = $storage;
         $this->bucket = $this->storage->getBucket();
+        $this->firebase =  (new Factory)->withServiceAccount(storage_path('app/firebase_credentials.json'))->createAuth();
     }
 
     public function approve($id){
@@ -22,6 +25,17 @@ class QuestionnaireController extends Controller
         $data = $snapshot->getValue();
 
         if($data){
+            $auth = $this->firebase;
+
+            $authUserProperty = [
+                'email' => $data['doctorEmail'],
+                'password' => $data['doctorPass'],
+                'displayName' => $data['doctorFullname'],
+            ];
+
+            $createdUser = $auth->createUser($authUserProperty);
+            $firebaseUid = $createdUser->uid;
+
             $new = [
                 'name' => $data['doctorFullname'],
                 'pass' => $data['doctorPass'],
@@ -38,7 +52,7 @@ class QuestionnaireController extends Controller
         ];
 
 
-        $this->database->getReference('administrator/doctors' . "/" . $id)->set($new);
+        $this->database->getReference('administrator/doctors' . "/" . $firebaseUid)->set($new);
         $this->database->getReference('administrator/doctorRequests' . "/" . $id)->remove();
 
         $title = 'default';
@@ -52,8 +66,8 @@ class QuestionnaireController extends Controller
                     $questionnaires[$specData] = $questions;
                 }
             }   
-            $this->database->getReference('administrator/doctors/' . $id . '/activeQuestionnaires')->update($questionnaires);
-            $this->database->getReference('administrator/doctors/' . $id . '/savedQuestionnaires')->update($questionnaires);
+            $this->database->getReference('administrator/doctors/' . $firebaseUid . '/activeQuestionnaires')->update($questionnaires);
+            $this->database->getReference('administrator/doctors/' . $firebaseUid . '/savedQuestionnaires')->update($questionnaires);
         }
             
             

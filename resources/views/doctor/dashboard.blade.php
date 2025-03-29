@@ -44,6 +44,20 @@
                     </div>
                 </div>
             </div>
+            <div class="main-body-container">
+                <div class="main-body-left">
+                    <div class="left-body-header-container">
+                        <p class="left-body-headers">Upcoming Appointments</p>
+                        <p class="left-body-link"><a href="{{ route('viewAppointments')}}">See All</a></p>
+                    </div>
+                    <div class = "dash-appointments-container">
+                        
+                    </div>
+                </div>
+                <div class="main-body-right">
+
+                </div>
+            </div>
 
         </div>
             {{-- <form method="POST" action=" {{ route('sampleData')}} ">

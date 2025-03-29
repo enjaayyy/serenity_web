@@ -8,6 +8,7 @@
        
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
         import { getDatabase, ref, onChildAdded } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCYLZvbqn9jnEQwwGNLZtbahdFLIBxksSc",
@@ -21,6 +22,7 @@
 
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
+        const auth = getAuth(app);
 
          function listenForMessages() {
                     const chatID = "{{ $chatID }}"; 
@@ -249,21 +251,23 @@
 
                 // console.log(token);
                 // console.log(channelName);
+
                 async function openCall(){
                     document.getElementById('call-screen').style.display = 'block';
-                    try {
-                        const response = await fetch(firebaseURL, {
+                    let docID = @json($doctorData['docID']);
+
+                    const response = await fetch(firebaseURL, {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
                             },
                             body: JSON.stringify({
-                                patientId: @json($patientDetails['patientID']),
-                                callerName: @json($doctorData['docID']),
-                                channelName: "testChannel",
+                                userID: @json($patientDetails['patientID']),
+                                doctorId: docID,
+                                callerName:  @json($doctorData['name']),
                             }),
                         });
-
+                        try {
                         if(!response.ok){
                             throw new Error("Failed to fetch Token");
                         }
@@ -298,6 +302,8 @@
                         console.error("Error starting the call:", error);
                     }
             }
+                    
+            // }
                 document.addEventListener("DOMContentLoaded", function() {
                     let containerCount = document.querySelectorAll(".conditions-container").length;
 
