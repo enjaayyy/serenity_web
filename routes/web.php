@@ -13,7 +13,7 @@ use App\Http\Controllers\QuestionnaireController;
 
 Route::get('/', function () {return view('homepage');})->name('home');
 Route::get('/login', function () {return view('login');})->name('login');
-Route::post('/login', [LoginController::class, 'final'])->name('logins');
+Route::post('/login', [LoginController::class, 'login'])->name('logins');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/admindash', [AdminController::class, 'viewDash'])->name('adminDashboard');

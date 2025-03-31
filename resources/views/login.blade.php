@@ -39,25 +39,43 @@
         </div>
     </div>
     
-    <script>
-       
-        function login(){
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js"; 
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js";
+
+         const firebaseConfig = {
+            apiKey: "AIzaSyCYLZvbqn9jnEQwwGNLZtbahdFLIBxksSc",
+            authDomain: "serenity-c800c.firebaseapp.com",
+            databaseURL: "https://serenity-c800c-default-rtdb.firebaseio.com",
+            projectId: "serenity-c800c",
+            storageBucket: "serenity-c800c.appspot.com",
+            messagingSenderId: "366141859028",
+            appId: "1:366141859028:web:1ffb51a714407fea7f4741",
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        window.login = function(){
             let emailInput = document.getElementById('email').value;
             let passInput = document.getElementById('pass').value;
-            fetch('/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                },
-                body: JSON.stringify({
-                    email: emailInput,
-                    pass: passInput 
-                }),
+
+            signInWithEmailAndPassword(auth,emailInput,passInput)
+            .then((userCredentials) => {
+                return userCredentials.user.getIdToken();
             })
+            .then((idToken) =>{
+                return fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                    body: JSON.stringify({token: idToken}),
+                })
             .then(response => response.json())
             .then(data => {
                 confirmationLoginModal(data.message, data.redirect, data.status);
+            })
             })
         }
 

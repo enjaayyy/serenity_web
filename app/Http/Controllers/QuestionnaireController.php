@@ -38,7 +38,6 @@ class QuestionnaireController extends Controller
 
             $new = [
                 'name' => $data['doctorFullname'],
-                'pass' => $data['doctorPass'],
                 'age' => $data['age'],
                 'email' => $data['doctorEmail'],
                 'gender' =>$data['gender'],

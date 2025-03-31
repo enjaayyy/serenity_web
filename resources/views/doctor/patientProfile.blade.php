@@ -22,7 +22,7 @@
 
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
-        const auth = getAuth(app);
+        window.auth = getAuth(app);
 
          function listenForMessages() {
                     const chatID = "{{ $chatID }}"; 
@@ -247,23 +247,38 @@
                 let channelName = "testChannel"; 
                 let token = null;
                 const APP_ID = "3a7bf343ec50426697144687e52dfac6"; 
-                const firebaseURL = "https://asia-southeast1-serenity-c800c.cloudfunctions.net/generateToken";
+                const firebaseURL = "https://asia-southeast1-serenity-c800c.cloudfunctions.net/generateTokenWeb";
 
                 // console.log(token);
                 // console.log(channelName);
+                async function getToken() {
+                    const user = window.auth.currentUser;
+                    if(!user){
+                        console.error("User not authenticated");
+                        return null;
+                    }
+
+                    return await user.getIdToken();
+                }
+
 
                 async function openCall(){
                     document.getElementById('call-screen').style.display = 'block';
-                    let docID = @json($doctorData['docID']);
+
+                    const idToken = await getToken();
+                    if (!idToken) {
+                        alert("User not authenticated");
+                        return;
+                    }
 
                     const response = await fetch(firebaseURL, {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
+                                "Authorization": `Bearer ${idToken}`
                             },
                             body: JSON.stringify({
-                                userID: @json($patientDetails['patientID']),
-                                doctorId: docID,
+                                patientId: @json($patientDetails['patientID']),
                                 callerName:  @json($doctorData['name']),
                             }),
                         });
@@ -303,7 +318,6 @@
                     }
             }
                     
-            // }
                 document.addEventListener("DOMContentLoaded", function() {
                     let containerCount = document.querySelectorAll(".conditions-container").length;
 

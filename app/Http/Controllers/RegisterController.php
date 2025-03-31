@@ -22,7 +22,7 @@ class RegisterController extends Controller
         $doctorData = [
             'doctorFullname' => $request->fullname,
             'doctorEmail' => $request->email,
-            'doctorPass' => Hash::make($request->password),
+            'doctorPass' => $request->password,
         ];
         $register = $this->database->getReference($this->tablename)->push($doctorData);
         

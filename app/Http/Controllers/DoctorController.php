@@ -75,7 +75,7 @@ class DoctorController extends Controller
                     'graduated' => isset($data['graduated']) ? $data['graduated'] : null,
                     'questions' => isset($data['activeQuestionnaires']) ? $data['activeQuestionnaires'] : null,
                     'creds' => $data['credentials'],
-                    'appointments' => $data['scheduled_appointments'],
+                    'appointments' => isset($data['scheduled_appointments']) ? $data['scheduled_appointments'] : null,
                     'templates' => isset($data['savedQuestionnaires']) ? $data['savedQuestionnaires'] : null,
                 ];
                 return view('doctor/profile', ['doctorData' =>  $doctorData]);  
