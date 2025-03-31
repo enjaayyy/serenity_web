@@ -120,6 +120,55 @@
                                 </button>
                             </a>
                         </div>
+                        <script type="module">
+                            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+                            import { getDatabase, ref, onChildAdded, child, get} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+
+                            const firebaseConfig = {
+                                apiKey: "AIzaSyCYLZvbqn9jnEQwwGNLZtbahdFLIBxksSc",
+                                authDomain: "serenity-c800c.firebaseapp.com",
+                                databaseURL: "https://serenity-c800c-default-rtdb.firebaseio.com",
+                                projectId: "serenity-c800c",
+                                storageBucket: "serenity-c800c.appspot.com",
+                                messagingSenderId: "366141859028",
+                                appId: "1:366141859028:web:1ffb51a714407fea7f4741",
+                            };
+
+                            const app = initializeApp(firebaseConfig);
+                            const database = getDatabase(app);
+
+                            async function listenForCalls(){
+                                const docID = "{{ $doctorData['docID'] }}";
+                                const callListener = ref(database, `agoraChannels/`);
+                                
+                                onChildAdded(callListener, async (snapshot) => {
+                                    
+                                    const callKey = snapshot.key;
+
+                                    const [doctorID, patientID] = callKey.split("-");
+                                    
+                                    if(callKey.includes(docID)){
+                                        // console.log("you are being called, Channel name" + callKey);
+
+                                        const callRef = child(callListener, callKey);
+                                        const callSnapshot = await get(callRef);
+                                        const callData = callSnapshot.val();
+
+                                        const patientDataRef = ref(database, `administrator/users/${patientID}`);
+                                        const patientSnapshot = await get(patientDataRef);
+                                        const patientValues = patientSnapshot.val();
+
+                                        document.getElementById('call-modal-container').style.display = "inline-flex";
+                                        document.getElementById('call-patient-name').style.innerText = patientValues.full_name;
+                                        console.log(patientValues);
+                                    }
+                                })
+                            }
+
+                            
+
+                            listenForCalls();
+                        </script>
                         @endif
                         <div class="logout-container">
                             <form action="{{ route('logout') }}" method="POST">
@@ -133,7 +182,7 @@
                 </div>
         </div>
         @include('doctor.utilities.profileuploadcard')
-
+        @include('doctor.utilities.incommingCallModal')
         <div class="content">
             @yield('content')
         </div>

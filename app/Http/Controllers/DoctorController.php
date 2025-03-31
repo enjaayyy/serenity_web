@@ -33,7 +33,7 @@ class DoctorController extends Controller
                 $requestCount = is_array($RequestRef) ? count($RequestRef) : 0;
                 $appointmentCount = is_array($AppointmentsRef) ? count($AppointmentsRef) : 0;
                     $doctorData = [
-                        'id' => $id,
+                        'docID' => $id,
                         'name' => $data['name'],
                         'prof' => $data['profession'],
                         'pic' => isset($data['profilePic']) ? $data['profilePic'] : null,
@@ -61,6 +61,7 @@ class DoctorController extends Controller
 
             if($data){
                 $doctorData = [
+                    'docID' => $id,
                     'name' => $data['name'],
                     'email' => $data['email'],
                     'prof' => $data['profession'],
@@ -248,7 +249,7 @@ class DoctorController extends Controller
             
             if($docData){
                 $doctorData = [
-                    'id' => $id,
+                    'docID' => $id,
                     'name' => $docData['name'],
                     'prof' => $docData['profession'],
                     'pic' => isset($docData['profilePic']) ? $docData['profilePic'] : null,
@@ -331,7 +332,7 @@ class DoctorController extends Controller
 
             if($docData){
                 $doctorData = [
-                    'id' => $id,
+                    'docID' => $id,
                     'name' => $docData['name'],
                     'prof' => $docData['profession'],
                     'pic' => isset($docData['profilePic']) ? $docData['profilePic'] : null,
@@ -374,7 +375,7 @@ class DoctorController extends Controller
             $docData = $this->database->getReference('administrator/doctors/'. $id)->getSnapshot()->getValue();
             if($docData){
                 $doctorData = [
-                    'id' => $id,
+                    'docID' => $id,
                     'name' => $docData['name'],
                     'prof' => $docData['profession'],
                     'pic' => isset($docData['profilePic']) ? $docData['profilePic'] : null,
