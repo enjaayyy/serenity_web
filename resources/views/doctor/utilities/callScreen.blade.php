@@ -6,7 +6,11 @@
     <div class="call-body">
         <div>
             <img src="{{ asset('assets/avatar.png') }}" class="profile-img">
-            <p class="patient-call-name">{{ $patientDetails['name'] }}</p>
+            @if(isset($patientDetails['name']))
+                <p class="patient-call-name">{{ $patientDetails['name'] }}</p>
+            @else
+                <p class="patient-call-name" id="patient-call-name"></p>
+            @endif
             <button class="end-call" id="end-call" onclick="endCall()"><img src="{{ asset('assets/end-call-icon.svg') }}"></button>
         </div>
     </div>
@@ -14,8 +18,6 @@
 
 <script>
     function endCall(){
-
-        
         document.getElementById('call-screen').style.display = "none";
     }
 </script>

@@ -6,6 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+    <script src="https://download.agora.io/sdk/release/AgoraRTC_N-4.23.1.js"></script>
+    <script>
+        const incomingCallAudio = new Audio("{{ asset('assets/audio/call-sound.mp3')}}");
+        incomingCallAudio.loop = true;
+        
+        let callerName;
+        let callToken;
+        let client;
+        let callKey;
+        let localAudioTrack;
+        const APP_ID = "3a7bf343ec50426697144687e52dfac6"; 
+        const userInteraction = true;
+
+        function stopRingtone() {
+            incomingCallAudio.pause();
+            incomingCallAudio.currentTime = 0; 
+        }
+    </script>
 </head>
 <body>
     <div class="page-container">
@@ -143,12 +161,15 @@
                                 
                                 onChildAdded(callListener, async (snapshot) => {
                                     
-                                    const callKey = snapshot.key;
+                                    callKey = snapshot.key;
 
                                     const [doctorID, patientID] = callKey.split("-");
                                     
                                     if(callKey.includes(docID)){
                                         // console.log("you are being called, Channel name" + callKey);
+                                        if(userInteraction){
+                                            incomingCallAudio.play();
+                                        }
 
                                         const callRef = child(callListener, callKey);
                                         const callSnapshot = await get(callRef);
@@ -157,10 +178,24 @@
                                         const patientDataRef = ref(database, `administrator/users/${patientID}`);
                                         const patientSnapshot = await get(patientDataRef);
                                         const patientValues = patientSnapshot.val();
+                                        console.log(callData); 
 
+                                        callerName = patientValues.full_name;
+
+                                        let profileContainer = document.getElementById('call-image-container');
+
+                                        let pImg = document.createElement('img');
+                                        pImg.src = patientValues.profile_image;
+                                        pImg.classList.add("call-profile-img");
+                                        profileContainer.appendChild(pImg);
+
+                                        callToken = callData.token;
                                         document.getElementById('call-modal-container').style.display = "inline-flex";
-                                        document.getElementById('call-patient-name').style.innerText = patientValues.full_name;
-                                        console.log(patientValues);
+                                        document.getElementById('call-patient-name').innerText = patientValues.full_name;
+                                    }
+                                    else{
+                                        document.getElementById('call-modal-container').style.display = "none";
+                                        profileContainer.innerHTML = " ";
                                     }
                                 })
                             }

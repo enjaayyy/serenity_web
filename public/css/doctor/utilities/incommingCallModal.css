@@ -7,9 +7,20 @@
     height: 10vh;
     bottom: 0;
     /* background-color: red; */
-
+    animation: slideUp 1s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+@keyframes slideUp {
+    from{
+        opacity: 0;
+        transform: translateY(20%);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 .call-modal{
     border-top-left-radius: 15px;
@@ -17,6 +28,80 @@
     height: 10vh;
     width: 40vw;
     background-color: white;
+    display: flex;
 }
 
+.call-image-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 15%;
+}
 
+.call-profile-img{
+    width: 3vw;
+    height: 3vw;
+    border-radius: 50%;
+}
+
+.call-details-container{
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 55%;
+}
+
+.call-details-status,
+.call-patient-name{
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.call-details-status{
+    color: gray;
+    font-size: 1vw;
+}
+
+.call-patient-name{
+    color: black;
+    font-weight: bold;
+    font-size: 1.5vw;
+}
+
+.call-functions-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 30%;
+}
+
+.call-accept,
+.call-decline{
+    height: 3vh;
+    width: 4vw;
+    border: none;
+    border-radius: 5px;
+}
+
+.call-accept{
+    background-color: white;
+    color: black;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+}
+
+.call-accept:hover{
+    background-color: #49B3FF;
+    color: white;
+}
+
+.call-decline{
+    background-color: white;
+    color: black;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.call-decline:hover{
+    background-color: red;
+    color: white;
+}

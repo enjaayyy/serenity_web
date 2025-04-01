@@ -89,6 +89,7 @@
 .patient-counter-details-div,
 .request-counter-details-div,
 .appointments-counter-details-div{
+    overflow: hidden;
     margin-left: 0.5vw;
 }
 
