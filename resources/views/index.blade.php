@@ -7,12 +7,14 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
     <script src="https://download.agora.io/sdk/release/AgoraRTC_N-4.23.1.js"></script>
+    <script type="module" src="{{ asset("js/doctor/firebase_connection.js")}}"></script>
     <script>
         const incomingCallAudio = new Audio("{{ asset('assets/audio/call-sound.mp3')}}");
         incomingCallAudio.loop = true;
         
         let callerName;
         let callToken;
+        let callData;
         let client;
         let callKey;
         let localAudioTrack;
@@ -23,6 +25,9 @@
             incomingCallAudio.pause();
             incomingCallAudio.currentTime = 0; 
         }
+    </script>
+    <script type="module">
+        
     </script>
 </head>
 <body>
@@ -139,21 +144,7 @@
                             </a>
                         </div>
                         <script type="module">
-                            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-                            import { getDatabase, ref, onChildAdded, child, get} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
-
-                            const firebaseConfig = {
-                                apiKey: "AIzaSyCYLZvbqn9jnEQwwGNLZtbahdFLIBxksSc",
-                                authDomain: "serenity-c800c.firebaseapp.com",
-                                databaseURL: "https://serenity-c800c-default-rtdb.firebaseio.com",
-                                projectId: "serenity-c800c",
-                                storageBucket: "serenity-c800c.appspot.com",
-                                messagingSenderId: "366141859028",
-                                appId: "1:366141859028:web:1ffb51a714407fea7f4741",
-                            };
-
-                            const app = initializeApp(firebaseConfig);
-                            const database = getDatabase(app);
+                            import { ref, onChildAdded, child, get, update } from '/js/doctor/firebase_connection.js';
 
                             async function listenForCalls(){
                                 const docID = "{{ $doctorData['docID'] }}";
@@ -173,7 +164,7 @@
 
                                         const callRef = child(callListener, callKey);
                                         const callSnapshot = await get(callRef);
-                                        const callData = callSnapshot.val();
+                                        callData = callSnapshot.val();
 
                                         const patientDataRef = ref(database, `administrator/users/${patientID}`);
                                         const patientSnapshot = await get(patientDataRef);
@@ -199,8 +190,6 @@
                                     }
                                 })
                             }
-
-                            
 
                             listenForCalls();
                         </script>

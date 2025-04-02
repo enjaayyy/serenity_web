@@ -5,25 +5,7 @@
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/doctor/patientProfile.css') }}">
     <script type="module">
-       
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-        import { getDatabase, ref, onChildAdded } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyCYLZvbqn9jnEQwwGNLZtbahdFLIBxksSc",
-            authDomain: "serenity-c800c.firebaseapp.com",
-            databaseURL: "https://serenity-c800c-default-rtdb.firebaseio.com",
-            projectId: "serenity-c800c",
-            storageBucket: "serenity-c800c.appspot.com",
-            messagingSenderId: "366141859028",
-            appId: "1:366141859028:web:1ffb51a714407fea7f4741",
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-        window.auth = getAuth(app);
-
+        import { ref, onChildAdded, child, get, update, signInWithPopup, GoogleAuthProvider } from '/js/doctor/firebase_connection.js';
          function listenForMessages() {
                     const chatID = "{{ $chatID }}"; 
                     const messagesRef = ref(database, `administrator/chats/${chatID}`);
@@ -90,10 +72,8 @@
                         chatContent.scrollTop = chatContent.scrollHeight;
                     });
                 }
-
                 document.addEventListener("DOMContentLoaded", function() {
                     listenForMessages();
-
                 });
     </script>
             <div class='container'>
@@ -184,10 +164,7 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        
                     </div>
-                    
                 </div>
             </div>
             <div class="call-chat-container">
@@ -240,13 +217,10 @@
             <script src="https://cdn.jsdelivr.net/npm/chart.js"> </script>
             <script src="https://download.agora.io/sdk/release/AgoraRTC_N-4.23.1.js"></script>
             <script>
-                let chartCondition;
 
-                let client;
-                let localAudioTrack;
+                let chartCondition;
                 let channelName = "testChannel"; 
                 let token = null;
-                const APP_ID = "3a7bf343ec50426697144687e52dfac6"; 
                 const firebaseURL = "https://asia-southeast1-serenity-c800c.cloudfunctions.net/generateTokenWeb";
 
                 // console.log(token);
@@ -305,6 +279,7 @@
                                 await client.subscribe(user, mediaType);
                                 const remoteAudioTrack = user.audioTrack;
                                 remoteAudioTrack.play();
+                                stopRingtone();
                                 console.log(`Playing remote audio from user ${user.uid}`);
                             }
                         });
