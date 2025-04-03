@@ -2,7 +2,6 @@
 <div class="call-modal-container" id="call-modal-container">
    <div class="call-modal">
       <div class="call-image-container" id="call-image-container">
-
       </div>
       <div class="call-details-container">
          <p class="call-details-status">Incoming Call</p>
@@ -72,6 +71,7 @@
          .then(() => console.log("Call Status Updated"))
          .catch(error => console.error(error));
    }
+   
    window.declineCall = function declineCall(){
       document.getElementById('call-modal-container').style.display = "none";
       document.getElementById('call-image-container').innerHTML = " ";

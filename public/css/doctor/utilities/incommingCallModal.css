@@ -77,9 +77,11 @@
 
 .call-accept,
 .call-decline{
-    height: 3vh;
-    width: 4vw;
+    height: 4vh;
+    width: 5vw;
     border: none;
+    padding: 5px;
+    font-size: 0.8vw;
     border-radius: 5px;
 }
 

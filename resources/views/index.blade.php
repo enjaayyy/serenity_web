@@ -144,7 +144,7 @@
                             </a>
                         </div>
                         <script type="module">
-                            import { ref, onChildAdded, child, get, update } from '/js/doctor/firebase_connection.js';
+                            import { ref, onChildAdded, child, get, update, onValue } from '/js/doctor/firebase_connection.js';
 
                             async function listenForCalls(){
                                 const docID = "{{ $doctorData['docID'] }}";
@@ -169,7 +169,7 @@
                                         const patientDataRef = ref(database, `administrator/users/${patientID}`);
                                         const patientSnapshot = await get(patientDataRef);
                                         const patientValues = patientSnapshot.val();
-                                        console.log(callData); 
+                                        // console.log(callData); 
 
                                         callerName = patientValues.full_name;
 
@@ -178,11 +178,43 @@
                                         let pImg = document.createElement('img');
                                         pImg.src = patientValues.profile_image;
                                         pImg.classList.add("call-profile-img");
+                                        profileContainer.innerHTML = " ";
                                         profileContainer.appendChild(pImg);
 
                                         callToken = callData.token;
                                         document.getElementById('call-modal-container').style.display = "inline-flex";
                                         document.getElementById('call-patient-name').innerText = patientValues.full_name;
+
+                                        const callStatusRef = ref(database, `agoraChannels/${callKey}/status`);
+                                        onValue(callStatusRef, (snapshot) => {
+                                            let newStatus = snapshot.val();
+                                            let statusElement = document.getElementById('call-status');
+
+                                            if(newStatus){
+                                                statusElement.innerText = " ";
+                                                statusElement.textContent = newStatus;
+                                                if(newStatus == "Connected"){
+                                                    stopRingtone();
+                                                }
+                                            }
+                                            else{
+                                                statusElement.innerText = " ";
+                                                statusElement.textContent = "Call Ended";
+
+                                            }
+                                           
+                                        })
+
+                                        let profileImgContainer = document.getElementById('profile-call-img');
+
+                                        if(profileImgContainer){
+                                            if(patientValues.profile_image){
+                                                profileImgContainer.src = patientValues.profile_image;
+                                            }
+                                        }
+                                       
+
+                                        
                                     }
                                     else{
                                         document.getElementById('call-modal-container').style.display = "none";
