@@ -4,7 +4,7 @@
       <div class="call-image-container" id="call-image-container">
       </div>
       <div class="call-details-container">
-         <p class="call-details-status">Incoming Call</p>
+         <p class="call-details-status">Incomming Call</p>
          <p class="call-patient-name" id="call-patient-name"> </p>
       </div>
       <div class="call-functions-container">

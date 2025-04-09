@@ -4,10 +4,12 @@
 
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/doctor/patientProfile.css') }}">
+    <script>
+        const chatID = "{{ $chatID }}"; 
+    </script>
     <script type="module">
         import { ref, onChildAdded, child, get, update, signInWithPopup, GoogleAuthProvider } from '/js/doctor/firebase_connection.js';
          function listenForMessages() {
-                    const chatID = "{{ $chatID }}"; 
                     const messagesRef = ref(database, `administrator/chats/${chatID}`);
 
                     onChildAdded(messagesRef, (snapshot) => {
@@ -141,7 +143,6 @@
                                                 <canvas id="month-chart"></canvas>
                                             </div>
                                             <div class="chart-breakdown-container" id="chart-breakdown-container">
-                                                breakdance
                                             </div>
                                     </div>
                             </div>
@@ -216,8 +217,8 @@
             <link rel="stylesheet" href="{{ asset('css/doctor/utilities/viewquestionnaire.css') }}">
             <script src="https://cdn.jsdelivr.net/npm/chart.js"> </script>
             <script src="https://download.agora.io/sdk/release/AgoraRTC_N-4.23.1.js"></script>
-            <script>
-
+            <script type="module">
+                import { ref, onChildAdded, child, get, update, set, signInWithPopup, GoogleAuthProvider } from '/js/doctor/firebase_connection.js';
                 let chartCondition;
                 let channelName = "testChannel"; 
                 let token = null;
@@ -236,7 +237,7 @@
                 }
 
 
-                async function openCall(){
+                window.openCall = async function openCall(){
                     document.getElementById('call-screen').style.display = 'block';
 
                     const idToken = await getToken();
@@ -320,22 +321,34 @@
                     container.scrollTop = container.scrollHeight;
                 }
 
-                function openChat(){
+                window.openChat = function openChat(){
                     document.getElementById('chat-div').style.display = 'block';
                     document.getElementById('chat-screen').style.display = 'block';
                     document.body.style.overflow = 'hidden';
 
+                    // console.log(chatID);
+                    const messagesRef = ref(database, `administrator/chats/${chatID}`);
+                    onChildAdded(messagesRef, (snapshot) => {
+                        const messageData = snapshot.val();
+                        const messageKey = snapshot.key;
+
+                        if(!messageData.seen){
+                            const messageViewedState = ref(database, `administrator/chats/${chatID}/${messageKey}/seen`);
+                            set(messageViewedState, true);   
+                        }
+                    })
+
                     scrollToBottom();
                 }
 
-                function closeChat(){
+                window.closeChat = function closeChat(){
                     document.getElementById('chat-div').style.display = 'none';
                     document.getElementById('chat-screen').style.display = 'none';
                     document.body.style.overflow = 'auto';
                 }
 
                 
-                function sendMessage(){
+                window.sendMessage = function sendMessage(){
                     var message = document.getElementById('chat-input').value;
                     var chatDiv = document.getElementById('chat-div');
 

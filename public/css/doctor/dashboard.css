@@ -158,3 +158,54 @@
     background-color: transparent;
     text-decoration: none;
 }
+
+.dash-appointments-container,
+.request-appointments-container{
+    background-color: white;
+    height: auto;
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 1vh;
+}
+
+.appointment-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+.appointment-details-div{
+    /* background-color: red; */
+    width: 60%;
+}
+
+.appointment-date-div{
+    /* background-color: blue; */
+    width: 30%;
+}
+
+.apppointment-name{
+    margin-bottom: 0;
+    font-weight: bold;
+    font-size: 1.2vw;
+}
+
+.apppointment-title{
+    margin-top: 0;
+    font-weight: light;
+    font-size: 1vw;
+}
+
+.apppointment-date{
+    font-size: 1vw;
+    font-weight: light;
+}
+
+.indicator-div{
+    margin-left: 1vw;
+    width: 1vw;
+    height: 1vw;
+    border-radius: 50%;
+}

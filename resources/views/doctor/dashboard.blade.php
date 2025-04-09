@@ -51,7 +51,25 @@
                         <p class="left-body-link"><a href="{{ route('viewAppointments')}}">See All</a></p>
                     </div>
                     <div class = "dash-appointments-container">
-                        
+                        @foreach($appointmentList as $apts)
+                            <div class="appointment-wrapper">
+                                <div class="indicator-div" style="background-color: {{ $apts['appointmentColor']}};"></div>
+                                <div class="appointment-details-div">
+                                    <p class="apppointment-name">{{ $apts['appointmentPatient'] }}</p>
+                                    <p class="apppointment-title">{{ $apts['appointmentTitle'] }}</p>
+                                </div>
+                                <div class="appointment-date-div">
+                                    <p class="apppointment-date">{{ $apts['appointmentDate'] }}</p>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                     <div class="left-body-header-container">
+                        <p class="left-body-headers">Patient Request</p>
+                        <p class="left-body-link"><a href="{{ route('showAppointments')}}">See All</a></p>
+                    </div>
+                    <div class="request-appointments-container">
+
                     </div>
                 </div>
                 <div class="main-body-right">

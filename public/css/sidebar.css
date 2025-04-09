@@ -76,6 +76,7 @@ body {
 .profile-btn,
 .appointment-btn{
     justify-content: left;
+    align-items: center;
     display: flex;
     height: 8vh;
     width: 75%;
@@ -178,4 +179,25 @@ body {
 .admin-header img{
     margin-bottom: auto;
 
+}
+
+.notif{
+    height: 0.5vw;
+    width: 0.5vw;
+    background-color: red;
+    border-radius: 50%;
+    margin-left: 1vw;
+    animation: popOut 0.3s ease;
+    display: none;
+}
+
+@keyframes popOut {
+    from{
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    to{
+        transform: scale(1);
+        opacity: 1;
+    }
 }

@@ -9,7 +9,9 @@
     <script src="https://download.agora.io/sdk/release/AgoraRTC_N-4.23.1.js"></script>
     <script type="module" src="{{ asset("js/doctor/firebase_connection.js")}}"></script>
     <script>
+        const docID = "{{ $doctorData['docID'] }}";
         const incomingCallAudio = new Audio("{{ asset('assets/audio/call-sound.mp3')}}");
+        // const popnotification = new Audio("{{ asset('assets/audio/notification-sound.mp3')}}");
         incomingCallAudio.loop = true;
         
         let callerName;
@@ -105,9 +107,10 @@
                         </div>
                         <div class="dashboard-tab-container">
                             <a href="{{ route('docDashboard') }}" style="text-decoration: none;">
-                                    <button class="dashboard-btn">
+                                <button class="dashboard-btn"> 
                                     <img src="{{ asset('assets/dashboard-icon.svg') }}" class="icon1">
                                     <p>Dashboard</p>
+                                    <div class="dash-notif"></div>
                                 </button>
                             </a>
                         </div>
@@ -116,22 +119,25 @@
                                     <button class="profile-btn">
                                     <img src="{{ asset('assets/account-icon.svg') }}" class="icon8">
                                     <p>Profile</p>
+                                    <div class="profile-notif"></div>
                                     </button> 
                             </a>
                         </div>
                         <div class="patients-tab-container">
                             <a href="{{ route('viewPatients') }}" style="text-decoration: none;">
-                                    <button class="patient-btn">
+                                <button class="patient-btn" id="patient-btn">
                                     <img src="{{ asset('assets/patient-icon.svg') }}" class="icon3">
                                     <p>My Patients</p>
-                                    </button>
+                                    <div class="notif" id="patient-notif"></div>
+                                </button>
                             </a>
                         </div>
                         <div class="requests-tab-container">
                             <a href="{{ route('showAppointments') }}" style="text-decoration: none;">
                                 <button class="request-btn">
-                                <img src="{{ asset('assets/requests-icon.svg') }}" class="icon4">
-                                <p>Requests</p>
+                                    <img src="{{ asset('assets/requests-icon.svg') }}" class="icon4">
+                                    <p>Requests</p>
+                                    <div class="notif" id="request-notif"></div>
                                 </button>
                             </a>
                         </div>
@@ -140,14 +146,15 @@
                                 <button class="appointment-btn">
                                 <img src="{{ asset('assets/calendar-icon.svg') }}" class="icon9">
                                 <p>Appointments</p>
+                                <div class="appointment-notif"></div>
                                 </button>
                             </a>
                         </div>
+                        <script type="module" src="{{ asset("js/doctor/notification.js")}}"></script>
                         <script type="module">
                             import { ref, onChildAdded, child, get, update, onValue } from '/js/doctor/firebase_connection.js';
 
                             async function listenForCalls(){
-                                const docID = "{{ $doctorData['docID'] }}";
                                 const callListener = ref(database, `agoraChannels/`);
                                 
                                 onChildAdded(callListener, async (snapshot) => {
@@ -224,6 +231,10 @@
                             }
 
                             listenForCalls();
+                            document.addEventListener("DOMContentLoaded", function() {
+                                notifications();
+
+                            });
                         </script>
                         @endif
                         <div class="logout-container">

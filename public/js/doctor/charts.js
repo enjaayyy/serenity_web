@@ -47,10 +47,11 @@ function getCondition(condition){
                         Overall: Number(total.total_value),
                         date: total.timestamp,
                         categories: {},
+                        title: total.questionnaireTitle,
                     }
 
                     Object.keys(total).forEach(category =>{
-                        if(category !== "timestamp" && category !== "total_value"){
+                        if(category !== "timestamp" && category !== "total_value" && category !== "questionnaireTitle"){
                             monthDataObject[forYearDateFormat][titleKey].categories[category] = total[category];
                         }
                     })
@@ -65,7 +66,7 @@ function getCondition(condition){
 
     let yearlyLabels = Object.keys(yearDataObject);
     let yearlyvalues = Object.values(yearDataObject);
-    // console.log(patientCategory);
+    console.log(monthDataObject);
 
     yearData = getChart(yearChartID, condition, yearlyLabels, yearlyvalues);
     getMonthChart(monthDataObject, condition);
@@ -110,6 +111,7 @@ let breakdownContainer = document.getElementById('chart-breakdown-container');
 
 function getBreakdown(object){
     breakdownContainer.innerHTML = " ";
+    // console.log(object);
     Object.keys(object).forEach(mKey =>{
         let subObject = object[mKey].categories;
         let date = new Date(object[mKey].date);

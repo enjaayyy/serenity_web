@@ -374,66 +374,22 @@ class QuestionnaireController extends Controller
         return $questions[$specialization] ?? null;
     }
 
-    public function sampleData(){
-        $Insomnia = [
-            '2025-04-04' => [
-                        'Think about a typical night this week' => [
-                        'Q1' => [
-                            'question' => 'Dry mouth, tendency to sweat, headache, raising of hair, giddiness.',
-                            'legend' => 'not at all',
-                            'value' => '0',
-                        ],
-                        'Q2' => [
-                            'question' => 'if you wake up during the night how long are you awake for in total?',
-                            'legend' => '16-30 min',
-                            'value' => '3',
-                        ],
-                        'Q3' => [
-                            'question' => 'How many nights a week do you have a problem with your sleep?',
-                            'legend' => '1',
-                            'value' => '4',
-                        ],
-                        'Q4' => [
-                            'question' => 'How would you rate your sleep quality?',
-                            'legend' => 'Poor',
-                            'value' => '1',
-                        ],
-                        'subcategory_total' => '3',
-                    ],
-                    'Thinking about this week, to what extent has poor sleep' => [
-                        'Q1' => [
-                            'question' => 'Affected your mood, energy or relationships?',
-                            'legend' => 'Somewhat',
-                            'value' => '2',
-                        ],
-                        'Q2' => [
-                            'question' => 'Affected you concentration, productivity, or ability to stay awake.',
-                            'legend' => 'a little',
-                            'value' => '3',
-                        ],
-                        'Q3' => [
-                            'question' => 'Troubled you in general.',
-                            'legend' => 'Much',
-                            'value' => '1',
-                        ],
-                        'Q4' => [
-                            'question' => 'How long have you had a problem with your sleep?',
-                            'legend' => '1-2 months',
-                            'value' => '3',
-                        ],
-                        'subcategory_total' => '22',
-                    ],   
-                    'total_value'  => '12',
-                    'timestamp' => '2025-04-04',
-                    'questionnaire_title' => 'Sleep Condition Indicator (SCI)'
-                ], 
-            ];
-       
+    // public function sampleData(){
+    //     $spec = ['Anxiety', 'Insomnia', ' Post Traumatic Stress'];
 
-        $this->database->getReference('administrator/users/NQb6JlU36MWjJTKEAzsP6ehXWBg1/all_answers/Insomnia/')->update($Insomnia);
-        $this->database->getReference('administrator/users/NQb6JlU36MWjJTKEAzsP6ehXWBg1/all_answers/Post Traumatic Stress/')->update($PTS);
-        return redirect()->route('docDashboard');
-    }
+    //     foreach($spec as $specData) {
+    //     if($specData) {
+    //         $questions = $this->questionBySpecialization($specData);
+    //         if ($questions) {
+    //                 $questionnaires[$specData] = $questions;
+    //             }
+    //         }   
+    //         $this->database->getReference('administrator/defaultQuestionnaires')->update($questionnaires);
+    //     }
+
+
+    //     return redirect()->route('docDashboard');
+    // }
 }
     
 
