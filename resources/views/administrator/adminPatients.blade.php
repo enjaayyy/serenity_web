@@ -40,10 +40,10 @@
                                 @endif
                             </td>
                             <td>
-                                <form class="view-btn" method="GET" action="{{ route('viewPatientDetails', $patients['id']) }}">
+                                <form class="view-btn" method="POST" action="{{ route('deactivate', ['id' => $patients['id']]) }}">
                                     @csrf
                                     <button class="btn" type="submit">
-                                        <img src="{{ asset('assets/view-icon.svg')}}">
+                                        <img src="{{ asset('assets/archive-icon.svg')}}">
                                     </button>
                                 </form>
                             </td>

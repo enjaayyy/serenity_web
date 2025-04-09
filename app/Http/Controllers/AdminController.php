@@ -116,9 +116,9 @@ class AdminController extends Controller
         $patientData = $patientSnap->getValue();
 
         $patient = [];
+        $patientCount = is_array($patientData) ? count($patientData) : 0;
 
         if($patientData){
-            $patientCount = is_array($patientData) ? count($patientData) : 0;
             foreach($patientData as $id => $patientindex){
                 $userID = $patientindex['patientID'];
 
@@ -163,10 +163,22 @@ class AdminController extends Controller
     }
 
     public function deactivate($id){
-        $getDoctor = $this->database->getReference('administrator/doctors/' . $id)->getSnapshot()->getValue();
-            $this->database->getReference('administrator/archives/' . $id)->set($getDoctor);
-            $this->database->getReference('administrator/doctors/' . $id)->remove();
-            return redirect()->route('doctors');
+            $getDoctor = $this->database->getReference('administrator/doctors/' . $id)->getSnapshot()->getValue();
+            if($getDoctor){
+                $this->database->getReference('administrator/archives/' . $id)->update($getDoctor);
+                $this->database->getReference('administrator/doctors/' . $id)->remove();
+
+                return redirect()->route('doctors');
+            }
+            else{
+                $getPatient = $this->database->getReference('administrator/users/' . $id)->getSnapshot()->getValue();
+                if($getPatient){
+                    $this->database->getReference('administrator/archives/' . $id)->update($getPatient);
+                    $this->database->getReference('administrator/users/' . $id)->remove();
+
+                    return redirect()->route('patients');
+                }
+            }
     }
 
     public function viewArchive(){
@@ -199,16 +211,17 @@ class AdminController extends Controller
 
     public function activate($id){
         $archiveRef = $this->database->getReference('administrator/archives/' . $id)->getSnapshot()->getValue();
-
         if($archiveRef) {
             if($archiveRef['account-type'] === 'doctor'){
                 $this->database->getReference('administrator/doctors/' . $id)->update($archiveRef);
+                $this->database->getReference('administrator/archives/' . $id)->remove();
             }
-            else if($archiveRef['account-type'] === 'patient'){
+            else if($archiveRef['account-type'] === 'user'){
                 $this->database->getReference('administrator/users/' . $id)->update($archiveRef);
+                $this->database->getReference('administrator/archives/' . $id)->remove();
             }
         }
-        return redirect()->route('doctors');
+        return redirect()->route('adminDashboard');
     }
 
     public function uploadvid(Request $request){

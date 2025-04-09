@@ -166,46 +166,79 @@
     width: 100%;
     border-radius: 15px;
     margin-bottom: 1vh;
+    overflow: hidden;
 }
 
-.appointment-wrapper{
+.appointment-wrapper,
+.requests-wrapper{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-left: 1vw;
+    height: 10vh;
     padding-right: 1vw;
+   
 }
 
-.appointment-details-div{
-    /* background-color: red; */
+.alt-request-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10vh;
+    color: gray
+}
+
+.appointment-details-div,
+.reqs-details{
     width: 60%;
 }
 
-.appointment-date-div{
-    /* background-color: blue; */
+.appointment-date-div,
+.request-date-div{
     width: 30%;
 }
 
-.apppointment-name{
+.apppointment-name,
+.reqs-patient-name{
     margin-bottom: 0;
+    margin-top: 0;
     font-weight: bold;
     font-size: 1.2vw;
 }
 
-.apppointment-title{
+.apppointment-title,
+.request-condition-container p{
     margin-top: 0;
     font-weight: light;
-    font-size: 1vw;
+    font-size: 0.7vw;
+    font-style: italic;
+    color: gray;
 }
 
-.apppointment-date{
+.apppointment-date,
+.request-date-div p{
     font-size: 1vw;
+    margin-bottom: 0;
+    margin-top: 0;
     font-weight: light;
 }
 
 .indicator-div{
-    margin-left: 1vw;
     width: 1vw;
-    height: 1vw;
+    height: 100%;
+}
+
+
+.default-req-img{
+    width: 3vw;
+    height: 3vw;
     border-radius: 50%;
+}
+
+.request-condition-container{
+    display: flex;
+}
+
+.req-profile-container{
+    margin-left: 1vw;
+    margin-right: 1vw;
 }

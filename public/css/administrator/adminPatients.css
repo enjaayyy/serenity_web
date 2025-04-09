@@ -86,3 +86,9 @@ tbody tr:hover .btn{
     filter: brightness(0%) invert(100%);
 
 }
+
+.btn img{
+    height: 1.5vw;
+    width: 1.5vw;
+    filter: invert(61%) sepia(75%) saturate(3808%) hue-rotate(323deg) brightness(98%) contrast(120%);
+}

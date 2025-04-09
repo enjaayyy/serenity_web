@@ -35,7 +35,7 @@ class PatientController extends Controller
                 'birthdate' => $formattedDate,
             ];
         }
-
+        
         $myDocRef = $this->database->getReference('administrator/users/' . $id . '/' . 'mydoctor')->getSnapshot()->getValue();
         $docData = [];
         if($myDocRef){
@@ -43,7 +43,6 @@ class PatientController extends Controller
                 $doctorID = $doctor['doctorId'];
                 $doctorRef = $this->database->getReference('administrator/doctors/'. $doctorID)->getSnapshot()->getValue();
                
-
                 if($doctorRef){
                     $docData[] = [
                         'id' => $doctorID,
@@ -54,7 +53,6 @@ class PatientController extends Controller
                 }
             }
         }
-
 
         return view('administrator.patientDetails', [
             'userDetails' => $userDetails,

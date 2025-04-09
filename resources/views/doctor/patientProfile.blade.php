@@ -378,10 +378,10 @@
                     }
                 });
 
-               function openReportModal(){
+               window.openReportModal = function openReportModal(){
                     document.getElementById('report-screen').style.display = 'inline-flex';
                } 
-               function openNotesModal(){
+               window.openNotesModal = function openNotesModal(){
                     document.getElementById('modal-screen').style.display = 'inline-flex';
                }
             </script>

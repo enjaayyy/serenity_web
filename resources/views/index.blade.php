@@ -9,7 +9,7 @@
     <script src="https://download.agora.io/sdk/release/AgoraRTC_N-4.23.1.js"></script>
     <script type="module" src="{{ asset("js/doctor/firebase_connection.js")}}"></script>
     <script>
-        const docID = "{{ $doctorData['docID'] }}";
+        const docID = "{{ $doctorData['docID'] ?? '' }}";
         const incomingCallAudio = new Audio("{{ asset('assets/audio/call-sound.mp3')}}");
         // const popnotification = new Audio("{{ asset('assets/audio/notification-sound.mp3')}}");
         incomingCallAudio.loop = true;

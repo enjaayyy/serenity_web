@@ -19,22 +19,45 @@ class DoctorController extends Controller
         
     }
 
+    private function getRequest($docID){
+        $requestRef = $this->database->getReference('administrator/doctors/' . $docID . '/Appointments')->getSnapshot()->getValue();
+        $requestCount = is_array($requestRef) ? count($requestRef) : 0;
+        if($requestRef){
+            foreach($requestRef as $key => $reqs){
+                $patientID = $reqs['userId'];
+                $reqeustDate = (new \DateTime($reqs['timestamp']))->format("F j, Y");
+                $patientRef = $this->database->getReference('administrator/users/' . $patientID)->getSnapshot()->getValue();
+                    if($patientRef){
+                            $patientData[] = [
+                                'refId' => $key,
+                                'patientId' => $patientID,
+                                'name' => $patientRef['full_name'],
+                                'email' => $patientRef['email'],
+                                'conditions' => $patientRef['conditions'],
+                                'img' => isset($patientRef['profile_image']) ? $patientRef['profile_image'] : null,
+                                'timestamp' =>  $reqeustDate,
+                            ];
+                    }
+            }
+        }
+        else{
+            $patientData = null;
+        }
+        return [$patientData, $requestCount];
+    }
+
     public function docDashboard(){
         if(Session::get('user') == 'doctor'){
             $id = Session::get('id');
-            $view = $this->database->getReference('administrator/doctors/' . $id);
-            $snapshot = $view->getSnapshot();
-            $data = $snapshot->getValue();
+            $data = $this->database->getReference('administrator/doctors/' . $id)->getSnapshot()->getValue();
  
             $currentMonth = date('m');
             $currentYear = date('Y');
 
             if($data){
                 $patientRef = $this->database->getReference('administrator/doctors/' . $id . '/mypatients/')->getSnapshot()->getValue();
-                $RequestRef = $this->database->getReference('administrator/doctors/' . $id . '/Appointments/')->getSnapshot()->getValue();
                 $AppointmentsRef = $this->database->getReference('administrator/doctors/' . $id . '/scheduled_appointments/')->getSnapshot()->getValue();
                 $patientCount = is_array($patientRef) ? count($patientRef) : 0;
-                $requestCount = is_array($RequestRef) ? count($RequestRef) : 0;
                 $appointmentCount = is_array($AppointmentsRef) ? count($AppointmentsRef) : 0;
                 $appointmentData = [];
 
@@ -59,12 +82,16 @@ class DoctorController extends Controller
                         ];
                         }
                     }
+
+                    list($requestList,  $requestCount) = $this->getRequest($id);
+                    
                     return view('doctor.dashboard', [
                         'doctorData' =>  $doctorData,
                         'patientCount' => $patientCount,
                         'requestCount' => $requestCount,
                         'appointmentCount' => $appointmentCount,
                         'appointmentList'=> $appointmentData,
+                        'requestList' => $requestList,
                     ]);  
             }
           

@@ -69,11 +69,41 @@
                         <p class="left-body-link"><a href="{{ route('showAppointments')}}">See All</a></p>
                     </div>
                     <div class="request-appointments-container">
-
+                        @if(isset($requestList) && is_array($requestList))
+                            @foreach($requestList as $reqs)
+                                <div class="requests-wrapper">
+                                    <div class="req-profile-container">
+                                        @if($reqs['img'] == null)
+                                            <img src ="{{ asset('assets/avatar.png') }}" class="default-req-img">
+                                        @else
+                                            <img src ="{{ $reqs['img'] }}" class="default-req-img">
+                                        @endif
+                                    </div>
+                                    <div class="reqs-details">
+                                        <p class="reqs-patient-name">{{ $reqs['name']}}</p>
+                                            <div class="request-condition-container">
+                                                <p>Conditions:&nbsp;</p>
+                                                @if(isset($reqs['conditions']) && is_array($reqs['conditions']))
+                                                    @foreach($reqs['conditions'] as $req)
+                                                        <p>{{ $req }} &nbsp;</p>
+                                                    @endforeach 
+                                                @endif
+                                            </div>
+                                    </div>
+                                    <div class="request-date-div">
+                                        <p>{{ $reqs['timestamp']}} </p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="alt-request-container">
+                                <p>No requests available</p>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div class="main-body-right">
-
+                    
                 </div>
             </div>
 
@@ -83,4 +113,8 @@
                 <button>Sample questions</button>
             </form> --}}
         </div>
+        <script>
+            let x  = @json($requestList);
+            console.log(x);
+        </script>
  @endsection
