@@ -67,6 +67,10 @@
                         <textarea class="doctor-description-area" id="doctor-description-area" disabled>No DATA!</textarea> 
                     @endif
             </div>
+            {{-- <script>
+                let x = @json($doctorData);
+                console.log(x);
+            </script> --}}
         </div>
     </form>
 </div>

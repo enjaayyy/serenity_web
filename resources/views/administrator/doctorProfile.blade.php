@@ -129,12 +129,9 @@
                         <div class="patient-list">
                             @if(!empty($patient) && is_array($patient))
                                 @foreach($patient as $index)
-                                <form method="GET" action="{{ route('viewPatientDetails', $index['userID']) }}">
-                                    @csrf
-                                    <button class="patient-list-btn" type="submit">
+                                    <div class="patient-list-wrapper">
                                         <p class="patient-name">{{ $index['name'] }}</p>
-                                    </button>
-                                </form>  
+                                    </div>
                                 @endforeach
                             @else
                                 <p>No Data!</p>
@@ -143,9 +140,22 @@
                     </div>
                     <div class="upcoming-appts-container">
                         <div class="upt-header-container">
-                            <p class="upt-header">Upcoming Appointments</p>
-                            <p class="upt-count">(no. of patients)</p>
+                            <p class="upt-header">Appointments</p>
+                            <p class="upt-count">{{$appointmentCount}}</p>
                         </div>
+                        <div class="main-appointments-container">
+                            @if(!empty($appointmentList) && is_array($appointmentList))
+                                @foreach($appointmentList as $apts)
+                                    <div class="appointment-list-wrapper">
+                                       <p class="apt-name"> {{ $apts['aptSched'] }} </p>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                        <script>
+                            let x = @json($appointmentList);
+                            console.log(x);
+                        </script>
                     </div>
                 </div>
                 <div class="deactivate-btn-container">

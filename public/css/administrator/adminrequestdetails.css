@@ -21,6 +21,13 @@ body{
     position: absolute;
 }
 
+.profile-credentials{
+    position: absolute;
+    right: 0px;
+    width: 50%;
+    height: 100%;
+}
+
 .profile-pic-container{
     padding-top: 3vh;
     display: flex;
@@ -130,12 +137,7 @@ body{
     width: auto;
 }
 
-.profile-credentials{
-    position: absolute;
-    right: 0px;
-    width: 50%;
-    height: 100%;
-}
+
 
 .verifiles {
     text-align: center;
@@ -144,7 +146,7 @@ body{
 
 .image-display img{
     width: 100%;
-    max-height: 76vh;
+    height: 76vh;
     border-top-right-radius: 15px;
 }
 

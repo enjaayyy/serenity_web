@@ -51,20 +51,26 @@
                         <p class="left-body-link"><a href="{{ route('viewAppointments')}}">See All</a></p>
                     </div>
                     <div class = "dash-appointments-container">
-                        @foreach($appointmentList as $apts)
-                            <div class="appointment-wrapper">
-                                <div class="indicator-div" style="background-color: {{ $apts['appointmentColor']}};"></div>
-                                <div class="appointment-details-div">
-                                    <p class="apppointment-name">{{ $apts['appointmentPatient'] }}</p>
-                                    <p class="apppointment-title">{{ $apts['appointmentTitle'] }}</p>
+                        @if(isset($appointmentList) && is_array($appointmentList))
+                            @foreach($appointmentList as $apts)
+                                <div class="appointment-wrapper">
+                                    <div class="indicator-div" style="background-color: {{ $apts['appointmentColor']}};"></div>
+                                    <div class="appointment-details-div">
+                                        <p class="apppointment-name">{{ $apts['appointmentPatient'] }}</p>
+                                        <p class="apppointment-title">{{ $apts['appointmentTitle'] }}</p>
+                                    </div>
+                                    <div class="appointment-date-div">
+                                        <p class="apppointment-date">{{ $apts['appointmentDate'] }}</p>
+                                    </div>
                                 </div>
-                                <div class="appointment-date-div">
-                                    <p class="apppointment-date">{{ $apts['appointmentDate'] }}</p>
-                                </div>
+                            @endforeach
+                        @else
+                            <div class="alt-request-container">
+                                <p>No Appointments available</p>
                             </div>
-                        @endforeach
+                        @endif
                     </div>
-                     <div class="left-body-header-container">
+                    <div class="left-body-header-container">
                         <p class="left-body-headers">Patient Request</p>
                         <p class="left-body-link"><a href="{{ route('showAppointments')}}">See All</a></p>
                     </div>
@@ -103,7 +109,12 @@
                     </div>
                 </div>
                 <div class="main-body-right">
-                    
+                    <div class="right-body-header-container">
+                        <p class="left-body-headers">Patient Condition Summary</p>
+                    </div>
+                    <div class="pie-chart-container">
+                        <canvas id="patient-summary-pie-chart"></canvas>
+                    </div>  
                 </div>
             </div>
 
@@ -113,8 +124,13 @@
                 <button>Sample questions</button>
             </form> --}}
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        {{-- <script src="{{ asset('js/doctor/dashboardChart.js') }}"></script> --}}
         <script>
-            let x  = @json($requestList);
-            console.log(x);
+            // let x  = @json($ptscount);
+            // console.log("number of pts patients " + x);
+            // document.addEventListener("DOMContentLoaded", function(){
+            //    pie();
+            // })  
         </script>
  @endsection

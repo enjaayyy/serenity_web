@@ -46,45 +46,92 @@ class DoctorController extends Controller
         return [$patientData, $requestCount];
     }
 
+    private function getUpcommingAppointments($docID){
+        $AppointmentsRef = $this->database->getReference('administrator/doctors/' . $docID . '/scheduled_appointments/')->getSnapshot()->getValue();
+
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+        $appointmentCount = is_array($AppointmentsRef) ? count($AppointmentsRef) : 0;
+        $appointmentData = [];
+            if($AppointmentsRef){
+                foreach($AppointmentsRef as $key => $apts){
+                $appointDate = new \DateTime($apts['appointmentDate']);
+                $aptMonth = $appointDate->format('m');
+                $aptYear = $appointDate->format('Y');
+
+                if($aptMonth === $currentMonth && $aptYear === $currentYear) {
+                    $newDate = (new \DateTime($apts['appointmentDate']))->format("F j, Y");
+                    $appointmentData[] = [
+                        'appointmentTitle' => $apts['appointmentTitle'],
+                        'appointmentPatient' => $apts['appointmentPatient'],
+                        'appointmentColor' => $apts['color'],
+                        'appointmentDate' => $newDate,
+                    ];
+                }
+            }
+        }
+        else {
+            $appointmentData = null;
+        }
+        
+        return [$appointmentData,  $appointmentCount];
+    }
+
+    private function getConditionCount($docID){
+        $doctorRef = $this->database->getReference('administrator/doctors/' . $docID . '/mypatients/')->getSnapshot()->getValue();
+        $anxiety = 0;
+        $insomnia = 0;
+        $pts = 0;
+        if($doctorRef){
+            foreach($doctorRef as $key => $docData){
+                $patientID = $docData['patientID'];
+
+                $patientRef = $this->database->getReference('administrator/users/' . $patientID . '/conditions/')->getSnapshot()->getValue();
+
+                if($patientRef){
+                    foreach($patientRef as $conditionCount){
+                        if($conditionCount === "Anxiety"){
+                            $anxiety++;
+                        }
+                        else if($conditionCount === "Insomnia"){
+                            $insomnia++;
+                        }
+                        else if($conditionCount === "Post Traumatic Stress"){
+                            $pts++;
+                        }
+                    }
+                }
+            }
+        }
+
+        return [$anxiety, 
+                $insomnia, 
+                $pts];
+       
+    }
+
     public function docDashboard(){
         if(Session::get('user') == 'doctor'){
             $id = Session::get('id');
             $data = $this->database->getReference('administrator/doctors/' . $id)->getSnapshot()->getValue();
- 
-            $currentMonth = date('m');
-            $currentYear = date('Y');
-
+           
             if($data){
                 $patientRef = $this->database->getReference('administrator/doctors/' . $id . '/mypatients/')->getSnapshot()->getValue();
-                $AppointmentsRef = $this->database->getReference('administrator/doctors/' . $id . '/scheduled_appointments/')->getSnapshot()->getValue();
                 $patientCount = is_array($patientRef) ? count($patientRef) : 0;
-                $appointmentCount = is_array($AppointmentsRef) ? count($AppointmentsRef) : 0;
-                $appointmentData = [];
 
                     $doctorData = [
                         'docID' => $id,
                         'name' => $data['name'],
                         'prof' => $data['profession'],
                         'pic' => isset($data['profilePic']) ? $data['profilePic'] : null,
+                        'specs' => $data['specialization'],
                     ];
-                    foreach($AppointmentsRef as $key => $apts){
-                        $appointDate = new \DateTime($apts['appointmentDate']);
-                        $aptMonth = $appointDate->format('m');
-                        $aptYear = $appointDate->format('Y');
-
-                        if($aptMonth === $currentMonth && $aptYear === $currentYear) {
-                            $newDate = (new \DateTime($apts['appointmentDate']))->format("F j, Y");
-                            $appointmentData[] = [
-                            'appointmentTitle' => $apts['appointmentTitle'],
-                            'appointmentPatient' => $apts['appointmentPatient'],
-                            'appointmentColor' => $apts['color'],
-                            'appointmentDate' => $newDate,
-                        ];
-                        }
-                    }
+                    
 
                     list($requestList,  $requestCount) = $this->getRequest($id);
-                    
+                    list($appointmentData, $appointmentCount) = $this->getUpcommingAppointments($id);
+                    list($anxietyCount, $insomniaCount, $ptsCount) = $this->getConditionCount($id);
+
                     return view('doctor.dashboard', [
                         'doctorData' =>  $doctorData,
                         'patientCount' => $patientCount,
@@ -92,6 +139,9 @@ class DoctorController extends Controller
                         'appointmentCount' => $appointmentCount,
                         'appointmentList'=> $appointmentData,
                         'requestList' => $requestList,
+                        'anxietycount' => $anxietyCount,
+                        'insomniacount' => $insomniaCount,
+                        'ptscount' =>  $ptsCount,
                     ]);  
             }
           
@@ -121,14 +171,21 @@ class DoctorController extends Controller
                     'gender' => $data['gender'],
                     'address' => $data['address'],
                     'pic' => isset($data['profilePic']) ? $data['profilePic'] : null,
-                    'descrip' => isset($data['description']) ? $data['description'] : null,
+                    'descrip' => isset($data['descrip']) ? $data['descrip'] : null,
                     'graduated' => isset($data['graduated']) ? $data['graduated'] : null,
                     'questions' => isset($data['activeQuestionnaires']) ? $data['activeQuestionnaires'] : null,
                     'creds' => $data['credentials'],
                     'appointments' => isset($data['scheduled_appointments']) ? $data['scheduled_appointments'] : null,
                     'templates' => isset($data['savedQuestionnaires']) ? $data['savedQuestionnaires'] : null,
                 ];
-                return view('doctor/profile', ['doctorData' =>  $doctorData]);  
+
+                list($appointmentData, $appointmentCount) = $this->getUpcommingAppointments($id);
+
+                return view('doctor/profile', [
+                    'doctorData' =>  $doctorData,
+                    'appointmentCount' => $appointmentCount,
+                    'appointmentList'=> $appointmentData,
+                ]);  
             }
         }
         else{
@@ -158,34 +215,64 @@ class DoctorController extends Controller
                     'profilePic' => $url,
                 ];
 
-                $query = $this->database->getReference('administrator/doctors/' . $id)->update($newData);
+                $query = $this->database->getReference('administrator/doctors/' . $id . '/credentials')->update($newData);
 
                 if($query){
                     return redirect()->route('docProfile');
                 }
         }
     }
-    public function getDetails(Request $request){
-        $id = Session::get('id');
-        $view = $this->database->getReference('administrator/doctors/' . $id);
-        $snapshot = $view->getSnapshot();
-        $data = $snapshot->getValue();
 
-        if($data){
-            $newData = [
-                'description' => $request->textarea,
-            ];
-            $this->database->getReference('administrator/doctors/' . $id)->update($newData);
+    public function addcredentials(Request $request){
+        if($request->hasFile('credential')){
+            $docID = Session::get('id');
+
+            $files = $request->file('credential');
+            $filename = $files->getClientOriginalName();
+            $filepath = $files->getPathname();
+            $firebasepath = 'credentials/' . $filename;
+
+            $uploadFile  = $this->bucket->upload(
+                fopen($filepath, 'r'), [
+                    'name' => $firebasepath
+                ]
+            );
+
+            $expiresAt = new \DateTime('+1 year');
+            $url = $uploadFile->signedUrl($expiresAt);
+
+            $credentialsRef = $this->database->getReference('administrator/doctors/' . $docID . '/credentials/')->getSnapshot()->getValue();
+
+            $credentialsArray = $credentialsRef;
+
+            $credentialsArray[] = $url;
+
+            $this->database->getReference('administrator/doctors/' . $docID . '/credentials/')->set($credentialsArray);
+
+            return redirect()->route('docProfile');
         }
-        
-        Session::forget('editMode');
-        return redirect()->route('docProfile');
     }
 
-    public function editDetails(){
 
-        Session::put('editMode', true);
-        return redirect()->route('docProfile');
+    public function editDetails(Request $request){
+        if(Session::get('user') == 'doctor'){
+            $docID = Session::get('id');
+
+                $newData = [
+                    'name' => $request->input('name-input'),
+                    'profession' => $request->input('spec-input'),
+                    'age' => $request->input('age-input'),
+                    'gender' => $request->input('gender-input'),
+                    'years' => $request->input('years-input'),
+                    'license' => $request->input('license-input'),
+                    'address' => $request->input('address-input'),
+                    'descrip' => $request->input('detail-textarea'),
+                ];
+
+            $this->database->getReference('administrator/doctors/' . $docID)->update($newData);
+            return redirect()->route('docProfile');
+        }
+        
     }
 
     public function updateQuestions(Request $request){
@@ -219,6 +306,7 @@ class DoctorController extends Controller
         return redirect()->route('docProfile');
     }
 
+   
     public function editQuestions(Request $request){
         $id = Session::get('id');
 
@@ -489,6 +577,7 @@ class DoctorController extends Controller
             $aptEndTime = $request->input('input-endtime');
             $aptColor = $request->input('color-indicator');
             $aptChosenPatient = $request->input('selected-user');
+            $aptPatientID = $request->input('appoint-patientID');
 
             $appointmentRef = $this->database->getReference('administrator/doctors/' . $docID . '/scheduled_appointments/')->getSnapshot()->getValue();
           
@@ -513,6 +602,7 @@ class DoctorController extends Controller
                                 'appointmentEndTime' => $aptEndTime,
                                 'color' => $aptColor,
                                 'appointmentPatient' =>  $aptChosenPatient,
+                                'appointmentUserId' => $aptPatientID,
                             ];
             
 
@@ -530,6 +620,7 @@ class DoctorController extends Controller
                                 'appointmentEndTime' => $aptEndTime,
                                 'color' => $aptColor,
                                 'appointmentPatient' =>  $aptChosenPatient,
+                                'appointmentUserId' => $aptPatientID,
                             ];
             
 

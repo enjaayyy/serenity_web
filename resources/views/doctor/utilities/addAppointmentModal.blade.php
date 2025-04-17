@@ -18,18 +18,10 @@
                     </div>
                     <p class="input-header">Choose a Patient</p>
                     <div class="patient-container">
-                        <select name="selected-user" required> 
+                        <select name="selected-user" id="selected-user" required> 
                             <option disabled selected>Select Patient</option>
-                                @foreach($patientData as $patientName)
-                                    <option>
-                                        @if(isset($patientName['name']))
-                                            {{$patientName['name']}}
-                                        @else
-                                            No Patients Found!
-                                        @endif
-                                    </option>
-                                @endforeach
                         </select>
+                        <input name="appoint-patientID" id="appoint-patientID" hidden>
                         <input type="color" name="color-indicator" required>
                     </div>
                     <div class="submit-container">
@@ -44,4 +36,35 @@
     function closeAppointmentModal(){
         document.getElementById('add-appointment-screen').style.display = 'none';
     }
+
+    let patientData = @json($patientData);
+    
+    let patientSelect = document.getElementById('selected-user');
+    let patientIdContainer = document.getElementById('appoint-patientID');
+    if(patientData){
+        Object.keys(patientData).forEach(keys => {
+            let patientKey = patientData[keys];
+            let optionName = patientKey.name;
+
+            let option = document.createElement('option');
+                option.value = optionName;
+                option.textContent = optionName;
+                patientSelect.appendChild(option);
+        })
+
+        patientSelect.addEventListener("change", () => {
+            let patientName = patientSelect.value;
+                Object.keys(patientData).forEach(keys => {
+                    if(patientData[keys].name === patientName){
+                        console.log(patientData[keys].id);
+                        patientIdContainer.value = " ";
+                        patientIdContainer.value = patientData[keys].id;
+                        patientIdContainer.textContent = patientData[keys].id;
+                    }
+                })
+            console.log(patientName);
+        })
+
+    }
+    
 </script>

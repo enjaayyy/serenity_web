@@ -154,10 +154,27 @@ class AdminController extends Controller
                 'description' => isset($data['description']) ? $data['description'] : "No Data",
             ];
         }
+
+        $appointmentRef = $this->database->getReference('administrator/doctors/' . $id . '/scheduled_appointments/')->getSnapshot()->getValue();
+        $appointmentCount = is_array($appointmentRef) ? count($appointmentRef) : 0;
+        $appointmentList = [];
+        if($appointmentRef){
+            foreach($appointmentRef as $key => $apts){
+                $newDate = (new \DateTime($apts['appointmentDate']))->format("F j, Y");
+                $appointmentList[] = [
+                    'aptTitle' => $apts['appointmentTitle'],
+                    'aptSched' => $newDate,
+                    'aptName' => $apts['appointmentPatient'],
+                ];
+            }
+        }
+        
         return view("administrator.doctorProfile", [
             'details' => $details,
             'patient' => $patient,
             'patientCount' => $patientCount,
+            'appointmentList' => $appointmentList,
+            'appointmentCount' => $appointmentCount,
         ]);
 
     }

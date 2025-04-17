@@ -102,7 +102,7 @@ class PatientController extends Controller
                     'sex' => $patientRef['sex'],
                     'username' => $patientRef['username'],
                     'bday' => $formattedDate,
-                    'pic' => $patientRef['profile_image'] ? $patientRef['profile_image'] : null, 
+                    'pic' => isset($patientRef['profile_image']) ? $patientRef['profile_image'] : null, 
                     'conditionCount' => $conditionCount,
                     'notes' => isset($notesArray) ? $notesArray : [],
                     'answer' => isset($patientRef['all_answers']) ? $patientRef['all_answers'] : null,

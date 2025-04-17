@@ -30,14 +30,15 @@
 
 .toProfile-btn{
     display: flex;
-    justify-content: right;
+    justify-content: left;
+    /* background-color: red; */
 }
 
 .toProfile-btn button{
     height: 4vh;
     border:none;
     margin-left: 1vw;
-    margin-right: 1vw;
+    margin-top: 2vh;
     border-radius: 15px;
     width: 6vw;
     color: white;
@@ -134,14 +135,17 @@
     gap: 1vw;
 }
 
-.left-body-header-container{
+.left-body-header-container,
+.right-body-header-container,
+.pie-chart-container{
     display: flex;
+    align-items: center;
     justify-content: space-between;
+    height: 8vh;
 }
 
 .main-body-left,
 .main-body-right{
-    /* background-color: red; */
     width: 50%;
 }
 
@@ -149,6 +153,11 @@
     font-size: 1vw;
     color: gray;
     font-weight: bold;
+    margin-top: 0;
+}
+
+.left-body-link{
+    margin-top: 0;
 }
 
 .left-body-link a{
@@ -242,3 +251,4 @@
     margin-left: 1vw;
     margin-right: 1vw;
 }
+

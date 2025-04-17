@@ -35,6 +35,7 @@
                     </div>
                     <div class="doctor-appointments-container">
                         <p class="appointment-header">Upcoming Appointments</p>
+                            
                     </div>
                     <div class="doctor-data-analytic">
                         <p class="patient-summary-header">Patient Summary</p>

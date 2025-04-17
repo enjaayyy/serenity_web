@@ -37,12 +37,9 @@ function editData(){
 
     let additionalInfoContainer = document.getElementById('ddata-container-2');
 
-    let email = document.getElementById('email-input');
     let address = document.getElementById('address-input');
-    email.style.display = "none";
     address.style.display = "none";
 
-    convertToInput(email,"email-input","input-content","email-input", additionalInfoContainer);
     convertToInput(address,"address-input","input-content","address-input", additionalInfoContainer);
 
     let doctorDetailsContainer = document.getElementById('doctor-description');
