@@ -5,7 +5,8 @@
 
 
 .qst-cat-btns,
-.edit-qst-cat-btns{
+.edit-qst-cat-btns,
+.view-qst-cat-btns{
     text-align: center;
     display: flex;
     border-top-right-radius: 15px;
@@ -17,7 +18,8 @@
 }
 
 .qst-cat-btns button,
-.edit-qst-cat-btns button{
+.edit-qst-cat-btns button,
+.view-qst-cat-btns button{
     width: 100%;
     height: 8vh;
     border: none;
@@ -29,7 +31,8 @@
 }
 
 .qst-cat-btns button:hover,
-.edit-qst-cat-btns button:hover{
+.edit-qst-cat-btns button:hover,
+.view-qst-cat-btns button:hover{
     background-color: white;
     color: black;
     font-weight: bold;
@@ -41,7 +44,8 @@
     font-weight: bold;
 }
 
-.edit-qst-cat-btns .qst-btns.active{
+.edit-qst-cat-btns .qst-btns.active,
+.view-qst-cat-btns .qst-btns.active{
     background-color: white;
     color: black;
     font-weight: bold;
@@ -55,7 +59,9 @@
 .qst-content, 
 .qst-categories,
 .edit-qst-content,
-.edit-qst-categories{
+.edit-qst-categories,
+.view-qst-content,
+.view-qst-categories{
     margin-left: 2vw;
     margin-right: 2vw;
 }
@@ -96,10 +102,14 @@
     padding-right: 1.5vw;
 }
 
-.dropdown-header, .questionHeaderBox, .questinputheader, .categoryheader{
+.question-HeaderBox, .dropdown-header, .questionHeaderBox, .questinputheader, .categoryheader{
     color: gray;
-    margin-bottom: 0.5vh;
+    margin-bottom: 1vh;
     font-size: 0.8vw;
+}
+
+.questionHeaderBox{
+    margin-left: 1.1vw;
 }
 
 .edit-qst-content{
@@ -138,7 +148,7 @@
 .selectTempQuest,
 .selectTempData{
     height: 4vh;
-    width: 39.5vw;
+    width: 38vw;
     border: 1px #004624 solid;
     border-radius: 5px;
     padding-left: 1vw;
@@ -146,18 +156,25 @@
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     transition: border 0.1s linear, background-color 0.1s ease;
     margin-top: 0.5vh;
+    margin-left: 1.1vw;
+    margin-right: 1.1vw;
 }
 
+.tempDataDiV{
+    width: 60vw;
+}
 .questionTextTemplate{
     height: 4vh;
-    width: 38.4vw;
-    border: 1px gray solid;
+    width: 36.7vw;
+    border: 1px #004624 solid;
     border-radius: 5px;
     padding-left: 1vw;
     background-color: white;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     transition: border 0.1s linear, background-color 0.1s ease;
-    margin-top: 0.5vh;
+    margin-top: 2vh;
+    margin-left: 1.1vw;
+    margin-right: 1.1vw;
 }
 
 .choiceInput,
@@ -170,7 +187,7 @@
     border-radius: 5px;
     padding-left: 1vw;
     background-color: white;
-    margin-top: 0.5vh;
+    margin-top: 1.5vh;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     transition: border 0.1s linear, background-color 0.1s ease;
 }
@@ -202,7 +219,7 @@
 }
 
 .question-header, .questinputheader, .categoryheader{
-    margin-bottom: 0;
+    margin-bottom:1vh;
 }
 
 .add-btn, .remove-btn{
@@ -275,12 +292,20 @@
 }
 
 .tempButton,
-.saveBtn,
+.saveBtn{
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 1.5vh;
+    height: 4vh;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 0.7vw;
+}
+
 .retrieve-btn{
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    margin-top: 0.5vh;
+    margin-top: 1.5vh;
     height: 4vh;
-    width: 10vw;
+    width: 93%;
     border-radius: 5px;
     font-size: 0.7vw;
 }
@@ -332,4 +357,19 @@
     background-color: white;
     color: #20C073;
     transition: border 0.3s ease, background-color 0.3s ease, color 0.5s ease;
+}
+
+.activate-button{
+    margin-left: 1.5vw;
+    width: 10vw;
+    border: 3px #49B2FF solid;
+    background-color: white;
+    color: #49B2FF;
+    transition: border 0.3s ease, background-color 0.3s ease, color 0.5s ease;
+}
+
+.activate-button:hover{
+    border: 3px white solid;
+    background-color: #49B2FF;
+    color: white;
 }

@@ -18,9 +18,12 @@ class RegisterController extends Controller
     }
 
     public function register(Request $request){
+        $firstname = $request->input('firstname');
+        $lastname = $request->input('lastname');
+        $fullname = $firstname . " " . $lastname;
 
         $doctorData = [
-            'doctorFullname' => $request->fullname,
+            'doctorFullname' => $fullname,
             'doctorEmail' => $request->email,
             'doctorPass' => $request->password,
         ];

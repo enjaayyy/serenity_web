@@ -14,8 +14,10 @@
                     <p class="sub-header"> Fill out the form below to create your account. </p>
                     <form action="{{ url('register') }}" method="POST" id="registration-form">
                         @csrf
-                            <p class="name-header">Full Name</p>
-                            <input type = "text" class = "fname-input" placeholder="First Name, Middle Name, Last Name" autocomplete="off" name="fullname" required>
+                            <p class="name-header">First Name</p>
+                            <input type = "text" class = "fname-input" placeholder="Enter your first name and second name" autocomplete="off" name="firstname" required>
+                            <p class="name-header">Last Name</p>
+                            <input type = "text" class = "fname-input" placeholder="Enter you last name" autocomplete="off" name="lastname" required>
                             <p class="email-header">Email Address</p>
                             <input type = "text" class = "email-input" placeholder="Enter Email"  autocomplete="off" name="email" required>
                             <p class="password-header">Password</p>

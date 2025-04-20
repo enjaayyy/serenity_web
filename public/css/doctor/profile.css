@@ -128,7 +128,7 @@ body{
 }
 
 .other-data::-webkit-scrollbar{
-    width: 1vw;
+    width: 0.2vw;
 }
 
 .od-content{
@@ -148,7 +148,8 @@ body{
 .credenials-tab,
 .about-me-tab,
 .add-qst-tab,
-.edit-qst-tab{
+.edit-qst-tab,
+.view-qst-tab{
     width: 100%;
     height: auto;
 }
@@ -160,7 +161,8 @@ body{
 .credenials-tab button,
 .about-me-tab button,
 .add-qst-tab button,
-.edit-qst-tab button{
+.edit-qst-tab button,
+.view-qst-tab button{
     width: 25%;
     height: 5vh;
     border: none;
@@ -174,14 +176,16 @@ body{
 .credenials-tab button:hover,
 .about-me-tab button:hover,
 .add-qst-tab button:hover,
-.edit-qst-tab button:hover{
+.edit-qst-tab button:hover,
+.view-qst-tab button:hover{
     width: 100%;
 }
 
 .qst-tab img,
 .credenials-tab img,
 .about-me-tab img,
-.add-qst-tab img{
+.add-qst-tab img,
+.view-qst-tab img{
     width: 80%;
     height: 80%;
     margin-top: auto;
@@ -201,7 +205,8 @@ body{
 .credenials-tab button:hover img,
 .about-me-tab button:hover img,
 .add-qst-tab button:hover img,
-.edit-qst-tab button:hover img{
+.edit-qst-tab button:hover img,
+.view-qst-tab button:hover img{
     transform: translateX(10%);
 }
 
@@ -209,11 +214,12 @@ body{
 .credenials-tab button p,
 .about-me-tab button p,
 .add-qst-tab button p,
-.edit-qst-tab button p{
+.edit-qst-tab button p,
+.view-qst-tab button p{
     margin-top: auto;
     margin-bottom: auto;
     color: white;
-    font-size: 1vw;
+    font-size: 0.7vw;
     max-width: 0;
     opacity: 0;
     transition: max-width 0.5s ease, opacity 0.5s ease;
@@ -223,7 +229,8 @@ body{
 .credenials-tab button:hover p,
 .about-me-tab button:hover p,
 .add-qst-tab button:hover p,
-.edit-qst-tab button:hover p{
+.edit-qst-tab button:hover p,
+.view-qst-tab button:hover p{
     max-width: 100%;
     opacity: 1;
 }
@@ -232,6 +239,13 @@ body{
     background-color: #49B2FF;
 }
 
+.view-qst-tab button{
+    background-color: #FFD600;
+}
+
+.view-qst-tab img{
+    filter: brightness(100);
+}
 .credenials-tab button{
     background-color: #B36EC4;
 }

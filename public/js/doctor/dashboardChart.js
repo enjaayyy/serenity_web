@@ -1,22 +1,19 @@
 const ctx = document.getElementById('patient-summary-pie-chart');
 
-function pie(){
+function pie(labels, values){
     new Chart(ctx, {
     type: 'pie',
     data:  {
-        labels:['red', 'blue'],
+        labels: labels,
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            label: 'Condition Count',
+            data: values,
             borderWidth: 1
         }]
     },
     options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
+      reponsive: true,
+      maintainAspectRatio: false,
     }
 });
 }

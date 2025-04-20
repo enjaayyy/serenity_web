@@ -5,6 +5,8 @@
         qstDiv.style.display = "none";
         addQstDiv.style.display = "block";
         editQstDiv.style.display = "none";
+        document.getElementById('view-questionnaire-container').style.display = "none";
+
 
         editable = false;
 
@@ -67,7 +69,7 @@
         titleDiv.classList.add("title-container");
 
         const questionHeaderBox = document.createElement("div");
-        questionHeaderBox.classList.add("questionHeaderBox");
+        questionHeaderBox.classList.add("question-HeaderBox");
 
         const questionHeader = document.createElement("p");
         questionHeader.classList.add("question-header");

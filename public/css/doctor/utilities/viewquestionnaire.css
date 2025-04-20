@@ -116,8 +116,5 @@
 }
 
 .objButtons:hover{
-    /* background-color: #20C073; */
-    /* border-left: 2vw #20C073 solid;
-    border-right: 2vw #20C073 solid; */
     transform: scale(1.2);
 }

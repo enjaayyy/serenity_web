@@ -215,7 +215,7 @@ class DoctorController extends Controller
                     'profilePic' => $url,
                 ];
 
-                $query = $this->database->getReference('administrator/doctors/' . $id . '/credentials')->update($newData);
+                $query = $this->database->getReference('administrator/doctors/' . $id)->update($newData);
 
                 if($query){
                     return redirect()->route('docProfile');

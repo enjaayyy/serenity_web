@@ -110,10 +110,10 @@
                 </div>
                 <div class="main-body-right">
                     <div class="right-body-header-container">
-                        <p class="left-body-headers">Patient Condition Summary</p>
+                        <p class="left-body-headers">Patient Count Summary</p>
                     </div>
                     <div class="pie-chart-container">
-                        <canvas id="patient-summary-pie-chart"></canvas>
+                        <canvas id="patient-summary-pie-chart" class="pie-chart"></canvas>
                     </div>  
                 </div>
             </div>
@@ -125,12 +125,33 @@
             </form> --}}
         </div>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        {{-- <script src="{{ asset('js/doctor/dashboardChart.js') }}"></script> --}}
+        <script src="{{ asset('js/doctor/dashboardChart.js') }}"></script>
         <script>
-            // let x  = @json($ptscount);
-            // console.log("number of pts patients " + x);
-            // document.addEventListener("DOMContentLoaded", function(){
-            //    pie();
-            // })  
+            let anxietycount  = @json($anxietycount);
+            let insomniacount  = @json($insomniacount);
+            let ptscount  = @json($ptscount);
+
+            let x = @json($appointmentList);
+            console.log(x);
+
+            let conditionCounts = [anxietycount, insomniacount, ptscount];  
+
+            console.log("number of  patients " + conditionCounts);
+
+            let chartLabels = ["Anxiety", "Insomnia", "Post Traumatic Stress"];
+
+            let finalValues = [];
+            let finalLabels = [];
+
+            conditionCounts.forEach((key, index) => {
+                if(key > 0){
+                    finalLabels.push(chartLabels[index]);
+                    finalValues.push(key);
+                }
+            });
+
+            document.addEventListener("DOMContentLoaded", function(){
+               pie(finalLabels,finalValues);
+            })  
         </script>
  @endsection

@@ -33,13 +33,6 @@
                             <p class="doc-prof">{{ $doctorData['prof'] }}</p>
                         </div>
                     </div>
-                    <div class="doctor-appointments-container">
-                        <p class="appointment-header">Upcoming Appointments</p>
-                            
-                    </div>
-                    <div class="doctor-data-analytic">
-                        <p class="patient-summary-header">Patient Summary</p>
-                    </div>
                 </div>
                 <div class="other-data">
                     <div class="od-content">
@@ -52,13 +45,18 @@
                         @include('doctor.utilities.credentials')
                         @include('doctor.utilities.aboutmecard')
                     </div>
-                   
                 </div>
                 <div class="tabs">
                     <div class="qst-tab">
                         <button type="button" onclick="getQuestionnaires()">
                             <p>Questionnaires</p>
                             <img src=" {{ asset('assets/question-tab-icon.svg') }}">
+                        </button>
+                    </div>
+                    <div class="view-qst-tab" style="display:none;" id="view-qst-tab" onclick="getViewQuestionnaires()">
+                        <button type="button">
+                            <p>View&nbsp;Questionnaires</p>
+                            <img src=" {{ asset('assets/view-icon.svg') }}">
                         </button>
                     </div>
                     <div class="add-qst-tab" style="display:none;" id="add-qst-tab" onclick="AddDataSet()">

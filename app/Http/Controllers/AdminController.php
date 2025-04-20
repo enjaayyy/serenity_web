@@ -316,13 +316,13 @@ class AdminController extends Controller
             $details = [];
 
             if($data){
-                foreach($data as $id => $doctor){
+                foreach($data as $id => $user){
                     $details[] = [
                         'id' => $id,
-                        'name' => $doctor['full_name'],
-                        'email' => $doctor['email'],
-                        'conditions' => $doctor['conditions'],
-                        'number' => $doctor['phone_number'],
+                        'name' => $user['full_name'],
+                        'email' => $user['email'],
+                        'conditions' => $user['conditions'],
+                        'number' => $user['phone_number'],
                     ];
                 }
             }

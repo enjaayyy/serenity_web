@@ -46,15 +46,20 @@
                 document.getElementById('get-started-container').style.display = "none";
                 document.getElementById('cred-container').style.display = "none";
                 document.getElementById('about-me-container').style.display = "none";
+                document.getElementById('view-questionnaire-container').style.display = "none";
+
 
 
                 let addTab = document.getElementById('add-qst-tab');
                 let editTab = document.getElementById('edit-qst-tab');
+                let viewTab = document.getElementById('view-qst-tab');
                     addTab.style.display = 'block'; 
                     editTab.style.display = 'block';
+                    viewTab.style.display = 'block'
                     setTimeout(() => {
                         addTab.classList.add('show'); 
                         editTab.classList.add('show');
+                        viewTab.classList.add('show');
                     }, 10); 
 
                     editable = false;
@@ -67,14 +72,12 @@
 
             questionsKeys.forEach((key, index) => {
                 
-                
                 const button = document.createElement("button");
                 button.textContent = key;
                 button.classList.add('qst-btns');
 
                 button.addEventListener("click", () => {
                     displayQuestionTitle(key);
-
 
                     let activeSpecTab = document.getElementById("activeSpecTab");
                         if(!activeSpecTab){
@@ -85,6 +88,7 @@
                         }
                         activeSpecTab.value = key;
                         activeSpecTab.textContent = key;
+                        
                 });
 
                 buttonContainer.appendChild(button);
@@ -111,12 +115,15 @@
         function displayQuestionTitle(titleKey) {
 
             const title = doctorQuestions.questions[titleKey];
-
+            const titleView = doctorQuestions.templates[titleKey];
+            // console.log(title);
             
             ChosenData = title;
             if(editable === false){
+
             questionContents.innerHTML = " ";
             questionSubCategories.innerHTML = " ";
+
             Object.keys(title).forEach(questionTitle => {
                 const titleText = document.createElement("p");
                 titleText.textContent = questionTitle;
@@ -152,7 +159,7 @@
                 });
             });
         }
-        else{
+        else if(editable === true){
             const editQuestContent = document.getElementById('edit-qst-content');
             const editQuestCategory = document.getElementById('edit-qst-categories');
 
@@ -165,6 +172,10 @@
                     const header = document.createElement("div");
                     header.style.display = "flex";
                     
+                    const p = document.createElement("p");
+                    p.textContent = "Title";
+                    p.classList.add("categoryheader");
+
                     const chooseTemplate = document.createElement("select");
                     const templateDefault = document.createElement("option");
                     templateDefault.textContent = questionnaireTitle;
@@ -190,11 +201,13 @@
                     const activateBtn = document.createElement("button");
                                 activateBtn.textContent = "Use Template";
                                 activateBtn.id = "activate-button";
+                                activateBtn.classList.add("activate-button");
                                 activateBtn.onclick = function (){
                                 retrieveData();
                                 }
                                 header.appendChild(activateBtn);
 
+                    editQuestContent.appendChild(p);
                     editQuestContent.appendChild(header);
 
 
@@ -223,8 +236,59 @@
                     
             });
         }
+        else{
+            console.log(title);
+
+            const viewQuestContent = document.getElementById('view-qst-content');
+            const viewQuestCategory = document.getElementById('view-qst-categories');
+            
+            viewQuestContent.innerHTML = "";
+            
+            const header = document.createElement("div");
+                Object.keys(title).forEach(questionnaireTitle => {
+                    const p = document.createElement("p");
+                    p.textContent = "Title";
+                    p.classList.add("cat-header");
+
+
+                    const chooseTemplate = document.createElement("select");
+                    const templateDefault = document.createElement("option");
+                    templateDefault.textContent = questionnaireTitle;
+                    templateDefault.value = questionnaireTitle;
+                    templateDefault.selected = true;
+                    chooseTemplate.id = "aqc-dropdown-3";
+                    chooseTemplate.classList.add("aqc-dropdown-2");
+                    chooseTemplate.appendChild(templateDefault);
+
+                    const templateContent = questionTemplates[titleKey];
+                    Object.keys(templateContent).forEach(templateKeys => {
+                        const templateOptions = document.createElement("option");
+                        templateOptions.textContent = templateKeys;
+                        templateOptions.value = templateKeys;
+                        chooseTemplate.appendChild(templateOptions);
+
+                    })
+
+
+                    chooseTemplate.appendChild(templateDefault);
+                    header.appendChild(p);
+                    header.appendChild(chooseTemplate);
+
+                    viewQuestContent.appendChild(header);
+
+
+                    chooseTemplate.addEventListener("change", function(){
+                        viewQuestCategory.innerHTML= "";
+                        loadQuestionnaireOverview(templateContent[chooseTemplate.value], viewQuestContent, viewQuestCategory);
+                        });
+
+                    
+                    
+            });
+        }
        
     }
     </script>
     @include('doctor.utilities.addQuestionnaire')
     @include('doctor.utilities.editQuestionnaire')
+    @include('doctor.utilities.viewquestionnaires')

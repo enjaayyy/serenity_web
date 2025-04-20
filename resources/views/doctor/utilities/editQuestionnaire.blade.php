@@ -5,6 +5,8 @@
         qstDiv.style.display = "none";
         addQstDiv.style.display = "none";
         editQstDiv.style.display = "block";
+        document.getElementById('view-questionnaire-container').style.display = "none";
+
 
         buttonHeaders.innerHTML = "";
         editable = true;
@@ -26,6 +28,9 @@
 
    function loadtemplates(title,questionnaireTitle,editQuestCategory){
         const categories = title[questionnaireTitle];
+            // console.log(title);
+            // console.log(questionnaireTitle);
+            // console.log(editQuestCategory);
 
             Object.keys(categories).forEach(categoryKeys => {
                 const CategoryDiv = document.createElement("div");
