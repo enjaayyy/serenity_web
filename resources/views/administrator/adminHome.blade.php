@@ -13,26 +13,57 @@
             <div class="summary-header-container">
                 <div class="doctor-count-container">
                     <div class="content-wrapper">
-                        <div class="count-container-1">
-                            {{ $doctorCount }}
+                        <div class="icon-container-1">
+                            <img src ="{{ asset('assets/doctor-icon.svg') }}" class="doctor-count-icon">
                         </div>
-                            <p>No. of Doctors</p>
+                        <div class="count-container">
+                            <p class="counter-label">No. of Doctors</p>
+                            <P class="counter-data">{{ $doctorCount }}</p>
+                        </div>
                     </div>    
                 </div>
                 <div class="patient-count-container">
                     <div class="content-wrapper">
-                        <div class="count-container-2">
-                            {{ $patientCount }}
+                        <div class="icon-container-2">
+                            <img src ="{{ asset('assets/patient-icon.svg') }}" class="patient-count-icon">
                         </div>
-                            <p>No. of Patients</p>
+                        <div class="count-container">
+                            <p class="counter-label">No. of Patients</p>
+                            <p class="counter-data">{{ $patientCount }}</p>
+                        </div>
+                    </div> 
+                </div>
+                <div class="request-count-container">
+                    <div class="content-wrapper">
+                        <div class="icon-container-4">
+                            <img src ="{{ asset('assets/requests-icon.svg') }}" class="request-count-icon">
+                        </div>
+                        <div class="count-container">
+                            <p class="counter-label">No. of Requests</p>
+                            <p class="counter-data">{{ $requestsCount }}</p>
+                        </div>
                     </div> 
                 </div>
                 <div class="report-count-container">
                     <div class="content-wrapper">
-                        <div class="count-container-3">
-
+                        <div class="icon-container-3">
+                            <img src ="{{ asset('assets/report-icon.svg') }}" class="report-count-icon">
                         </div>
-                            <p>No. of Reports</p>
+                        <div class="count-container">
+                            <p class="counter-label">No. of Reports</p>
+                            <p class="counter-data">{{ $reportsCount }}</p>
+                        </div>
+                    </div> 
+                </div>
+                <div class="archive-count-container">
+                    <div class="content-wrapper">
+                        <div class="icon-container-5">
+                            <img src ="{{ asset('assets/archive-icon.svg') }}" class="archive-count-icon">
+                        </div>
+                        <div class="count-container">
+                            <p class="counter-label">No. of Archived</p>
+                            <p class="counter-data">{{ $archiveCount }}</p>
+                        </div>
                     </div> 
                 </div>
             </div>

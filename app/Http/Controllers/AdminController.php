@@ -281,9 +281,15 @@ class AdminController extends Controller
             $data = $this->database->getReference('administrator/videos/')->getSnapshot()->getValue();
             $doctorRef = $this->database->getReference('administrator/doctors/')->getSnapshot()->getValue();
             $patientRef = $this->database->getReference('administrator/users/')->getSnapshot()->getValue();
+            $reportsRef = $this->database->getReference('reports/')->getSnapshot()->getValue();
+            $requestsRef = $this->database->getReference('administrator/doctorRequests/')->getSnapshot()->getValue();
+            $archiveRef = $this->database->getReference('administrator/archives/')->getSnapshot()->getValue();
 
             $patientCount = is_array($patientRef) ?  count($patientRef) : 0;
             $doctorCount = is_array($doctorRef) ? count($doctorRef) : 0;
+            $reportsCount =  is_array($reportsRef) ? count($reportsRef) : 0;
+            $requestsCount = is_array($requestsRef) ? count($requestsRef) : 0;
+            $archiveCount = is_array($archiveRef) ? count($archiveRef) : 0;
             $videos = [];
 
             if($data){
@@ -300,6 +306,9 @@ class AdminController extends Controller
                 'videos' => $videos,
                 'doctorCount' => $doctorCount,
                 'patientCount' => $patientCount,
+                'reportsCount'=> $reportsCount,
+                'requestsCount' => $requestsCount,
+                'archiveCount' => $archiveCount,
             ]);
         }
         else{

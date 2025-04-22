@@ -7,23 +7,103 @@ body {
 .summary-header-container{
     display: flex;
     width: 100%;
-    height: 30vh;
+    height: 15vh;
     justify-content: space-between;
 }
 
 .doctor-count-container,
 .patient-count-container,
-.report-count-container{
-    width: 32%;
-    height: auto;
+.report-count-container,
+.request-count-container,
+.archive-count-container{
+    width: 19%;
+    height: 15vh;
     background-color: white;
+    border-radius: 15px;
+    
+}
+
+.content-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    gap: 1vw;
+}
+
+.icon-container-1,
+.icon-container-2,
+.icon-container-3,
+.icon-container-4,
+.icon-container-5{
+    height: 3.5vw;
+    width: 3.5vw;
     border-radius: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.count-container-1,
+.icon-container-1 img,
+.icon-container-2 img,
+.icon-container-3 img,
+.icon-container-4 img,
+.icon-container-5 img{
+    height: 2vw;
+    width: 2vw;
+}
+
+.icon-container-1{
+    border: 0.2vw solid #49B2FF;
+    background-color: #99d2fc;
+}
+
+.icon-container-2{
+    border: 0.2vw solid #20C073;
+    background-color: #25e086;
+}
+
+.icon-container-3{
+    border: 0.2vw solid #FF3333;
+    background-color: #f39b9b;
+}
+
+.icon-container-4{
+    border: 0.2vw solid #6E0089;
+    background-color: #f0bdfd;
+}
+
+.icon-container-5{
+    border: 0.2vw solid #FF851A;
+    background-color: #FFAD5C;
+}
+
+.counter-label{
+    font-size: 0.6vw;
+    font-weight: bold;
+    color: gray;
+    margin-bottom: 0;
+    margin-top: 1.5vh;
+}
+
+.counter-data{
+    font-size: 1.5vw;
+    font-weight: bold;
+    color: black;
+    margin-top: 0.5vh;
+    margin-bottom: 0.3vh;
+}
+
+/* .doctor-count-icon{
+    filter: invert(56%) sepia(93%) saturate(888%) hue-rotate(179deg) brightness(100%) contrast(102%);
+} */
+
+/* .icon-container-1 img{
+    filter: invert(56%) sepia(93%) saturate(888%) hue-rotate(179deg) brightness(100%) contrast(102%); 
+} */
+
+/* .count-container-1,
 .count-container-2,
 .count-container-3{
     width: 5vw;
@@ -55,7 +135,7 @@ body {
     width: 100%;
     text-align: center;
     justify-items: center;
-}
+} */
 
 .upload-header-container{
     display: flex;
