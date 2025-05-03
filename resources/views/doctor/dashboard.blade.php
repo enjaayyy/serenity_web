@@ -51,6 +51,10 @@
                         <p class="left-body-link"><a href="{{ route('viewAppointments')}}">See All</a></p>
                     </div>
                     <div class = "dash-appointments-container">
+                        <script>
+                            let x = @json($appointmentList);
+                            console.log(x);
+                        </script>
                         @if(isset($appointmentList) && is_array($appointmentList))
                             @foreach($appointmentList as $apts)
                                 <div class="appointment-wrapper">
@@ -130,9 +134,6 @@
             let anxietycount  = @json($anxietycount);
             let insomniacount  = @json($insomniacount);
             let ptscount  = @json($ptscount);
-
-            let x = @json($appointmentList);
-            console.log(x);
 
             let conditionCounts = [anxietycount, insomniacount, ptscount];  
 

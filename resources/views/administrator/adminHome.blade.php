@@ -17,7 +17,7 @@
                             <img src ="{{ asset('assets/doctor-icon.svg') }}" class="doctor-count-icon">
                         </div>
                         <div class="count-container">
-                            <p class="counter-label">No. of Doctors</p>
+                            <p class="counter-label">Doctors</p>
                             <P class="counter-data">{{ $doctorCount }}</p>
                         </div>
                     </div>    
@@ -28,7 +28,7 @@
                             <img src ="{{ asset('assets/patient-icon.svg') }}" class="patient-count-icon">
                         </div>
                         <div class="count-container">
-                            <p class="counter-label">No. of Patients</p>
+                            <p class="counter-label">Patients</p>
                             <p class="counter-data">{{ $patientCount }}</p>
                         </div>
                     </div> 
@@ -39,7 +39,7 @@
                             <img src ="{{ asset('assets/requests-icon.svg') }}" class="request-count-icon">
                         </div>
                         <div class="count-container">
-                            <p class="counter-label">No. of Requests</p>
+                            <p class="counter-label">Requests</p>
                             <p class="counter-data">{{ $requestsCount }}</p>
                         </div>
                     </div> 
@@ -50,7 +50,7 @@
                             <img src ="{{ asset('assets/report-icon.svg') }}" class="report-count-icon">
                         </div>
                         <div class="count-container">
-                            <p class="counter-label">No. of Reports</p>
+                            <p class="counter-label">Reports</p>
                             <p class="counter-data">{{ $reportsCount }}</p>
                         </div>
                     </div> 
@@ -61,35 +61,49 @@
                             <img src ="{{ asset('assets/archive-icon.svg') }}" class="archive-count-icon">
                         </div>
                         <div class="count-container">
-                            <p class="counter-label">No. of Archived</p>
+                            <p class="counter-label">Archived</p>
                             <p class="counter-data">{{ $archiveCount }}</p>
                         </div>
                     </div> 
                 </div>
             </div>
-            <div class="upload-header-container">
+            <div class="dash-tabs">
+                <div class="dash-tab dash-tabs-home active">
+                    <button onclick="openHomeWindow()" style="background-color: transparent; border: none;">
+                        <p>Home</p>
+                    </button>
+                </div>
+                <div class="dash-tab dash-tabs-videos">
+                    <button onclick="openVideoWindow()" style="background-color: transparent; border: none;">
+                        <p>Videos</p>
+                    </button>
+                </div>
+            </div>
+            <div class="display-videos-container" id="display-videos-container" style="display:none;">
+                <div class="upload-header-container">
                 <p class="upload-header">Materials</p>
                     <div class ="upload-btn-container">
                         <button class = "upld-btn" onclick="openwindow()">Upload<img src="{{ asset('assets/plus.png') }}"></button>
                     </div>
-            </div>
-            <div class="upload-container">
-                <div class = "vid-list">
-                    @if(isset($videos) && is_array($videos))
-                        @foreach($videos as $data)
-                            @if(isset($data['video']))
-                                <div class="vids">
-                                    <div class="vid-details">
-                                        <video class="video-data" controls>
-                                            <source src="{{ $data['video'] }}" type="video/mp4">
-                                        </video>
-                                            <p class="vid-title">{{ $data['title'] }}</p>
-                                            <p class="vid-details">{{ $data['details'] }}</p>
-                                    </div>
-                                </div>           
-                            @endif
-                        @endforeach
-                    @endif
+                </div>
+                <div class="upload-container">
+                    <div class = "vid-list">
+                        @if(isset($videos) && is_array($videos))
+                            @foreach($videos as $data)
+                                @if(isset($data['video']))
+                                    <div class="vids">
+                                        <div class="vid-details">
+                                            <video class="video-data" controls>
+                                                <source src="{{ $data['video'] }}" type="video/mp4">
+                                            </video>
+                                                <p class="vid-title">{{ $data['title'] }}</p>
+                                                <p class="vid-details">{{ $data['details'] }}</p>
+                                        </div>
+                                    </div>           
+                                @endif
+                            @endforeach
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
@@ -124,6 +138,20 @@
                         </div>
                     </div>
     <script>
+
+        document.querySelectorAll('.dash-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.dash-tab').forEach(key => key.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+
+        function openVideoWindow(){
+            document.getElementById('display-videos-container').style.display = 'block';
+        }
+        function openHomeWindow(){
+            document.getElementById('display-videos-container').style.display = 'none';
+        }
         function openwindow(){
             document.getElementById('card').style.display = 'block';
             document.body.style.overflow = 'hidden';

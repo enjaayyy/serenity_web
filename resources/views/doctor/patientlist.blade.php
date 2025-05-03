@@ -38,10 +38,10 @@
                             <td>{{ $patient['name'] }}</td>
                             <td>{{ $patient['email'] }}</td>
                             <td>{{ $patient['phone'] }}</td>
-                            <td>
+                            <td class="table-data-specs">
                                 @if(isset($patient['conditions']) && is_array($patient['conditions']))
                                     @foreach($patient['conditions'] as $condition)
-                                        <p>{{ $condition }}</p>
+                                        <p>{{ $condition }}&nbsp;</p>
                                     @endforeach 
                                 @endif
                             </td>

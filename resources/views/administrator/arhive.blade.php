@@ -15,7 +15,7 @@
                     <input type="text" placeholder="Search User" class="search-input"></input>
                     <img src="{{asset('assets/filter-icon.svg') }}">
                 </div>
-                <p>Number of Users</p>
+                <p>{{ $archiveCount }}</p>
             </div>
             <table class="table">
                    <thead class="table-head">
@@ -37,16 +37,12 @@
                             <tr>
                                 <td>{{ $doctors['name'] }}</td>
                                 <td>{{ $doctors['email'] }}</td>
-                                <td>
-                                    <div class="spec-container">
+                                <td class="table-data-specs">
                                     @if(isset($doctors['specialization']) && is_array($doctors['specialization']))
                                         @foreach($doctors['specialization'] as $spec)
-                                        <div>
-                                            <p>{{$spec}}</p>
-                                        </div>
+                                            <p>{{$spec}}&nbsp;</p>
                                         @endforeach
                                     @endif
-                                </div>
                                 </td>
                                 <td>{{ $doctors['profession'] }}</td>
                                 <td>

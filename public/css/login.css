@@ -94,6 +94,7 @@ body {
 .password-input {
     height: 45px;
     width: 60%;
+    padding-left: 1vw;
     border-radius: 8px;
     border-width: 1px;
     border-color: black;

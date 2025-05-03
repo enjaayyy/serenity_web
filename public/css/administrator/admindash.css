@@ -95,6 +95,29 @@ body {
     margin-bottom: 0.3vh;
 }
 
+.dash-tabs{
+    border-bottom: 0.2vw solid lightgray;
+    color:lightgray;
+    width: 100%;
+    height: auto;
+    display: flex;   
+    gap: 1.5vw; 
+    margin-top: 1vh;
+    font-size: 1vw;
+    font-weight: 500;
+}
+
+.dash-tab{
+    transition: box-shadow 0.3s ease-in, color 0.3s ease;
+}
+
+.dash-tab:hover,
+.dash-tab.active{
+    color: black;
+    box-shadow: inset 0 -0.3vw 0 black;
+}
+
+
 /* .doctor-count-icon{
     filter: invert(56%) sepia(93%) saturate(888%) hue-rotate(179deg) brightness(100%) contrast(102%);
 } */
@@ -150,29 +173,36 @@ body {
 
 .upload-container{
     border-radius: 15px;
-    overflow: hidden;
     border: none;
+    width: 100%;
+    height: auto;
 }
 
 .vid-list{
     display: flex;
-    overflow-x: scroll;
+    flex-wrap: wrap;
     gap: 2vw;
 }
 
-.vid-list::-webkit-scrollbar{
-    height: 1vh;
-
+.vids,
+.video-data,
+.vid-details{
+    width: 24.3vw;
 }
 
 .vids{
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-.vids:hover{
-    transform: scale(1.1);
-    background-color: lightgray;
+.video-data{
+    height: 30vh;
+    border-radius: 15px;
 }
+
+.vid-details{
+    margin-top: 0;
+}
+
 
 .upld-btn{
     margin-top: 3vh;
@@ -202,10 +232,7 @@ body {
 
 
 
-.video-data{
-    max-height: 50vh;
-    width: 30vw;
-}
+
 
 .vid-title{
     font-weight: bold;
@@ -232,8 +259,8 @@ body {
     font-size: 1vw;
 }
 
-.vid-details{
-    margin-top: 0;
+.display-videos-container{
+    animation: slideUp 0.3s ease-in;
 }
 
 .upld-screen{
@@ -257,11 +284,24 @@ body {
     animation: slideDown 0.3s ease;
     margin: auto;
     margin-top: 7vh;
+    padding: 1vw 1vw; 
 }
 
 @keyframes slideDown {
     from{
-        transform: translateY(-30%);
+        transform: translateY(-10%);
+        opacity: 0;
+    }
+    to{
+        transform: translateY(0);
+        opacity: 1;
+
+    }
+}
+
+@keyframes slideUp {
+    from{
+        transform: translateY(30%);
         opacity: 0;
     }
     to{

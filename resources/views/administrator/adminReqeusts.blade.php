@@ -16,7 +16,7 @@
                         <input type="text" placeholder="Search Doctor" class="search-input"></input>
                         <img src="{{asset('assets/filter-icon.svg') }}">
                     </div>
-                    <p>Number of Doctors</p>
+                    <p>{{ $requestCount }}</p>
                 </div>
                <table class="table">
                     <thead class="table-head">
@@ -39,10 +39,10 @@
                                 <td>{{ $doctor['name'] }}</td>
                                 <td>{{ $doctor['email'] }}</td>
                                 <td>{{ $doctor['profession'] }}</td>
-                                <td>
+                                <td class="table-data-specs">
                                     @if(isset($doctor['specialization']) && is_array($doctor['specialization']))
                                         @foreach($doctor['specialization'] as $spec)
-                                            <p>{{$spec}}</p>
+                                            <p>{{ $spec }}&nbsp;</p>
                                         @endforeach
                                     @endif
                                 </td>

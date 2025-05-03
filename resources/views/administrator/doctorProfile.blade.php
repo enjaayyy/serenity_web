@@ -66,7 +66,13 @@
                     <div class="description-container">
                         <p class="description-header">Description<p>
                             <div class="description-details-container">
-                                <p>{{ $details['description']}}</p>
+                                @if(isset($details['description']))
+                                    <p>{{ $details['description']}}</p>
+                                @else
+                                    <div class="empty-container">
+                                        <p class="no-data">No Data!</p>
+                                    </div>
+                                @endif
                             </div>
                     </div>
                     <div class="credential-container">
@@ -118,44 +124,31 @@
                             <p class="patient-header">Patients</p>
                             <p class="patient-count">{{ $patientCount }}</p>
                         </div>
-                        <div class="search-container">
-                            <div class="input-container">
-                                <img src="{{asset('assets/search-icon.svg') }}">
-                                <input type="text" placeholder="Search Patient" class="search-input"></input>
-                                <img src="{{asset('assets/filter-icon.svg') }}">
-                            </div>
-                        </div>
-                        <script src="{{ asset('js/utilities/search.js') }}"></script>
                         <div class="patient-list">
                             @if(!empty($patient) && is_array($patient))
                                 @foreach($patient as $index)
                                     <div class="patient-list-wrapper">
-                                        <p class="patient-name">{{ $index['name'] }}</p>
+                                        @if(isset($index['img']))
+                                            <img src="{{ $index['img'] }}" class="patient-profile-img">
+                                        @else
+                                            <img src="{{ asset('assets/avatar.png') }}" class="patient-profile-img">
+                                        @endif
+                                        <div class="patient-details-wrapper">
+                                            <p class="patient-name">{{ $index['name'] }}</p>
+                                                <div class="patient-condition-wrapper">
+                                                    @foreach($index['conditions'] as $cond)
+                                                        <p class="patient-condition">{{ $cond }}&nbsp;</p>
+                                                    @endforeach
+                                                </div>
+                                        </div>
                                     </div>
                                 @endforeach
                             @else
-                                <p>No Data!</p>
+                                <div class="empty-container">
+                                    <p class="no-data">No Data!</p>
+                                </div>
                             @endif
                         </div>
-                    </div>
-                    <div class="upcoming-appts-container">
-                        <div class="upt-header-container">
-                            <p class="upt-header">Appointments</p>
-                            <p class="upt-count">{{$appointmentCount}}</p>
-                        </div>
-                        <div class="main-appointments-container">
-                            @if(!empty($appointmentList) && is_array($appointmentList))
-                                @foreach($appointmentList as $apts)
-                                    <div class="appointment-list-wrapper">
-                                       <p class="apt-name"> {{ $apts['aptSched'] }} </p>
-                                    </div>
-                                @endforeach
-                            @endif
-                        </div>
-                        <script>
-                            let x = @json($appointmentList);
-                            console.log(x);
-                        </script>
                     </div>
                 </div>
                 <div class="deactivate-btn-container">

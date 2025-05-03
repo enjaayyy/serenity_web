@@ -10,6 +10,10 @@ use Kreait\Firebase\Contract\Storage;
 
 class AdminController extends Controller
 {
+    protected $database;
+    protected $storage;
+    protected $bucket;
+    
     public function __construct(Database $database, Storage $storage)
     {
         $this->database = $database;
@@ -26,6 +30,7 @@ class AdminController extends Controller
 
         $details = [];
 
+        $requestCount = is_array($data) ? count($data) : 0;
         if ($data) {
             foreach ($data as $id => $doctor) {
                 $details[] = [
@@ -39,7 +44,10 @@ class AdminController extends Controller
           
             }
         }
-        return view('administrator.adminReqeusts', ['details' => $details]);    
+        return view('administrator.adminReqeusts', [
+            'details' => $details,
+            'requestCount' => $requestCount,
+        ]);    
         }
         else {
             return redirect()->route('login');
@@ -82,6 +90,7 @@ class AdminController extends Controller
         $data = $snapshot->getValue();
 
         $details = []; 
+        $doctorCount = is_array($data) ? count($data) : 0;
 
         if($data){
             foreach($data as $id => $doctor) {
@@ -95,7 +104,10 @@ class AdminController extends Controller
             }
            
         }
-         return view('administrator.doctors', ['details' => $details]);
+         return view('administrator.doctors', [
+            'details' => $details,
+            'doctorCount' => $doctorCount, 
+        ]);
         }
         else {
             return redirect()->route('login');
@@ -131,7 +143,9 @@ class AdminController extends Controller
                     'id' => $id,
                     'userID' => $userID,
                     'name' => $userData['full_name'],
-                ];
+                    'img' => isset($userData['profile_image']) ? $userData['profile_image'] : null,
+                    'conditions' => $userData['conditions'],
+                    ];
                 }
             }
         }
@@ -151,7 +165,7 @@ class AdminController extends Controller
                 'credentials' => $data['credentials'],
                 'questionnaires' => $questiondata ? $questiondata : [],
                 'profile' => isset($data['profilePic']) ? $data['profilePic'] : null,
-                'description' => isset($data['description']) ? $data['description'] : "No Data",
+                'description' => isset($data['descrip']) ? $data['descrip'] : null,
             ];
         }
 
@@ -204,6 +218,8 @@ class AdminController extends Controller
         $snapshot = $view->getSnapshot();
         $data = $snapshot->getValue();
 
+        $archiveCount = is_array($data) ? count($data) : 0;
+
         $details = [];
         
             if($data){
@@ -218,7 +234,10 @@ class AdminController extends Controller
             }
         
         }
-        return view("administrator.arhive", ['details' => $details]);
+        return view("administrator.arhive", [
+            'details' => $details,
+            'archiveCount' => $archiveCount,    
+        ]);
         }
         else{
             return redirect()->route('login');
@@ -281,7 +300,7 @@ class AdminController extends Controller
             $data = $this->database->getReference('administrator/videos/')->getSnapshot()->getValue();
             $doctorRef = $this->database->getReference('administrator/doctors/')->getSnapshot()->getValue();
             $patientRef = $this->database->getReference('administrator/users/')->getSnapshot()->getValue();
-            $reportsRef = $this->database->getReference('reports/')->getSnapshot()->getValue();
+            $reportsRef = $this->database->getReference('administrator/reports/')->getSnapshot()->getValue();
             $requestsRef = $this->database->getReference('administrator/doctorRequests/')->getSnapshot()->getValue();
             $archiveRef = $this->database->getReference('administrator/archives/')->getSnapshot()->getValue();
 
@@ -324,6 +343,8 @@ class AdminController extends Controller
             
             $details = [];
 
+            $patientCount = is_array($data) ? count($data) : 0;
+
             if($data){
                 foreach($data as $id => $user){
                     $details[] = [
@@ -335,7 +356,10 @@ class AdminController extends Controller
                     ];
                 }
             }
-            return view('administrator.adminPatients',  ['details' =>  $details]);
+            return view('administrator.adminPatients',  [
+                'details' =>  $details,
+                'patientCount' => $patientCount,
+            ]);
         }
         else{
             return redirect()->route('login');
@@ -345,10 +369,11 @@ class AdminController extends Controller
     public function viewReports(){
         if(Session::get('user') == 'admin'){
             $getReports = $this->database->getReference('administrator/reports')->getSnapshot()->getValue();
+            
+            $reportCount = is_array($getReports) ? count($getReports) : 0;
 
             $reports = [];
             if($getReports){
-                $reportCount = count($getReports);
                 foreach($getReports as $refID => $details){
                     $reportedID = $details['reportedId'];
                     $reporterID = $details['reporterId'];
@@ -357,22 +382,18 @@ class AdminController extends Controller
                     $reportedName;
                     
                     $findDoctor = $this->database->getReference('administrator/doctors/' . $reporterID)->getSnapshot()->getValue();
+
                     if($findDoctor){
-                        $findPatient = $this->database->getReference('administrator/users/' . $reportedID)->getSnapshot()->getValue();
+                        $findReportedPatient = $this->database->getReference('administrator/users/' . $reportedID)->getSnapshot()->getValue();
                         $reporterName = $findDoctor['name'];
-                        $reportedName = $findPatient['full_name'];
-                    }
-                    else{
+                        $reportedName = $findReportedPatient['full_name'];
+                    }else{
                         $findPatient = $this->database->getReference('administrator/users/' . $reporterID)->getSnapshot()->getValue();
-                        $reporterName = $findPatient['full_name '];
-                        $reportedName = $findPatient['name'];
+                        $findReportedDoctor = $this->database->getReference('administrator/doctors/' . $reportedID)->getSnapshot()->getValue();
+                        $reporterName = $findPatient['full_name'];
+                        $reportedName = $findReportedDoctor['name'];   
                     }
 
-                    // if($findDoctor){
-                    //     foreach($findDoctor as $docID => $doctorDetails){
-                    //         if()
-                    //     }
-                    // }
 
                     $formattedTime = date("F j, Y g:i A", strtotime($details['timestamp']));
                     $reports[] = [

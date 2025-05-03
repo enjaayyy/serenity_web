@@ -11,6 +11,10 @@ use App\Http\Controllers\DateTime;
 
 class DoctorController extends Controller
 {
+    protected $database;
+    protected $storage;
+    protected $bucket;
+
     public function __construct(Database $database, Storage $storage){
 
         $this->database = $database;
@@ -110,6 +114,35 @@ class DoctorController extends Controller
        
     }
 
+
+    private function getDoctorData($id){
+        $getDoc = $this->database->getReference('administrator/doctors/' . $id)->getSnapshot()->getValue();
+
+        if($getDoc){
+            $doctorData = [
+                    'docID' => $id,
+                    'name' => $getDoc['name'],
+                    'email' => $getDoc['email'],
+                    'prof' => $getDoc['profession'],
+                    'spec' => $getDoc['specialization'],
+                    'age' => $getDoc['age'],
+                    'yrs' => $getDoc['years'],
+                    'license' => $getDoc['license'],
+                    'gender' => $getDoc['gender'],
+                    'address' => $getDoc['address'],
+                    'pic' => isset($getDoc['profilePic']) ? $getDoc['profilePic'] : null,
+                    'descrip' => isset($getDoc['descrip']) ? $getDoc['descrip'] : null,
+                    'graduated' => isset($getDoc['graduated']) ? $getDoc['graduated'] : null,
+                    'questions' => isset($getDoc['activeQuestionnaires']) ? $getDoc['activeQuestionnaires'] : null,
+                    'creds' => $getDoc['credentials'],
+                    'appointments' => isset($getDoc['scheduled_appointments']) ? $getDoc['scheduled_appointments'] : null,
+                    'templates' => isset($getDoc['savedQuestionnaires']) ? $getDoc['savedQuestionnaires'] : null,
+            ];
+        }
+        return $doctorData;
+    }
+
+
     public function docDashboard(){
         if(Session::get('user') == 'doctor'){
             $id = Session::get('id');
@@ -119,15 +152,7 @@ class DoctorController extends Controller
                 $patientRef = $this->database->getReference('administrator/doctors/' . $id . '/mypatients/')->getSnapshot()->getValue();
                 $patientCount = is_array($patientRef) ? count($patientRef) : 0;
 
-                    $doctorData = [
-                        'docID' => $id,
-                        'name' => $data['name'],
-                        'prof' => $data['profession'],
-                        'pic' => isset($data['profilePic']) ? $data['profilePic'] : null,
-                        'specs' => $data['specialization'],
-                    ];
-                    
-
+                    $doctorData = $this->getDoctorData($id);
                     list($requestList,  $requestCount) = $this->getRequest($id);
                     list($appointmentData, $appointmentCount) = $this->getUpcommingAppointments($id);
                     list($anxietyCount, $insomniaCount, $ptsCount) = $this->getConditionCount($id);
@@ -154,30 +179,11 @@ class DoctorController extends Controller
     public function doctorProfile(){
         if(Session::get('user') == 'doctor'){
             $id = Session::get('id');
-            $view = $this->database->getReference('administrator/doctors/' . $id);
-            $snapshot = $view->getSnapshot();
-            $data = $snapshot->getValue();
+            $data = $this->database->getReference('administrator/doctors/' . $id)->getSnapshot()->getValue();
 
             if($data){
-                $doctorData = [
-                    'docID' => $id,
-                    'name' => $data['name'],
-                    'email' => $data['email'],
-                    'prof' => $data['profession'],
-                    'spec' => $data['specialization'],
-                    'age' => $data['age'],
-                    'yrs' => $data['years'],
-                    'license' => $data['license'],
-                    'gender' => $data['gender'],
-                    'address' => $data['address'],
-                    'pic' => isset($data['profilePic']) ? $data['profilePic'] : null,
-                    'descrip' => isset($data['descrip']) ? $data['descrip'] : null,
-                    'graduated' => isset($data['graduated']) ? $data['graduated'] : null,
-                    'questions' => isset($data['activeQuestionnaires']) ? $data['activeQuestionnaires'] : null,
-                    'creds' => $data['credentials'],
-                    'appointments' => isset($data['scheduled_appointments']) ? $data['scheduled_appointments'] : null,
-                    'templates' => isset($data['savedQuestionnaires']) ? $data['savedQuestionnaires'] : null,
-                ];
+
+                $doctorData = $this->getDoctorData($id);
 
                 list($appointmentData, $appointmentCount) = $this->getUpcommingAppointments($id);
 
@@ -385,12 +391,7 @@ class DoctorController extends Controller
             $docData = $this->database->getReference('administrator/doctors/'. $id)->getSnapshot()->getValue();
             
             if($docData){
-                $doctorData = [
-                    'docID' => $id,
-                    'name' => $docData['name'],
-                    'prof' => $docData['profession'],
-                    'pic' => isset($docData['profilePic']) ? $docData['profilePic'] : null,
-                ];
+                $doctorData = $this->getDoctorData($id);
             }
 
             $appointmentData = $this->database->getReference('administrator/doctors/'. $id . '/Appointments/')->getSnapshot()->getValue();
@@ -468,12 +469,7 @@ class DoctorController extends Controller
             $docData = $this->database->getReference('administrator/doctors/'. $id)->getSnapshot()->getValue();
 
             if($docData){
-                $doctorData = [
-                    'docID' => $id,
-                    'name' => $docData['name'],
-                    'prof' => $docData['profession'],
-                    'pic' => isset($docData['profilePic']) ? $docData['profilePic'] : null,
-                ];
+                $doctorData = $this->getDoctorData($id);
             }
             $patientRef = $this->database->getReference('administrator/doctors/' . $id . '/mypatients/')->getSnapshot()->getValue();
 

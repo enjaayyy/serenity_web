@@ -30,17 +30,42 @@ body {
     border-radius: 15px;
 }
 
-.patient-header-container,
-.upt-header-container{
+.patient-header-container{
     display: flex;
+    align-items: center;
+    padding-top: 1vh;
+    padding-left: 1vw;
+    padding-right: 2vw;
     justify-content: space-between;
-    padding-right: 5%;
 }
 
-.patient-count,
-.upt-count{
+.patient-name,
+.patient-condition{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.patient-name{
+    font-size: 1.2vw;
+    color: black;
+    font-weight: bold;
+}
+
+.patient-condition{
+    font-size: 0.6vw;
+    color: gray;
+}
+
+.patient-condition-wrapper{
+    display: flex;
+}
+
+.patient-count{
     color: #ADADAD;
-    font-size: 0.5vw;
+    font-size: 1vw;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: bold;
 }
 
 .doctor-lists{
@@ -48,25 +73,27 @@ body {
     width: 34%;
 }
 
-.patient-list-container, 
-.upcoming-appts-container{
+.patient-list-container{
     background-color: white;
     border-radius: 15px;
     padding-top: 20px;
     padding-bottom: 20px;
-    height: auto;
+    height: 80vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
-.upcoming-appts-container {
-    margin-top: 5%;
+.patient-list-container::-webkit-scrollbar{
+    display: none;
 }
 
-.upt-header{
-    color:#004624;
-    font-size: 1vw;
-    padding-left: 5%;
-    margin-top: 0px;
-
+.empty-container{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    color: gray;
+    height: 20vh;
 }
 
 .patient-list,
@@ -76,18 +103,27 @@ body {
 
 .patient-list-wrapper{
     margin-top: 1vh;
-    padding-left: 1.5vw;
+    padding-left: 2vw;
     border: none;
     height: 10vh;
     background-color: white;
     width: 100%;
+    align-items: center;
     text-align: left;
-    transition: background-color 0.3s ease;
+    display: flex;
+    gap: 2vw;
+}
+
+
+
+.patient-profile-img{
+    height: 3vw;
+    width: 3vw;
+    border-radius: 50%;
 }
 
 .patient-list-btn:hover{
     background-color: #F7F7F7;
-
 }
 
 .profile-data-header{
@@ -179,7 +215,8 @@ body {
 .patient-header,
 .description-header{
     color:#004624;
-    font-size: 1.5vw;
+    font-size: 2vw;
+    font-weight: bold;
     padding-left: 5%;
 }
 
@@ -190,6 +227,7 @@ body {
 
 .patient-header{
     margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .picture-container{

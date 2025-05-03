@@ -241,7 +241,7 @@
 
             const viewQuestContent = document.getElementById('view-qst-content');
             const viewQuestCategory = document.getElementById('view-qst-categories');
-            
+
             viewQuestContent.innerHTML = "";
             
             const header = document.createElement("div");
@@ -275,6 +275,8 @@
                     header.appendChild(chooseTemplate);
 
                     viewQuestContent.appendChild(header);
+                    
+                    loadQuestionnaireOverview(templateContent[chooseTemplate.value], viewQuestContent, viewQuestCategory);
 
 
                     chooseTemplate.addEventListener("change", function(){
@@ -282,7 +284,6 @@
                         loadQuestionnaireOverview(templateContent[chooseTemplate.value], viewQuestContent, viewQuestCategory);
                         });
 
-                    
                     
             });
         }

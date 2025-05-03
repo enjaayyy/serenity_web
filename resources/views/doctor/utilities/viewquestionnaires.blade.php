@@ -26,7 +26,6 @@
     }
 
     function loadQuestionnaireOverview(title, questionContents, questionSubCategories){
-        console.log(title);
                 Object.keys(title).forEach(subCat => {
                     const categories = document.createElement("p");
                     categories.textContent = subCat;

@@ -196,18 +196,23 @@
                                         onValue(callStatusRef, (snapshot) => {
                                             let newStatus = snapshot.val();
                                             let statusElement = document.getElementById('call-status');
-
+                                            console.log(newStatus);
                                             if(newStatus){
                                                 statusElement.innerText = " ";
                                                 statusElement.textContent = newStatus;
                                                 if(newStatus == "Connected"){
                                                     stopRingtone();
                                                 }
+                                                else if(newStatus == "Declined"){
+                                                    stopRingtone();
+
+                                                    setTimeout(endCall, 3000);
+                                                }
                                             }
                                             else{
                                                 statusElement.innerText = " ";
                                                 statusElement.textContent = "Call Ended";
-
+                                                setTimeout(endCall, 3000);
                                             }
                                            
                                         })

@@ -59,17 +59,17 @@ body{
     font-size: 1vw;
 }
 
-
 tbody tr{
     border-collapse: collapse;
     background-color: white;
+    font-size: 1vw;
+    margin-top: 2vh;    
     transition: background-color 0.3s ease;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-tbody tr:hover{
-    background-color: #20C073;
-    color: white;
+tbody tr:hover:not(.no-users-row){
+    background-color: lightgray;
 }
 
 .view-btn{
@@ -82,13 +82,19 @@ tbody tr:hover{
     border: none;
 }
 
-tbody tr:hover .btn{
-    filter: brightness(0%) invert(100%);
-
+.table-data-specs{
+    display: flex;
 }
 
 .btn img{
     height: 1.5vw;
     width: 1.5vw;
+    transition: transform 0.3s ease;
     filter: invert(61%) sepia(75%) saturate(3808%) hue-rotate(323deg) brightness(98%) contrast(120%);
 }
+
+.btn:hover img{
+    transform: scale(1.3);
+}
+
+
