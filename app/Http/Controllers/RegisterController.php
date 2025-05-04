@@ -61,9 +61,8 @@ class RegisterController extends Controller
                     $url = $uploadedFile->signedUrl($expiresAt);
 
                     $links[] = $url;
-
+            }
                 
-
                     $doctorData2 = [
                         'profession' => $request->profession,
                         'yearsOfService' => $request->service,
@@ -73,13 +72,13 @@ class RegisterController extends Controller
                         'workAddress' => $request->address,
                         'specialization' => $request->input('spec', []),
                         'credentials' => $links,
-                            ];
+                    ];
                             
-                             $success = $this->database->getReference($this->tablename . '/' . $key)->update($doctorData2);                 
-            }
-                if($success){
-            return redirect('login');
-        }
+                    $success = $this->database->getReference($this->tablename . '/' . $key)->update($doctorData2);          
+                             
+                    if($success){
+                        return redirect('login');
+                    }       
         }
         else{
             return response('upload failed!!');

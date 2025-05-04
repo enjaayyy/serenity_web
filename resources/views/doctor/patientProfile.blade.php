@@ -160,7 +160,10 @@
                                         <p class="notes-history-header">Notes History</p>
                                     </div>
                                     <div class="notes-history-container" id="notes-history-container">
-
+                                        {{-- <script>
+                                            let n = @json($patientDetails['notes']);
+                                            console.log(n);
+                                        </script> --}}
                                     </div>
                                 </div>
                             </div>
