@@ -17,6 +17,11 @@ class RegisterController extends Controller
         $this->bucket = $this->storage->getBucket();
     }
 
+    private function availableProfs(){
+        $professions = ["Psychologists", "Psychoanalyst", "Psychometrician", "Councilor", "Therapist"];
+        return $professions;
+    }
+
     public function register(Request $request){
         $firstname = $request->input('firstname');
         $lastname = $request->input('lastname');
@@ -37,6 +42,14 @@ class RegisterController extends Controller
         else{
             return redirect('home');
         }
+    }
+    
+
+    public function registerDetailsView(){
+        $professions = $this->availableProfs();
+        return view('register-details', [
+            'professions' => $professions
+        ]);
     }
 
     public function registerDetails(Request $request){
@@ -83,7 +96,5 @@ class RegisterController extends Controller
         else{
             return response('upload failed!!');
         }
-        
     }
-
 }

@@ -33,7 +33,7 @@ Route::post('/archive/{id}/activate', [AdminController::class, 'activate'])->nam
 Route::get('/register', function () {return view('register');})->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
-Route::get('/register-details', function() {return view('register-details');})->name('register-details');
+Route::get('/register-details', [RegisterController::class, 'registerDetailsView'])->name('register-details');
 Route::post('/register-details', [RegisterController::class, 'registerDetails'])->name('register-details');
 
 Route::get('/patientlist', [AdminController::class, 'viewPatients'])->name('patients'); 

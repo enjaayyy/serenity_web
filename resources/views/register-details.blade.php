@@ -15,7 +15,12 @@
                 @csrf
                 <div class = "body-left">
                     <p class="prof-header">Profession</p>
-                    <input type="text" name="profession" class="prof-input" required>
+                    <select class="prof-input" name="profession">
+                        <option>Choose a profession</option>
+                        @foreach($professions as $prof)
+                            <option>{{ $prof }}</option>
+                        @endforeach
+                    </select>
                         <div class="header-group">
                             <p class="prof-ys-header">Years of Service</p>
                             <p class="gender-header">Gender</p>
@@ -49,14 +54,58 @@
                             <label for="Post Traumatic Stress">Post Traumatic Stress</label>
                         </div>
                     </div>
-                    <p class="file-attach-header">Attach a file for verification. this includes: selfie with Government ID, Degree, Medical License</p>
-                    <input type="file" class="upload-btn" id="upload-btn" name="verifile[]" multiple required>
-                    <label for="upload-btn" class="upload-btn-label">Upload</label>
+                    <button type="button" id="open-upload-modal" onclick="openUploadModal()">Upload file</button>
+                    
                 </div>
                     <button type="submit" class="signup-btn">Sign up</button>
             </form>
         </div>
     </div>
 </div>
+<div id="upload-modal-screen" class="upload-modal-screen" style="display:none;">
+    <div class="upload-card">
+        <div class="upload-card-header-container">
+            <p class="upload-card-header">Upload a File</p>
+        </div>
+        <div class="upload-data-container" id="upload-data-container">
+            
+        </div>
+        <div class="upload-card-button-container">
+            <input class="upload-input" id="upload-input" type="file" style="display: none;" multiple required>
+                <label for="upload-input" class="add-image-button">
+                    <img src="{{ asset('assets/add-icon.svg') }}">
+                </label>
+            <button type="button" class="cancel-button" onclick="closeUploadModal()">
+                <p>Cancel</p>
+            </button>
+            <button type="button" class="save-button">
+                <p>Save Upload</p>
+            </button>
+        </div>
+    </div>
+</div>
 </body>
 </html>
+<script>
+    function openUploadModal(){
+        document.getElementById('upload-modal-screen').style.display = "inline-flex";
+    }
+
+    function closeUploadModal(){
+        document.getElementById('upload-modal-screen').style.display = "none";
+    }
+
+    function fileUpload(){
+        const fileUpload = document.getElementById('upload-btn');
+        const fileContainer = document.getElementById('upload-data-container');
+
+        fileUpload.addEventListener('change', () => {
+            const files = Array.from(fileUpload.files);
+                if(files.length > 0){
+                    const fileNames = files.map(file => file.name).join(', ');
+            }
+        });
+    }
+    fileUpload();
+    
+</script>

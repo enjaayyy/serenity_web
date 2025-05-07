@@ -37,7 +37,7 @@
                             <tr>
                                 <td>{{ $patient['name'] }}</td>
                                 <td>{{ $patient['email'] }}</td>
-                                <td>
+                                <td class="table-data-specs">
                                     @if(isset($patient['conditions']) && is_array($patient['conditions']))
                                         @foreach($patient['conditions'] as $condition)
                                             <p>{{$condition}}</p>

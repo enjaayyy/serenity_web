@@ -162,6 +162,11 @@
     padding: 1vw;
 }
 
+#doctor-description-area{
+    text-align: justify;
+    line-height: 1.5;
+}
+
 p{
     user-select: none;
     outline: none;
