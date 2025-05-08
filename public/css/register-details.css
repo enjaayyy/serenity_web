@@ -255,6 +255,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .cancel-button p,
@@ -278,9 +279,79 @@ body {
     background-color: rgb(32, 192, 115, 0.2);
 }
 
+.cancel-button:hover,
+.save-button:hover{
+    background-color: black;
+    color: white;
+}
+
+.upload-data-container{
+    max-height: 50vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.mainUploadWrapper{
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 7vh;
+    padding-right: 2vw;
+    animation: fadeUptoDown 0.3s ease;
+    transition: box-shadow 0.3s ease-in;
+}
+
+.mainUploadWrapper:hover{
+    box-shadow: inset 0 -0.3vw 0 black;
+}
+
+.previewImage{
+    width: 100%;
+    height: auto;
+}
+
+.previewWrapper{
+    padding: 2vw 1vh;
+}
+
+.imageTextContainer{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 60%;
+}
+
+.previewWrapper{
+    animation: fadeUptoDown 0.3s ease;
+}
+
+.removebutton{
+    color: red;
+    border: none;
+    background-color: transparent;
+    transition: transform 0.3s ease;
+}
+
+.removebutton:hover{
+    transform: scale(1.3);
+}
+
+@keyframes fadeUptoDown{
+    from{
+        opacity: 0;
+        transform: translateY(-20%);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 .upload-btn{
     display: none;
 }
+
 
 .file-attach-header{
     margin-bottom: 5%;

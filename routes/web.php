@@ -22,6 +22,7 @@ Route::post('/admindash', [AdminController::class, 'uploadvid'])->name('upload')
 Route::get('/adminRequests', [AdminController::class, 'viewRequests'])->name('adminRequests');
 Route::get('/adminRequests/{id}', [AdminController::class, 'viewRequestDetails'])->name('adminRequestsDetails');
 Route::post('/adminRequests/{id}/approve', [QuestionnaireController::class, 'approve'])->name('approve');
+Route::post('/adminRequests/{id}/disapprove', [QuestionnaireController::class, 'deleteDoctorRequest'])->name('disapprove');
 
 Route::get('/adminDoctors', [AdminController::class, 'viewDocList'])->name('doctors');
 Route::get('/doctorDetails/{id}', [AdminController::class, 'viewdoctor'])->name('viewdoctor');

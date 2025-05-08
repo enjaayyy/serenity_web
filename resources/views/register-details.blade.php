@@ -58,54 +58,33 @@
                     
                 </div>
                     <button type="submit" class="signup-btn">Sign up</button>
+                    <div id="upload-modal-screen" class="upload-modal-screen" style="display:none;">
+                        <div class="upload-card">
+                            <div class="upload-card-header-container">
+                                <p class="upload-card-header">Upload a File</p>
+                            </div>
+                            <div class="upload-data-container" id="upload-data-container">
+                    
+                            </div>
+                            <div class="upload-card-button-container">
+                                <input class="upload-input" id="upload-input" name="verifile[]" type="file" accept="image/*" style="display: none;" multiple required>
+                                    <label for="upload-input" class="add-image-button">
+                                        <img src="{{ asset('assets/add-icon.svg') }}">
+                                    </label>
+                                <button type="button" class="cancel-button" onclick="closeUploadModal()">
+                                    <p>Cancel</p>
+                                </button>
+                                <button type="button" class="save-button" onclick="saveUpload()">
+                                    <p>Save Upload</p>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
             </form>
         </div>
     </div>
 </div>
-<div id="upload-modal-screen" class="upload-modal-screen" style="display:none;">
-    <div class="upload-card">
-        <div class="upload-card-header-container">
-            <p class="upload-card-header">Upload a File</p>
-        </div>
-        <div class="upload-data-container" id="upload-data-container">
-            
-        </div>
-        <div class="upload-card-button-container">
-            <input class="upload-input" id="upload-input" type="file" style="display: none;" multiple required>
-                <label for="upload-input" class="add-image-button">
-                    <img src="{{ asset('assets/add-icon.svg') }}">
-                </label>
-            <button type="button" class="cancel-button" onclick="closeUploadModal()">
-                <p>Cancel</p>
-            </button>
-            <button type="button" class="save-button">
-                <p>Save Upload</p>
-            </button>
-        </div>
-    </div>
-</div>
+
 </body>
 </html>
-<script>
-    function openUploadModal(){
-        document.getElementById('upload-modal-screen').style.display = "inline-flex";
-    }
-
-    function closeUploadModal(){
-        document.getElementById('upload-modal-screen').style.display = "none";
-    }
-
-    function fileUpload(){
-        const fileUpload = document.getElementById('upload-btn');
-        const fileContainer = document.getElementById('upload-data-container');
-
-        fileUpload.addEventListener('change', () => {
-            const files = Array.from(fileUpload.files);
-                if(files.length > 0){
-                    const fileNames = files.map(file => file.name).join(', ');
-            }
-        });
-    }
-    fileUpload();
-    
-</script>
+<script src="{{ asset('js/register-details.js')}}"></script>

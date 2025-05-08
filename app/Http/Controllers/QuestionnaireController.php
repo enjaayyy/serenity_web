@@ -75,6 +75,12 @@ class QuestionnaireController extends Controller
         }
     }
 
+    public function deleteDoctorRequest($id){
+        $this->database->getReference('administrator/doctorRequests/' . $id)->remove();
+
+        return redirect()->route('adminRequests');
+    }
+
     public function Addquestions(Request $request){
         $id = Session::get('id');
         $specialization = $request->input('specialization');

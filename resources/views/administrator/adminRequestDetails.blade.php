@@ -57,6 +57,10 @@
                     <form class="buttons" action = "{{ route('approve', ['id' => $details['id']]) }}" method="POST">
                         @csrf
                             <button class="approve" type="submit" name="approve">Approve</button>
+                            
+                    </form>
+                    <form class="buttons" action = "{{ route('disapprove', ['id' => $details['id']]) }}" method="POST">
+                        @csrf
                             <button class="delete">Delete</button>
                             <button class="verify" type="button" onclick = "openLink()">Verify</button>
                             <script>
