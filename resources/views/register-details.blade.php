@@ -56,7 +56,8 @@
                     </div>
                     <div class="file-upload-container">
                         <button type="button" id="open-upload-modal" onclick="openUploadModal()" class="upload-files-button">Upload file(s)</button>
-                        {{-- <button type="button"  --}}
+                        <input type="file" accept="image/*">
+                        <button type="button">Generate</button>
                     </div>
                     
                 </div>

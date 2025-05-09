@@ -97,4 +97,9 @@ class RegisterController extends Controller
             return response('upload failed!!');
         }
     }
+
+
+    public function imageToText(Request $request){
+        
+    }   
 }
