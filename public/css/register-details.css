@@ -177,6 +177,12 @@ body {
     display: flex;
 }
 
+.file-upload-container{
+    display: flex;
+    margin-top: 6%;
+    /* background-color: red; */
+}   
+
 .upload-modal-screen{
     position:fixed;
     top: 0;
@@ -255,7 +261,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
 }
 
 .cancel-button p,
@@ -283,10 +289,12 @@ body {
 .save-button:hover{
     background-color: black;
     color: white;
+    border: 1px solid white;
 }
 
 .upload-data-container{
     max-height: 50vh;
+    min-height: 20vh;
     overflow-y: scroll;
     overflow-x: hidden;
 }
@@ -297,6 +305,7 @@ body {
     align-items: center;
     justify-content: space-around;
     width: 100%;
+    margin-bottom: 1vh;
     height: 7vh;
     padding-right: 2vw;
     animation: fadeUptoDown 0.3s ease;
@@ -312,6 +321,25 @@ body {
     height: auto;
 }
 
+.upload-files-button{
+    margin-left: 10%;
+    height: 6vh;
+    width: 11vw;
+    border-radius: 20px;
+    border: none;
+    background-color: lightskyblue;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.upload-files-button:hover{
+    background-color: black;
+    color: white;
+}
+
+.image-icon{
+    width: 1.5vw;
+    height: 1.5vw;
+}
 .previewWrapper{
     padding: 2vw 1vh;
 }

@@ -26,7 +26,7 @@
                             <p class="gender-header">Gender</p>
                             <p class="age-header">Age</p>
                         </div>
-                            <input type="number" class = "yrs-input" name="service" required>
+                            <input type="number" class = "yrs-input" name="service" autocomplete="off" required>
                             <select class = "gender-input" name="gender">
                                 <option> </option>
                                 <option>Male</option>
@@ -54,7 +54,10 @@
                             <label for="Post Traumatic Stress">Post Traumatic Stress</label>
                         </div>
                     </div>
-                    <button type="button" id="open-upload-modal" onclick="openUploadModal()">Upload file</button>
+                    <div class="file-upload-container">
+                        <button type="button" id="open-upload-modal" onclick="openUploadModal()" class="upload-files-button">Upload file(s)</button>
+                        {{-- <button type="button"  --}}
+                    </div>
                     
                 </div>
                     <button type="submit" class="signup-btn">Sign up</button>

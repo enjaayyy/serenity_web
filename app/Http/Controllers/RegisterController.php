@@ -18,7 +18,7 @@ class RegisterController extends Controller
     }
 
     private function availableProfs(){
-        $professions = ["Psychologists", "Psychoanalyst", "Psychometrician", "Councilor", "Therapist"];
+        $professions = ["Psychologists", "Psychoanalyst", "Psychometrician", "Councilor", "Therapist", "Psychiatric Nurse", "Counselors", "Social Workers"];
         return $professions;
     }
 
