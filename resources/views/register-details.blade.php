@@ -11,6 +11,16 @@
     <div class="details-body">
         <div class="form-body">
             <p class="form-header">Finish setting up your account</p>
+            <div class="ocr-button-container">
+                <input id="ocr-image-input" type="file" accept="image/*" style="display:none;">
+                <label for="ocr-image-input" title="Populate input fields by uploading an image">
+                    <img src="{{ asset('assets/upload-icon.svg')}}">
+                    <p>Upload Image</p>
+                </label>
+                <button>
+                    Generate
+                </button>
+            </div>
             <form action="{{ url('register-details') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class = "body-left">
@@ -56,10 +66,8 @@
                     </div>
                     <div class="file-upload-container">
                         <button type="button" id="open-upload-modal" onclick="openUploadModal()" class="upload-files-button">Upload file(s)</button>
-                        <input type="file" accept="image/*">
-                        <button type="button">Generate</button>
+                        <p>Upload your Government ID, License, Selfie, and all other credentials.</p> 
                     </div>
-                    
                 </div>
                     <button type="submit" class="signup-btn">Sign up</button>
                     <div id="upload-modal-screen" class="upload-modal-screen" style="display:none;">
