@@ -1,78 +1,66 @@
+<div style="display:flex; justify-content: space-between; align-items:center">
+    <p class="cred-header">Credentials</p>
+    <button class="credinputlabel" onclick="opencredentialModal()">
+        <img src="{{ asset('/assets/add-icon.svg') }}">
+    </button>
+</div>
 <div class="cred-container" id="cred-container">
-    <div class="credential-header-container">
-        <p class="credential-header">Credentials<p>
-    </div>
-        <div class="picture-container">
-                <div class="image-display">
-                    <img class="cred-image" id="current-image" src="">
-                </div>
+    @foreach($doctorData['creds'] as $index => $creds)
+        <div class="filetitle-wrapper clickable" id="filetitle-wrapper" data-index="{{ $index }}" data-src="{{ $creds['url']}}">
+            <img src={{ asset('/assets/image.svg') }}>
+            <p class="file-name">{{ $creds['filename']}}</p>
         </div>
-        <div class="cred-btns">
-                    <button class="prev" onclick="prevImage()"><img src="{{ asset('assets/arrow-left.svg') }}"></button>
-                    <button class="add" onclick="uploadcred()"><img src="{{ asset('assets/plus-icon.svg') }}"></button>
-                    <button class="next" onclick="nextImage()"><img src="{{ asset('assets/arrow-right.svg') }}"></button>
+    @endforeach
+        <div class="image-preview-screen" id="image-preview-screen" style="display: none;">
+            <form method="POST" action="{{ route('addcredentials')}}" enctype="multipart/form-data">
+                @csrf
+                <div class="image-preview-modal">
+                    <input type="file" name="imagefile" class="imagefile" id="imagefile"accept="image/*">
+                    {{-- <div class="upload-preview" id="upload-preview">
+                    </div> --}}
+                    <button type="submit">Submit</button>
                 </div>
-        <script>
-            const images = @json($doctorData['creds']);
-            let currentIndex = 0;
+            </form>
+        </div>
+</div>
 
-            function displayImage(index){
-                const imageElement = document.getElementById('current-image');
-                    if(images.length > 0){
-                        imageElement.src = images[index];
-                    } else {
-                        imageElement.alt = "No Credentials Available";
-                    }
-            }
-            document.addEventListener('DOMContentLoaded', () => {
-            displayImage(currentIndex);
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const wrappers = document.querySelectorAll('.filetitle-wrapper');
+            wrappers.forEach(wrapper => {
+                wrapper.addEventListener('click', () => {
+                    const index = wrapper.getAttribute('data-index');
+                    const imgURL = wrapper.getAttribute('data-src');
+                    const preview = document.querySelector(`.image-preview[data-index="${index}"]`);
+                    const imagecontainer = document.getElementById('credentials-preview-container');
+                    const scrollDiv = document.getElementById('other-data');
+
+
+                    imagecontainer.innerHTML = " ";
+
+                    const img = document.createElement('img');
+                    img.src = imgURL;
+
+                    imagecontainer.appendChild(img);
+                    console.log(imgURL);
+
+                    scrollDiv.scrollTo({
+                        top: scrollDiv.scrollHeight,
+                        behavior: 'smooth'
+                    })
+                    
+                });
             })
 
-            function prevImage() {
-            if (images.length > 0){
-                currentIndex = (currentIndex - 1 + images.length) % images.length;
-                displayImage(currentIndex);
-                }
-            }
+        
 
-                                function nextImage() {
-                                    if (images.length > 0){
-                                        currentIndex = (currentIndex + 1) % images.length;
-                                        displayImage(currentIndex);
-                                    }
-                                }
-                                
-                            </script>
-                    </div>
-                <div class="upload-container" id="upload-cred-screen" style="display: none;">
-                <div class="main-card">
-                    <div class="card-header">
-                        <p>Add Credentials</p>
-                    </div>
-                    <form method="POST" action="{{ route('addcredentials') }}" enctype="multipart/form-data">
-                            @csrf
-                    <div class="upld-btn">
-                        <label for="credential" class="get-pic">
-                            <p id="cred-name">Upload Credential</p>
-                        </label>
-                        <input id="credential" type="file" name="credential" accept="image/*" style="display: none;"> 
-                        <script>
-                            document.getElementById('credential').addEventListener('change', function(event) {
-                                let credname = event.target.files[0] ? event.target.files[0].name : "Upload Image";
-                                document.getElementById('cred-name').textContent = credname;
-                            })
-                        </script>
-                    </div>
-                    <div class="save-pic">
-                            <button type="submit" class="submit">
-                                <p>Save</p>
-                            </button>
-                    </div>
-                    </form>
-                    <div class="close-btn">
-                        <button onclick="closeuploadcred()">
-                            <p>Close</p>
-                        </button>
-                    </div>
-                </div>
-            </div>
+    })
+    function opencredentialModal(){
+            document.getElementById('image-preview-screen').style.display = "flex";
+        }
+
+        const getImage = document.getElementById('imagefile').value;
+        console.log(getImage);  
+</script>

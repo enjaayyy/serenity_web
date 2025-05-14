@@ -60,6 +60,51 @@ class PatientController extends Controller
         ]);
     }
 
+    private function getWeeklyMood($id, $docID, $condition){
+        $patientRef = $this->database->getReference('/administrator/users/'. $id . '/all_answers/' . $condition)->getSnapshot()->getValue();
+
+        end($patientRef);
+        $latestEntry = current($patientRef);
+
+        $total = $latestEntry['total_value'];
+
+        $scoresRef = $this->database->getReference('/administrator/doctors/'. $docID . '/savedScoring/' . $condition)->getSnapshot()->getValue();
+        
+        $innerScores = array_key_first($scoresRef);
+        $scoresData = $scoresRef[$innerScores];
+        
+        $mild = $scoresData['mild'];
+        $moderate = $scoresData['moderate'];
+        $severe = $scoresData['severe'];
+        $scoreDirection = $scoresData['score-flow'];
+
+        
+        if($scoreDirection === "highestToLowest"){
+            if($total >= $mild){
+                $mood = "mild";
+            }
+            else if($total < $mild && $total > $severe){
+                $mood = "moderate";
+            }
+            else if($total <= $severe){
+                $mood = "severe";
+            }
+        }
+        else if($scoreDirection === "lowestToHighest"){
+            if($total <= $mild){
+                $mood = "mild";
+            }
+            else if($total > $mild && $total < $severe){
+                $mood = "moderate";
+            }
+            else if($total >= $severe){
+                $mood = "severe";
+        }
+    }
+
+        return $mood;
+    }
+
     public function patientProfile($id){
         if(Session::get('user') == 'doctor'){
             $docID = Session::get('id');
@@ -123,12 +168,17 @@ class PatientController extends Controller
                 ];
             }
         }
+        $total = [];
+        foreach($patientRef['conditions'] as $conds){
+            $total[] = $this->getWeeklyMood($id, $docID, $conds);
+        }
 
             return view('doctor.patientProfile', [
                 'patientDetails' => $patientDetails,
                 'doctorData' => $doctorData,
                 'messages' => $messages,
                 'chatID' => $chatID,
+                'total' => $total,
             ]);
         }
         else{

@@ -47,6 +47,8 @@ class QuestionnaireController extends Controller
                 'address' => $data['workAddress'],
                 'years' => $data['yearsOfService'],
                 'credentials' => $data['credentials'],
+                'issued' => $data['licenseIssued'],
+                'expire' => $data['licenseExpired'],
                 'account-type' => 'doctor',
         ];
 
@@ -56,17 +58,21 @@ class QuestionnaireController extends Controller
 
         $title = 'default';
         $questionnaires = [];
-
+        $scoring = [];
 
        foreach($data['specialization'] as $specData) {
         if(in_array($specData, $data['specialization'])) {
             $questions = $this->questionBySpecialization($specData);
+            $scores = $this->questionScoring($specData);
             if ($questions) {
                     $questionnaires[$specData] = $questions;
+                    $scoring[$specData] = $scores;
                 }
             }   
             $this->database->getReference('administrator/doctors/' . $firebaseUid . '/activeQuestionnaires')->update($questionnaires);
             $this->database->getReference('administrator/doctors/' . $firebaseUid . '/savedQuestionnaires')->update($questionnaires);
+            $this->database->getReference('administrator/doctors/' . $firebaseUid . '/activeScoring')->update($scoring);
+            $this->database->getReference('administrator/doctors/' . $firebaseUid . '/savedScoring')->update($scoring);
         }
             
             
@@ -111,7 +117,35 @@ class QuestionnaireController extends Controller
             
     }
 
-
+    private function questionScoring($specialization){
+        $scoring = [
+            'Anxiety' => [
+                'Hamilton Anxiety Rating Scale (HAM-A)' => [
+                    'mild' => '17',
+                    'moderate' => '24',
+                    'severe' => '30',
+                    'score-flow' => 'lowestToHighest',
+                ]
+            ],
+            'Post Traumatic Stress' => [
+                'Impact of Events Scale (IES-R)' => [
+                    'mild' => '24',
+                    'moderate' => '33',
+                    'severe' => '37',
+                    'score-flow' => 'lowestToHighest',
+                ]
+            ],  
+            'Insomnia' => [
+                'Sleep Condition Indicator (SCI)' => [
+                    'mild' => '32',
+                    'moderate' => '20',
+                    'severe' => '0',
+                    'score-flow' => 'highestToLowest',
+                ]
+            ], 
+        ];
+        return $scoring[$specialization] ?? null;
+    }
 
 
     private function questionBySpecialization($specialization){

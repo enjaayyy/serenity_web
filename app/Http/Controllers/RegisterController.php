@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Kreait\Firebase\Contract\Database;
 use Kreait\Firebase\Contract\Storage;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\DateTime;
 
 class RegisterController extends Controller
 {
@@ -18,7 +19,7 @@ class RegisterController extends Controller
     }
 
     private function availableProfs(){
-        $professions = ["Psychologists", "Psychoanalyst", "Psychometrician", "Councilor", "Therapist", "Psychiatric Nurse", "Counselors", "Social Workers"];
+        $professions = ["Psychologist", "Psychoanalyst", "Psychometrician", "Councilor", "Therapist", "Psychiatric Nurse", "Social Workers"];
         return $professions;
     }
 
@@ -75,13 +76,15 @@ class RegisterController extends Controller
 
                     $links[] = $url;
             }
-                
+
                     $doctorData2 = [
                         'profession' => $request->profession,
                         'yearsOfService' => $request->service,
                         'gender' => $request->gender,
                         'age' => $request->age,
                         'medicalLicencse' => $request->license,
+                        'licenseIssued' => $request->licenseissued,
+                        'licenseExpired' => $request->licenseexpired,
                         'workAddress' => $request->address,
                         'specialization' => $request->input('spec', []),
                         'credentials' => $links,
@@ -101,5 +104,63 @@ class RegisterController extends Controller
 
     public function imageToText(Request $request){
         
+        try{
+            if (!$request->hasFile('ocr-image')) {
+                return response()->json(['error' => 'No file uploaded.'], 400);
+            }
+            $image = $request->file('ocr-image');
+            $path = $image->store('ocr-uploads');
+    
+            $fullPath = storage_path("app/{$path}");
+    
+            $output = shell_exec("tesseract " . escapeshellarg($fullPath) . " stdout");
+    
+            $text = trim($output);
+
+            preg_match('/\b\d{7}\b/', $text, $licenseData);
+            preg_match('/\d{1,5}\s[\w\s,.#-]+(?:Street|St|Avenue|Ave|Road|Rd|Boulevard|Blvd|Drive|Dr|Barangay|Village|City|Province)?/i', $text, $addressData);
+            preg_match('/\b(Psychologist|Psychoanalyst|Psychometrician|Councilor|Therapist|Psychiatric Nurse|Counselors|Social Workers)\b/i', $text, $professionData);
+            preg_match('/\b\d{2}\b/', $text, $ageData);
+            preg_match('/\b(Male|Female)\b/i', $text, $genderData);
+            preg_match_all('/\b(0[1-9]|1[0-2])\/([0-2][0-9]|3[01])\/\d{4}\b/', $text, $dates);
+
+            $today = new \DateTime();
+
+            $dateIssued = null;
+            $dateExpired = null;
+
+            foreach($dates[0] as $dateStr){
+                $date = \DateTime::createFromFormat('m/d/Y', $dateStr);
+
+                if(!$date) continue;
+
+                if($date <= $today){
+                    $dateIssued = $date->format('Y-m-d');
+                }
+                else{
+                    $dateExpired = $date->format('Y-m-d');
+                }
+
+            }
+
+            return response()->json([
+                'licenseNumber' => $licenseData,
+                'address' => $addressData,
+                'rawText' => $text,
+                'profession' => $professionData,
+                'age' => $ageData,
+                'gender' => $genderData,
+                'issued' => $dateIssued,
+                'expired' => $dateExpired,
+
+            ]);
+        }
+        catch(\Exception $e){
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+       
     }   
+
+
+ 
 }

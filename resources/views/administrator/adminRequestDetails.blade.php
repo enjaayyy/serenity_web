@@ -49,17 +49,27 @@
                     <p class="category">Email</p>
                     <p class="ctnt">{{ $details['email']}}</p>
                 </div>
-                <div class="medical-box">
-                    <p class="category">Medical License</p>
-                    <p class="ctnt">{{ $details['license'] }}</p>
+                <div class="medical-data-container">
+                    <div class="medical-box">
+                        <p class="category">Medical License</p>
+                        <p class="ctnt">{{ $details['license'] }}</p>
+                    </div>
+                    <div class="issued-date-box">
+                        <p class="category">Issued Date</p>
+                        <p class="ctnt">{{ $details['issued'] }}</p>
+                    </div>
+                    <div class="expiry-date-box">
+                        <p class="category">Expiry Date</p>
+                        <p class="ctnt">{{ $details['expire'] }}</p>
+                    </div>
                 </div>
+                
                 <div class="btn-container">
-                    <form class="buttons" action = "{{ route('approve', ['id' => $details['id']]) }}" method="POST">
+                    <form class="approve-form" action = "{{ route('approve', ['id' => $details['id']]) }}" method="POST">
                         @csrf
                             <button class="approve" type="submit" name="approve">Approve</button>
-                            
                     </form>
-                    <form class="buttons" action = "{{ route('disapprove', ['id' => $details['id']]) }}" method="POST">
+                    <form class="del-veri-form" action = "{{ route('disapprove', ['id' => $details['id']]) }}" method="POST">
                         @csrf
                             <button class="delete">Delete</button>
                             <button class="verify" type="button" onclick = "openLink()">Verify</button>
@@ -73,52 +83,38 @@
                 </div>
             </div>
             <div class="profile-credentials">
-                <div class="verifiles">
-                    <div class="image-display">
-                        <img id="current-image" src="">
-                    </div>
-                    <div class="image-btns">
-                        <button class="prev" onclick="prevImage()">Previous</button>
-                        <button class="next" onclick="nextImage()">Next</button>
-                    </div>
-                   
+                <div class="credential-header-container">
+                    <p>Credentials</p>
                 </div>
-                <script>
-                    const images = @json($details['credentials'] ?? awdawd);
-                    let currentIndex = 0;
-
-                    console.log(images);
-
-                    function displayImage(index){
-                        const imageElement = document.getElementById('current-image');
-                        if(images.length > 0){
-                            imageElement.src = images[index];
-                        } else {
-                            imageElement.alt = "No Credentials Available";
-                        }
-                    }
-
-                    document.addEventListener('DOMContentLoaded', () => {
-                        displayImage(currentIndex);
-                    })
-
-                    function prevImage() {
-                        if (images.length > 0){
-                            currentIndex = (currentIndex - 1 + images.length) % images.length;
-                            displayImage(currentIndex);
-                        }
-                    }
-
-                    function nextImage() {
-                        if (images.length > 0){
-                            currentIndex = (currentIndex + 1) % images.length;
-                            displayImage(currentIndex);
-                        }
-                    }
-                    
-                </script>
+                <div class="file-container">    
+                    @foreach($details['credentials'] as $index => $creds)
+                        <div class="filetitle-wrapper clickable" id="filetitle-wrapper" data-index="{{ $index }}">
+                            <img src={{ asset('/assets/image.svg') }}>
+                            <p class="file-name">{{ $creds['filename']}}</p>
+                        </div>
+                        <div class="image-preview" data-index="{{ $index }}" id="image-preview" style="display:none;">
+                            <img src="{{ $creds['url'] }}">
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
-    </div>
-       
+    </div>  
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const wrappers = document.querySelectorAll('.filetitle-wrapper');
+                wrappers.forEach(wrapper => {
+                    wrapper.addEventListener('click', () => {
+                        const index = wrapper.getAttribute('data-index');
+                        const preview = document.querySelector(`.image-preview[data-index="${index}"]`);
+                        if(preview.style.display === "none"){
+                            preview.style.display = "flex"
+                        }
+                        else{
+                            preview.style.display = "none";
+                        }
+                    })
+                })
+        })
+    </script>
   @endsection

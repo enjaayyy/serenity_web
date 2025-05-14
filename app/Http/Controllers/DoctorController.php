@@ -115,8 +115,18 @@ class DoctorController extends Controller
     }
 
 
-    private function getDoctorData($id){
+    public function getDoctorData($id){
         $getDoc = $this->database->getReference('administrator/doctors/' . $id)->getSnapshot()->getValue();
+
+        $credentials = [];
+
+        foreach($getDoc['credentials'] as $url){
+            $fileName = basename(explode('?', $url)[0]);
+            $credentials[] = [
+                'url' => $url,
+                'filename' => $fileName,
+            ];
+        }
 
         if($getDoc){
             $doctorData = [
@@ -128,13 +138,15 @@ class DoctorController extends Controller
                     'age' => $getDoc['age'],
                     'yrs' => $getDoc['years'],
                     'license' => $getDoc['license'],
+                    'issued' => $getDoc['issued'],
+                    'expired' => $getDoc['expire'],
                     'gender' => $getDoc['gender'],
                     'address' => $getDoc['address'],
                     'pic' => isset($getDoc['profilePic']) ? $getDoc['profilePic'] : null,
                     'descrip' => isset($getDoc['descrip']) ? $getDoc['descrip'] : null,
                     'graduated' => isset($getDoc['graduated']) ? $getDoc['graduated'] : null,
                     'questions' => isset($getDoc['activeQuestionnaires']) ? $getDoc['activeQuestionnaires'] : null,
-                    'creds' => $getDoc['credentials'],
+                    'creds' => $credentials,
                     'appointments' => isset($getDoc['scheduled_appointments']) ? $getDoc['scheduled_appointments'] : null,
                     'templates' => isset($getDoc['savedQuestionnaires']) ? $getDoc['savedQuestionnaires'] : null,
             ];
@@ -199,6 +211,27 @@ class DoctorController extends Controller
         }   
     }
 
+    public function getQuestionnaires(){
+        if(Session::get('user') == 'doctor'){
+            $id = Session::get('id');
+            $data = $this->database->getReference('administrator/doctors/' . $id)->getSnapshot()->getValue();
+
+            if($data){
+                $QuestionnaireData = [
+                    'questions' => isset($data['activeQuestionnaires']) ? $data['activeQuestionnaires'] : null,
+                    'templates' => isset($data['savedQuestionnaires']) ? $data['savedQuestionnaires'] : null,
+                ];
+            }
+
+            return view('doctor/questionnaires', [
+                'doctorData' => $QuestionnaireData,
+            ]);
+        }
+        else{
+            return redirect()->route('login');
+        }
+    }
+
     public function uploadpp(Request $request){
         if($request->hasFile('pp')){
             $id = Session::get('id');
@@ -230,10 +263,10 @@ class DoctorController extends Controller
     }
 
     public function addcredentials(Request $request){
-        if($request->hasFile('credential')){
+        if($request->hasFile('imagefile')){
             $docID = Session::get('id');
 
-            $files = $request->file('credential');
+            $files = $request->file('imagefile');
             $filename = $files->getClientOriginalName();
             $filepath = $files->getPathname();
             $firebasepath = 'credentials/' . $filename;
@@ -248,9 +281,7 @@ class DoctorController extends Controller
             $url = $uploadFile->signedUrl($expiresAt);
 
             $credentialsRef = $this->database->getReference('administrator/doctors/' . $docID . '/credentials/')->getSnapshot()->getValue();
-
             $credentialsArray = $credentialsRef;
-
             $credentialsArray[] = $url;
 
             $this->database->getReference('administrator/doctors/' . $docID . '/credentials/')->set($credentialsArray);
@@ -271,11 +302,13 @@ class DoctorController extends Controller
                     'gender' => $request->input('gender-input'),
                     'years' => $request->input('years-input'),
                     'license' => $request->input('license-input'),
+                    'issued' => $request->input('issued-input'),
+                    'expire' => $request->input('expiry-input'),
                     'address' => $request->input('address-input'),
                     'descrip' => $request->input('detail-textarea'),
                 ];
 
-            $this->database->getReference('administrator/doctors/' . $docID)->update($newData);
+            $this->database->getReference('administrator/changes/' . $docID)->update($newData);
             return redirect()->route('docProfile');
         }
         

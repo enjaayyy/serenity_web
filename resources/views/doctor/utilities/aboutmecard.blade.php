@@ -1,7 +1,6 @@
 <link rel="stylesheet" href=" {{ asset('css/doctor/utilities/aboutme.css')}}">
-
-<div class="about-me-container" id="about-me-container" style="display:none;">
-    <form action = "{{ route('editDetails') }}"method="POST" id="form-container">
+<div class="about-me-container" id="about-me-container" style="display:block;">
+    <form action = "{{ route('editDetails') }}" method="POST" id="form-container">
         @csrf
         <div class="main-detail-header" id="main-detail-header">
             <p class="doctor-name" id="doctor-name">{{ $doctorData['name'] }}</p>
@@ -35,6 +34,8 @@
                             <p class="labels">Gender:</p>
                             <p class="labels">Years of Service:</p>
                             <p class="labels">Medical License:</p>
+                            <p class="labels">Issued Date:</p>
+                            <p class="labels">Expiry Date:</p>
 
                         </div>
                         <div class="ddata-container" id="ddata-container">
@@ -42,6 +43,8 @@
                             <p class="ddata-content" id="ddata-gender">{{ $doctorData['gender'] }}</p>
                             <p class="ddata-content" id="ddata-years">{{ $doctorData['yrs'] }}</p>
                             <p class="ddata-content" id="ddata-license">{{ $doctorData['license'] }}</p>
+                            <p class="ddata-content" id="ddata-issued">{{ $doctorData['issued'] }}</p>
+                            <p class="ddata-content" id="ddata-expiry">{{ $doctorData['expired'] }}</p>
                         </div>
                     </div>
                 </div>
@@ -67,6 +70,7 @@
                         <textarea class="doctor-description-area" id="doctor-description-area" disabled>No DATA!</textarea> 
                     @endif
             </div>
+            <p class="notes">*Be Advised. Manipulation of data will be reviewed thoroughly by the administrators. Changes will be reflected on your view once accepted*</p>
             {{-- <script>
                 let x = @json($doctorData);
                 console.log(x);

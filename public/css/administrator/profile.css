@@ -28,6 +28,7 @@ body {
     height: auto;
     background-color: white;
     border-radius: 15px;
+    overflow: hidden;
 }
 
 .patient-header-container{
@@ -129,7 +130,7 @@ body {
 .profile-data-header{
     display: flex;  
     justify-content: center;
-    padding-top: 10vh;
+    padding-top: 5vh;
 }
 .profile-pic-container{
     text-align: center;
@@ -160,12 +161,18 @@ body {
     font-weight: light;
     font-size: 1vw;
     color: #20C073;
+    margin-bottom: 0;
+
 }
 
 .spec-container, 
 .age-yrs-gender-box,
 .picture-container{
     display: flex;
+}
+
+.spec-container{
+    margin-top: 1vh;
 }
 
 .spec-container div{
@@ -348,4 +355,111 @@ body {
     border-radius: 50%;
     height: 10vh;
     width: 10vw;
+}
+
+.medical-data-container{
+    display: flex;
+    gap: 5vw;
+}
+
+.file-container{
+    height: 75vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.filetitle-wrapper{
+    display: flex;
+    align-items: center;
+    margin-bottom: 1vh;
+    padding: 1vh 1vw;
+    gap: 2vw;
+    transition: background-color 0.3s ease;
+}
+
+.filetitle-wrapper:hover{
+    background-color: gray;
+}
+
+.filetitle-wrapper img{
+    height: 2vw;
+    width: 2vw;
+}
+
+.image-preview{
+    align-items: center;
+    justify-content: center;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from{
+        opacity: 0;
+        transform: translateY(-20%);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.image-preview img{
+    max-height: 40vh;
+    max-width: 30vw;
+}
+
+.changes-button{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    /* background-color: red; */
+}
+
+.viewChanges,
+.acceptChanges,
+.declineChanges{
+    background-color: transparent;
+    border: none;
+    padding: 2vh 2vw;
+}
+
+.acceptChanges,
+.declineChanges{
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.acceptChanges:hover{
+    background-color: #49B2FF;
+    color: white;
+}
+
+.declineChanges:hover{
+    background-color: rgb(255, 111, 111);
+    color: white;
+}
+
+.viewChanges p{
+    margin-bottom: 0;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.viewChanges:hover p{
+    color:#20C073;
+}
+
+.change-name,
+.change-profession,
+.change-age,
+.change-years,
+.change-gender,
+.change-address,
+.change-license,
+.change-issued,
+.change-expire,
+.change-descrip{
+    margin-top: 0;
+    margin-bottom: 0;
+    color: rgb(255, 128, 128);
+
 }

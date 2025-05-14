@@ -2,6 +2,7 @@
 <html>
 <head>
         <link rel="stylesheet" href="{{ asset('css/register-details.css') }}">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
 <div class="details-container">
@@ -11,16 +12,16 @@
     <div class="details-body">
         <div class="form-body">
             <p class="form-header">Finish setting up your account</p>
-            <div class="ocr-button-container">
-                <input id="ocr-image-input" type="file" accept="image/*" style="display:none;">
-                <label for="ocr-image-input" title="Populate input fields by uploading an image">
-                    <img src="{{ asset('assets/upload-icon.svg')}}">
-                    <p>Upload Image</p>
-                </label>
-                <button>
-                    Generate
-                </button>
-            </div>
+                <div class="ocr-button-container">
+                    <input id="ocr-image-input" name="ocr-image" type="file" accept="image/*" style="display:none;">
+                    <label for="ocr-image-input" title="Populate input fields by uploading an image">
+                        <img src="{{ asset('assets/upload-icon.svg') }}">
+                        <p class="image-text" id="image-text" >Upload Image</p>
+                    </label>
+                    <button class="generate-ocr-button" onclick="generateText()">
+                        Generate
+                    </button>
+                </div>
             <form action="{{ url('register-details') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class = "body-left">
@@ -42,13 +43,22 @@
                                 <option>Male</option>
                                 <option>Female</option>
                             </select>
-                            <input type="number" class = "age-input" name="age" required>
-                            <p class="license-header">Medical License No.</p>
-                            <input type="text" name="license" class="license-input" required>
+                            <input type="number" id="age-input" class = "age-input" name="age" required>
+                            <div style="display:flex; gap: 1.5vw;">
+                                <p class="license-header">Medical License No.</p>
+                                <p class="license-header">Date issued</p>
+                                <p class="license-header">Expiry</p>
+                            </div>
+                            <div style="display:flex; gap: 1.3vw;">   
+                                <input type="text" name="license" class="license-input" id="license-input" required>
+                                <input type="date" name="licenseissued" class="license-issued-input" id="license-issued-input" required>
+                                <input type="date" name="licenseexpired" class="license-expired-input" id="license-expired-input" required>
+                            </div>
+                            
                 </div>
                 <div class = "body-right">
                     <p class="address-header">Work Address/Company</p>
-                    <input type="text" name="address" class="address-input"required>
+                    <input type="text" name="address" id="address-input" class="address-input"required>
                     <p class="spec-header">Specialization</p>
                     <div class="spec-choice-container">
                         <div class="spec-choices">
@@ -100,3 +110,65 @@
 </body>
 </html>
 <script src="{{ asset('js/register-details.js')}}"></script>
+<script>
+    function generateText(){
+        const fileInput = document.getElementById('ocr-image-input');
+        const fileContainer = document.getElementById('upload-data-container');
+        const file = fileInput.files[0];
+
+        const formData = new FormData();
+        formData.append('ocr-image', file);
+
+        fetch("/register-details/generateImageToText", {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.rawText);
+            // console.log(data.expired);
+            if(data.error){
+                alert('Invalid Image');
+            }
+            else{
+                document.getElementById('license-input').value = data.licenseNumber;
+                document.getElementById('address-input').value = data.address;
+                document.getElementById('age-input').value = data.age;
+                document.getElementById('license-issued-input').value = data.issued;
+                document.getElementById('license-expired-input').value = data.expired;
+
+                const selectProfessions = document.querySelector('.prof-input');
+                const matchedProfession = data.profession[0];
+
+                if(matchedProfession){
+                    for(let option of selectProfessions.options) {
+                        if(option.text.toLowerCase() === matchedProfession.toLowerCase()){
+                            option.selected = true;
+                            break;
+                        }
+                    }
+                }
+
+                const selectGender = document.querySelector('.gender-input');
+                const matchedGender = data.gender[0];
+
+                if(matchedGender){
+                    for(let option of selectGender.options){
+                        if(option.text.toLowerCase() === matchedGender.toLowerCase()){
+                            option.selected = true;
+                            break;s
+                        }
+                    }
+                }
+
+                imageWrapper(file, fileContainer);
+            }
+        })
+        .catch(err => console.error("Fetch error", err));
+    }   
+
+
+</script>

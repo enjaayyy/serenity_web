@@ -1,5 +1,5 @@
 
-const storedImages = [];
+window.storedImages = [];
 
 function openUploadModal(){
     document.getElementById('upload-modal-screen').style.display = "inline-flex";
@@ -27,11 +27,18 @@ function fileUpload(){
     const fileUpload = document.getElementById('upload-input');
     const fileContainer = document.getElementById('upload-data-container');
 
+    
     fileUpload.addEventListener('change', () => {
         const imagefiles = Array.from(fileUpload.files);
             if(imagefiles.length > 0){
                 imagefiles.forEach(file => {
+                    imageWrapper(file, fileContainer);
+            })
+        }
+    });
+}
 
+function imageWrapper(file, container){
                     storedImages.push(file);
                     console.log(storedImages);
                     const uploadWrapper = document.createElement('div');
@@ -85,16 +92,11 @@ function fileUpload(){
  
                     uploadWrapper.appendChild(mainUploadWrapper);
                     uploadWrapper.appendChild(previewWrapper);
-                    fileContainer.appendChild(uploadWrapper);
-                })
-                
-                // console.log(fileNames);  
-        }
-    });
+                    container.appendChild(uploadWrapper);
 }
-
-
-fileUpload();
+document.addEventListener("DOMContentLoaded", function() {
+    fileUpload();
+});
 
 document.querySelector('form').addEventListener('submit', function(e){
     const dataTransfer = new DataTransfer();

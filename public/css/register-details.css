@@ -18,6 +18,10 @@ body {
     width: 10vw;
 }
 
+.image-to-text-form{
+    position: absolute;
+}
+
 .ocr-button-container{
     display: flex;
 }
@@ -87,12 +91,12 @@ body {
 
 .header-group{
     display: flex;
+    gap: 2vw;
 }
 
 .prof-ys-header, 
 .gender-header, 
 .license-header,
-.address-header,
 .spec-header,
 .file-attach-header{
     color: #9f9e9e;
@@ -105,6 +109,7 @@ body {
     
 }
 
+.address-header,
 .prof-header{
     color: #9f9e9e;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -120,20 +125,30 @@ body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-size: 70%;
     font-weight: 100;
-    margin-left: 18%;
+    margin-left: 16%;
     text-align: left;
     margin-top: 6%;
 }
 
 .license-input,
-.address-input{
-    margin-left: 10%;
+.address-input,
+.license-issued-input,
+.license-expired-input{
     height: 45px;
-    width: 70%;
     border-radius: 8px;
     border-width: 1px;
     border-color: black;
     padding-left: 1vw;
+}
+
+.address-input{
+    width: 70%;
+    margin-left: 10%;
+}
+
+.license-input{
+    margin-left: 10%;
+    width: 25%;
 }
 
 .prof-input{
@@ -215,9 +230,25 @@ body {
     display: flex;
 }
 
+.generate-ocr-button{
+    border-radius: 50%;
+    height: 3vw;
+    width: 3vw;
+    border:none;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.5vw;
+    background-color: rgb(32, 192, 115, 0.5);
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.generate-ocr-button:hover{
+    background-color: #20c073;
+}
+
 .file-upload-container{
     display: flex;
-    margin-top: 12%;
+    margin-top: 9%;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-size: 0.7vw;
     color: gray;

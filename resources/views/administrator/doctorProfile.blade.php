@@ -12,110 +12,150 @@
             <div class="main-content">
                 <div class="doctor-details">
                     <div class="doctor-data">
-                        <div class="profile-data-header">
-                            <div class="profile-pic-container">
-                                @if(isset($details['profile']))
-                                    <img src="{{ $details['profile'] }}" class="profile-img">
-                                @else
-                                    <img src="{{ asset('assets/avatar.png') }}" class="profile-img">
-                                @endif
+                        <form method="POST" action="{{ route('profileChanges', ['id' => $details['docID']])}}">
+                            @csrf
+                            @if(isset($changes))
+                            <div class="changes-button">
+                                <button type="button" id="viewChanges"  class="viewChanges"><p>View Pending Changes</p></button>
+                                <button type="submit" id="acceptChanges" class="acceptChanges" name="action" value="accept" hidden>Accept Changes</button>
+                                <button type="submit" id="declineChanges" class="declineChanges" name="action" value="decline" hidden>Decline Changes</button>
                             </div>
-                            <div class="profile-name-container">
-                                <p class="user-name">{{ $details['name'] }}</p>
-                                <p class="prof">{{ $details['profession'] }}</p>
-                                <div class="spec-container">
-                                    @if(isset($details['specialization']) && is_array($details['specialization']))
-                                        @foreach($details['specialization'] as $spec)
-                                        <div>
-                                            <p>{{$spec}}</p>
-                                        </div>
-                                        @endforeach
+                        @endif
+                            <div class="profile-data-header">
+                                <div class="profile-pic-container">
+                                    @if(isset($details['profile']))
+                                        <img src="{{ $details['profile'] }}" class="profile-img">
+                                    @else
+                                        <img src="{{ asset('assets/avatar.png') }}" class="profile-img">
                                     @endif
                                 </div>
-                            </div>
-                        </div>
-                        <div class="more-details-container">
-                            <div class="age-yrs-gender-box">
-                                <div class="age-box">
-                                    <p class="category">Age</p>
-                                    <p class="ctnt">{{ $details['age'] }}</p>
+                                <div class="profile-name-container">
+                                    <p class="user-name">
+                                        {{ $details['name'] }}
+                                        @if(isset($changes['name']))
+                                            <p class="change-name" id="change-name" hidden>{{$changes['name']}}</p>
+                                            <input type="hidden" name="change-name" value="{{$changes['name']}} ">
+                                        @endif
+                                    </p>
+                                    <p class="prof">{{ $details['prof'] }}</p>
+                                        @if(isset($changes['profession']))
+                                            <p class="change-profession" id="change-profession" hidden>{{$changes['profession']}}</p>
+                                            <input type="hidden" name="change-profession" value="{{$changes['profession']}} ">
+                                        @endif
+                                    <div class="spec-container">
+                                        @if(isset($details['spec']) && is_array($details['spec']))
+                                            @foreach($details['spec'] as $spec)
+                                            <div>
+                                                <p>{{$spec}}</p>
+                                            </div>
+                                            @endforeach
+                                        @endif
+                                    </div>
                                 </div>
-                                <div class="yrs-of-service-box">
-                                    <p class="category">Years of Service</p>
-                                    <p class="ctnt">{{ $details['years']}}</p>
+                            </div>
+                            <div class="more-details-container">
+                                <div class="age-yrs-gender-box">
+                                    <div class="age-box">
+                                        <p class="category">Age</p>
+                                        <p class="ctnt">{{ $details['age'] }}</p>
+                                        @if(isset($changes['age']))
+                                            <p class="change-age" id="change-age" hidden>{{$changes['age']}}</p>
+                                            <input type="hidden" name="change-age" value="{{$changes['age']}} ">
+                                        @endif
+                                    </div>
+                                    <div class="yrs-of-service-box">
+                                        <p class="category">Years of Service</p>
+                                        <p class="ctnt">{{ $details['yrs']}}</p>
+                                        @if(isset($changes['years']))
+                                            <p class="change-years" id="change-years" hidden>{{$changes['years']}}</p>
+                                            <input type="hidden" name="change-years" value="{{$changes['years']}} ">
+                                        @endif
+                                    </div>
+                                    <div class="gender-box">
+                                        <p class="category">Gender</p>
+                                        <p class="ctnt">{{ $details['gender'] }}</p>
+                                        @if(isset($changes['gender']))
+                                            <p class="change-gender" id="change-gender" hidden>{{$changes['gender']}}</p>
+                                            <input type="hidden" name="change-gender" value="{{$changes['gender']}} ">
+                                        @endif
+                                    </div>
                                 </div>
-                                <div class="gender-box">
-                                    <p class="category">Gender</p>
-                                    <p class="ctnt">{{ $details['gender'] }}</p>
+                                <div class="details-box">
+                                    <p class="category">Address</p>
+                                    <p class="ctnt">{{ $details['address']}}</p>
+                                    @if(isset($changes['address']))
+                                        <p class="change-address" id="change-address" hidden>{{$changes['address']}}</p>
+                                        <input type="hidden" name="change-address" value="{{$changes['address']}} ">
+                                    @endif
+                                </div>
+                                <div class="details-box">
+                                    <p class="category">Email</p>
+                                    <p class="ctnt">{{ $details['email']}}</p>
+                                </div>
+                                <div class="medical-data-container">
+                                    <div class="details-box">
+                                        <p class="category">Medical License</p>
+                                        <p class="ctnt">{{ $details['license'] }}</p>
+                                        @if(isset($changes['license']))
+                                            <p class="change-license" id="change-license" hidden>{{$changes['license']}}</p>
+                                            <input type="hidden" name="change-license" value="{{$changes['license']}} ">
+                                        @endif
+                                    </div>
+                                    <div class="details-box">
+                                        <p class="category">Issued Date</p>
+                                        <p class="ctnt">{{ $details['issued'] }}</p>
+                                        @if(isset($changes['issued']))
+                                            <p class="change-issued" id="change-issued" hidden>{{$changes['issued']}}</p>
+                                            <input type="hidden" name="change-issued" value="{{$changes['issued']}} ">
+                                        @endif
+                                    </div>
+                                    <div class="details-box">
+                                        <p class="category">Expiry Date</p>
+                                        <p class="ctnt">{{ $details['expired'] }}</p>
+                                        @if(isset($changes['expire']))
+                                            <p class="change-expire" id="change-expire" hidden>{{$changes['expire']}}</p>
+                                            <input type="hidden" name="change-expire" value="{{$changes['expire']}} ">
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
-                            <div class="details-box">
-                                <p class="category">Address</p>
-                                <p class="ctnt">{{ $details['address']}}</p>
-                            </div>
-                            <div class="details-box">
-                                <p class="category">Email</p>
-                                <p class="ctnt">{{ $details['email']}}</p>
-                            </div>
-                            <div class="details-box">
-                                <p class="category">Medical License</p>
-                                <p class="ctnt">{{ $details['license'] }}</p>
-                            </div>
-                        </div>
                     </div>
                     <div class="description-container">
                         <p class="description-header">Description<p>
                             <div class="description-details-container">
                                 @if(isset($details['description']))
                                     <p>{{ $details['description']}}</p>
+                                    @if(isset($changes['descrip']))
+                                        <p class="change-descrip" id="change-descrip" hidden>{{$changes['descrip']}}</p>
+                                        <input type="hidden" name="change-descrip" value="{{$changes['descrip']}} ">
+                                    @endif
                                 @else
                                     <div class="empty-container">
                                         <p class="no-data">No Data!</p>
+                                        <br>
+                                        @if(isset($changes['descrip']))
+                                            <p class="change-descrip" id="change-descrip" hidden>{{$changes['descrip']}}</p>
+                                            <input type="hidden" name="change-descrip" value="{{$changes['descrip']}} ">
+                                        @endif
                                     </div>
                                 @endif
                             </div>
                     </div>
+                </form>
+
                     <div class="credential-container">
                         <p class="credential-header">Credentials<p>
-                            <div class="picture-container">
-                                <button class="prev" onclick="prevImage()"><img src="{{ asset('assets/arrow-left.svg') }}"></button>
-                                <div class="image-display">
-                                    <img id="current-image" src="">
-                                </div>
-                                <button class="next" onclick="nextImage()"><img src="{{ asset('assets/arrow-right.svg') }}"></button>
+                            <div class="file-container">    
+                                @foreach($details['creds'] as $index => $creds)
+                                    <div class="filetitle-wrapper clickable" id="filetitle-wrapper" data-index="{{ $index }}">
+                                        <img src={{ asset('/assets/image.svg') }}>
+                                        <p class="file-name">{{ $creds['filename']}}</p>
+                                    </div>
+                                    <div class="image-preview" data-index="{{ $index }}" id="image-preview" style="display:none;">
+                                        <img src="{{ $creds['url'] }}">
+                                    </div>
+                                @endforeach
                             </div>
-                            <script>
-                                const images = @json($details['credentials'] ?? awdawd);
-                                let currentIndex = 0;
-
-                                console.log(images);
-
-                                function displayImage(index){
-                                    const imageElement = document.getElementById('current-image');
-                                    if(images.length > 0){
-                                        imageElement.src = images[index];
-                                    } else {
-                                        imageElement.alt = "No Credentials Available";
-                                    }
-                                }
-                                document.addEventListener('DOMContentLoaded', () => {
-                                    displayImage(currentIndex);
-                                })
-
-                                function prevImage() {
-                                    if (images.length > 0){
-                                        currentIndex = (currentIndex - 1 + images.length) % images.length;
-                                        displayImage(currentIndex);
-                                    }
-                                }
-
-                                function nextImage() {
-                                    if (images.length > 0){
-                                        currentIndex = (currentIndex + 1) % images.length;
-                                        displayImage(currentIndex);
-                                    }
-                                }
-                            </script>
                     </div>
                 </div>
                 <div class="doctor-lists">
@@ -152,11 +192,47 @@
                     </div>
                 </div>
                 <div class="deactivate-btn-container">
-                    <form action="{{ route('deactivate', ['id' => $details['id']]) }}" method="POST">
+                    <form action="{{ route('deactivate', ['id' => $details['docID']]) }}" method="POST">
                         @csrf
                             <button class="d-btn" type="submit"><img src="{{ asset('assets/report-icon.svg') }}"><p>Deactivate<p></button>
                     </form>
                 </div>
             </div>
         </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const wrappers = document.querySelectorAll('.filetitle-wrapper');
+                    wrappers.forEach(wrapper => {
+                        wrapper.addEventListener('click', () => {
+                            const index = wrapper.getAttribute('data-index');
+                            const preview = document.querySelector(`.image-preview[data-index="${index}"]`);
+                            if(preview.style.display === "none"){
+                                preview.style.display = "flex"
+                            }
+                            else{
+                                preview.style.display = "none";
+                            }
+                        })
+                    })
+
+                const viewChange = document.getElementById('viewChanges');
+                viewChange.addEventListener('click', () => {
+                    document.getElementById('change-name').hidden = false;
+                    document.getElementById('change-profession').hidden = false;
+                    document.getElementById('change-age').hidden = false;
+                    document.getElementById('change-years').hidden = false;
+                    document.getElementById('change-gender').hidden = false;
+                    document.getElementById('change-address').hidden = false;
+                    document.getElementById('change-license').hidden = false;
+                    document.getElementById('change-expire').hidden = false;
+                    document.getElementById('change-issued').hidden = false;
+                    document.getElementById('change-descrip').hidden = false;
+
+                    document.getElementById('viewChanges').hidden = true;
+                    document.getElementById('acceptChanges').hidden = false;
+                    document.getElementById('declineChanges').hidden = false;
+                })
+            })
+
+        </script>
 @endsection

@@ -1,6 +1,6 @@
 <link rel="stylesheet" href=" {{ asset('css/doctor/utilities/questionnaire.css')}}">
 <link rel="stylesheet" href=" {{ asset('css/doctor/utilities/addquestionnaire.css')}}">
-    <div id="questionnaire-container" class="questionnaire-container" style="display: none;">
+    <div id="questionnaire-container" class="questionnaire-container" style="display: block;">
         <div id="qst-cat-btns" class="qst-cat-btns"></div>
         <div id="qst-content" class="qst-content"></div>
         <div id="qst-categories" class="qst-categories"></div>
@@ -43,9 +43,6 @@
                 document.getElementById('questionnaire-container').style.display = "block";
                 document.getElementById('add-questionnaire-container').style.display = "none";
                 document.getElementById('edit-questionnaire-container').style.display = "none";
-                document.getElementById('get-started-container').style.display = "none";
-                document.getElementById('cred-container').style.display = "none";
-                document.getElementById('about-me-container').style.display = "none";
                 document.getElementById('view-questionnaire-container').style.display = "none";
 
 

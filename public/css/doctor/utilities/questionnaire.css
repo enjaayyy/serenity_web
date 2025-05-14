@@ -373,3 +373,8 @@
     background-color: #49B2FF;
     color: white;
 }
+
+.edit-questionnaire-container{
+    display: flex;
+    justify-content: center;
+}

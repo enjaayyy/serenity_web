@@ -96,7 +96,16 @@
                                             <video class="video-data" controls>
                                                 <source src="{{ $data['video'] }}" type="video/mp4">
                                             </video>
-                                                <p class="vid-title">{{ $data['title'] }}</p>
+                                            <p class="vid-title">{{ $data['title'] }}</p>
+                                                <div class="video-tags-container">
+                                                    @if($data['tags'])
+                                                        @foreach($data['tags'] as $tags)
+                                                            <p>{{ $tags }}</p>
+                                                        @endforeach
+                                                    @else  
+                                                        <p>No tags</p>
+                                                    @endif   
+                                                </div>
                                                 <p class="vid-details">{{ $data['details'] }}</p>
                                         </div>
                                     </div>           
@@ -105,6 +114,10 @@
                         @endif
                     </div>
                 </div>
+                {{-- <script>
+                    let sample = @json($videos);
+                    console.log(sample);
+                </script> --}}
             </div>
         </div>
     </div>
@@ -128,6 +141,21 @@
                             <div class="title-container">
                                 <p class="title-label">Enter Title</p>
                                 <input type="text" class="vid-title-input" id="vid-title" placeholder="Enter Title" name="title">
+                            </div>
+                            <div class="tags-header-container">
+                                <p>Tags</p>
+                            </div>
+                            <div class="tags-container">
+                                <input type="checkbox" class="tags" name="tags[]" value="Anxiety" id="Anxiety" hidden>
+                                <label for="Anxiety" class="tags-label">
+                                    <div class="choice">Anxiety</div>
+                                </label><input type="checkbox" class="tags" name="tags[]" value="PTS" id="PTS" hidden>
+                                <label for="PTS" class="tags-label">
+                                    <div class="choice">Post Traumatic Stress</div>
+                                </label><input type="checkbox" class="tags" name="tags[]" value="Insomnia" id="Insomnia" hidden>
+                                <label for="Insomnia" class="tags-label">
+                                    <div class="choice">Insomnia</div>
+                                </label>
                             </div>
                             <div class="description-container">
                                 <p class="description-label">Additional Details</p>

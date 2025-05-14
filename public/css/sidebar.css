@@ -27,6 +27,7 @@ body {
     text-align: center;
     height: 20%;
     margin-top: 15%;
+    margin-bottom: 15%;
 }
 
 .avatar-container img{
@@ -74,7 +75,8 @@ body {
 .archive-btn,
 .logout-btn,
 .profile-btn,
-.appointment-btn{
+.appointment-btn,
+.questionnaire-btn{
     justify-content: left;
     align-items: center;
     display: flex;
@@ -96,7 +98,8 @@ body {
 .archive-btn p,
 .logout-btn p,
 .profile-btn p,
-.appointment-btn p{
+.appointment-btn p,
+.questionnaire-btn p{
     font-size: 1vw;
     margin-left: 5px;
     margin-top: auto;
@@ -112,7 +115,8 @@ body {
 .archive-btn:hover,
 .logout-btn:hover,
 .profile-btn:hover,
-.appointment-btn:hover{
+.appointment-btn:hover,
+.questionnaire-btn:hover{
     justify-content: left;
     padding-left: 5%;
     color:#20C073;
@@ -145,7 +149,8 @@ body {
 .archive-btn:hover .icon6,
 .logout-btn:hover .icon7,
 .profile-btn:hover .icon8,
-.appointment-btn:hover .icon9{
+.appointment-btn:hover .icon9,
+.questionnaire-btn:hover .icon8{
     filter: invert(51%) sepia(97%) saturate(355%) hue-rotate(99deg) brightness(98%) contrast(93%);
    
 }

@@ -117,49 +117,6 @@ body {
     box-shadow: inset 0 -0.3vw 0 black;
 }
 
-
-/* .doctor-count-icon{
-    filter: invert(56%) sepia(93%) saturate(888%) hue-rotate(179deg) brightness(100%) contrast(102%);
-} */
-
-/* .icon-container-1 img{
-    filter: invert(56%) sepia(93%) saturate(888%) hue-rotate(179deg) brightness(100%) contrast(102%); 
-} */
-
-/* .count-container-1,
-.count-container-2,
-.count-container-3{
-    width: 5vw;
-    height: 10vh;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5vw;
-}
-
-.count-container-1{
-    color: #20c073;
-    border: 5px solid #20c073;
-}
-
-.count-container-2{
-    color:  #49B2FF;
-    border: 5px solid #49B2FF;
-}
-
-.count-container-3{
-    border: 5px solid red;
-}
-
-.content-wrapper{
-    font-weight: bold;
-    color: #004624;
-    width: 100%;
-    text-align: center;
-    justify-items: center;
-} */
-
 .upload-header-container{
     display: flex;
     justify-content: space-between;
@@ -230,12 +187,9 @@ body {
     background-color: black;
 }
 
-
-
-
-
 .vid-title{
     font-weight: bold;
+    margin-bottom: 0;
 }
 
 .vid-title-input{
@@ -347,13 +301,15 @@ body {
 }
 
 .title-container,
-.description-container{
+.description-container,
+.tags-header-container{
     padding-left: 1vw;
     padding-right: 1vw;
 }
 
 .title-container p,
-.description-container p{
+.description-container p,
+.tags-header-container p{
     color: gray;
     font-size: 1vw;
     margin-bottom: 1vh;
@@ -387,4 +343,41 @@ body {
 .upload-btn:hover{
     background-color: black;
     transform: scale(1.1);
+}
+
+.tags-container{
+    display: flex;
+    padding-left: 1vw;
+    gap: 1vw;
+}
+
+.choice{
+    background-color: rgb(228, 228, 228);
+    border: 1px gray solid;
+    border-radius: 25px;
+    height: 2vh;
+    width: auto;
+    padding: 1vw 1vw;
+}
+
+.tags + .tags-label div{
+    transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+.tags:checked + .tags-label div{
+    background-color: #49B2FF;
+    color:rgb(255, 255, 255);
+    border: 1px #49B2FF solid;
+} 
+
+.video-tags-container{
+    display: flex;
+    gap: 1vw;
+    font-size: 0.7vw;
+    font-style: italic;
+    color: gray;
+}
+
+.video-tags-container p{
+    margin-top: 0;
 }

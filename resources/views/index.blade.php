@@ -40,7 +40,6 @@
                 <div class = "sidebar-content">
                     @if(session('user') === 'admin')
                     <div class="avatar-container">
-                        <img src ="{{ asset('assets/avatar.png') }}" class="avatar">
                         <p class="name">Administrator</p>
                     </div>  
                         <div class="dashboard-tab-container">
@@ -94,7 +93,7 @@
                             </div> 
                         </div>
                         @elseif(session('user') === 'doctor')
-                        <div class="main-info">
+                        {{-- <div class="main-info">
                             <div class="avatar-container">
                                 @if(empty($doctorData['pic']))
                                 <img src ="{{ asset('assets/avatar.png') }}" class="default-pp">
@@ -104,6 +103,9 @@
                                 <p class="doc-name">{{ $doctorData['name'] }}</p>
                                 <p class="doc-job">{{ $doctorData['prof'] }}</p>
                             </div>
+                        </div> --}}
+                        <div style="height: 5vh;">
+
                         </div>
                         <div class="dashboard-tab-container">
                             <a href="{{ route('docDashboard') }}" style="text-decoration: none;">
@@ -120,6 +122,15 @@
                                     <img src="{{ asset('assets/account-icon.svg') }}" class="icon8">
                                     <p>Profile</p>
                                     <div class="profile-notif"></div>
+                                    </button> 
+                            </a>
+                        </div>
+                        <div class="questionnaire-tab-container">
+                            <a href="{{ route('getQuestionnaires') }}" style="text-decoration: none;">
+                                    <button class="questionnaire-btn">
+                                    <img src="{{ asset('assets/book-icon.svg') }}" class="icon8">
+                                    <p>Questionnaires</p>
+                                    <div class="questionnaire-notif"></div>
                                     </button> 
                             </a>
                         </div>

@@ -27,6 +27,7 @@ Route::post('/adminRequests/{id}/disapprove', [QuestionnaireController::class, '
 Route::get('/adminDoctors', [AdminController::class, 'viewDocList'])->name('doctors');
 Route::get('/doctorDetails/{id}', [AdminController::class, 'viewdoctor'])->name('viewdoctor');
 Route::post('/doctorDetails/{id}/deactivate', [AdminController::class, 'deactivate'])->name('deactivate');
+Route::post('/doctorDetails/{id}/acceptChanges', [AdminController::class, 'profileChanges'])->name('profileChanges');
 
 Route::get('/archive', [AdminController::class, 'viewArchive'])->name('archive');
 Route::post('/archive/{id}/activate', [AdminController::class, 'activate'])->name('activate');
@@ -36,6 +37,7 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 
 Route::get('/register-details', [RegisterController::class, 'registerDetailsView'])->name('register-details');
 Route::post('/register-details', [RegisterController::class, 'registerDetails'])->name('register-details');
+Route::post('/register-details/generateImageToText', [RegisterController::class, 'imageToText'])->name('imageToText');
 
 Route::get('/patientlist', [AdminController::class, 'viewPatients'])->name('patients'); 
 
@@ -63,3 +65,4 @@ Route::post('/dashboard/sampleData', [QuestionnaireController::class, 'sampleDat
 Route::get('/doctor/appointments', [DoctorController::class, 'viewAppointments'])->name('viewAppointments');
 Route::post('/doctor/appointments/addAppointments', [DoctorController::class, 'addAppointments'])->name('addAppointments');
 Route::post('/doctor/patientProfile/{id}/call', [AgoraTokenController::class, 'generateToken']);
+Route::get('/doctor/questionnaires', [DoctorController::class, 'getQuestionnaires'])->name('getQuestionnaires');

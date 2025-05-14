@@ -1,6 +1,7 @@
 body{
     padding: 0;
     margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .main-content{
@@ -9,7 +10,6 @@ body{
     width: 78vw;
     height: 83vh;
     display: flex;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     margin-bottom: 2%;
     position: absolute;
 
@@ -25,7 +25,7 @@ body{
     position: absolute;
     right: 0px;
     width: 50%;
-    height: 100%;
+    height: 100vh;
 }
 
 .profile-pic-container{
@@ -44,9 +44,17 @@ body{
     padding-right: 20%;
 }
 
-.address-box,
-.email-box,
+.medical-data-container{
+    display: flex;
+    gap: 5vw;
+}
+
 .medical-box{
+    padding-left: 20%;
+}
+
+.address-box,
+.email-box{
     padding-left: 20%;
     padding-right: 20%;
 }
@@ -61,31 +69,27 @@ body{
 }
 .btn-container{
     position: absolute;
-    bottom:0px;
-    background-color: transparent;
-    width: 100%;
+    bottom: 0px;
+    display: flex;
     height: 7%;
 }
 
-.buttons{
-    display: flex;
-    height: 100%;
-}
-
-.buttons button{
-    width: 33.4%;
+.approve,
+.delete,
+.verify{
+    width: 13vw;
+    transition: background-color 0.5s ease;
     border:none;
     background-color: white;
-    transition: background-color 0.5s ease;
+}
+
+.approve{
+    border-bottom-left-radius: 15px;
 }
 
 .approve:hover{
     background-color: #20C073;
     color: white;
-}
-
-.approve{
-    border-bottom-left-radius: 15px;
 }
 
 .delete:hover{
@@ -96,6 +100,11 @@ body{
 .verify:hover{
     background-color: #49B2FF;
     color: white;
+}
+
+.del-veri-form,
+.approve-form{
+    display: flex;
 }
 
 .profile-pic-container img{
@@ -137,38 +146,56 @@ body{
     width: auto;
 }
 
-
-
-.verifiles {
+.credential-header-container{
     text-align: center;
-    height: 100%;
+    color:#004624;
+    font-size: 1vw;
+    font-weight: bold;
+    margin-top: 2vh;
 }
 
-.image-display img{
-    width: 100%;
-    height: 76vh;
-    border-top-right-radius: 15px;
+.file-container{
+    height: 75vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
-.image-btns{
-    margin-top: 1%;
+.filetitle-wrapper{
     display: flex;
-    height: 7%;
-}
-.prev,
-.next{
-    width: 50%;
-    border:none;
-    background-color: white;
-    transition: background-color 0.5s ease;
+    align-items: center;
+    margin-bottom: 1vh;
+    padding: 1vh 1vw;
+    gap: 2vw;
+    transition: background-color 0.3s ease;
 }
 
-.next{
-    border-bottom-right-radius: 15px;
-
-}
-.prev:hover,
-.next:hover{
+.filetitle-wrapper:hover{
     background-color: gray;
-    color: white;
+}
+
+.filetitle-wrapper img{
+    height: 2vw;
+    width: 2vw;
+}
+
+.image-preview{
+    align-items: center;
+    justify-content: center;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from{
+        opacity: 0;
+        transform: translateY(-20%);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.image-preview img{
+    max-height: 40vh;
+    max-width: 30vw;
 }

@@ -60,7 +60,16 @@ class AdminController extends Controller
         $view = $this->database->getReference('administrator/doctorRequests/' . $id);
         $snapshot = $view->getSnapshot();
         $data = $snapshot->getValue();
+        
+        $credentials = [];
 
+        foreach($data['credentials'] as $url){
+            $fileName = basename(explode('?', $url)[0]);
+            $credentials[] = [
+                'url' => $url,
+                'filename' => $fileName,
+            ];
+        }
         if($data){
             $details = [
                 'id' => $id,
@@ -73,7 +82,9 @@ class AdminController extends Controller
                 'specialization' => $data['specialization'],
                 'address' => $data['workAddress'],
                 'years' => $data['yearsOfService'],
-                'credentials' => $data['credentials'],
+                'credentials' => $credentials,
+                'issued' => $data['licenseIssued'],
+                'expire' => $data['licenseExpired'],
             ];
             return view('administrator.adminRequestDetails', ['details' => $details]);
         }
@@ -119,10 +130,6 @@ class AdminController extends Controller
         $snapshot = $view->getSnapshot();
         $data = $snapshot->getValue();
 
-        $questions = $this->database->getReference("administrator/doctors/" . $id . "/activeQuestionnaires");
-        $get = $questions->getSnapshot();
-        $questiondata = $get->getValue();
-
         $patients = $this->database->getReference('administrator/doctors/' . $id . "/mypatients" . "/");
         $patientSnap = $patients->getSnapshot();
         $patientData = $patientSnap->getValue();
@@ -150,45 +157,41 @@ class AdminController extends Controller
             }
         }
 
-        if($data) {
-            $details = [
-                'id' => $id,
-                'name' => $data['name'],
-                'age' => $data['age'],
-                'email' => $data['email'],
-                'gender' =>$data['gender'],
-                'license' =>$data['license'],
-                'profession' =>$data['profession'],
-                'specialization' => $data['specialization'],
-                'address' => $data['address'],
-                'years' => $data['years'],
-                'credentials' => $data['credentials'],
-                'questionnaires' => $questiondata ? $questiondata : [],
-                'profile' => isset($data['profilePic']) ? $data['profilePic'] : null,
-                'description' => isset($data['descrip']) ? $data['descrip'] : null,
+        $credentials = [];
+
+        foreach($data['credentials'] as $url){
+            $fileName = basename(explode('?', $url)[0]);
+            $credentials[] = [
+                'url' => $url,
+                'filename' => $fileName,
             ];
         }
 
-        $appointmentRef = $this->database->getReference('administrator/doctors/' . $id . '/scheduled_appointments/')->getSnapshot()->getValue();
-        $appointmentCount = is_array($appointmentRef) ? count($appointmentRef) : 0;
-        $appointmentList = [];
-        if($appointmentRef){
-            foreach($appointmentRef as $key => $apts){
-                $newDate = (new \DateTime($apts['appointmentDate']))->format("F j, Y");
-                $appointmentList[] = [
-                    'aptTitle' => $apts['appointmentTitle'],
-                    'aptSched' => $newDate,
-                    'aptName' => $apts['appointmentPatient'],
-                ];
-            }
+        $doctorController = new DoctorController($this->database, $this->storage);
+        $details = $doctorController->getDoctorData($id);
+
+        $getChanges = $this->database->getReference('administrator/changes/' . $id)->getSnapshot()->getValue();
+
+        if($getChanges){
+            $changes = [
+                'address' => $getChanges['address'],
+                'age' => $getChanges['age'],
+                'descrip' => $getChanges['descrip'],
+                'expire' => $getChanges['expire'],
+                'gender' => $getChanges['gender'],
+                'issued' => $getChanges['issued'],
+                'license' => $getChanges['license'],
+                'name' => $getChanges['name'],
+                'profession' => $getChanges['profession'],
+                'years' => $getChanges['years'],
+            ];
         }
-        
+
         return view("administrator.doctorProfile", [
             'details' => $details,
             'patient' => $patient,
             'patientCount' => $patientCount,
-            'appointmentList' => $appointmentList,
-            'appointmentCount' => $appointmentCount,
+            'changes' => $changes ?? null,
         ]);
 
     }
@@ -260,6 +263,8 @@ class AdminController extends Controller
         return redirect()->route('adminDashboard');
     }
 
+    
+
     public function uploadvid(Request $request){
 
         if($request->hasFile('video')){
@@ -278,10 +283,13 @@ class AdminController extends Controller
             $expiresAt = new \DateTime('+1 year');
             $vidlink = $uploadedvid->signedUrl($expiresAt);
 
+            $videoTags = $request->input('tags', []);
+
             $videoData = [
                 'videoUrl' => $vidlink,
                 'title' => $request->title,
                 'details' => $request->details,
+                'tags' => $videoTags,
             ];
 
             $success = $this->database->getReference('administrator/videos/')->push($videoData);
@@ -318,6 +326,7 @@ class AdminController extends Controller
                         'title' => $vids['title'] ?? 'No title',
                         'details' => $vids['details']?? 'No Description',
                         'video' => $vids['videoUrl']?? null,
+                        'tags' => $vids['tags'] ?? null,
                     ];
                 }
             }
@@ -415,6 +424,37 @@ class AdminController extends Controller
         }
     }
 
+    public function profileChanges($id, Request $request){
+        if(Session::get('user') == 'admin'){
+            $action = $request->input('action');
+
+            if($action === 'accept'){
+                $newData = [
+                    'name' => $request->input('change-name'),
+                    'profession' => $request->input('change-profession'),
+                    'age' => $request->input('change-age'),
+                    'years' => $request->input('change-years'),
+                    'gender' => $request->input('change-gender'),
+                    'address' => $request->input('change-address'),
+                    'license' => $request->input('change-license'),
+                    'issued' => $request->input('change-issued'),
+                    'expire' => $request->input('change-expire'),
+                    'descrip' => $request->input('change-descrip'),
+                ];
+
+                $this->database->getReference('administrator/doctors/' . $id)->update($newData);
+                $this->database->getReference('administrator/changes/' . $id)->remove();
+                return redirect()->route('doctors');
+            }
+            else if($action === 'decline'){
+                $this->database->getReference('administrator/changes/' . $id)->remove();
+                return redirect()->route('doctors');
+            }
+        }
+        else{
+            return redirect()->route('login');
+        }
+    }
 
 }
  

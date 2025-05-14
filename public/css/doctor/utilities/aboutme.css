@@ -171,3 +171,9 @@ p{
     user-select: none;
     outline: none;
 }
+
+.notes{
+    font-style: italic;
+    font-weight: 0.7vw;
+    color: red;
+}

@@ -95,6 +95,9 @@
                                 <p class="patient-name">{{ $patientDetails['name'] }}</p>
                                 <p class="patient-email">{{ $patientDetails['email'] }}</p>
                             </div>
+                            <div class="mood-container" id="mood-container">
+
+                            </div>
                             <div class="additional-user-info">
                                 <p class="additional-user-info-header">Additional Information</p>
                                 <div class="main-user-info">
@@ -113,7 +116,7 @@
                     <div class="analytics-container">
                         <div class="year-chart-div">
                             <div class="chart-container">
-                                <p class="yearly-header">Yearly</p>
+                                <p class="yearly-header">Yearly Results</p>
                                 <canvas id="year-chart" width="10vw" height="5vh"></canvas>
                             </div>
                         </div>
@@ -130,7 +133,7 @@
                                     </div>
                                     <div class="main-analytics-container">
                                             <div class="chart-container">
-                                                <p class="monthly-header">Monthly</p>
+                                                <p class="monthly-header">Monthly Results</p>
                                                 <div class="month-functions">
                                                     <button class="back" id="back">
                                                         <img src="{{ asset('assets/arrow-left.svg')}}">
@@ -142,10 +145,15 @@
                                                 </div>
                                                 <canvas id="month-chart"></canvas>
                                             </div>
+                                            <p class="monthly-breakdown-header">Monthly Questionnaire Breakdown</p>
                                             <div class="chart-breakdown-container" id="chart-breakdown-container">
                                             </div>
                                     </div>
                             </div>
+                            <script>
+                                let c = @json($total);
+                                console.log(c);
+                            </script>
                             <div class="additional-info-container">
                                 <div class="answered-questions-container">
                                     <div class="questionnaire-header-container">
@@ -296,10 +304,9 @@
                         console.error("Error starting the call:", error);
                     }
             }
-                    
                 document.addEventListener("DOMContentLoaded", function() {
+                    const moodArray = @json($total);
                     let containerCount = document.querySelectorAll(".conditions-container").length;
-
                     let BGcolorSet = ["#FFDFDF", "#F8DCFF", "#FFECDF"];
                     let textcolorSet = ["#FF3333", "#6E0089", "#FFC933"];
 
@@ -309,11 +316,64 @@
                         box.style.color = `${textcolorSet[index]}`;
                         
                         let defaultCondition = Object.keys(patientDetails.answer)[0];
+                        // console.log(patientDetails);
                         getCondition(defaultCondition);
+
+                        let mood = moodArray[index];
+                                const moodContainer = document.getElementById("mood-container");
+                                moodContainer.innerHTML = "";
+
+                                const moodImg = document.createElement("img");
+                                const moodText = document.createElement("p");
+                                if (mood === "mild") {
+                                    moodImg.src = "/assets/happy.gif";
+                                    moodImg.classList.add('mood-image');
+                                    moodText.textContent = patientDetails.name + " is suffering " + mood + " " + defaultCondition + " this week.";
+                                } else if (mood === "moderate") {
+                                    moodImg.src = "/assets/mid.gif";
+                                    moodImg.classList.add('mood-image');
+                                    moodText.textContent = patientDetails.name + " is suffering " + mood + " " + defaultCondition + " this week.";
+                                } else if (mood === "severe") {
+                                    moodImg.src = "/assets/sad.gif";
+                                    moodImg.classList.add('mood-image');
+                                    moodText.textContent = patientDetails.name + " is suffering " + mood + " " + defaultCondition + " this week.";
+                                }
+
+                                if (moodImg.src) {
+                                    moodContainer.appendChild(moodImg);
+                                    moodContainer.appendChild(moodText);
+                                }
 
                         box.addEventListener("click", function() {
                                 chartCondition = box.textContent.trim();
                                 getCondition(chartCondition);
+                                
+                                
+                                let mood = moodArray[index];
+                                const moodContainer = document.getElementById("mood-container");
+                                moodContainer.innerHTML = "";
+
+                                const moodImg = document.createElement("img");
+                                const moodText = document.createElement("p");
+                                if (mood === "mild") {
+                                    moodImg.src = "/assets/happy.gif";
+                                    moodImg.classList.add('mood-image');
+                                    moodText.textContent = patientDetails.name + " is suffering " + mood + " " + chartCondition + " this week.";
+                                } else if (mood === "moderate") {
+                                    moodImg.src = "/assets/mid.gif";
+                                    moodImg.classList.add('mood-image');
+                                    moodText.textContent = patientDetails.name + " is suffering " + mood + " " + chartCondition + " this week.";
+                                } else if (mood === "severe") {
+                                    moodImg.src = "/assets/sad.gif";
+                                    moodImg.classList.add('mood-image');
+                                    moodText.textContent = patientDetails.name + " is suffering " + mood + " " + chartCondition + " this week.";
+
+                                }
+
+                                if (moodImg.src) {
+                                    moodContainer.appendChild(moodImg);
+                                    moodContainer.appendChild(moodText);
+                                }
                         })  
                     });
                 });
@@ -387,6 +447,7 @@
                window.openNotesModal = function openNotesModal(){
                     document.getElementById('modal-screen').style.display = 'inline-flex';
                }
+
             </script>
             <script src="{{ asset('js/doctor/charts.js') }}"></script>
 
