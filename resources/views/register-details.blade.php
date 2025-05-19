@@ -44,7 +44,7 @@
                                 <option>Female</option>
                             </select>
                             <input type="number" id="age-input" class = "age-input" name="age" required>
-                            <div style="display:flex; gap: 1.5vw;">
+                            <div style="display:flex;">
                                 <p class="license-header">Medical License No.</p>
                                 <p class="license-header">Date issued</p>
                                 <p class="license-header">Expiry</p>
@@ -135,7 +135,6 @@
             }
             else{
                 document.getElementById('license-input').value = data.licenseNumber;
-                document.getElementById('address-input').value = data.address;
                 document.getElementById('age-input').value = data.age;
                 document.getElementById('license-issued-input').value = data.issued;
                 document.getElementById('license-expired-input').value = data.expired;

@@ -116,6 +116,7 @@ body {
     font-size: 70%;
     font-weight: 100;
     margin-left: 10%;
+    margin-top: 0;
     text-align: left;
 }
 
@@ -237,6 +238,8 @@ body {
     border:none;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-size: 0.5vw;
+    margin-top: 1.4vh;
+    margin-left: 1vw;
     background-color: rgb(32, 192, 115, 0.5);
     color: white;
     transition: background-color 0.3s ease;
@@ -257,7 +260,7 @@ body {
 }   
 
 .file-upload-container p {
-    margin-top: 0;
+    margin-top: 3vh;
     margin-bottom: 0;
 }
 
@@ -401,6 +404,7 @@ body {
 
 .upload-files-button{
     margin-left: 10%;
+    margin-top: 3vh;
     height: 6vh;
     width: 11vw;
     border-radius: 20px;

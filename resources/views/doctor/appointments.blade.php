@@ -14,17 +14,24 @@
         <div id='calendar' class="calendar"></div>
         <div id='appointments' class="appointments-container">
           @foreach($appointments as $apt)
+          <form method="POST" action="{{ route('removeAppointment', ['id' => $apt['aptID']]) }}">
+            @csrf
             <div class="schedule-container" id="schedules-container">
               <div class="color-indicator">
                 <div class="circle" style="background-color: {{ $apt['color'] }}"></div>
               </div>
               <div class="apt-details">
-                <p class="apt-date">{{date('F j, Y', strtotime($apt['date']))}} {{date("g:i A", strtotime($apt['start']))}} - {{date("g:i A", strtotime($apt['end']))}}</p>
+                  <p class="apt-date">{{date('F j, Y', strtotime($apt['date']))}} {{date("g:i A", strtotime($apt['start']))}} - {{date("g:i A", strtotime($apt['end']))}}</p>
                   <p class="apt-title">{{$apt['title']}}</p>
                   <p class="apt-patient">- {{$apt['name']}}</p>
+                  <button type="submit" class="remove-appointment-button">
+                    <p>- Remove Appointment</p>
+                  </button>
               </div>
             </div>
+          </form>
           @endforeach
+          
         </div>
       </div>
     </div>
@@ -84,7 +91,6 @@
 
       function getSchedulesForCalendar(){
         let schedules = @json($appointments);
-        // console.log(schedules);
 
         schedules.forEach(sKey => {
            calendar.addEvent({

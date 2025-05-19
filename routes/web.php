@@ -64,5 +64,6 @@ Route::post('/generate-token', [AccessTokenController::class, 'generateToken']);
 Route::post('/dashboard/sampleData', [QuestionnaireController::class, 'sampleData'])->name('sampleData');
 Route::get('/doctor/appointments', [DoctorController::class, 'viewAppointments'])->name('viewAppointments');
 Route::post('/doctor/appointments/addAppointments', [DoctorController::class, 'addAppointments'])->name('addAppointments');
+Route::post('/doctor/appointments/removeAppointments/{id}', [DoctorController::class, 'removeAppointment'])->name('removeAppointment');
 Route::post('/doctor/patientProfile/{id}/call', [AgoraTokenController::class, 'generateToken']);
 Route::get('/doctor/questionnaires', [DoctorController::class, 'getQuestionnaires'])->name('getQuestionnaires');

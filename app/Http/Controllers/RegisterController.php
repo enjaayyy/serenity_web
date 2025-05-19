@@ -19,7 +19,7 @@ class RegisterController extends Controller
     }
 
     private function availableProfs(){
-        $professions = ["Psychologist", "Psychoanalyst", "Psychometrician", "Councilor", "Therapist", "Psychiatric Nurse", "Social Workers"];
+        $professions = ["Psychologist", "Psychoanalyst", "Psychometrician", "Councilor", "Therapist", "Nurse", "Social Workers", "Dentist"];
         return $professions;
     }
 
@@ -103,7 +103,6 @@ class RegisterController extends Controller
 
 
     public function imageToText(Request $request){
-        
         try{
             if (!$request->hasFile('ocr-image')) {
                 return response()->json(['error' => 'No file uploaded.'], 400);
@@ -118,8 +117,7 @@ class RegisterController extends Controller
             $text = trim($output);
 
             preg_match('/\b\d{7}\b/', $text, $licenseData);
-            preg_match('/\d{1,5}\s[\w\s,.#-]+(?:Street|St|Avenue|Ave|Road|Rd|Boulevard|Blvd|Drive|Dr|Barangay|Village|City|Province)?/i', $text, $addressData);
-            preg_match('/\b(Psychologist|Psychoanalyst|Psychometrician|Councilor|Therapist|Psychiatric Nurse|Counselors|Social Workers)\b/i', $text, $professionData);
+            preg_match('/\b(Psychologist|Psychoanalyst|Psychometrician|Councilor|Therapist|Nurse|Counselors|Social Workers|Dentist)\b/i', $text, $professionData);
             preg_match('/\b\d{2}\b/', $text, $ageData);
             preg_match('/\b(Male|Female)\b/i', $text, $genderData);
             preg_match_all('/\b(0[1-9]|1[0-2])\/([0-2][0-9]|3[01])\/\d{4}\b/', $text, $dates);
@@ -145,7 +143,6 @@ class RegisterController extends Controller
 
             return response()->json([
                 'licenseNumber' => $licenseData,
-                'address' => $addressData,
                 'rawText' => $text,
                 'profession' => $professionData,
                 'age' => $ageData,

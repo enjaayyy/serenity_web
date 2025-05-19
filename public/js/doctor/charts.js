@@ -70,7 +70,7 @@ function getCondition(condition){
 
     yearData = getChart(yearChartID, condition, yearlyLabels, yearlyvalues);
     getMonthChart(monthDataObject, condition);
-
+    console.log(monthDataObject);
 }
 
 function getMonthChart(object, condition){
@@ -118,36 +118,41 @@ function getBreakdown(object){
         let headerDate = date.toLocaleDateString('default', {month: 'long', day: 'numeric', year: 'numeric'});
         let mainDiv = document.createElement('div');
 
+        let headerButton = document.createElement('button');
+        headerButton.classList.add('headerButton');
+
         let dateHeader = document.createElement('p');
         dateHeader.textContent = headerDate;
+        headerButton.appendChild(dateHeader);
+        mainDiv.appendChild(headerButton);
 
-        mainDiv.appendChild(dateHeader);
-
-        let BGcolorSet = ["#FFDFDF", "#F8DCFF", "#FFECDF", "#FFD3D3", "#E7FFE2", "#FFE8F8", "#FFD8B6", "#A1C2FF"];
-        let textcolorSet = ["#FF3333", "#6E0089", "#FFC933", "#FF8181", "#6BFD4C", "#FF9BE0", "#FF9E49", "#2873FF"];
-
+        let detailsDiv = document.createElement('div');
+        detailsDiv.classList.add('detailsDiv');
+        detailsDiv.style.display = "none";
+        
             Object.keys(subObject).forEach((catKeys, index) =>{
                 let wrapperDiv = document.createElement("div");
                 wrapperDiv.style.display = "flex";
                 wrapperDiv.classList.add("category-wrapper");
-                // wrapperDiv.style.backgroundColor = `${BGcolorSet[index % BGcolorSet.length]}`
 
                 let categoryData = subObject[catKeys];
                 let dataText = document.createElement('p');
                 dataText.textContent = catKeys;
-                // dataText.style.color = `${textcolorSet[index % textcolorSet.length]}`;
 
                 let totalText = document.createElement('p');
                 totalText.textContent = categoryData.subcategory_total;
-                // totalText.style.color = `${textcolorSet[index % textcolorSet.length]}`;
                
                 wrapperDiv.appendChild(dataText);
                 wrapperDiv.appendChild(totalText);
                 
-                mainDiv.appendChild(wrapperDiv);
+                detailsDiv.appendChild(wrapperDiv);
             });
 
-
+        mainDiv.appendChild(detailsDiv);
+        
+        headerButton.addEventListener('click', () => {
+            detailsDiv.style.display = (detailsDiv.style.display === 'none') ? 'block' : 'none';
+        });
 
         breakdownContainer.appendChild(mainDiv);
         

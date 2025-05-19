@@ -4,18 +4,26 @@
         <div id="qst-cat-btns" class="qst-cat-btns"></div>
         <div id="qst-content" class="qst-content"></div>
         <div id="qst-categories" class="qst-categories"></div>
+        <div id="qst-scores" class="qst-scores"></div>
     </div>
     <div id="add-questionnaire-container" class="add-questionnaire-container" style="display: none;">
-        <div class="qcb-header">
-            <p>Add Questionnaire</p>
-        </div>
-        <div id="qst-form" class="qst-form">
-            <div id="aqc-title-input"></div>
-        </div>
-        <div class = "retrieve-btn-container">
-            <button onclick="retrieveData()" class="retrieve-btn">Submit</button>
-            <p class="check-all-input" id="check-all-input">*Fill out missing information!</p> 
-        </div>
+            <div class="qcb-header">
+                <p>Add Questionnaire</p>
+            </div>
+            <div id="qst-form" class="qst-form">
+                <div id="aqc-title-input"></div>
+            </div>
+            <div class = "retrieve-btn-container">
+                <button type="button" onclick="retrieveData()" class="retrieve-btn">Submit</button>
+                <p class="check-all-input" id="check-all-input">*Fill out missing information!</p> 
+            </div>
+            {{-- <div class="score-index-container">
+                <p class="score-index-header">Scoring Index</p>
+                <div class="index-container">
+                    <p>mild => </p>
+                    <input type="number" >
+                </div>
+            </div> --}}
     </div>
     <div class = "edit-questionnaire-container" id = "edit-questionnaire-container" style="display: none;">
         <div id="edit-qst-cat-btns" class="edit-qst-cat-btns"></div>
@@ -26,6 +34,7 @@
         let doctorQuestions = @json($doctorData);
         const questionsKeys =  Object.keys(doctorQuestions.questions);
         const questionTemplates = doctorQuestions.templates;
+        const doctorScores = doctorQuestions.activeScore;
 
         const status = document.getElementById('status');
         
@@ -35,6 +44,8 @@
         const qstDiv = document.getElementById("questionnaire-container");
         const addQstDiv = document.getElementById('add-questionnaire-container');
         const editQstDiv = document.getElementById('edit-questionnaire-container');
+        const qstscores = document.getElementById('qst-scores');
+        const viewscores = document.getElementById('view-qst-scores');
 
         const questionButtons = document.getElementById('qst-cat-btns');
 
@@ -113,13 +124,14 @@
 
             const title = doctorQuestions.questions[titleKey];
             const titleView = doctorQuestions.templates[titleKey];
-            // console.log(title);
+            const scoreView = doctorQuestions.activeScore[titleKey];
             
             ChosenData = title;
             if(editable === false){
 
             questionContents.innerHTML = " ";
             questionSubCategories.innerHTML = " ";
+            qstscores.innerHTML = " ";
 
             Object.keys(title).forEach(questionTitle => {
                 const titleText = document.createElement("p");
@@ -155,6 +167,30 @@
                     });
                 });
             });
+            const scoreTitle = document.createElement('p');
+            scoreTitle.textContent = "Scoring Index";
+            scoreTitle.classList.add('scoring-index');
+
+            qstscores.appendChild(scoreTitle);
+
+            Object.keys(scoreView).forEach(scores => {
+                const scoreData = scoreView[scores];
+                Object.entries(scoreData).forEach(([level, value]) => {
+                    if(level !== "score-flow"){
+                        const p = document.createElement('p');
+                        p.textContent = `${level} => ${value}`;
+                        p.classList.add('scoring-data');
+                        qstscores.appendChild(p);
+                    }
+                    else{
+                        const flow = document.createElement('p');
+                        flow.textContent = `${level} => ${value}`;
+                        flow.classList.add('scoring-data');
+
+                        qstscores.appendChild(flow);
+                    }
+                })
+            })
         }
         else if(editable === true){
             const editQuestContent = document.getElementById('edit-qst-content');
@@ -234,13 +270,11 @@
             });
         }
         else{
-            console.log(title);
-
             const viewQuestContent = document.getElementById('view-qst-content');
             const viewQuestCategory = document.getElementById('view-qst-categories');
 
-            viewQuestContent.innerHTML = "";
-            
+            viewQuestContent.innerHTML = " ";
+
             const header = document.createElement("div");
                 Object.keys(title).forEach(questionnaireTitle => {
                     const p = document.createElement("p");
@@ -283,6 +317,7 @@
 
                     
             });
+
         }
        
     }

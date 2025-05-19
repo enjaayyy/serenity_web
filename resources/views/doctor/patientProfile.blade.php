@@ -146,6 +146,7 @@
                                                 <canvas id="month-chart"></canvas>
                                             </div>
                                             <p class="monthly-breakdown-header">Monthly Questionnaire Breakdown</p>
+                                            <p class="monthly-breakdown-subheader">*This section is a breakdown of the total scores per category</p>
                                             <div class="chart-breakdown-container" id="chart-breakdown-container">
                                             </div>
                                     </div>

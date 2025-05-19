@@ -13,7 +13,9 @@ body{
 .user-info-container{
     width: 29%;
     border-radius: 15px;
-
+    height: 83vh;
+    overflow-y: scroll;
+    animation: slideUp 0.5s ease;
 }
 
 .additional-info-container{
@@ -30,7 +32,8 @@ body{
     animation: slideUp 0.5s ease;
 }
 
-.analytics-container::-webkit-scrollbar{
+.analytics-container::-webkit-scrollbar,
+.user-info-container::-webkit-scrollbar{
     width: 6px;
 }
 
@@ -45,7 +48,6 @@ body{
 }
 .chart-container,
 .conditions-container,
-.chart-breakdown-container,
 .profile-pic-container,
 .additional-user-info{
     background-color: white;
@@ -422,6 +424,24 @@ body{
     padding-left: 1vw;
     padding-right: 1vw;
     border-radius: 15px;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from{
+        opacity: 0;
+        transform: translateY(-20%);
+    }
+    to{
+        opacity: 1;
+        transform: (0);
+    }
+}
+
+.monthly-breakdown-subheader{
+    font-size: 1vw;
+    color: gray;
+    font-style: italic;
 }
 
 .chart-breakdown-container{
@@ -440,4 +460,12 @@ body{
 .mood-image{
     height: 3vw;
     width: 3vw;
+}
+
+.headerButton{
+    width: 100%;
+    background-color: white;
+    border: none;
+    border-radius: 15px;
+    margin-bottom: 1vh;
 }

@@ -4,6 +4,7 @@
     <div class="view-qst-cat-btns" id="view-qst-cat-btns"></div>
     <div class="view-qst-content" id="view-qst-content"></div>
     <div class="view-qst-categories" id="view-qst-categories"></div>
+    <div class="view-qst-scores" id="view-qst-scores"></div>
 </div>
 
 <script>

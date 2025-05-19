@@ -221,6 +221,26 @@
     /* background-color: red; */
 }
 
+.remove-appointment-button{
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+}
+
+.remove-appointment-button p{
+    margin-top: 1vh;
+    margin-bottom: 0;
+    color: #ff0000;
+    font-size: 1vw;
+    transition: transform 0.3s ease;
+}
+
+.remove-appointment-button:hover p {
+    transform: scale(1.2);
+}
 .color-indicator{
     display: flex;
     align-items: center;
@@ -307,3 +327,4 @@
 .fc-day-today{
     background-color: #49B2FF !important;
 }
+

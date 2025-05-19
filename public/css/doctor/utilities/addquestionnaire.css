@@ -1,0 +1,30 @@
+.questionnaireTabs{
+    width: 23%;
+    height: 5vh;
+    padding: 1vh 1vw;
+    border: none;
+    border-bottom: solid 1px gray;
+    background-color: #F7F7F7;
+    transition: height 0.3s ease, transform 0.3s ease;
+}
+
+.questionnaireTabs:hover{
+    height: 7vh;
+    transform: translateY(-30%);
+}
+
+.tabs-container{
+    display: flex;
+    justify-content: space-around;
+}
+
+.scoring-index{
+    font-size: 2vw;
+    font-weight: bold;
+    color: #004624;
+    margin-left: 1.7vw;
+}
+
+.scoring-data{
+    margin-left: 1.7vw;
+}

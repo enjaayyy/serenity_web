@@ -118,11 +118,21 @@
 }
 
 .aqc-dropdown-select, 
-.questionTitle-input,
 .aqc-dropdown-2
 {
     height: 4vh;
-    width: 20vw;
+    width: 80vw;
+    border: 1px #004624 solid;
+    border-radius: 5px;
+    padding-left: 1vw;
+    background-color: white;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    transition: border 0.1s linear, background-color 0.1s ease;
+}
+
+.questionTitle-input{
+    height: 4vh;
+    width: 72.5vw;
     border: 1px #004624 solid;
     border-radius: 5px;
     padding-left: 1vw;
@@ -135,7 +145,7 @@
 .questionCategory-input
 {
     height: 4vh;
-    width: 32vw;
+    width: 80vw;
     border: 1px #004624 solid;
     border-radius: 5px;
     padding-left: 1vw;
@@ -182,7 +192,7 @@
 .legendText,
 .valueText{
     height: 4vh;
-    width: 18.1vw;
+    width: 40vw;
     border: 1px #004624 solid;
     border-radius: 5px;
     padding-left: 1vw;
@@ -303,9 +313,9 @@
 
 .retrieve-btn{
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    width: 95%;
     margin-top: 1.5vh;
     height: 4vh;
-    width: 93%;
     border-radius: 5px;
     font-size: 0.7vw;
 }
@@ -341,7 +351,7 @@
 }
 
 .retrieve-btn-container{
-    text-align: center;
+    margin-left: 1.5vw;
 }
 
 .retrieve-btn{

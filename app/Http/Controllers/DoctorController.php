@@ -220,6 +220,7 @@ class DoctorController extends Controller
                 $QuestionnaireData = [
                     'questions' => isset($data['activeQuestionnaires']) ? $data['activeQuestionnaires'] : null,
                     'templates' => isset($data['savedQuestionnaires']) ? $data['savedQuestionnaires'] : null,
+                    'activeScore' => isset($data['activeScoring']) ? $data['activeScoring'] : null,
                 ];
             }
 
@@ -576,6 +577,7 @@ class DoctorController extends Controller
                     }
                     else{   
                         $appointments[] = [
+                        'aptID' => $key,
                         'date' => $appointment['appointmentDate'],
                         'start' => $appointment['appointmentStartTime'],
                         'end' => $appointment['appointmentEndTime'],
@@ -657,6 +659,17 @@ class DoctorController extends Controller
                             return redirect()->route('viewAppointments')->with('success', 'Your Appointment has been saved!');
             }
           
+        }
+        else{
+            return redirect()->route('login');
+        }
+    }
+
+    public function removeAppointment($id){
+        if(Session::get('user') === 'doctor'){
+            $docID = Session::get('id');
+            $this->database->getReference('administrator/doctors/' . $docID . '/scheduled_appointments/' . $id)->remove();
+            return redirect()->route('viewAppointments');
         }
         else{
             return redirect()->route('login');
